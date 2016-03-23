@@ -20,9 +20,9 @@ public class ClientController {
     BufferedReader in;
     PrintWriter out;
 
-    public ClientController(byte[] address){
+    public ClientController(InetAddress address){
         try {
-            socket = new Socket(InetAddress.getLocalHost(), 9876);
+            socket = new Socket(address, 9876);
         } catch (UnknownHostException u){
             System.out.println("Unknown host");
         } catch (IOException e){

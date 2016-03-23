@@ -1,6 +1,7 @@
 package edu.chalmers.projecttemplate;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import edu.chalmers.projecttemplate.controller.ClientController;
 import edu.chalmers.projecttemplate.controller.ProjectController;
@@ -22,8 +23,11 @@ public final class Main {
 	public static void main(String[] args) {
 		Server server = new Server(9876);
 		server.start();
-		new ClientController("127.0.0.1".getBytes());
-		
+		try {
+		new ClientController(InetAddress.getLocalHost());
+		} catch (UnknownHostException e){
+			e.printStackTrace();
+		}
 		/*SwingUtilities.invokeLater(() -> {
                     final Project project = new Project();
                     final ProjectView projectView = new ProjectView(project);
