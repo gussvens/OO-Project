@@ -19,10 +19,11 @@ public class ServerThread extends Thread {
 			String inputString;
 			while ((inputString = input.readLine()) != null) {
 
-				if (!inputString.equals("")) {
-					System.out.println("Server: "+inputString);
-				}
+				output.println(inputString);
+
 			}
+
+			System.out.print("Shutting down");
 			
 			output.close();
 			input.close();
