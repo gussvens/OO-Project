@@ -12,7 +12,6 @@ public class ClientController {
     private InetAddress IPAddress;
     private byte[] sendData;
     private byte[] receiveData;
-    private boolean running = false;
 
     public ClientController(byte[] address){
 
@@ -23,40 +22,36 @@ public class ClientController {
         }
 
         try {
-            IPAddress = InetAddress.getLocalHost(); //Blir valbart senare
+        	System.out.println(1);
+        	IPAddress = InetAddress.getLocalHost();
+        	System.out.println(2);
         } catch (UnknownHostException u){
             System.out.println("Unknown host");
         }
 
         sendData = new byte[1024];
         receiveData = new byte[1024];
-        running = true;
 
         update();
     }
 
-    private void update() {
-        while (running) {
-            String text = "TEST";
-            sendData = text.getBytes();
+    private void update(){
 
-            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876);
+        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876);
 
-            try {
-                clientSocket.send(sendPacket);
-            } catch (IOException e) {
-                System.out.println("Couldn't send!");
-            }
-
-            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-
-            try {
-                clientSocket.receive(receivePacket);
-            } catch (IOException e) {
-                System.out.println("Couldn't receive data!");
-            }
+        try {
+            clientSocket.send(sendPacket);
+        } catch (IOException e){
+            System.out.println("Couldn't send!");
         }
 
+        DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+
+        try{
+            clientSocket.receive(receivePacket);
+        } catch (IOException e){
+            System.out.println("Couldn't receive data!");
+        }
 
 
     }

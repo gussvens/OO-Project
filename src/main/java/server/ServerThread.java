@@ -18,9 +18,9 @@ public class ServerThread extends Thread {
 			output.println("Connected to client");
 			String inputString;
 			while ((inputString = input.readLine()) != null) {
-			
-				if (inputString.equals("/**Param*/")) {
-					//Do fancy stuff
+
+				if (!inputString.equals("")) {
+					System.out.println("Server: "+inputString);
 				}
 			}
 			
