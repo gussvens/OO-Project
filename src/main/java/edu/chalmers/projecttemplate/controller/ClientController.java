@@ -39,6 +39,8 @@ public class ClientController {
 
     private void update(){
         while(running) {
+            String text = "TEST";
+            sendData = text.getBytes();
             DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876);
 
             try {
