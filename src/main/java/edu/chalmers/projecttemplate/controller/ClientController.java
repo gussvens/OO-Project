@@ -23,9 +23,8 @@ public class ClientController {
         }
 
         try {
-        	System.out.println(1);
         	IPAddress = InetAddress.getLocalHost();
-        	System.out.println(2);
+        	System.out.println("Localhost is: "+ InetAddress.getLocalHost());
         } catch (UnknownHostException u){
             System.out.println("Unknown host");
         }

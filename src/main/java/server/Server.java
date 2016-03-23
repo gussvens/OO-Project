@@ -18,6 +18,7 @@ public class Server extends Thread {
 		while(true){
 			try {
 				new ServerThread(socket.accept()).start();
+				System.out.println("Something connected");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}		
