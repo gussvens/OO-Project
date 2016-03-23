@@ -12,6 +12,7 @@ public class ClientController {
     private InetAddress IPAddress;
     private byte[] sendData;
     private byte[] receiveData;
+    private boolean running = false;
 
     public ClientController(byte[] address){
 
@@ -31,26 +32,28 @@ public class ClientController {
 
         sendData = new byte[1024];
         receiveData = new byte[1024];
+        running = true;
 
         update();
     }
 
     private void update(){
+        while(running) {
+            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876);
 
-        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876);
+            try {
+                clientSocket.send(sendPacket);
+            } catch (IOException e) {
+                System.out.println("Couldn't send!");
+            }
 
-        try {
-            clientSocket.send(sendPacket);
-        } catch (IOException e){
-            System.out.println("Couldn't send!");
-        }
+            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
-        DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-
-        try{
-            clientSocket.receive(receivePacket);
-        } catch (IOException e){
-            System.out.println("Couldn't receive data!");
+            try {
+                clientSocket.receive(receivePacket);
+            } catch (IOException e) {
+                System.out.println("Couldn't receive data!");
+            }
         }
 
 
