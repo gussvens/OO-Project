@@ -1,6 +1,9 @@
 package edu.chalmers.projecttemplate.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.*;
 
 /**
@@ -13,30 +16,51 @@ public class ClientController {
     private byte[] sendData;
     private byte[] receiveData;
     private boolean running = false;
+    Socket socket;
+    BufferedReader in;
+    PrintWriter out;
 
     public ClientController(byte[] address){
-
         try {
-            clientSocket = new DatagramSocket();
-        } catch (SocketException s){
-            System.out.println("Something wrong with socket");
-        }
-
-        try {
-        	System.out.println(1);
-        	IPAddress = InetAddress.getLocalHost();
-        	System.out.println(2);
+            socket = new Socket(InetAddress.getLocalHost(), 9876);
         } catch (UnknownHostException u){
             System.out.println("Unknown host");
+        } catch (IOException e){
+            System.out.println("Stuff");
         }
 
-        sendData = new byte[1024];
-        receiveData = new byte[1024];
-        running = true;
+        try {
+            out = new PrintWriter(socket.getOutputStream(), true);
+        } catch (IOException e){
 
-        update();
+        }
+        try {
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        } catch (IOException e){
+
+        }
+
+        BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+        String fromServer;
+        String fromUser;
+        try {
+            while ((fromServer = in.readLine()) != null) {
+                System.out.println("Server: " + fromServer);
+                if (fromServer.equals("Bye.")) {
+                    break;
+                }
+
+                fromUser = stdIn.readLine();
+                if (fromUser != null) {
+                    System.out.println("Client: " + fromUser);
+                    out.println(fromUser);
+                }
+            }
+        } catch (IOException e){
+
+        }
     }
-
+/*
     private void update(){
         while(running) {
             String text = "TEST";
@@ -59,6 +83,6 @@ public class ClientController {
         }
 
 
-    }
+    }*/
 
 }
