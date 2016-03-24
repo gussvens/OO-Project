@@ -1,5 +1,6 @@
 package edu.chalmers.projecttemplate;
 
+import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -24,6 +25,7 @@ public final class Main {
 		//Server server = new Server(9876);
 		//server.start();
 		ClientController controller = new ClientController();
+
 		try {
 			controller.setupClient(InetAddress.getByName("25.43.240.108"), 9876);
 		} catch (UnknownHostException e){
