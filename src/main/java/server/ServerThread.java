@@ -7,12 +7,15 @@ public class ServerThread extends Thread {
 	private static int connectedUnits = 0;
 	private Socket socket;
 	private Server mainServer;
+	private int ID;
 
-	public ServerThread(Socket socket, Server server) throws SocketException{
+	public ServerThread(Socket socket, Server server, int id) throws SocketException{
 		super("ServerThread "+connectedUnits);
 		connectedUnits ++;
+		this.ID = id;
 		this.mainServer = server;
 		this.socket = socket;
+		System.out.println("Player " + id + " connected!");
 	}
 
 	public void run(){
@@ -38,4 +41,6 @@ public class ServerThread extends Thread {
 			e.printStackTrace();
 		}
 	}
+
+
 }

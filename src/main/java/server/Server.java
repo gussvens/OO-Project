@@ -7,6 +7,9 @@ import java.io.*;
 public class Server extends Thread {
 	ServerSocket socket = null;
 	private static Server instance = null;
+	private int[][] playerPositions;
+	private int amountConnected = 1;
+
 	public Server(){
 
 	}
@@ -30,11 +33,20 @@ public class Server extends Thread {
 	public void run(){
 		while(true){
 			try {
-				new ServerThread(socket.accept(), this.getInstance()).start();
+
+				new ServerThread(socket.accept(), this.getInstance(), amountConnected).start();
+				amountConnected = amountConnected +1;
 				System.out.println("Something connected");
+
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}		
 		}
+	}
+
+	public synchronized void updatePlayerPosition(int[][]newPos, int id){
+		playerPositions[id][0] = newPos[0][0];
+		playerPositions[id][1] = newPos[0][1];
 	}
 }
