@@ -2,6 +2,7 @@ package server;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 
 public class ServerThread extends Thread {
 	private static int connectedUnits = 0;
@@ -25,14 +26,20 @@ public class ServerThread extends Thread {
 			output.println("Connected to client");
 			String inputString;
 			while ((inputString = input.readLine()) != null) {
-
+				//System.out.println(ID + " " + inputString);
 				String[] splits = inputString.split(";");
-				int[][] temp = {{0}, {0}};
-				temp[0][0] = Integer.parseInt(splits[0]);
-				temp[0][1] = Integer.parseInt(splits[1]);
+				int[] temp = {0,0};
+				temp[0] = Integer.parseInt(splits[0]);
+				temp[1] = Integer.parseInt(splits[1]);
 
 				mainServer.updatePlayerPosition(temp, ID);
-
+				ArrayList<int[]> positions = mainServer.getPlayerPositions();
+				for(int i = 0; i < positions.size(); i++){
+					int[] q = positions.get(i);
+					String s = q[0] + ";" + q[1];
+					System.out.println("Sending Data!");
+					output.println(s);
+				}
 				//output.println(inputString);
 				//System.out.println(socket.getInetAddress().toString() + inputString);
 

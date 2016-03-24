@@ -3,6 +3,7 @@ package server;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Created by Marcus on 2016-03-24.
@@ -19,15 +20,18 @@ public class SendThread extends Thread {
     }
 
     public void run(){
+        try {
+            output = new PrintWriter(socket.getOutputStream(), true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ArrayList<int[]> positions = mainServer.getPlayerPositions();
         while(true) {
-            try {
-                PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            int[][] positions = mainServer.getPlayerPositions();
-            for(int i = 0; i < positions.length; i++){
-                String s = positions[i][0] + ":" + positions[i][1];
+
+            for(int i = 0; i < positions.size(); i++){
+                int[] q = positions.get(i);
+                String s = q[0] + ";" + q[1];
+                System.out.println("Sending Data!");
                 output.println(s);
             }
 
@@ -37,7 +41,7 @@ public class SendThread extends Thread {
                 e.printStackTrace();
             }
 
-            if(positions[0][0] < -1){
+            if(positions.isEmpty()){
                 break;
             }
 

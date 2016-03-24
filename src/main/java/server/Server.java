@@ -7,11 +7,11 @@ import java.io.*;
 public class Server extends Thread {
 	ServerSocket socket = null;
 	private static Server instance = null;
-	private int[][] playerPositions;
-	private int amountConnected = 1;
+	private ArrayList<int[]> playerPositions;
+	private int amountConnected = 0;
 
-	public Server(){
-
+	private Server(){
+		playerPositions = new ArrayList<int[]>();
 	}
 
 	public static Server getInstance(){
@@ -35,7 +35,9 @@ public class Server extends Thread {
 			try {
 
 				new ServerThread(socket.accept(), this.getInstance(), amountConnected).start();
+				//new SendThread(socket.accept(),this.getInstance()).start();
 				amountConnected = amountConnected +1;
+				playerPositions.add(new int[]{0,0});
 				System.out.println("Something connected");
 
 
@@ -45,12 +47,11 @@ public class Server extends Thread {
 		}
 	}
 
-	public synchronized int[][] getPlayerPositions(){
+	public synchronized ArrayList<int[]> getPlayerPositions(){
 		return playerPositions;
 	}
 
-	public synchronized void updatePlayerPosition(int[][]newPos, int id){
-		playerPositions[id][0] = newPos[0][0];
-		playerPositions[id][1] = newPos[0][1];
+	public synchronized void updatePlayerPosition(int[]newPos, int id){
+		playerPositions.add(id,newPos);
 	}
 }
