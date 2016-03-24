@@ -20,13 +20,14 @@ public class ClientController {
     BufferedReader in;
     PrintWriter out;
 
-    public ClientController(InetAddress address){
+    public ClientController(InetAddress address, int Port){
         try {
-            socket = new Socket(address, 9876);
+            socket = new Socket(address, Port);
         } catch (UnknownHostException u){
             System.out.println("Unknown host");
         } catch (IOException e){
             System.out.println("Stuff");
+            e.printStackTrace();
         }
 
         try {

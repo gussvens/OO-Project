@@ -24,7 +24,10 @@ public final class Main {
 		Server server = new Server(9876);
 		server.start();
 		try {
-		new ClientController(InetAddress.getLocalHost());
+			System.out.println(InetAddress.getLocalHost());
+			System.out.println(InetAddress.getLocalHost().getHostAddress());
+			
+			new ClientController(InetAddress.getByName("25.79.108.244"), 9876);
 		} catch (UnknownHostException e){
 			e.printStackTrace();
 		}
