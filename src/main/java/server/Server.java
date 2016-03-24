@@ -45,6 +45,10 @@ public class Server extends Thread {
 		}
 	}
 
+	public synchronized int[][] getPlayerPositions(){
+		return playerPositions;
+	}
+
 	public synchronized void updatePlayerPosition(int[][]newPos, int id){
 		playerPositions[id][0] = newPos[0][0];
 		playerPositions[id][1] = newPos[0][1];
