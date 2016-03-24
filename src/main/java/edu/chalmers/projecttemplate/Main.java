@@ -4,10 +4,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import edu.chalmers.projecttemplate.controller.ClientController;
-import edu.chalmers.projecttemplate.controller.ProjectController;
-import edu.chalmers.projecttemplate.model.Project;
-import edu.chalmers.projecttemplate.view.ProjectView;
+import edu.chalmers.projecttemplate.controller.Client;
+import edu.chalmers.projecttemplate.controller.Controller;
+import edu.chalmers.projecttemplate.model.Model;
+import edu.chalmers.projecttemplate.view.GameView;
 
 import javax.swing.SwingUtilities;
 
@@ -22,15 +22,16 @@ public final class Main {
 	}
 
 	public static void main(String[] args) {
-		Server server = Server.getInstance();
-		server.setPort(9876);
-		server.start();
-		ClientController controller = new ClientController();
-
+		//Server server = new Server(9876);
+		//server.start();
 		try {
-			controller.setupClient(InetAddress.getByName("25.116.78.28"), 9876);
-		} catch (UnknownHostException e){
+			Client client = new Client(InetAddress.getByName("25.116.78.28"), 9876);
+		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
+		GameView view = new GameView(); 
+		Model model = new Model();
+		Controller controller = Controller.create(model, view);
+		controller.start();
 	}
 }
