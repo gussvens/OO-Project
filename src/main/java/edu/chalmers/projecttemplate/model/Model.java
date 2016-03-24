@@ -15,10 +15,11 @@ import edu.chalmers.projecttemplate.controller.Unit;
 public class Model {
 	private static Model instance;
 	private int test = 0;
+	private int myID;
 	private Player player; // TEST
 	private Unit otherPlayer; //TEST
 	private Client client;
-	
+
 	public Model(){
 		instance = this; //NO!!!!
 	}
@@ -35,13 +36,13 @@ public class Model {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void tick(List<Character> pressedKeys){
 		test++;
 		player.update(pressedKeys);
 		client.sendToServer(player.getParsedServerString());
 	}
-	
+
 	public void draw(Graphics graphics){
 		graphics.setColor(Color.black);
 		graphics.fillRect(0, 0, 500, 500);
@@ -50,15 +51,30 @@ public class Model {
 		otherPlayer.draw(graphics);
 		graphics.drawString(test+"", 30, 30);
 	}
-	
+
 	public void serverCommand(String s){ //Temporary solution (like everything else)
-		System.out.println(s);
-		String[] xy = s.split(";");
-		int x = Integer.parseInt(xy[0]);
-		int y = Integer.parseInt(xy[1]);
-		otherPlayer.setPosition(x,y);
+
+		String[] arg = s.split(";");
+		switch (arg[0]){
+		case "player":
+			if (arg[1].equals("id")){
+				myID = Integer.parseInt(arg[2]);
+			}
+			break;
+		case "players":
+
+			if (!arg[1].equals("pos")){
+				int id = Integer.parseInt(arg[2]);
+				if (id != myID){
+					int x = Integer.parseInt(arg[3]);
+					int y = Integer.parseInt(arg[4]);
+					otherPlayer.setPosition(x,y);
+				}
+			}
+			break;
+		}
 	}
-	
+
 	public static Model passInstace(){ //NO!!!!
 		return instance;
 	}
