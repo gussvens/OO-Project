@@ -9,18 +9,14 @@ import java.net.*;
 /**
  * Created by Marcus on 2016-03-23.
  */
-public class ClientController {
+public class Client extends Thread{
 
     private Socket socket;
     private BufferedReader in;
-    private PrintWriter out;
+    private static PrintWriter out;
 
-    public ClientController(){
-    	
-    }
-    
-    public void setupClient(InetAddress address, int Port){
-        try {
+    public Client(InetAddress address, int Port){
+    	try {
             socket = new Socket(address, Port);
         } catch (UnknownHostException u){
             System.out.println("Unknown host");
@@ -40,48 +36,29 @@ public class ClientController {
 
         }
 
+    }
+    
+    public void run(){
+    	listenToServer();
+    }
+    
+    public void listenToServer(){
+        
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
         String fromServer;
-        String fromUser;
         try {
             while ((fromServer = in.readLine()) != null) {
                 System.out.println("Server: " + fromServer);
                 if (fromServer.equals("Bye.")) {
                     break;
                 }
-
-                fromUser = stdIn.readLine();
-                if (fromUser != null) {
-                    out.println(fromUser);
-                }
             }
         } catch (IOException e){
-
+        	System.out.println("Connection ended... ");
         }
     }
-/*
-    private void update(){
-        while(running) {
-            String text = "TEST";
-            sendData = text.getBytes();
-            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876);
-
-            try {
-                clientSocket.send(sendPacket);
-            } catch (IOException e) {
-                System.out.println("Couldn't send!");
-            }
-
-            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-
-            try {
-                clientSocket.receive(receivePacket);
-            } catch (IOException e) {
-                System.out.println("Couldn't receive data!");
-            }
-        }
-
-
-    }*/
-
+    
+    public static void sendToServer(String message){
+    	out.println(message);
+    }
 }

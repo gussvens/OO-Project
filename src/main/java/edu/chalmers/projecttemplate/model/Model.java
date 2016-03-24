@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import edu.chalmers.projecttemplate.controller.Client;
+
 public class Model {
 	private int test = 0;
 	public void initialize(){
@@ -12,6 +14,7 @@ public class Model {
 	
 	public void tick(){
 		test++;
+		Client.sendToServer("tick");
 	}
 	
 	public void draw(Graphics graphics){
