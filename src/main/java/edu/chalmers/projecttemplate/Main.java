@@ -22,7 +22,8 @@ public final class Main {
 	}
 
 	public static void main(String[] args) {
-		Server server = new Server(9876);
+		Server server = Server.getInstance();
+		server.setPort(9876);
 		server.start();
 		ClientController controller = new ClientController();
 
