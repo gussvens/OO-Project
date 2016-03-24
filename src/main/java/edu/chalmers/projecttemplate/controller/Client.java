@@ -51,7 +51,7 @@ public class Client extends Thread{
         } catch (IOException e){
 
         }
-
+        this.start();
     }
     
     public void run(){
@@ -59,8 +59,7 @@ public class Client extends Thread{
     }
     
     public void listenToServer(){
-        
-        BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+    	System.out.println("listening");
         String fromServer;
         try {
             while ((fromServer = in.readLine()) != null) {
@@ -68,7 +67,10 @@ public class Client extends Thread{
                 if (fromServer.equals("Bye.")) {
                     break;
                 }
-                Model.passInstace().serverCommand(fromServer);
+                
+                if (Model.passInstace() != null){
+                	Model.passInstace().serverCommand(fromServer);
+                }
             }
         } catch (IOException e){
         	System.out.println("Connection ended... ");

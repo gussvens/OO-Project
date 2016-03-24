@@ -52,6 +52,7 @@ public class Model {
 	}
 	
 	public void serverCommand(String s){ //Temporary solution (like everything else)
+		System.out.println(s);
 		String[] xy = s.split(";");
 		int x = Integer.parseInt(xy[0]);
 		int y = Integer.parseInt(xy[1]);
