@@ -22,6 +22,7 @@ public class ServerThread extends Thread {
 			while ((inputString = input.readLine()) != null) {
 
 				output.println(inputString);
+				System.out.println(socket.getInetAddress().toString() + inputString);
 
 			}
 

@@ -22,8 +22,8 @@ public final class Main {
 	}
 
 	public static void main(String[] args) {
-		//Server server = new Server(9876);
-		//server.start();
+		Server server = new Server(9876);
+		server.start();
 		ClientController controller = new ClientController();
 
 		try {

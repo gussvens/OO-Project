@@ -52,7 +52,6 @@ public class ClientController {
 
                 fromUser = stdIn.readLine();
                 if (fromUser != null) {
-                    System.out.println("Client: " + fromUser);
                     out.println(fromUser);
                 }
             }
