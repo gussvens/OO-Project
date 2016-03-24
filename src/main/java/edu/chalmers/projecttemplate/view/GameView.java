@@ -5,7 +5,11 @@ import edu.chalmers.projecttemplate.model.Model;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,10 +17,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class GameView extends JFrame {
+public class GameView extends JFrame{
 	private static int WIDTH = 840;
 	private static int HEIGHT = 640;
-	
+
 	private Canvas canvas;
 	private Image imageData;
 	private Graphics graphics;
@@ -25,7 +29,6 @@ public class GameView extends JFrame {
 		public void paintComponent(Graphics g){
 			super.paintComponent(g);
 			g.drawImage(imageData, 0, 0, null);
-			System.out.println("view - render");
 		}
 	}
 	
@@ -43,5 +46,7 @@ public class GameView extends JFrame {
 	public Graphics getGraphicsBatch(){
 		return graphics;
 	}
+	
+
 	
 }

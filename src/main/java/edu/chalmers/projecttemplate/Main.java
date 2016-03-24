@@ -25,10 +25,15 @@ public final class Main {
 		//Server server = new Server(9876);
 		//server.start();
 		try {
-			Client client = new Client(InetAddress.getByName("25.116.78.28"), 9876);
+			Client.create(InetAddress.getByName("25.116.78.28"), 9876);
+			Client client = Client.getInstance();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 		GameView view = new GameView(); 
 		Model model = new Model();
 		Controller controller = Controller.create(model, view);
