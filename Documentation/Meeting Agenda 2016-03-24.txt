@@ -1,0 +1,42 @@
+Meeting Agenda
+
+  Date: 20160324
+
+  Facilitator: Christer Carlsson, Erik Sänne
+
+  Participants: Christer Carlsson, Markus Johnsson Pettersson, Gustav Svensson, Martin Sixtensson, Erik Sänne
+
+
+1. Objectives (5 min). Resolve any issues preventing the team to continue.
+
+  - Get a clearing understanding of what we should do first in the project.
+
+
+2. Reports (15 min) from previous meeting
+
+  - Each groupmember reports outcome of assigned issues, see also 4) 
+
+
+3. Discussion items (35 min) 
+
+  - What should we do first?
+  - What should we do during easter?
+
+
+4. Outcomes and assignments (5 min) 
+
+  - Focus primarily on pre-implementation work, such as Use Cases, RAD ans STD   
+
+  Everyone:
+  - Read RAD- and STD-template
+  - Create Use Cases from sketches
+  - Discuss if we need a graphic handling library or not
+
+
+5. Wrap up
+
+  - What we should during easter
+
+  - Next meeting in 3 weeks. Same time and location(5209).
+
+
