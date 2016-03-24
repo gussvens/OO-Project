@@ -11,16 +11,15 @@ import java.net.*;
  */
 public class ClientController {
 
-    private DatagramSocket clientSocket;
-    private InetAddress IPAddress;
-    private byte[] sendData;
-    private byte[] receiveData;
-    private boolean running = false;
-    Socket socket;
-    BufferedReader in;
-    PrintWriter out;
+    private Socket socket;
+    private BufferedReader in;
+    private PrintWriter out;
 
-    public ClientController(InetAddress address, int Port){
+    public ClientController(){
+    	
+    }
+    
+    public void setupClient(InetAddress address, int Port){
         try {
             socket = new Socket(address, Port);
         } catch (UnknownHostException u){
