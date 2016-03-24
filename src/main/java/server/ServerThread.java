@@ -4,10 +4,12 @@ import java.io.*;
 import java.net.*;
 
 public class ServerThread extends Thread {
+	private static int connectedUnits = 0;
 	private Socket socket;
 
 	public ServerThread(Socket socket) throws SocketException{
-		super("ServerThread");
+		super("ServerThread "+connectedUnits);
+		connectedUnits ++;
 		this.socket = socket;
 	}
 

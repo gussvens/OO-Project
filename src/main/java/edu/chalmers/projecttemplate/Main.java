@@ -21,13 +21,13 @@ public final class Main {
 	}
 
 	public static void main(String[] args) {
-		Server server = new Server(9876);
-		server.start();
+		//Server server = new Server(9876);
+		//server.start();
 		try {
 			System.out.println(InetAddress.getLocalHost());
 			System.out.println(InetAddress.getLocalHost().getHostAddress());
 			
-			new ClientController(InetAddress.getByName("25.79.108.244"), 9876);
+			new ClientController(InetAddress.getByName("25.43.240.108"), 9876);
 		} catch (UnknownHostException e){
 			e.printStackTrace();
 		}

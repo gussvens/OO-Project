@@ -26,7 +26,7 @@ public class ClientController {
         } catch (UnknownHostException u){
             System.out.println("Unknown host");
         } catch (IOException e){
-            System.out.println("Stuff");
+            System.out.println("Connection timed out");
             e.printStackTrace();
         }
 
