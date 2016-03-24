@@ -25,6 +25,9 @@ public class ServerThread extends Thread {
 			BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			output.println("Connected to client");
 			String inputString;
+
+			output.println("player;id;" + ID);
+
 			while ((inputString = input.readLine()) != null) {
 				//System.out.println(ID + " " + inputString);
 				String[] splits = inputString.split(";");
@@ -33,10 +36,12 @@ public class ServerThread extends Thread {
 				temp[1] = Integer.parseInt(splits[1]);
 
 				mainServer.updatePlayerPosition(temp, ID);
+
 				ArrayList<int[]> positions = mainServer.getPlayerPositions();
+
 				for(int i = 0; i < positions.size(); i++){
 					int[] q = positions.get(i);
-					String s = q[0] + ";" + q[1];
+					String s = "players;pos;" + i + ";" + q[0] + ";" + q[1];
 					System.out.println("Sending Data!");
 					output.println(s);
 				}

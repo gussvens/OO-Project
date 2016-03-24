@@ -52,6 +52,6 @@ public class Server extends Thread {
 	}
 
 	public synchronized void updatePlayerPosition(int[]newPos, int id){
-		playerPositions.add(id,newPos);
+		playerPositions.set(id,newPos);
 	}
 }

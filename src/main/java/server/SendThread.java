@@ -13,8 +13,10 @@ public class SendThread extends Thread {
     private Socket socket;
     private Server mainServer;
     private PrintWriter output;
+    private int ID;
 
-    public SendThread(Socket socket, Server server){
+    public SendThread(Socket socket, Server server, int id){
+        this.ID = id;
         this.socket = socket;
         this.mainServer = server;
     }
@@ -30,7 +32,7 @@ public class SendThread extends Thread {
 
             for(int i = 0; i < positions.size(); i++){
                 int[] q = positions.get(i);
-                String s = q[0] + ";" + q[1];
+                String s = ID + ";" + q[0] + ";" + q[1];
                 System.out.println("Sending Data!");
                 output.println(s);
             }
