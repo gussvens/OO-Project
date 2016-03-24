@@ -22,9 +22,9 @@ public final class Main {
 	}
 
 	public static void main(String[] args) {
-		Server server = Server.getInstance();
-		server.setPort(9876);
-		server.start();
+		//Server server = Server.getInstance();
+		//server.setPort(9876);
+		//server.start();
 		try {
 			Client.create(InetAddress.getByName("25.116.78.28"), 9876);
 			Client client = Client.getInstance();

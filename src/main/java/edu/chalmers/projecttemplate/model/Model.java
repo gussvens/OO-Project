@@ -54,24 +54,26 @@ public class Model {
 
 	public void serverCommand(String s){ //Temporary solution (like everything else)
 
-		String[] arg = s.split(";");
-		switch (arg[0]){
-		case "player":
+		String[] arg = s.split(";");		//something here is not working 
+		if (arg[0].equals("player")){
 			if (arg[1].equals("id")){
 				myID = Integer.parseInt(arg[2]);
 			}
-			break;
-		case "players":
+		} else if (arg[0].equals("players")){
 
 			if (!arg[1].equals("pos")){
 				int id = Integer.parseInt(arg[2]);
+
+				System.out.println("My ID: " + myID);
 				if (id != myID){
+
+					System.out.println("ID: " + myID);
 					int x = Integer.parseInt(arg[3]);
 					int y = Integer.parseInt(arg[4]);
 					otherPlayer.setPosition(x,y);
 				}
 			}
-			break;
+
 		}
 	}
 
