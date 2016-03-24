@@ -27,7 +27,7 @@ public final class Main {
 		ClientController controller = new ClientController();
 
 		try {
-			controller.setupClient(InetAddress.getByName("25.43.240.108"), 9876);
+			controller.setupClient(InetAddress.getByName("25.116.78.28"), 9876);
 		} catch (UnknownHostException e){
 			e.printStackTrace();
 		}
