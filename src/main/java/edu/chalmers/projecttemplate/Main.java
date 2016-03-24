@@ -30,6 +30,7 @@ public final class Main {
 		Controller controller = Controller.create(model, view);
 		controller.start();
 		/*
+
 		try {
 			client.setupClient(InetAddress.getByName("25.116.78.28"), 9876);
 		} catch (UnknownHostException e){

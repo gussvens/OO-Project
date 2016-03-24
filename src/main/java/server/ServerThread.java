@@ -6,10 +6,12 @@ import java.net.*;
 public class ServerThread extends Thread {
 	private static int connectedUnits = 0;
 	private Socket socket;
+	private Server mainServer;
 
-	public ServerThread(Socket socket) throws SocketException{
+	public ServerThread(Socket socket, Server server) throws SocketException{
 		super("ServerThread "+connectedUnits);
 		connectedUnits ++;
+		this.mainServer = server;
 		this.socket = socket;
 	}
 
