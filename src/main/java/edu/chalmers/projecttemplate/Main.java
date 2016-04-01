@@ -16,9 +16,8 @@ public final class Main extends Application{
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		System.out.println(getClass().getClassLoader().getResource("../../../../resources/Setup.fxml"));
-		Parent root = FXMLLoader.load(getClass().getResource("../../../../resources/Setup.fxml"));
-		Scene scene = new Scene(root, 860, 600);
+		Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Setup.fxml"));
+		Scene scene = new Scene(root, 860, 480);
 		stage.setScene(scene);
 		stage.setResizable(false);
 		stage.show();
