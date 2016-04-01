@@ -29,6 +29,9 @@ public class GameView extends JFrame{
 		public void paintComponent(Graphics g){
 			g.drawImage(imageData, 0, 0, null);
 		}
+		
+		@Override
+		public void paint(Graphics g){} //Prevent extra renderoperations?
 	}
 
 	public static int getScreenWidth(){
@@ -44,6 +47,7 @@ public class GameView extends JFrame{
 		imageData = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		graphics = imageData.getGraphics();
 		canvas = new Canvas();
+		this.setIgnoreRepaint(true); //Prevent extra renderop
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("ZOMBIE STORM 0.3 BETA DEVELOPER EDITION");
 		this.setSize(WIDTH, HEIGHT);
@@ -55,7 +59,5 @@ public class GameView extends JFrame{
 	public Graphics getGraphicsBatch(){
 		return graphics;
 	}
-	
 
-	
 }
