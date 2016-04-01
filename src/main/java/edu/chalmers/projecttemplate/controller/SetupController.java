@@ -41,7 +41,7 @@ public class SetupController {
         Model model = new Model();
         
         try {
-            Client.create(model, InetAddress.getLocalHost(), 9876);
+            Client.create(model, InetAddress.getLocalHost(), Integer.parseInt(joinPort.getText()));
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (Exception e) {
