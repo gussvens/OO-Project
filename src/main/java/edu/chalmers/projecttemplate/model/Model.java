@@ -35,6 +35,7 @@ public class Model {
 	public void tick(List<Character> pressedKeys){
 		test++;
 		player.update(pressedKeys);
+		Client.sendToServer(player.getParsedServerString());
 	}
 
 	public void draw(Graphics graphics){
