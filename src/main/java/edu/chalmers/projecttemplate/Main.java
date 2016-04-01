@@ -4,6 +4,7 @@ package edu.chalmers.projecttemplate;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -15,9 +16,9 @@ public final class Main extends Application{
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		System.out.println(getClass().getResource("view/Setup.fxml"));
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("view/Setup.fxml"));
-		Scene scene = new Scene(loader.load());
+		System.out.println(getClass().getClassLoader().getResource("../../../../resources/Setup.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("../../../../resources/Setup.fxml"));
+		Scene scene = new Scene(root, 860, 600);
 		stage.setScene(scene);
 		stage.setResizable(false);
 		stage.show();
