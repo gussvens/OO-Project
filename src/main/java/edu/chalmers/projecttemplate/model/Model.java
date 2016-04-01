@@ -61,7 +61,7 @@ public class Model {
 			}
 		} else if (arg[0].equals("players")){
 
-			if (!arg[1].equals("pos")){
+			if (arg[1].equals("pos")){
 				int id = Integer.parseInt(arg[2]);
 
 				System.out.println("My ID: " + myID);
