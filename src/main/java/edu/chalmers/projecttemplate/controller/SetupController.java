@@ -37,8 +37,11 @@ public class SetupController {
         server.setPort(Integer.parseInt(hostPort.getText()));
         server.start();
 
+        GameView view = new GameView();
+        Model model = new Model();
+        
         try {
-            Client.create(InetAddress.getLocalHost(), 9876);
+            Client.create(model, InetAddress.getLocalHost(), 9876);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -46,8 +49,6 @@ public class SetupController {
             e.printStackTrace();
         }
 
-        GameView view = new GameView();
-        Model model = new Model();
         Controller controller = Controller.create(model, view);
         controller.start();
     }
@@ -55,8 +56,11 @@ public class SetupController {
     @FXML
     private void joinGame(ActionEvent event){
 
+        GameView view = new GameView();
+        Model model = new Model();
+        
         try {
-            Client.create(InetAddress.getByName(joinIP.getText()), Integer.parseInt(joinPort.getText()));
+            Client.create(model, InetAddress.getByName(joinIP.getText()), Integer.parseInt(joinPort.getText()));
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -64,8 +68,6 @@ public class SetupController {
             e.printStackTrace();
         }
 
-        GameView view = new GameView();
-        Model model = new Model();
         Controller controller = Controller.create(model, view);
         controller.start();
     }
