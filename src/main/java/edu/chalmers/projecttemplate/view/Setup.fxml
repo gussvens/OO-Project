@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: RED;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SetupController">
+   <children>
+      <HBox layoutX="60.0" layoutY="140.0" prefHeight="800.0" prefWidth="1800.0" style="-fx-background-color: RED;">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="800.0" style="-fx-background-color: #E6F3FA;">
+               <children>
+                  <Label layoutX="50.0" layoutY="50.0" text="Host Game">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                     <effect>
+                        <Glow level="1.0" />
+                     </effect>
+                  </Label>
+                  <GridPane layoutX="50.0" layoutY="150.0" prefHeight="100.0" prefWidth="420.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="120.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="300.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="0.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="53.0" text="Port: ">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <TextField fx:id="hostPort" prefHeight="40.0" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+                  <Button fx:id="hostButton" layoutY="700.0" mnemonicParsing="false" onAction="#hostGame" prefHeight="100.0" prefWidth="800.0" text="Host!">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                     <effect>
+                        <Reflection fraction="1.0" topOpacity="0.75" />
+                     </effect>
+                  </Button>
+               </children>
+               <effect>
+                  <InnerShadow height="170.0" radius="84.5" width="170.0" />
+               </effect>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="800.0" style="-fx-background-color: #E6F3FA;">
+               <HBox.margin>
+                  <Insets left="200.0" />
+               </HBox.margin>
+               <children>
+                  <Label layoutX="50.0" layoutY="50.0" text="Join Game">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                     <effect>
+                        <Glow level="1.0" />
+                     </effect>
+                  </Label>
+                  <GridPane layoutX="50.0" layoutY="150.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="120.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="300.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label prefHeight="53.0" text="Port: ">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label prefHeight="53.0" text="IP: " GridPane.rowIndex="1">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <TextField fx:id="joinPort" prefHeight="40.0" GridPane.columnIndex="1" />
+                        <TextField fx:id="joinIP" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <Button fx:id="joinButton" layoutY="700.0" mnemonicParsing="false" onAction="#joinGame" prefHeight="100.0" prefWidth="800.0" text="Join!">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                     <effect>
+                        <Reflection fraction="1.0" topOpacity="0.75" />
+                     </effect>
+                  </Button>
+               </children>
+               <effect>
+                  <InnerShadow height="170.0" radius="84.5" width="170.0" />
+               </effect>
+            </Pane>
+         </children>
+      </HBox>
+   </children>
+   <effect>
+      <InnerShadow height="255.0" radius="127.0" width="255.0" />
+   </effect>
+</AnchorPane>

@@ -1,0 +1,73 @@
+package edu.chalmers.projecttemplate.controller;
+
+import edu.chalmers.projecttemplate.model.Model;
+import edu.chalmers.projecttemplate.view.GameView;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import server.Server;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+/**
+ * Created by Marcus on 2016-04-01.
+ */
+public class SetupController {
+
+    @FXML
+    private TextField hostPort;
+
+    @FXML
+    private TextField joinPort;
+
+    @FXML
+    private TextField joinIP;
+
+    @FXML
+    private Button joinButton;
+
+    @FXML
+    private Button hostButton;
+
+    @FXML
+    private void hostGame(ActionEvent event){
+        Server server = Server.getInstance();
+        server.setPort(Integer.parseInt(hostPort.getText()));
+        server.start();
+
+        try {
+            Client.create(InetAddress.getLocalHost(), 9876);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        GameView view = new GameView();
+        Model model = new Model();
+        Controller controller = Controller.create(model, view);
+        controller.start();
+    }
+
+    @FXML
+    private void joinGame(ActionEvent event){
+
+        try {
+            Client.create(InetAddress.getByName(joinIP.getText()), Integer.parseInt(joinPort.getText()));
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        GameView view = new GameView();
+        Model model = new Model();
+        Controller controller = Controller.create(model, view);
+        controller.start();
+    }
+
+}
