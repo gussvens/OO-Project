@@ -27,7 +27,6 @@ public class GameView extends JFrame{
 	private class Canvas extends JPanel {
 		@Override
 		public void paintComponent(Graphics g){
-			super.paintComponent(g);
 			g.drawImage(imageData, 0, 0, null);
 		}
 	}
