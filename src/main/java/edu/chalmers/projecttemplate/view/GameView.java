@@ -24,6 +24,7 @@ public class GameView extends JFrame{
 	private Canvas canvas;
 	private Image imageData;
 	private Graphics graphics;
+	private Graphics renderer;
 	private class Canvas extends JPanel {
 		@Override
 		public void paintComponent(Graphics g){
@@ -51,6 +52,11 @@ public class GameView extends JFrame{
 		this.setResizable(false);
 		this.getContentPane().add(canvas);
 		this.setVisible(true);
+		renderer = canvas.getGraphics();
+	}
+	
+	public void render(){
+		canvas.paintComponent(renderer);
 	}
 
 	public Graphics getGraphicsBatch(){

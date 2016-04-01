@@ -43,7 +43,7 @@ public class Controller extends Thread implements KeyListener{
 			} catch (InterruptedException ie){
 				ie.printStackTrace();
 			}
-			gameView.repaint();
+			gameView.render();
 		}
 	}
 	
