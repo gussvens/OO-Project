@@ -12,6 +12,7 @@ import edu.chalmers.projecttemplate.controller.Client;
 import edu.chalmers.projecttemplate.controller.OtherPlayer;
 import edu.chalmers.projecttemplate.controller.Player;
 import edu.chalmers.projecttemplate.controller.Unit;
+import edu.chalmers.projecttemplate.view.GameView;
 
 public class Model {
 	private int test = 0;
@@ -25,7 +26,10 @@ public class Model {
 		playerSprite.getGraphics().fillRect(0, 0, 20, 20);
 		
 		player = new Player(30, 30, playerSprite);
-		otherPlayers = new ArrayList<Unit>(4);
+		otherPlayers = new ArrayList<Unit>();
+		for (int i = 0; i < 4; i++){ // Test. Creates 4 players in order to match ID to index.
+			otherPlayers.add(null);
+		}
 	}
 
 	public void tick(List<Character> pressedKeys){
@@ -35,11 +39,12 @@ public class Model {
 
 	public void draw(Graphics graphics){
 		graphics.setColor(Color.black);
-		graphics.fillRect(0, 0, 500, 500);
+		graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenWidth());
 		graphics.setColor(Color.white);
 		player.draw(graphics);
 		for (Unit op : otherPlayers) {
-			op.draw(graphics);
+			if (op != null)
+				op.draw(graphics);
 		}
 		graphics.drawString(test+"", 30, 30);
 	}
@@ -58,15 +63,14 @@ public class Model {
 
 				System.out.println("My ID: " + myID);
 				if (id != myID){
-
-					System.out.println("ID: " + myID);
+					if (otherPlayers.get(id) == null){
+						otherPlayers.set(id, new OtherPlayer());
+						otherPlayers.get(id).setTexture(playerSprite);
+					}
+					
 					int x = Integer.parseInt(arg[3]);
 					int y = Integer.parseInt(arg[4]);
 					otherPlayers.get(id).setPosition(x,y);
-				}
-				if (otherPlayers.get(id) == null){
-					otherPlayers.set(id, new OtherPlayer());
-					otherPlayers.get(id).setTexture(playerSprite);
 				}
 			}
 

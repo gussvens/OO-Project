@@ -14,7 +14,7 @@ import java.util.List;
 public class Controller extends Thread implements KeyListener{
 	private final Model model;
 	private final GameView gameView;
-
+	
 	private List<Character> pressedKeys;
 	
 	public static Controller create(Model project, GameView projectView) {

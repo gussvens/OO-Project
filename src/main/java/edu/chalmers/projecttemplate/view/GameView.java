@@ -30,6 +30,15 @@ public class GameView extends JFrame{
 			g.drawImage(imageData, 0, 0, null);
 		}
 	}
+
+	public static int getScreenWidth(){
+		return WIDTH;
+	}
+	
+
+	public static int getScreenHeight(){
+		return HEIGHT;
+	}
 	
 	public GameView(){
 		imageData = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
