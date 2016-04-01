@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.chalmers.projecttemplate.controller.Client;
@@ -15,15 +16,16 @@ import edu.chalmers.projecttemplate.controller.Unit;
 public class Model {
 	private int test = 0;
 	private int myID;
-	private Player player; // TEST
-	private Unit otherPlayer; //TEST
+	private Player player;
+	private ArrayList<Unit> otherPlayers;
+	private Image playerSprite; //TEST
 
 	public void initialize(){
-		Image playerSprite = new BufferedImage(20, 20, BufferedImage.TYPE_4BYTE_ABGR);
+		playerSprite = new BufferedImage(20, 20, BufferedImage.TYPE_4BYTE_ABGR);
 		playerSprite.getGraphics().fillRect(0, 0, 20, 20);
+		
 		player = new Player(30, 30, playerSprite);
-		otherPlayer = new OtherPlayer();
-		otherPlayer.setTexture(playerSprite);
+		otherPlayers = new ArrayList<Unit>(4);
 	}
 
 	public void tick(List<Character> pressedKeys){
@@ -36,7 +38,9 @@ public class Model {
 		graphics.fillRect(0, 0, 500, 500);
 		graphics.setColor(Color.white);
 		player.draw(graphics);
-		otherPlayer.draw(graphics);
+		for (Unit op : otherPlayers) {
+			op.draw(graphics);
+		}
 		graphics.drawString(test+"", 30, 30);
 	}
 
@@ -58,7 +62,11 @@ public class Model {
 					System.out.println("ID: " + myID);
 					int x = Integer.parseInt(arg[3]);
 					int y = Integer.parseInt(arg[4]);
-					otherPlayer.setPosition(x,y);
+					otherPlayers.get(id).setPosition(x,y);
+				}
+				if (otherPlayers.get(id) == null){
+					otherPlayers.set(id, new OtherPlayer());
+					otherPlayers.get(id).setTexture(playerSprite);
 				}
 			}
 
