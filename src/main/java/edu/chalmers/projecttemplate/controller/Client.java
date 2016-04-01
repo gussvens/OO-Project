@@ -14,24 +14,26 @@ import edu.chalmers.projecttemplate.model.Model;
 public class Client extends Thread{
 
 	private static Client instance = null;
+	private static Model model;
     private Socket socket;
     private BufferedReader in;
     private static PrintWriter out;
 
-    public static synchronized void create(InetAddress address, int port){
+    public static synchronized void create(Model model, InetAddress address, int port){
     	if (instance == null)
-    		instance = new Client(address, port);
+    		instance = new Client(model, address, port);
     }
     
     public static synchronized Client getInstance() throws Exception{
     	if (instance != null){ 
     		return instance;
     	} else {
-    		throw new Exception(); //MUST FIX O.O
+    		throw new Exception("Client not initialized");
     	}
-    }
+    } 
     
-    private Client(InetAddress address, int port){
+    private Client(Model model, InetAddress address, int port){
+    Client.model = model;
     	try {
             socket = new Socket(address, port);
         } catch (UnknownHostException u){
@@ -64,13 +66,10 @@ public class Client extends Thread{
         try {
             while ((fromServer = in.readLine()) != null) {
                 System.out.println("Server: " + fromServer);
-                if (fromServer.equals("Bye.")) {
+                if (fromServer.equals("shutdown")) {
                     break;
                 }
-                
-                if (Model.passInstace() != null){
-                	Model.passInstace().serverCommand(fromServer);
-                }
+                model.serverCommand(fromServer);
             }
         } catch (IOException e){
         	System.out.println("Connection ended... ");
