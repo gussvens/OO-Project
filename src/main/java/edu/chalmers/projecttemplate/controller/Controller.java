@@ -35,7 +35,6 @@ public class Controller extends Thread implements KeyListener{
 
 	private void gameLoop(){
 		long wait = (long)(1000/60);
-		System.out.println(wait + "");
 		while (true){
 			model.tick(pressedKeys);	
 			model.draw(gameView.getGraphicsBatch());
@@ -50,7 +49,6 @@ public class Controller extends Thread implements KeyListener{
 	
 	@Override
 	public void keyPressed(KeyEvent ke) {
-		System.out.println("Pressed: "+ ke.getKeyChar());
 		if (!pressedKeys.contains(ke.getKeyChar())){
 			pressedKeys.add(ke.getKeyChar());
 		}
@@ -58,8 +56,6 @@ public class Controller extends Thread implements KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent ke) {
-
-		System.out.println("Released: " + ke.getKeyChar());
 		int index = pressedKeys.indexOf(ke.getKeyChar());
 		pressedKeys.remove(index);
 	}
