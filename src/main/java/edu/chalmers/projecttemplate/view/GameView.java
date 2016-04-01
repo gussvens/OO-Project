@@ -29,9 +29,6 @@ public class GameView extends JFrame{
 		public void paintComponent(Graphics g){
 			g.drawImage(imageData, 0, 0, null);
 		}
-		
-		@Override
-		public void paint(Graphics g){} //Prevent extra renderoperations?
 	}
 
 	public static int getScreenWidth(){
