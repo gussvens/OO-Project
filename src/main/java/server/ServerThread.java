@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class ServerThread extends Thread {
 	private static int connectedUnits = 0;
+	private PrintWriter output = null;
+	private BufferedReader input;
 	private Socket socket;
 	private Server mainServer;
 	private int ID;
@@ -19,15 +21,9 @@ public class ServerThread extends Thread {
 		System.out.println("Player " + id + " connected!");
 	}
 
-	public void run(){
+	public void listen(){
 		try {
-			PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
-			BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			output.println("Connected to client");
 			String inputString;
-
-			output.println("player;id;" + ID);
-
 			while ((inputString = input.readLine()) != null) {
 				//System.out.println(ID + " " + inputString);
 				String[] splits = inputString.split(";");
@@ -37,28 +33,42 @@ public class ServerThread extends Thread {
 
 				mainServer.updatePlayerPosition(temp, ID);
 
-				ArrayList<int[]> positions = mainServer.getPlayerPositions();
-
-				for(int i = 0; i < positions.size(); i++){
-					int[] q = positions.get(i);
-					String s = "players;pos;" + i + ";" + q[0] + ";" + q[1];
-					System.out.println("Sending Data!");
-					output.println(s);
-				}
 				//output.println(inputString);
 				//System.out.println(socket.getInetAddress().toString() + inputString);
 
 			}
 
 			System.out.print("Shutting down");
-			
+
 			output.close();
 			input.close();
 			socket.close();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void send(){
+
+	}
+
+	public void send(String message){
+		if (output != null)
+			output.println(message);
+	}
+
+	public void run(){
+		try {
+			output = new PrintWriter(socket.getOutputStream(), true);
+			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			send("Connected to client");
+			send("player;id;" + ID);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		listen();
 	}
 
 
