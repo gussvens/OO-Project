@@ -3,6 +3,7 @@ package edu.chalmers.projecttemplate.model;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class Model {
 		Client.sendToServer(player.getParsedServerString());
 	}
 
-	public void draw(Graphics graphics){
+	public void draw(Graphics2D graphics){
 		graphics.setColor(Color.black);
 		graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenWidth());
 		graphics.setColor(Color.white);

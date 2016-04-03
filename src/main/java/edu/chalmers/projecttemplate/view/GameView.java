@@ -3,6 +3,7 @@ package edu.chalmers.projecttemplate.view;
 import edu.chalmers.projecttemplate.model.Model;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -45,7 +46,7 @@ public class GameView extends JFrame{
 		imageData = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		graphics = imageData.getGraphics();
 		canvas = new Canvas();
-		this.setIgnoreRepaint(true); //Prevent extra renderop
+		this.setIgnoreRepaint(true); //To prevent unnecessary render operations (Note that this is causing G's Mac to ignore all repaints)
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("ZOMBIE STORM 0.3 BETA DEVELOPER EDITION");
 		this.setSize(WIDTH, HEIGHT);
@@ -59,8 +60,8 @@ public class GameView extends JFrame{
 		canvas.paintComponent(renderer);
 	}
 
-	public Graphics getGraphicsBatch(){
-		return graphics;
+	public Graphics2D getGraphicsBatch(){
+		return (Graphics2D)graphics; //Is it ok to cast every time?
 	}
 
 }
