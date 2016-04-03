@@ -14,6 +14,8 @@ import java.util.List;
 public class Controller extends Thread implements KeyListener{
 	private final Model model;
 	private final GameView gameView;
+	private static final double targetFrameTime = 1d/60d;
+	private static double frameTime = 0;
 	
 	private List<Character> pressedKeys;
 	
@@ -34,17 +36,26 @@ public class Controller extends Thread implements KeyListener{
 	}
 
 	private void gameLoop(){
-		long wait = (long)(1000/60);
+		long wait;
+		long startTime;
 		while (true){
+			startTime = System.nanoTime();
 			model.tick(pressedKeys);	
 			model.draw(gameView.getGraphicsBatch());
+			gameView.render();
+			wait = Math.max((long)(targetFrameTime*1000) - ((System.nanoTime() - startTime)/1000000), 0); //ms precision, can be improved
+			
 			try{
-				Thread.sleep(wait); //Not the final solution (no pun intended)
+				Thread.sleep(wait); 
 			} catch (InterruptedException ie){
 				ie.printStackTrace();
 			}
-			gameView.render();
+			frameTime = (System.nanoTime() - startTime) * Math.pow(10, -9);
 		}
+	}
+	
+	public static int getFramesPerSecond(){
+		return (int)(1 / frameTime);
 	}
 	
 	@Override

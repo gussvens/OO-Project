@@ -44,7 +44,6 @@ public class Player {
 			case 'D':
 				x++;
 				break;
-			
 			}
 		}
 		
@@ -55,6 +54,7 @@ public class Player {
 		int dX = (int)(mousePosition.getX() - x);
 		int dY = (int)(mousePosition.getY() - y);
 		rotation = (float)Math.atan2(dY, dX);
+		
 		/**
 		 * Logic
 		 */

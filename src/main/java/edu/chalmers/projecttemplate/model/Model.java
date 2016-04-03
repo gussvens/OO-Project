@@ -8,8 +8,10 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import edu.chalmers.projecttemplate.controller.Client;
+import edu.chalmers.projecttemplate.controller.Controller;
 import edu.chalmers.projecttemplate.controller.OtherPlayer;
 import edu.chalmers.projecttemplate.controller.Player;
 import edu.chalmers.projecttemplate.controller.Unit;
@@ -40,7 +42,8 @@ public class Model {
 	}
 
 	public void draw(Graphics2D graphics){
-		graphics.setColor(Color.black);
+		Color c = new Color(new Random().nextInt(255), new Random().nextInt(255), new Random().nextInt(255));
+		graphics.setColor(c);
 		graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenWidth());
 		graphics.setColor(Color.white);
 		player.draw(graphics);
@@ -48,7 +51,10 @@ public class Model {
 			if (op != null)
 				op.draw(graphics);
 		}
-		graphics.drawString(test+"", 30, 30);
+		graphics.setColor(Color.black);
+		graphics.drawString("FPS: "+Controller.getFramesPerSecond(), 9, 19);
+		graphics.setColor(Color.white);
+		graphics.drawString("FPS: "+Controller.getFramesPerSecond(), 10, 20);
 	}
 
 	public void serverCommand(String s){ //Temporary solution (like everything else)
