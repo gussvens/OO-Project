@@ -14,7 +14,7 @@ public class Player {
 	Image sprite;
 	int x;
 	int y;
-	float rotation;
+	double rotation;
 	
 	public Player(int x, int y, Image sprite){
 		this.x = x;
@@ -53,7 +53,7 @@ public class Player {
 		Point mousePosition = MouseInfo.getPointerInfo().getLocation();
 		int dX = (int)(mousePosition.getX() - x);
 		int dY = (int)(mousePosition.getY() - y);
-		rotation = (float)Math.atan2(dY, dX);
+		rotation = Math.atan2(dY, dX); //Probably not working correct. Have to wait for textures in order to investigate 
 		
 		/**
 		 * Logic
@@ -61,8 +61,8 @@ public class Player {
 	}
 	
 	public void draw(Graphics2D graphics){
-         AffineTransform at = GraphicsUtils.Transform(sprite, x, y, rotation);
-         graphics.drawImage(sprite, at, null);
+         
+         graphics.drawImage(sprite, GraphicsUtils.Transform(sprite, x, y, rotation), null);
 	}
 	
 	public String getParsedServerString(){

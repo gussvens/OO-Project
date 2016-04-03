@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 
 public class GraphicsUtils {
-	public static AffineTransform Transform(Image imageData, int x, int y, float rotation){
+	public static AffineTransform Transform(Image imageData, int x, int y, double rotation){
 		AffineTransform at = new AffineTransform();
 		at.translate(x, y);
 		at.rotate(rotation);
