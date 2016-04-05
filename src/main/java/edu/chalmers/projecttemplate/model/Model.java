@@ -82,6 +82,8 @@ public class Model {
 				}
 			}
 
+		} else if(arg[0].equals("zombies")){
+			//TODO: paint zombie
 		}
 	}
 }

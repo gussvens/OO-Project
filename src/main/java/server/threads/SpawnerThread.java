@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class SpawnerThread extends Thread{
 
-    private ArrayList<ServerZombie> zombies;
+    private static ArrayList<ServerZombie> zombies;
 
     public SpawnerThread(){
         zombies = new ArrayList<ServerZombie>();
@@ -28,7 +28,7 @@ public class SpawnerThread extends Thread{
         }
     }
 
-    public ArrayList<ServerZombie> getZombies(){
+    public static ArrayList<ServerZombie> getZombies(){
         return zombies;
     }
 

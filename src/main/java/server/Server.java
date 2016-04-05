@@ -1,5 +1,6 @@
 package server;
 
+import server.serverUnits.ServerZombie;
 import server.threads.SpawnerThread;
 
 import java.net.*;
@@ -80,6 +81,12 @@ public class Server extends Thread {
 				for(int i = 0; i < positions.size(); i++){
 					int[] q = positions.get(i);
 					String s = "players;pos;" + i + ";" + q[0] + ";" + q[1];
+					System.out.println("Sending Data!");
+					serverThread.send(s);
+				}
+
+				for(ServerZombie zombie : SpawnerThread.getZombies()){
+					String s = "zombies;pos;" +  zombie.getX() + ";" + zombie.getY();
 					System.out.println("Sending Data!");
 					serverThread.send(s);
 				}
