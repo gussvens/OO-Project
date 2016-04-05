@@ -19,9 +19,12 @@ public class SpawnerThread extends Thread{
     public void run(){
         while(true){
 
-            zombies.add(new ServerZombie(idCounter));
+            if(zombies.size() < 34) {
 
-            idCounter++;
+                zombies.add(new ServerZombie(idCounter));
+
+                idCounter++;
+            }
 
             try {
                 Thread.sleep(1000);
@@ -31,7 +34,7 @@ public class SpawnerThread extends Thread{
         }
     }
 
-    public static ArrayList<ServerZombie> getZombies(){
+    public static synchronized ArrayList<ServerZombie> getZombies(){
         return zombies;
     }
 

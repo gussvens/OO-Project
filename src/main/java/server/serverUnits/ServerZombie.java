@@ -18,6 +18,7 @@ public class ServerZombie {
         x = 100;
         y = 100;
         rotation = 1;
+        this.id = id;
         System.out.println("New zombie spawned!");
 
     }

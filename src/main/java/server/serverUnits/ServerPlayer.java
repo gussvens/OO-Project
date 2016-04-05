@@ -7,10 +7,10 @@ public class ServerPlayer {
 
     private int x;
     private int y;
-    private float r;
+    private double r;
     private int id;
 
-    public ServerPlayer(int x, int y, float r, int id){
+    public ServerPlayer(int x, int y, double r, int id){
         this.x = x;
         this.y = y;
         this.r = r;
@@ -29,11 +29,11 @@ public class ServerPlayer {
         return id;
     }
 
-    public float getRotation(){
+    public double getRotation(){
         return r;
     }
 
-    public void update(int x, int y, float r){
+    public void update(int x, int y, double r){
         this.x = x;
         this.y = y;
         this.r = r;
