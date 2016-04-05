@@ -35,8 +35,9 @@ public class Model {
 		playerSprite = new BufferedImage(20, 20, BufferedImage.TYPE_4BYTE_ABGR);
 		playerSprite.getGraphics().fillRect(0, 0, 20, 20);
 		zombieSprite = new BufferedImage(20, 20, BufferedImage.TYPE_4BYTE_ABGR);
-		zombieSprite.getGraphics().setColor(Color.RED);
-		zombieSprite.getGraphics().fillRect(0, 0, 20, 20);
+		Graphics zG = zombieSprite.getGraphics();
+		zG.setColor(Color.red);
+		zG.fillRect(0, 0, 20, 20);
 		// END OF TESTING STUFF
 		player = new Player(30, 30, playerSprite);
 		otherPlayers = new ArrayList<Unit>();
@@ -69,6 +70,11 @@ public class Model {
 		for (Unit op : otherPlayers) {
 			if (op != null)
 				op.draw(graphics);
+		}
+		
+		for (Unit zombie : zombies) {
+			if (zombie != null)
+				zombie.draw(graphics);
 		}
 		graphics.setColor(Color.black);
 		graphics.drawString("FPS: "+Controller.getFramesPerSecond(), 9, 19);
