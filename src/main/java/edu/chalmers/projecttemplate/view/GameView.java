@@ -2,11 +2,13 @@ package edu.chalmers.projecttemplate.view;
 
 import edu.chalmers.projecttemplate.model.Model;
 
+import java.awt.CardLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -30,7 +32,7 @@ public class GameView extends JFrame{
 	private class Canvas extends JPanel {
 		@Override
 		public void paintComponent(Graphics g){
-			g.drawImage(imageData, 0, 0, null);
+			g.drawImage(imageData, 0, 0, this.getWidth(), this.getHeight(), null);
 		}
 	}
 
@@ -44,15 +46,22 @@ public class GameView extends JFrame{
 	}
 	
 	public GameView(){
+		super("fullscreen");
 		imageData = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		graphics = imageData.getGraphics();
 		canvas = new Canvas();
-		this.setIgnoreRepaint(true); //To prevent unnecessary render operations (Note that this is causing G's Mac to ignore all repaints)
+		//this.setIgnoreRepaint(true); //To prevent unnecessary render operations (Note that this is causing G's Mac to ignore all repaints)
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("ZOMBIE STORM 0.3 BETA DEVELOPER EDITION");
-		this.setSize(WIDTH, HEIGHT);
+		//this.setSize(WIDTH, HEIGHT);
 		this.setResizable(false);
+		//this.getContentPane().setLayout(new CardLayout());
 		this.getContentPane().add(canvas);
+		//this.setExtendedState(MAXIMIZED_BOTH);
+		getContentPane().setPreferredSize( Toolkit.getDefaultToolkit().getScreenSize());
+	    
+		pack();
+	    setResizable(false);
 		this.setVisible(true);
 		renderer = canvas.getGraphics();
 	}

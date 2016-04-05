@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Player {
 		this.sprite = sprite;
 	}
 	
-	public void update(List<Character> pressedKeys){
+	public void update(List<Character> pressedKeys, Point cursor, boolean isMousePressed){
 		/**
 		 * Key events
 		 */
@@ -50,9 +51,8 @@ public class Player {
 		/**
 		 * Mouse events
 		 */
-		Point mousePosition = MouseInfo.getPointerInfo().getLocation(); //Relative to screen, not the view :(
-		int dX = (int)(mousePosition.getX() - x);
-		int dY = (int)(mousePosition.getY() - y);
+		int dX = (int)(cursor.getX() - x);
+		int dY = (int)(cursor.getY() - y);
 		rotation = Math.atan2(dY, dX); //Probably not working correct. Have to wait for textures in order to investigate 
 		
 		/**

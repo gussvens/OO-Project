@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,9 +53,9 @@ public class Model {
 	 * Used for all game logic and events
 	 * @param pressedKeys
 	 */
-	public void tick(List<Character> pressedKeys){
+	public void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed){
 		test++;
-		player.update(pressedKeys);
+		player.update(pressedKeys, cursor, isMousePressed);
 		Client.sendToServer(player.getParsedServerString());
 	}
 
