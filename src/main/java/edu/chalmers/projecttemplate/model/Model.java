@@ -8,10 +8,15 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
+
+import utilities.GraphicsUtils;
 import edu.chalmers.projecttemplate.controller.Client;
 import edu.chalmers.projecttemplate.controller.Controller;
 import edu.chalmers.projecttemplate.controller.OtherPlayer;
@@ -28,18 +33,21 @@ public class Model {
 	private ArrayList<Unit> zombies;
 	private Image playerSprite; //TEST
 	private Image zombieSprite; //TEST
+	private Image backgroundTest;
 
 	/** INITIALIZATION/LOAD.
 	 *	Executed before gameloop starts
 	 */
 	public void initialize(){
 		// TESTING STUFF BELOW
-		playerSprite = new BufferedImage(20, 20, BufferedImage.TYPE_4BYTE_ABGR);
-		playerSprite.getGraphics().fillRect(0, 0, 20, 20);
-		zombieSprite = new BufferedImage(20, 20, BufferedImage.TYPE_4BYTE_ABGR);
-		Graphics zG = zombieSprite.getGraphics();
-		zG.setColor(Color.red);
-		zG.fillRect(0, 0, 20, 20);
+		try {
+			playerSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/human.png")));
+			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
+			backgroundTest = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/test.png")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// END OF TESTING STUFF
 		player = new Player(30, 30, playerSprite);
 		otherPlayers = new ArrayList<Unit>();
@@ -68,6 +76,7 @@ public class Model {
 		graphics.setColor(c);
 		graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenWidth());
 		graphics.setColor(Color.white);
+		graphics.drawImage(backgroundTest, 0, 0, GameView.getScreenWidth(), GameView.getScreenHeight(), null);
 		player.draw(graphics);
 		for (Unit op : otherPlayers) {
 			if (op != null)
