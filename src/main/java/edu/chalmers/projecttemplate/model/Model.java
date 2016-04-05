@@ -27,26 +27,37 @@ public class Model {
 	private Image playerSprite; //TEST
 	private Image zombieSprite; //TEST
 
+	/** INITIALIZATION/LOAD.
+	 *	Executed before gameloop starts
+	 */
 	public void initialize(){
+		// TESTING STUFF BELOW
 		playerSprite = new BufferedImage(20, 20, BufferedImage.TYPE_4BYTE_ABGR);
 		playerSprite.getGraphics().fillRect(0, 0, 20, 20);
 		zombieSprite = new BufferedImage(20, 20, BufferedImage.TYPE_4BYTE_ABGR);
 		zombieSprite.getGraphics().setColor(Color.RED);
 		zombieSprite.getGraphics().fillRect(0, 0, 20, 20);
-
+		// END OF TESTING STUFF
 		player = new Player(30, 30, playerSprite);
 		otherPlayers = new ArrayList<Unit>();
 		for (int i = 0; i < 4; i++){ // Test. Creates 4 players in order to match ID to index.
 			otherPlayers.add(null);
 		}
 	}
-
+	/** MAIN UPDATE METHOD
+	 * Used for all game logic and events
+	 * @param pressedKeys
+	 */
 	public void tick(List<Character> pressedKeys){
 		test++;
 		player.update(pressedKeys);
 		Client.sendToServer(player.getParsedServerString());
 	}
 
+	/** RENDER METHOD
+	 *  All directly graphics related code goes here
+	 * @param graphics
+	 */
 	public void draw(Graphics2D graphics){
 		Color c = new Color(new Random().nextInt(255), new Random().nextInt(255), new Random().nextInt(255));
 		graphics.setColor(c);
@@ -62,8 +73,10 @@ public class Model {
 		graphics.setColor(Color.white);
 		graphics.drawString("FPS: "+Controller.getFramesPerSecond(), 10, 20);
 	}
-
-	public void serverCommand(String s){ //Temporary solution (like everything else)
+	/** SERVER COMMAND PARSING
+	 * @param s
+	 */
+	public void serverCommand(String s){
 
 		String[] arg = s.split(";");		
 		if (arg[0].equals("player")){
