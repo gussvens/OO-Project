@@ -31,7 +31,7 @@ public class ServerThread extends Thread {
 				temp[0] = Integer.parseInt(splits[0]);
 				temp[1] = Integer.parseInt(splits[1]);
 
-				mainServer.updatePlayerPosition(temp, ID);
+				//mainServer.updatePlayerPosition(temp, ID);
 
 				//output.println(inputString);
 				//System.out.println(socket.getInetAddress().toString() + inputString);
