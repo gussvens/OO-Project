@@ -40,10 +40,12 @@ public class Model {
 		// END OF TESTING STUFF
 		player = new Player(30, 30, playerSprite);
 		otherPlayers = new ArrayList<Unit>();
+		zombies = new ArrayList<Unit>();
 		for (int i = 0; i < 4; i++){ // Test. Creates 4 players in order to match ID to index.
 			otherPlayers.add(null);
 		}
 	}
+	
 	/** MAIN UPDATE METHOD
 	 * Used for all game logic and events
 	 * @param pressedKeys
@@ -73,6 +75,7 @@ public class Model {
 		graphics.setColor(Color.white);
 		graphics.drawString("FPS: "+Controller.getFramesPerSecond(), 10, 20);
 	}
+	
 	/** SERVER COMMAND PARSING
 	 * @param s
 	 */
@@ -104,8 +107,8 @@ public class Model {
 		} else if(arg[0].equals("zombies")){
 			int id = Integer.parseInt(arg[1]);
 			if (arg[2].equals("pos")){
-				if (zombies.get(id) == null){
-					zombies.set(id, new Zombie());
+				if (zombies.size() <= id){
+					zombies.add(new Zombie());
 					zombies.get(id).setTexture(zombieSprite);
 				}
 

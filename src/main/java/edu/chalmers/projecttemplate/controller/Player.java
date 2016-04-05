@@ -50,7 +50,7 @@ public class Player {
 		/**
 		 * Mouse events
 		 */
-		Point mousePosition = MouseInfo.getPointerInfo().getLocation();
+		Point mousePosition = MouseInfo.getPointerInfo().getLocation(); //Relative to screen, not the view :(
 		int dX = (int)(mousePosition.getX() - x);
 		int dY = (int)(mousePosition.getY() - y);
 		rotation = Math.atan2(dY, dX); //Probably not working correct. Have to wait for textures in order to investigate 
