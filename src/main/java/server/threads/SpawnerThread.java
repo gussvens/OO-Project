@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class SpawnerThread extends Thread{
 
     private static ArrayList<ServerZombie> zombies;
+    private static int idCounter = 0;
 
     public SpawnerThread(){
         zombies = new ArrayList<ServerZombie>();
@@ -18,7 +19,9 @@ public class SpawnerThread extends Thread{
     public void run(){
         while(true){
 
-            zombies.add(new ServerZombie());
+            zombies.add(new ServerZombie(idCounter));
+
+            idCounter++;
 
             try {
                 Thread.sleep(1000);
