@@ -7,34 +7,48 @@ import java.util.ArrayList;
 /**
  * Created by Marcus on 2016-04-05.
  */
-public class SpawnerThread extends Thread{
+public class SpawnerThread{
 
     private static ArrayList<ServerZombie> zombies;
     private static int idCounter = 0;
+    private static SpawnerThread instance;
+    private int lapCounter;
 
-    public SpawnerThread(){
+    private SpawnerThread(){
         zombies = new ArrayList<ServerZombie>();
     }
 
-    public void run(){
-        while(true){
+    public static SpawnerThread getInstance(){
+        if(instance == null){
+            instance = new SpawnerThread();
+        }
+        return instance;
+    }
 
-            if(zombies.size() < 34) {
+    public void update() {
+
+        for(ServerZombie zombie : zombies){
+            zombie.update();
+        }
+
+        if (lapCounter == 30) {
+            if (zombies.size() < 34) {
 
                 zombies.add(new ServerZombie(idCounter));
 
                 idCounter++;
+                lapCounter = 0;
             }
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e){
-                e.printStackTrace();
-            }
+        } else {
+            lapCounter ++;
         }
     }
 
-    public static synchronized ArrayList<ServerZombie> getZombies(){
+
+
+
+
+    public synchronized ArrayList<ServerZombie> getZombies(){
         return zombies;
     }
 

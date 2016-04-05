@@ -19,7 +19,7 @@ public class Server extends Thread {
 	private Server(){
 		players = new ArrayList<ServerPlayer>();
 		serverThreads = new ArrayList<ServerThread>();
-		spawner = new SpawnerThread();
+		spawner = SpawnerThread.getInstance();
 	}
 
 	public static Server getInstance(){
@@ -41,7 +41,6 @@ public class Server extends Thread {
 	public void run(){
 		Thread mainUpdate = new Thread(() -> update());
 		mainUpdate.start();
-		spawner.start();
 		listenForConnections();
 
 	}
@@ -77,6 +76,7 @@ public class Server extends Thread {
 			 * Send stuff to clients
 			 */
 			ArrayList<ServerPlayer> positions = getPlayerPositions(); //tidy this up
+			spawner.update();
 
 			for (ServerThread serverThread : serverThreads){
 				for(int i = 0; i < positions.size(); i++){
@@ -86,7 +86,7 @@ public class Server extends Thread {
 					serverThread.send(s);
 				}
 
-				for(ServerZombie zombie : SpawnerThread.getZombies()){
+				for(ServerZombie zombie : spawner.getZombies()){
 
 					if(zombie != null) {
 						String s = "zombies;" + zombie.getId() + ";pos;" + zombie.getX() + ";" + zombie.getY() + ";" + zombie.getRotation();
