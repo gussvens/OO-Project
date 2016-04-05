@@ -8,13 +8,13 @@ public class ServerZombie {
 
     private int x;
     private int y;
-    private float rotation;
+    private double rotation;
     private int speed;
     private int[] temp;
     private int id;
 
     public ServerZombie(int id){
-        speed = 10;
+        speed = 5;
         x = 100;
         y = 100;
         rotation = 1;
@@ -35,8 +35,14 @@ public class ServerZombie {
         return id;
     }
 
-    public float getRotation(){
+    public double getRotation(){
         return rotation;
+    }
+
+    public void update(){
+        x = x + speed;
+        y = y + speed;
+        rotation = rotation +1;
     }
 
 }
