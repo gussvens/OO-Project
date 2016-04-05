@@ -120,8 +120,12 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
+	public void mousePressed(MouseEvent me) {
 		// TODO Auto-generated method stub
+		Dimension monitorSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double x = (double)((double)me.getX()*(double)GameView.getScreenWidth()/monitorSize.getWidth());
+		double y = (double)((double)me.getY()*(double)GameView.getScreenHeight()/monitorSize.getHeight());
+		cursor = new Point((int)x,(int)y);
 		mousePress = true;
 	}
 
@@ -130,5 +134,4 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 		// TODO Auto-generated method stub
 		mousePress = false;
 	}
-	
 }
