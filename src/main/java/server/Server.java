@@ -81,13 +81,13 @@ public class Server extends Thread {
 			for (ServerThread serverThread : serverThreads){
 				for(int i = 0; i < positions.size(); i++){
 					ServerPlayer q = positions.get(i);
-					String s = "players;pos;" + i + ";" + q.getX() + ";" + q.getY() + ";" + q.getRotation();
+					String s = "players;"+ i + ";pos"  + ";" + q.getX() + ";" + q.getY() + ";" + q.getRotation();
 					System.out.println("Sending Player Position!");
 					serverThread.send(s);
 				}
 
 				for(ServerZombie zombie : SpawnerThread.getZombies()){
-					String s = "zombies;" + "pos;" +  zombie.getX() + ";" + zombie.getY();
+					String s = "zombies;"+ zombie.getId() + "pos;" +  zombie.getX() + ";" + zombie.getY() + ";" + zombie.getRotation();
 					System.out.println("Sending Zombie Position!");
 					serverThread.send(s);
 				}

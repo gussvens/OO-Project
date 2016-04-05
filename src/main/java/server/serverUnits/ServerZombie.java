@@ -8,13 +8,16 @@ public class ServerZombie {
 
     private int x;
     private int y;
+    private float rotation;
     private int speed;
     private int[] temp;
+    private int id;
 
-    public ServerZombie(){
+    public ServerZombie(int id){
         speed = 10;
         x = 100;
         y = 100;
+        rotation = 1;
         System.out.println("New zombie spawned!");
 
     }
@@ -25,6 +28,14 @@ public class ServerZombie {
 
     public int getY(){
         return y;
+    }
+
+    public int getId(){
+        return id;
+    }
+
+    public float getRotation(){
+        return rotation;
     }
 
 }
