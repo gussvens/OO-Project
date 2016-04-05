@@ -32,13 +32,13 @@ public class SpawnerThread{
         }
 
         if (lapCounter == 30) {
-            if (zombies.size() < 34) {
 
-                zombies.add(new ServerZombie(idCounter));
 
-                idCounter++;
-                lapCounter = 0;
-            }
+            zombies.add(new ServerZombie(idCounter));
+
+            idCounter++;
+            lapCounter = 0;
+
         } else {
             lapCounter ++;
         }
