@@ -1,5 +1,6 @@
 package server;
 
+import server.serverUnits.ServerPlayer;
 import server.serverUnits.ServerZombie;
 import server.threads.SpawnerThread;
 
@@ -10,13 +11,13 @@ import java.io.*;
 public class Server extends Thread {
 	ServerSocket socket = null;
 	private static Server instance = null;
-	private ArrayList<int[]> playerPositions;
+	private ArrayList<ServerPlayer> players;
 	private int amountConnected = 0;
 	private ArrayList<ServerThread> serverThreads;
 	private SpawnerThread spawner;
 
 	private Server(){
-		playerPositions = new ArrayList<int[]>();
+		players = new ArrayList<ServerPlayer>();
 		serverThreads = new ArrayList<ServerThread>();
 		spawner = new SpawnerThread();
 	}
@@ -52,7 +53,7 @@ public class Server extends Thread {
 				st.start();
 				//new SendThread(socket.accept(),this.getInstance()).start();
 				amountConnected = amountConnected +1;
-				playerPositions.add(new int[]{0,0});
+				players.add(new ServerPlayer(0,0,0,amountConnected));
 				System.out.println("Something connected");
 
 
@@ -75,19 +76,19 @@ public class Server extends Thread {
 			/**
 			 * Send stuff to clients
 			 */
-			ArrayList<int[]> positions = getPlayerPositions(); //tidy this up
+			ArrayList<ServerPlayer> positions = getPlayerPositions(); //tidy this up
 
 			for (ServerThread serverThread : serverThreads){
 				for(int i = 0; i < positions.size(); i++){
-					int[] q = positions.get(i);
-					String s = "players;pos;" + i + ";" + q[0] + ";" + q[1];
-					System.out.println("Sending Data!");
+					ServerPlayer q = positions.get(i);
+					String s = "players;pos;" + i + ";" + q.getX() + ";" + q.getY() + ";" + q.getRotation();
+					System.out.println("Sending Player Position!");
 					serverThread.send(s);
 				}
 
 				for(ServerZombie zombie : SpawnerThread.getZombies()){
-					String s = "zombies;pos;" +  zombie.getX() + ";" + zombie.getY();
-					System.out.println("Sending Data!");
+					String s = "zombies;" + "pos;" +  zombie.getX() + ";" + zombie.getY();
+					System.out.println("Sending Zombie Position!");
 					serverThread.send(s);
 				}
 			}
@@ -99,11 +100,11 @@ public class Server extends Thread {
 		}
 	}
 
-	public synchronized ArrayList<int[]> getPlayerPositions(){
-		return playerPositions;
+	public synchronized ArrayList<ServerPlayer> getPlayerPositions(){
+		return players;
 	}
 
-	public synchronized void updatePlayerPosition(int[]newPos, int id){
-		playerPositions.set(id,newPos);
-	}
+	/*public synchronized void updatePlayerPosition(int[]newPos, int id){
+		players.set(id,newPos);
+	}*/
 }
