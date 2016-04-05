@@ -6,7 +6,7 @@ import java.awt.Image;
 
 import utilities.GraphicsUtils;
 
-public class OtherPlayer implements Unit{
+public class Zombie implements Unit{
 	public Image sprite; 
 	public Image feet;
 	public int x;
