@@ -1,5 +1,7 @@
 package server;
 
+import server.threads.SpawnerThread;
+
 import java.net.*;
 import java.util.*;
 import java.io.*;
@@ -10,10 +12,12 @@ public class Server extends Thread {
 	private ArrayList<int[]> playerPositions;
 	private int amountConnected = 0;
 	private ArrayList<ServerThread> serverThreads;
+	private SpawnerThread spawner;
 
 	private Server(){
 		playerPositions = new ArrayList<int[]>();
 		serverThreads = new ArrayList<ServerThread>();
+		spawner = new SpawnerThread();
 	}
 
 	public static Server getInstance(){
@@ -35,6 +39,7 @@ public class Server extends Thread {
 	public void run(){
 		Thread mainUpdate = new Thread(() -> update());
 		mainUpdate.start();
+		spawner.start();
 		listenForConnections();
 
 	}
