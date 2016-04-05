@@ -87,9 +87,11 @@ public class Server extends Thread {
 				}
 
 				for(ServerZombie zombie : SpawnerThread.getZombies()){
-					String s = "zombies;"+ zombie.getId() + "pos;" +  zombie.getX() + ";" + zombie.getY() + ";" + zombie.getRotation();
-					System.out.println("Sending Zombie Position!");
-					serverThread.send(s);
+					if(zombie != null) {
+						String s = "zombies;" + zombie.getId() + ";pos;" + zombie.getX() + ";" + zombie.getY() + ";" + zombie.getRotation();
+						System.out.println("Sending Zombie Position!");
+						serverThread.send(s);
+					}
 				}
 			}
 			try {
