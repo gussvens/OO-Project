@@ -34,11 +34,12 @@ public class Model {
 	private Image playerSprite; //TEST
 	private Image zombieSprite; //TEST
 	private Image backgroundTest;
+	
 
 	/** INITIALIZATION/LOAD.
 	 *	Executed before gameloop starts
 	 */
-	public void initialize(){
+	public synchronized void initialize(){
 		// TESTING STUFF BELOW
 		try {
 			playerSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/human.png")));
@@ -61,7 +62,7 @@ public class Model {
 	 * Used for all game logic and events
 	 * @param pressedKeys
 	 */
-	public void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed){
+	public synchronized void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed){
 		test++;
 		player.update(pressedKeys, cursor, isMousePressed);
 		Client.sendToServer(player.getParsedServerString());
@@ -71,7 +72,7 @@ public class Model {
 	 *  All directly graphics related code goes here
 	 * @param graphics
 	 */
-	public void draw(Graphics2D graphics){
+	public synchronized void draw(Graphics2D graphics){
 		Color c = new Color(new Random().nextInt(255), new Random().nextInt(255), new Random().nextInt(255));
 		graphics.setColor(c);
 		graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenWidth());
@@ -96,7 +97,7 @@ public class Model {
 	/** SERVER COMMAND PARSING
 	 * @param s
 	 */
-	public void serverCommand(String s){
+	public synchronized void serverCommand(String s){
 
 		String[] arg = s.split(";");		
 		if (arg[0].equals("player")){
@@ -108,6 +109,7 @@ public class Model {
 			int id = Integer.parseInt(arg[1]);
 			if (id != myID){
 				if (arg[2].equals("pos")){
+					System.out.println("PLAYERS: "+otherPlayers.size());
 					if (otherPlayers.get(id) == null){
 						otherPlayers.set(id, new OtherPlayer());
 						otherPlayers.get(id).setTexture(playerSprite);

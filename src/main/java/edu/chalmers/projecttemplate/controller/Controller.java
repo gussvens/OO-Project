@@ -42,6 +42,14 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	
 	public void run(){
 		model.initialize();
+		/*
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
 		gameLoop();
 	}
 
