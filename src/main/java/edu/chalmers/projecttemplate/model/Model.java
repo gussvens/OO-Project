@@ -42,8 +42,8 @@ public class Model {
 	public synchronized void initialize(){
 		// TESTING STUFF BELOW
 		try {
-			playerSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/human.png")));
-			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
+			playerSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerSprite.png")));
+			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombieSprite.png")));
 			backgroundTest = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/test.png")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -137,7 +137,6 @@ public class Model {
 				zombies.get(id).setPosition(x,y);
 				zombies.get(id).setRotation(rot);
 			}
-
 		}
 	}
 }
