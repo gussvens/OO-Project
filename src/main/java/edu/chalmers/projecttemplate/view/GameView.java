@@ -55,7 +55,6 @@ public class GameView extends JFrame{
 		this.setTitle("ZOMBIE STORM 0.3 BETA DEVELOPER EDITION");
 		//this.setSize(WIDTH, HEIGHT);
 		this.setResizable(false);
-		//this.getContentPane().setLayout(new CardLayout());
 		this.getContentPane().add(canvas);
 		//this.setExtendedState(MAXIMIZED_BOTH);
 		getContentPane().setPreferredSize( Toolkit.getDefaultToolkit().getScreenSize());

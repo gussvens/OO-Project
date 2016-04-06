@@ -60,7 +60,9 @@ public class Model {
 	
 	/** MAIN UPDATE METHOD
 	 * Used for all game logic and events
-	 * @param pressedKeys
+	 * @param pressedKeys - Currently pressed keys
+	 * @param cursor - Cursors position
+	 * @param isMousePressed
 	 */
 	public synchronized void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed){
 		test++;
@@ -95,7 +97,7 @@ public class Model {
 	}
 	
 	/** SERVER COMMAND PARSING
-	 * @param s
+	 * @param s - The message that the client recieved
 	 */
 	public synchronized void serverCommand(String s){
 
