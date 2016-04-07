@@ -24,15 +24,19 @@ public class Player {
 		this.sprite = sprite;
 	}
 	
-	public int getX(){
+	public synchronized int getX(){
 		return x;
 	}
 	
-	public int getY(){
+	public synchronized int getY(){
 		return y;
 	}
 	
-	public void update(List<Character> pressedKeys, Point cursor, boolean isMousePressed){
+	public synchronized void setTexture(Image sprite){
+		this.sprite = sprite;
+	}
+	
+	public synchronized void update(List<Character> pressedKeys, Point cursor, boolean isMousePressed){
 		/**
 		 * Key events
 		 */
@@ -69,12 +73,12 @@ public class Player {
 		 */
 	}
 	
-	public void draw(Graphics2D graphics){
+	public synchronized void draw(Graphics2D graphics){
          
          graphics.drawImage(sprite, GraphicsUtils.Transform(sprite, x - Camera.getX(), y - Camera.getY(), rotation), null);
 	}
 	
-	public String getParsedServerString(){
+	public synchronized String getParsedServerString(){
 		return x+";"+y+";"+rotation;
 	}
 }

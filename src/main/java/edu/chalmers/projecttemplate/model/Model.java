@@ -27,12 +27,11 @@ import edu.chalmers.projecttemplate.controller.Zombie;
 import edu.chalmers.projecttemplate.view.GameView;
 
 public class Model {
-	private int test = 0;
-	private int myID;
+	private int myID = -1;
 	private Player player;
 	private ArrayList<Unit> otherPlayers;
 	private ArrayList<Unit> zombies;
-	private Image playerSprite; //TEST
+	private Image[] playerSprite = new Image[4]; //TEST
 	private Image zombieSprite; //TEST
 	private Image backgroundTest;
 	
@@ -43,15 +42,18 @@ public class Model {
 	public synchronized void initialize(){
 		// TESTING STUFF BELOW
 		try {
-			playerSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerSprite.png")));
-			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombieSprite.png")));
+			playerSprite[0] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerRocker.png")));
+			playerSprite[1] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerPunk.png")));
+			playerSprite[2] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerGirl.png")));
+			playerSprite[3] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerDark.png")));
+			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
 			backgroundTest = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/test.png")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// END OF TESTING STUFF
-		player = new Player(30, 30, playerSprite);
+		player = new Player(30, 30, playerSprite[0]);
 		otherPlayers = new ArrayList<Unit>();
 		zombies = new ArrayList<Unit>();
 		for (int i = 0; i < 4; i++){ // Test. Creates 4 players in order to match ID to index.
@@ -66,7 +68,9 @@ public class Model {
 	 * @param isMousePressed
 	 */
 	public synchronized void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed){
-		test++;
+		if (myID != -1){
+			player.setTexture(playerSprite[myID]);
+		}
 		player.update(pressedKeys, cursor, isMousePressed);
 		Camera.setX(player.getX());
 		Camera.setY(player.getY());
@@ -82,7 +86,7 @@ public class Model {
 		graphics.setColor(c);
 		graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenWidth());
 		graphics.setColor(Color.white);
-		graphics.drawImage(backgroundTest, 0, 0, GameView.getScreenWidth(), GameView.getScreenHeight(), null);
+		graphics.drawImage(backgroundTest, 0 - Camera.getX(), 0 - Camera.getY(), GameView.getScreenWidth(), GameView.getScreenHeight(), null);
 		player.draw(graphics);
 		for (Unit op : otherPlayers) {
 			if (op != null)
@@ -117,7 +121,7 @@ public class Model {
 					System.out.println("PLAYERS: "+otherPlayers.size());
 					if (otherPlayers.get(id) == null){
 						otherPlayers.set(id, new OtherPlayer());
-						otherPlayers.get(id).setTexture(playerSprite);
+						otherPlayers.get(id).setTexture(playerSprite[id]);
 					}
 
 					int x = Integer.parseInt(arg[3]);
