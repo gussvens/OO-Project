@@ -28,6 +28,7 @@ import edu.chalmers.projecttemplate.view.GameView;
 
 public class Model {
 	private int myID = -1;
+	private boolean idIsSet = false;
 	private Player player;
 	private ArrayList<Unit> otherPlayers;
 	private ArrayList<Unit> zombies;
@@ -40,8 +41,7 @@ public class Model {
 	 *	Executed before gameloop starts
 	 */
 	public synchronized void initialize(){
-		// TESTING STUFF BELOW
-		try {
+		try { //LOAD
 			playerSprite[0] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerRocker.png")));
 			playerSprite[1] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerPunk.png")));
 			playerSprite[2] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerGirl.png")));
@@ -49,10 +49,8 @@ public class Model {
 			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
 			backgroundTest = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/test.png")));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// END OF TESTING STUFF
 		player = new Player(30, 30, playerSprite[0]);
 		otherPlayers = new ArrayList<Unit>();
 		zombies = new ArrayList<Unit>();
@@ -68,8 +66,9 @@ public class Model {
 	 * @param isMousePressed
 	 */
 	public synchronized void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed){
-		if (myID != -1){
+		if (myID != -1 && !idIsSet){ //to set correct texture, must set this here due to thread stuff
 			player.setTexture(playerSprite[myID]);
+			idIsSet = true;
 		}
 		player.update(pressedKeys, cursor, isMousePressed);
 		Camera.setX(player.getX());
