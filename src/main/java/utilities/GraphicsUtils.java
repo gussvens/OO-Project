@@ -9,7 +9,10 @@ import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageFilter;
 import java.awt.image.ImageProducer;
 import java.awt.image.RGBImageFilter;
-
+/** 
+ * Utilities & help functions for 2D graphics
+ * @author Erik
+ */
 public class GraphicsUtils {
 	public static AffineTransform Transform(Image imageData, int x, int y, double rotation){
 		AffineTransform at = new AffineTransform();

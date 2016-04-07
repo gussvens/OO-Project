@@ -9,18 +9,27 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.util.List;
 
+import utilities.Camera;
 import utilities.GraphicsUtils;
 
 public class Player {
-	Image sprite;
-	int x;
-	int y;
-	double rotation;
+	private Image sprite;
+	private int x;
+	private int y;
+	private double rotation;
 	
 	public Player(int x, int y, Image sprite){
 		this.x = x;
 		this.y = y;
 		this.sprite = sprite;
+	}
+	
+	public int getX(){
+		return x;
+	}
+	
+	public int getY(){
+		return y;
 	}
 	
 	public void update(List<Character> pressedKeys, Point cursor, boolean isMousePressed){
@@ -51,8 +60,8 @@ public class Player {
 		/**
 		 * Mouse events
 		 */
-		int dX = (int)(cursor.getX() - x);
-		int dY = (int)(cursor.getY() - y);
+		int dX = (int)(cursor.getX() - x + Camera.getX());
+		int dY = (int)(cursor.getY() - y + Camera.getY());
 		rotation = Math.atan2(dY, dX); //Probably not working correct. Have to wait for textures in order to investigate 
 		
 		/**
@@ -62,7 +71,7 @@ public class Player {
 	
 	public void draw(Graphics2D graphics){
          
-         graphics.drawImage(sprite, GraphicsUtils.Transform(sprite, x, y, rotation), null);
+         graphics.drawImage(sprite, GraphicsUtils.Transform(sprite, x - Camera.getX(), y - Camera.getY(), rotation), null);
 	}
 	
 	public String getParsedServerString(){

@@ -16,6 +16,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import utilities.Camera;
 import utilities.GraphicsUtils;
 import edu.chalmers.projecttemplate.controller.Client;
 import edu.chalmers.projecttemplate.controller.Controller;
@@ -67,6 +68,8 @@ public class Model {
 	public synchronized void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed){
 		test++;
 		player.update(pressedKeys, cursor, isMousePressed);
+		Camera.setX(player.getX());
+		Camera.setY(player.getY());
 		Client.sendToServer(player.getParsedServerString());
 	}
 
