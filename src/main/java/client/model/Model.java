@@ -28,8 +28,9 @@ public class Model {
 	private Player player;
 	private ArrayList<Unit> otherPlayers;
 	private ArrayList<Unit> zombies;
-	private Image[] playerSprite = new Image[4]; //TEST
-	private Image zombieSprite; //TEST
+	private Image[] playerSprite = new Image[4]; 
+	private Image playerFeetSheet; //TEST
+ 	private Image zombieSprite; 
 	private Image backgroundTest;
 	
 
@@ -42,12 +43,13 @@ public class Model {
 			playerSprite[1] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerPunk.png")));
 			playerSprite[2] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerGirl.png")));
 			playerSprite[3] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerDark.png")));
+			playerFeetSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/testFeet.png")));
 			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
 			backgroundTest = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/test.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		player = new Player(30, 30, playerSprite[0]);
+		player = new Player(30, 30, playerSprite[0], playerFeetSheet);
 		otherPlayers = new ArrayList<Unit>();
 		zombies = new ArrayList<Unit>();
 		for (int i = 0; i < 4; i++){ // Test. Creates 4 players in order to match ID to index.

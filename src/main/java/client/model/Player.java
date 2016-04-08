@@ -9,19 +9,21 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.util.List;
 
-import utilities.Camera;
-import utilities.GraphicsUtils;
+import utilities.*;
 
 public class Player {
 	private Image sprite;
+	private Animation feetAnimation;
 	private int x;
 	private int y;
 	private double rotation;
 	
-	public Player(int x, int y, Image sprite){
+	public Player(int x, int y, Image sprite, Image feet){
 		this.x = x;
 		this.y = y;
 		this.sprite = sprite;
+		feetAnimation = new Animation(feet, 6, 1, 10);
+		feetAnimation.play();
 	}
 	
 	public synchronized int getX(){
@@ -71,10 +73,11 @@ public class Player {
 		/**
 		 * Logic
 		 */
+		feetAnimation.update();
 	}
 	
 	public synchronized void draw(Graphics2D graphics){
-         
+         feetAnimation.draw(x - Camera.getX(), y - Camera.getY(), rotation, graphics);
          graphics.drawImage(sprite, GraphicsUtils.Transform(sprite, x - Camera.getX(), y - Camera.getY(), rotation), null);
 	}
 	

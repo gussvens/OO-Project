@@ -1,5 +1,6 @@
 package utilities;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -7,7 +8,7 @@ import java.awt.image.BufferedImage;
 public class Animation {
 	private boolean playing;
 	private Image sheet;
-	private Image thisImage;
+	private BufferedImage thisImage;
 	private Graphics2D g;
 	private int width;
 	private int height;
@@ -25,8 +26,7 @@ public class Animation {
 		this.rows = rows;
 		this.cols = cols;
 		this.frameTime = 1/(double)fps;
-		thisImage = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
-		g = (Graphics2D)thisImage.getGraphics();
+		
 	}
 	
 	public void play(){
@@ -41,12 +41,13 @@ public class Animation {
 	
 	public void update(){
 		if (playing){
-			if (lastUpdate - System.currentTimeMillis() <= 0){
+			System.out.println(System.currentTimeMillis() - lastUpdate);
+			if (System.currentTimeMillis() - lastUpdate >= frameTime * 1000){
 				startX += width;
-				if (startX > cols * width) {
+				if (startX >= cols * width) {
 					startX = 0;
 					startY += height;
-					if (startY > rows * height){
+					if (startY >= rows * height){
 						startY = 0;
 					}
 				}
@@ -56,6 +57,8 @@ public class Animation {
 	}
 	
 	public void draw(int x, int y, double rotation, Graphics2D graphics){
+		thisImage = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+		g = (Graphics2D)thisImage.getGraphics();
 		g.drawImage(sheet, 0, 0, width, height, startX, startY, startX + width, startY + height, null);
 		graphics.drawImage(thisImage, GraphicsUtils.Transform(thisImage, x, y, rotation), null);
 	}
