@@ -69,6 +69,13 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 		return (int)(1 / frameTime);
 	}
 	
+	public Point getRelativeMousePosition(MouseEvent me){
+		Dimension monitorSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double x = (double)((double)me.getX()*(double)GameView.getScreenWidth()/monitorSize.getWidth());
+		double y = (double)((double)me.getY()*(double)GameView.getScreenHeight()/monitorSize.getHeight());
+		return new Point((int)x,(int)y);
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent ke) {
 		if (!pressedKeys.contains(ke.getKeyChar())){
@@ -89,18 +96,16 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent arg0) {
+	public void mouseDragged(MouseEvent me) {
 		// TODO Auto-generated method stub
-		
+		cursor = getRelativeMousePosition(me);
+		mousePress = true;
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent me) {
 		// TODO Auto-generated method stub
-		Dimension monitorSize = Toolkit.getDefaultToolkit().getScreenSize();
-		double x = (double)((double)me.getX()*(double)GameView.getScreenWidth()/monitorSize.getWidth());
-		double y = (double)((double)me.getY()*(double)GameView.getScreenHeight()/monitorSize.getHeight());
-		cursor = new Point((int)x,(int)y);
+		cursor = getRelativeMousePosition(me);
 	}
 
 	@Override
@@ -122,12 +127,7 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 
 	@Override
 	public void mousePressed(MouseEvent me) {
-		// TODO Auto-generated method stub
-		Dimension monitorSize = Toolkit.getDefaultToolkit().getScreenSize();
-		double x = (double)(((double)me.getX())*(double)GameView.getScreenWidth()/monitorSize.getWidth());
-		double y = (double)(((double)me.getY())*(double)GameView.getScreenHeight()/monitorSize.getHeight());
-		cursor = new Point((int)x,(int)y);
-		mousePress = true;
+
 	}
 
 	@Override

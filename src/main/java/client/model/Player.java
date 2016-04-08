@@ -17,6 +17,7 @@ public class Player {
 	private int x;
 	private int y;
 	private double rotation;
+	boolean walking;
 	
 	public Player(int x, int y, Image sprite, Image feet){
 		this.x = x;
@@ -42,25 +43,36 @@ public class Player {
 		/**
 		 * Key events
 		 */
+		walking = false;
 		for (char key : pressedKeys){
 			switch (key){
 			case 'w':
 			case 'W':
-				y--;
+				y-=2;
+				walking = true;
 				break;
 			case 'a':
 			case 'A':
-				x--;
+				x-=2;
+				walking = true;
 				break;
 			case 's':
 			case 'S':
-				y++;
+				y+=2;
+				walking = true;
 				break;
 			case 'd':
 			case 'D':
-				x++;
+				x+=2;
+				walking = true;
 				break;
 			}
+		}
+		
+		if (walking){
+			feetAnimation.play();
+		} else {
+			feetAnimation.reset();
 		}
 		
 		/**

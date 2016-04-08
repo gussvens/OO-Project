@@ -18,7 +18,7 @@ public class Animation {
 	private int startX = 0;
 	private int startY = 0;
 	private long lastUpdate;
-	
+
 	public Animation(Image spriteSheet, int cols, int rows, int fps){
 		this.sheet = spriteSheet;
 		this.width = spriteSheet.getWidth(null) / cols;
@@ -26,19 +26,20 @@ public class Animation {
 		this.rows = rows;
 		this.cols = cols;
 		this.frameTime = 1/(double)fps;
-		
+
 	}
-	
+
 	public void play(){
-		playing = true;
+		if (!playing)
+			playing = true;
 	}
-	
+
 	public void reset(){
 		playing = false;
 		startX = 0;
 		startY = 0;
 	}
-	
+
 	public void update(){
 		if (playing){
 			System.out.println(System.currentTimeMillis() - lastUpdate);
@@ -55,7 +56,7 @@ public class Animation {
 			}
 		}
 	}
-	
+
 	public void draw(int x, int y, double rotation, Graphics2D graphics){
 		thisImage = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
 		g = (Graphics2D)thisImage.getGraphics();
