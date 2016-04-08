@@ -73,11 +73,12 @@ public class Player {
 		}
 		x += speedX;
 		y += speedY;
-		feetRotation = Math.atan2(speedY, speedX); //yes, at the moment you can turn your feet 90 deg
 		if (walking){
 			feetAnimation.play();
+			feetRotation = Math.atan2(speedY, speedX); //yes, at the moment you can turn your feet 90 deg
 		} else {
 			feetAnimation.reset();
+			feetRotation = rotation;
 		}
 
 		/**
