@@ -14,7 +14,7 @@ public class ServerZombie {
     private int id;
 
     public ServerZombie(int id){
-        speed = 5;
+        speed = 4;
         x = 100;
         y = 100;
         rotation = 1;
@@ -42,7 +42,7 @@ public class ServerZombie {
     public void update(){
         x = x + speed;
         y = y + speed;
-        rotation = rotation +1;
+        //rotation = rotation +1; //Kommenterade ut bara för att testa lite :-) /Erkan
     }
 
 }

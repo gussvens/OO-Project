@@ -17,8 +17,9 @@ public class Player {
 	private int x;
 	private int y;
 	private double rotation;
+	private double feetRotation;
 	boolean walking;
-	
+
 	public Player(int x, int y, Image sprite, Image feet){
 		this.x = x;
 		this.y = y;
@@ -26,73 +27,77 @@ public class Player {
 		feetAnimation = new Animation(feet, 6, 1, 10);
 		feetAnimation.play();
 	}
-	
+
 	public synchronized int getX(){
 		return x;
 	}
-	
+
 	public synchronized int getY(){
 		return y;
 	}
-	
+
 	public synchronized void setTexture(Image sprite){
 		this.sprite = sprite;
 	}
-	
+
 	public synchronized void update(List<Character> pressedKeys, Point cursor, boolean isMousePressed){
 		/**
 		 * Key events
 		 */
 		walking = false;
+		int speedX = 0;
+		int speedY = 0;
 		for (char key : pressedKeys){
 			switch (key){
 			case 'w':
 			case 'W':
-				y-=2;
+				speedY=-2;
 				walking = true;
 				break;
 			case 'a':
 			case 'A':
-				x-=2;
+				speedX=-2;
 				walking = true;
 				break;
 			case 's':
 			case 'S':
-				y+=2;
+				speedY=2;
 				walking = true;
 				break;
 			case 'd':
 			case 'D':
-				x+=2;
+				speedX=2;
 				walking = true;
 				break;
 			}
 		}
-		
+		x += speedX;
+		y += speedY;
+		feetRotation = Math.atan2(speedY, speedX); //yes, at the moment you can turn your feet 90 deg
 		if (walking){
 			feetAnimation.play();
 		} else {
 			feetAnimation.reset();
 		}
-		
+
 		/**
 		 * Mouse events
 		 */
 		int dX = (int)(cursor.getX() - x + Camera.getX());
 		int dY = (int)(cursor.getY() - y + Camera.getY());
 		rotation = Math.atan2(dY, dX); //Probably not working correct. Have to wait for textures in order to investigate 
-		
+
 		/**
 		 * Logic
 		 */
 		feetAnimation.update();
 	}
-	
+
 	public synchronized void draw(Graphics2D graphics){
-         feetAnimation.draw(x - Camera.getX(), y - Camera.getY(), rotation, graphics);
-         graphics.drawImage(sprite, GraphicsUtils.Transform(sprite, x - Camera.getX(), y - Camera.getY(), rotation), null);
+		feetAnimation.draw(x - Camera.getX(), y - Camera.getY(), feetRotation, graphics);
+		graphics.drawImage(sprite, GraphicsUtils.Transform(sprite, x - Camera.getX(), y - Camera.getY(), rotation), null);
 	}
-	
+
 	public synchronized String getParsedServerString(){
 		return x+";"+y+";"+rotation;
 	}
