@@ -1,4 +1,4 @@
-package edu.chalmers.projecttemplate.model;
+package client.model;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -16,15 +16,11 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import client.controller.Client;
+import client.controller.Controller;
+import client.view.GameView;
 import utilities.Camera;
 import utilities.GraphicsUtils;
-import edu.chalmers.projecttemplate.controller.Client;
-import edu.chalmers.projecttemplate.controller.Controller;
-import edu.chalmers.projecttemplate.controller.OtherPlayer;
-import edu.chalmers.projecttemplate.controller.Player;
-import edu.chalmers.projecttemplate.controller.Unit;
-import edu.chalmers.projecttemplate.controller.Zombie;
-import edu.chalmers.projecttemplate.view.GameView;
 
 public class Model {
 	private int myID = -1;

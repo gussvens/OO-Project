@@ -1,4 +1,4 @@
-package edu.chalmers.projecttemplate;
+package client;
 
 
 

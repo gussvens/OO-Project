@@ -1,6 +1,4 @@
-package edu.chalmers.projecttemplate.view;
-
-import edu.chalmers.projecttemplate.model.Model;
+package client.view;
 
 import java.awt.CardLayout;
 import java.awt.Graphics;
@@ -20,6 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import client.model.Model;
 
 public class GameView extends JFrame{
 	private static int WIDTH = 860;

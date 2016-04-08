@@ -1,4 +1,4 @@
-package edu.chalmers.projecttemplate.controller;
+package client.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
 
-import edu.chalmers.projecttemplate.model.Model;
+import client.model.Model;
 
 /**
  * Created by Marcus on 2016-03-23.

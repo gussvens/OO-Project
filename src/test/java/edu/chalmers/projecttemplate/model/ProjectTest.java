@@ -3,6 +3,8 @@ package edu.chalmers.projecttemplate.model;
 import org.junit.Assert;
 import org.junit.Test;
 
+import client.model.Model;
+
 public class ProjectTest {
 	private static final int NUM_INCREMENTATIONS = 128;
 

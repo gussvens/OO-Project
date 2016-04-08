@@ -1,6 +1,6 @@
 package utilities;
 
-import edu.chalmers.projecttemplate.view.GameView;
+import client.view.GameView;
 
 /**
  * Camera class specifying viewport kind of :)

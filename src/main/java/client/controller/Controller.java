@@ -1,7 +1,4 @@
-package edu.chalmers.projecttemplate.controller;
-
-import edu.chalmers.projecttemplate.model.Model;
-import edu.chalmers.projecttemplate.view.GameView;
+package client.controller;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -17,6 +14,8 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.model.Model;
+import client.view.GameView;
 import utilities.Camera;
 
 public class Controller extends Thread implements KeyListener, MouseMotionListener, MouseListener{
