@@ -1,45 +1,55 @@
-package edu.chalmers.projecttemplate.model;
+package client.model;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import edu.chalmers.projecttemplate.controller.Client;
-import edu.chalmers.projecttemplate.controller.Controller;
-import edu.chalmers.projecttemplate.controller.OtherPlayer;
-import edu.chalmers.projecttemplate.controller.Player;
-import edu.chalmers.projecttemplate.controller.Unit;
-import edu.chalmers.projecttemplate.controller.Zombie;
-import edu.chalmers.projecttemplate.view.GameView;
+import javax.imageio.ImageIO;
+
+import client.controller.Client;
+import client.controller.Controller;
+import client.view.GameView;
+import utilities.Camera;
+import utilities.GraphicsUtils;
 
 public class Model {
-	private int test = 0;
-	private int myID;
+	private int myID = -1;
+	private boolean idIsSet = false;
 	private Player player;
 	private ArrayList<Unit> otherPlayers;
 	private ArrayList<Unit> zombies;
-	private Image playerSprite; //TEST
-	private Image zombieSprite; //TEST
+	private Image[] playerSprite = new Image[4]; 
+	private Image playerFeetSheet; //TEST
+ 	private Image zombieSprite; 
+	private Image backgroundTest;
+	
 
 	/** INITIALIZATION/LOAD.
 	 *	Executed before gameloop starts
 	 */
-	public void initialize(){
-		// TESTING STUFF BELOW
-		playerSprite = new BufferedImage(20, 20, BufferedImage.TYPE_4BYTE_ABGR);
-		playerSprite.getGraphics().fillRect(0, 0, 20, 20);
-		zombieSprite = new BufferedImage(20, 20, BufferedImage.TYPE_4BYTE_ABGR);
-		Graphics zG = zombieSprite.getGraphics();
-		zG.setColor(Color.red);
-		zG.fillRect(0, 0, 20, 20);
-		// END OF TESTING STUFF
-		player = new Player(30, 30, playerSprite);
+	public synchronized void initialize(){
+		try { //LOAD
+			playerSprite[0] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerRocker.png")));
+			playerSprite[1] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerPunk.png")));
+			playerSprite[2] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerGirl.png")));
+			playerSprite[3] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerDark.png")));
+			playerFeetSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/testFeet.png")));
+			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
+			backgroundTest = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/test.png")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		player = new Player(30, 30, playerSprite[0], playerFeetSheet);
 		otherPlayers = new ArrayList<Unit>();
 		zombies = new ArrayList<Unit>();
 		for (int i = 0; i < 4; i++){ // Test. Creates 4 players in order to match ID to index.
@@ -49,11 +59,18 @@ public class Model {
 	
 	/** MAIN UPDATE METHOD
 	 * Used for all game logic and events
-	 * @param pressedKeys
+	 * @param pressedKeys - Currently pressed keys
+	 * @param cursor - Cursors position
+	 * @param isMousePressed
 	 */
-	public void tick(List<Character> pressedKeys){
-		test++;
-		player.update(pressedKeys);
+	public synchronized void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed){
+		if (myID != -1 && !idIsSet){ //to set correct texture, must set this here due to thread stuff
+			player.setTexture(playerSprite[myID]);
+			idIsSet = true;
+		}
+		player.update(pressedKeys, cursor, isMousePressed);
+		Camera.setX(player.getX());
+		Camera.setY(player.getY());
 		Client.sendToServer(player.getParsedServerString());
 	}
 
@@ -61,11 +78,12 @@ public class Model {
 	 *  All directly graphics related code goes here
 	 * @param graphics
 	 */
-	public void draw(Graphics2D graphics){
+	public synchronized void draw(Graphics2D graphics){
 		Color c = new Color(new Random().nextInt(255), new Random().nextInt(255), new Random().nextInt(255));
 		graphics.setColor(c);
 		graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenWidth());
 		graphics.setColor(Color.white);
+		graphics.drawImage(backgroundTest, 0 - Camera.getX(), 0 - Camera.getY(), GameView.getScreenWidth(), GameView.getScreenHeight(), null);
 		player.draw(graphics);
 		for (Unit op : otherPlayers) {
 			if (op != null)
@@ -83,9 +101,9 @@ public class Model {
 	}
 	
 	/** SERVER COMMAND PARSING
-	 * @param s
+	 * @param s - The message that the client recieved
 	 */
-	public void serverCommand(String s){
+	public synchronized void serverCommand(String s){
 
 		String[] arg = s.split(";");		
 		if (arg[0].equals("player")){
@@ -97,9 +115,10 @@ public class Model {
 			int id = Integer.parseInt(arg[1]);
 			if (id != myID){
 				if (arg[2].equals("pos")){
+					System.out.println("PLAYERS: "+otherPlayers.size());
 					if (otherPlayers.get(id) == null){
 						otherPlayers.set(id, new OtherPlayer());
-						otherPlayers.get(id).setTexture(playerSprite);
+						otherPlayers.get(id).setTexture(playerSprite[id]);
 					}
 
 					int x = Integer.parseInt(arg[3]);
@@ -124,7 +143,6 @@ public class Model {
 				zombies.get(id).setPosition(x,y);
 				zombies.get(id).setRotation(rot);
 			}
-
 		}
 	}
 }

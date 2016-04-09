@@ -1,7 +1,5 @@
-package edu.chalmers.projecttemplate.controller;
+package client.controller;
 
-import edu.chalmers.projecttemplate.model.Model;
-import edu.chalmers.projecttemplate.view.GameView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +8,9 @@ import server.Server;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
+import client.model.Model;
+import client.view.GameView;
 
 /**
  * Created by Marcus on 2016-04-01.
