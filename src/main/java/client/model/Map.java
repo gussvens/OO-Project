@@ -5,37 +5,44 @@ import java.awt.Image;
 import java.util.ArrayList;
 
 public class Map {
-	private ArrayList<Tile> tiles; //ALL tiles
+	//how do we want to map the tiles?
+	private ArrayList<ArrayList<Tile>> tiles; //ALL tiles (x, y) 
 	private ArrayList<Wall> solids; //Only wall tiles
-	private Image tileSheet;
-	
-	public Map(Image tileSheet){
-		tiles = new ArrayList<Tile>();
+	private static Image tileSheet;
+
+	public Map(){
+		tiles = new ArrayList<ArrayList<Tile>>();
 		solids = new ArrayList<Wall>();
 	}
-	
-	public void addFloor(Floor floor){
-		tiles.add(floor);
+
+	public static void setTileSheet(Image tileSheet){
+		Map.tileSheet = tileSheet;
 	}
-	
+
+	public void addFloor(Floor floor){ 
+		//tiles.add(floor);
+	}
+
 	public void addWall(Wall wall){
-		tiles.add(wall);
+		//tiles.add(wall);
 		solids.add(wall);
 	}
-	
+
 	/**
 	 * @return a list of all wall tiles
 	 */
 	public ArrayList<Wall> getSolids(){ //only return needed
 		return solids;
 	}
-	
+
 	/** Standard draw
 	 * @param graphics
 	 */
 	public void draw(Graphics2D graphics){
-		for (Tile tile : tiles){
-			
-		}
+		for (ArrayList<Tile> tileRow : tiles)
+			for (Tile tile : tileRow){
+				//draw from sheet
+			}
 	}
 }
+
