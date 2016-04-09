@@ -15,8 +15,8 @@ public class ServerZombie {
 
     public ServerZombie(int id){
         speed = 4;
-        x = 100;
-        y = 100;
+        x = 0;
+        y = 0;
         rotation = 1;
         this.id = id;
         System.out.println("New zombie spawned!");
