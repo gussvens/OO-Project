@@ -1,5 +1,6 @@
 package server.threads;
 
+import server.serverUnits.ServerPlayer;
 import server.serverUnits.ServerZombie;
 
 import java.util.ArrayList;
@@ -25,10 +26,33 @@ public class SpawnerThread{
         return instance;
     }
 
-    public void update() {
+    public void update(ArrayList<ServerPlayer> positions) {
 
         for(ServerZombie zombie : zombies){
-            zombie.update();
+
+            double shortestDistance = 100000000;
+            double yDirection = 0;
+            double xDirection = 0;
+            double rotation = 0;
+
+            for(ServerPlayer player : positions) {
+                double tempX = player.getX() - zombie.getX();
+                double tempY = player.getY() - zombie.getY();
+                double distance = Math.sqrt(Math.pow(tempX, 2) + Math.pow(tempY, 2));
+
+                if(Math.abs(distance) < shortestDistance){
+                    shortestDistance = distance;
+                    xDirection = tempX / shortestDistance;
+                    yDirection = tempY / shortestDistance;
+                    rotation = Math.toRadians(Math.acos(tempX / distance))*10*Math.PI; //TODO: this doesn't rotate correcctly
+            }
+
+
+            }
+
+            System.out.println(rotation);
+
+            zombie.update(xDirection, yDirection, rotation);
         }
 
         if (lapCounter == 30) {

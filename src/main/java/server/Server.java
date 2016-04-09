@@ -76,7 +76,7 @@ public class Server extends Thread {
 			 * Send stuff to clients
 			 */
 			ArrayList<ServerPlayer> positions = getPlayerPositions(); //tidy this up
-			spawner.update();
+			spawner.update(players);
 
 			for (ServerThread serverThread : serverThreads){
 				for(int i = 0; i < positions.size(); i++){

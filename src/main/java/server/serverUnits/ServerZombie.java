@@ -39,9 +39,13 @@ public class ServerZombie {
         return rotation;
     }
 
-    public void update(){
-        x = x + speed;
-        y = y + speed;
+    public void update(double xDirection, double yDirection, double rotation){
+        double tempX = xDirection * speed;
+        double tempY = yDirection * speed;
+
+        this.rotation = rotation;
+        x = x + (int)tempX;
+        y = y + (int)tempY;
         //rotation = rotation +1; //Kommenterade ut bara för att testa lite :-) /Erkan
     }
 
