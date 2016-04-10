@@ -5,14 +5,9 @@ package server.serverTiles;
  */
 public class SpawnerTile extends ServerTile {
 
-    private boolean passable = true;
+    private static final boolean PASSABLE = true;
 
     public SpawnerTile(int x, int y){
-        super(x,y);
+        super(x,y,PASSABLE);
     }
-
-    public boolean getPassable(){
-        return passable;
-    }
-
 }

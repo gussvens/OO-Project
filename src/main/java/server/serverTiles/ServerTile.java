@@ -9,7 +9,7 @@ public abstract class ServerTile {
     private int y;
     private boolean passable;
 
-    public ServerTile(int x, int y){
+    public ServerTile(int x, int y, boolean passable){
         this.x = x;
         this.y = y;
         this.passable = passable;
@@ -22,5 +22,7 @@ public abstract class ServerTile {
         return y;
     }
 
-    public abstract boolean getPassable();
+    public boolean getPassable(){
+        return this.passable;
+    }
 }

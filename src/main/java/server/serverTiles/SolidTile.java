@@ -5,15 +5,9 @@ package server.serverTiles;
  */
 public class SolidTile extends ServerTile {
 
-    private int x;
-    private int y;
-    private boolean passable = false;
+    private static boolean PASSABLE = false;
 
     public SolidTile(int x, int y){
-        super(x,y);
-    }
-
-    public boolean getPassable(){
-        return passable;
+        super(x,y,PASSABLE);
     }
 }
