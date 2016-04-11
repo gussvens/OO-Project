@@ -35,13 +35,17 @@ public class WorldHandler {
                 int xPosition = 0;
                 int tileCounter = 0;
                 while (scanner.hasNextInt()) {
-                    tileCounter++;
-                    System.out.println("Found tile " + tileCounter);
+
 
                     if (scanner.nextInt() == 00) {
                         wallList.add(new SolidTile(xPosition, yPosition));
+                        tileCounter++;
+                        System.out.println("Found Solid Tile " + tileCounter);
+
                     } else if (scanner.nextInt() == 10) {
                         spawnList.add(new SpawnerTile(xPosition, yPosition));
+                        tileCounter++;
+                        System.out.println("Found Spawner Tile " + tileCounter);
                     }
 
                     xPosition = xPosition + 32;
@@ -58,6 +62,10 @@ public class WorldHandler {
         }
 
 
+    }
+
+    public void checkCollisions(){
+        
     }
 
 
