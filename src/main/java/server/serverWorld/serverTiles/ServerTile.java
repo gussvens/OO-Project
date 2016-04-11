@@ -1,4 +1,4 @@
-package server.serverTiles;
+package server.serverWorld.serverTiles;
 
 /**
  * Created by Marcus on 2016-04-09.
