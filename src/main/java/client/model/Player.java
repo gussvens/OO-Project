@@ -17,7 +17,6 @@ public class Player {
 	private int x;
 	private int y;
 	private double rotation;
-	private double feetRotation;
 	boolean walking;
 
 	public Player(int x, int y, Image sprite, Image feet){
@@ -71,19 +70,11 @@ public class Player {
 				break;
 			}
 		}
-		x += speedX;
-		y += speedY;
-		if (walking){
-			feetAnimation.play();
-			feetRotation = Math.atan2(speedY, speedX); //yes, at the moment you can turn your feet 90 deg
-		} else {
-			feetAnimation.reset();
-			feetRotation = rotation;
-		}
-
+		
 		/**
 		 * Mouse events
 		 */
+		
 		int dX = (int)(cursor.getX() - x + Camera.getX());
 		int dY = (int)(cursor.getY() - y + Camera.getY());
 		rotation = Math.atan2(dY, dX); //Probably not working correct. Have to wait for textures in order to investigate 
@@ -91,11 +82,20 @@ public class Player {
 		/**
 		 * Logic
 		 */
+		
+		x += speedX;
+		y += speedY;
+		if (walking){
+			feetAnimation.play();
+		} else {
+			feetAnimation.reset();
+		}
+
 		feetAnimation.update();
 	}
 
 	public synchronized void draw(Graphics2D graphics){
-		feetAnimation.draw(x - Camera.getX(), y - Camera.getY(), feetRotation, graphics);
+		feetAnimation.draw(x - Camera.getX(), y - Camera.getY(), rotation, graphics);
 		graphics.drawImage(sprite, GraphicsUtils.Transform(sprite, x - Camera.getX(), y - Camera.getY(), rotation), null);
 	}
 

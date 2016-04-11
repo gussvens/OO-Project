@@ -44,7 +44,7 @@ public class SpawnerThread{
                     shortestDistance = distance;
                     xDirection = tempX / shortestDistance;
                     yDirection = tempY / shortestDistance;
-                    rotation = Math.toRadians(Math.acos(tempX / distance))*10*Math.PI; //TODO: this doesn't rotate correcctly
+                    rotation = Math.atan2(tempY, tempX);
             }
 
 

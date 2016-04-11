@@ -79,8 +79,7 @@ public class Model {
 	 * @param graphics
 	 */
 	public synchronized void draw(Graphics2D graphics){
-		Color c = new Color(new Random().nextInt(255), new Random().nextInt(255), new Random().nextInt(255));
-		graphics.setColor(c);
+		graphics.setColor(Color.gray);
 		graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenWidth());
 		graphics.setColor(Color.white);
 		graphics.drawImage(backgroundTest, 0 - Camera.getX(), 0 - Camera.getY(), GameView.getScreenWidth(), GameView.getScreenHeight(), null);
@@ -96,8 +95,10 @@ public class Model {
 		}
 		graphics.setColor(Color.black);
 		graphics.drawString("FPS: "+Controller.getFramesPerSecond(), 9, 19);
+		graphics.drawString("Zombinado Beta", GameView.getScreenWidth() - 101, GameView.getScreenHeight() - 11);
 		graphics.setColor(Color.white);
 		graphics.drawString("FPS: "+Controller.getFramesPerSecond(), 10, 20);
+		graphics.drawString("Zombinado Beta", GameView.getScreenWidth() - 100, GameView.getScreenHeight() - 10);
 	}
 	
 	/** SERVER COMMAND PARSING

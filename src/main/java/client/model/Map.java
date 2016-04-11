@@ -19,12 +19,11 @@ public class Map {
 		Map.tileSheet = tileSheet;
 	}
 
-	public void addFloor(Floor floor){ 
-		//tiles.add(floor);
+	public void addTileRow(ArrayList<Tile> floor){ 
+		tiles.add(floor);
 	}
 
-	public void addWall(Wall wall){
-		//tiles.add(wall);
+	public void addWall(Wall wall){ //same reference should also be added in the tileRow
 		solids.add(wall);
 	}
 
