@@ -3,7 +3,7 @@ package server.serverUnits;
 /**
  * Created by Marcus on 2016-04-05.
  */
-public class ServerPlayer {
+public class ServerPlayer implements ServerUnit{
 
     private int x;
     private int y;
@@ -25,7 +25,7 @@ public class ServerPlayer {
         return y;
     }
 
-    public int getId(){
+    public int getID(){
         return id;
     }
 
