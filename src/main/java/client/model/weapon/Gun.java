@@ -13,20 +13,16 @@ public class Gun extends Weapon {
     private final static int PRICE = 0;
     private final static float SPRAY = 1;
     private final static float RATEOFFIRE = 1;
-    private static Image storeImage; // A image showing the gun in the store
-    private static Image gameSprite; // The sprite to overlap with playerSprites
 
     public Gun() {
-        super(ID, MAXAMMO, DAMAGE, PRICE, SPRAY, RATEOFFIRE, storeImage, gameSprite);
+        super(ID, MAXAMMO, DAMAGE, PRICE, SPRAY, RATEOFFIRE);
     }
 
     @Override
-    public void update() {
-        //Do stuff repeatedly
-    }
-
-    @Override
-    public void draw(Graphics2D graphics) {
-        //Do stuff
+    public boolean shoot(){
+        if(canFire()){
+            return true;
+        }
+        return false;
     }
 }

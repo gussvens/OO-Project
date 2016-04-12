@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Created by Gustav on 16-04-12.
  */
-public abstract class Weapon {
+public class Weapon {
 
     private int id;
     private int ammo;
@@ -13,18 +13,14 @@ public abstract class Weapon {
     private int price;
     private float spray;
     private float rateOfFire;
-    private Image storeImage; // A image showing the gun in the store
-    private Image gameSprite; // The sprite to overlap with playerSprites
 
-    public Weapon(int id, int ammo, int damage, int price, float spray, float rateOfFire, Image storeImage, Image gameSprite){
-        this.id = id;
+    public Weapon(int id, int ammo, int damage, int price, float spray, float rateOfFire){
+        this.id = id; // Coordinate to weapon sprite in weaponSheet
         this.ammo = ammo;
-        this.damage = damage;
+        this.damage = damage; // Damage dealt on impact with foe (Zombie)
         this.price = price;
-        this.spray = spray;
-        this.rateOfFire = rateOfFire;
-        this.storeImage = storeImage;
-        this.gameSprite = gameSprite;
+        this.spray = spray; // An max angle difference between bullet direction and aim
+        this.rateOfFire = rateOfFire; // The number of firable bullets per second
     }
 
     public int getId() {
@@ -53,22 +49,25 @@ public abstract class Weapon {
     }
 
     public boolean shoot(){
-        if(false){ // Check if we can shoot, i.e. rate of fire allows it
+        if(canFire()){
             this.ammo--;
             return true;
         }
         return false;
     }
 
-    public Image getStoreImage() {
-        return storeImage;
+    public boolean canFire(){
+        // TODO
+        // check if enough time has passed since last fire, use rateOfFire variable
+        // return true if yes, else false.
+        return false;
     }
 
-    public Image getGameSprite() {
-        return gameSprite;
-    }
+    public void update(){
+        // do stuff repeatedly
+    };
 
-    public abstract void update();
-
-    public abstract void draw(Graphics2D graphics);
+    public void draw(Graphics2D graphics){
+        // do stuff with id
+    };
 }
