@@ -2,6 +2,7 @@ package server;
 
 import server.serverUnits.ServerPlayer;
 import server.serverUnits.ServerZombie;
+import server.serverWorld.WorldHandler;
 import server.threads.SpawnerThread;
 
 import java.net.*;
@@ -15,11 +16,13 @@ public class Server extends Thread {
 	private int amountConnected = 0;
 	private ArrayList<ServerThread> serverThreads;
 	private SpawnerThread spawner;
+	private WorldHandler handler;
 
 	private Server(){
 		players = new ArrayList<ServerPlayer>();
 		serverThreads = new ArrayList<ServerThread>();
 		spawner = SpawnerThread.getInstance();
+		handler = new WorldHandler();
 	}
 
 	public static Server getInstance(){
@@ -40,6 +43,7 @@ public class Server extends Thread {
 
 	public void run(){
 		Thread mainUpdate = new Thread(() -> update());
+		handler.createMap();
 		mainUpdate.start();
 		listenForConnections();
 
@@ -89,7 +93,7 @@ public class Server extends Thread {
 				for(ServerZombie zombie : spawner.getZombies()){
 
 					if(zombie != null) {
-						String s = "zombies;" + zombie.getId() + ";pos;" + zombie.getX() + ";" + zombie.getY() + ";" + zombie.getRotation();
+						String s = "zombies;" + zombie.getID() + ";pos;" + zombie.getX() + ";" + zombie.getY() + ";" + zombie.getRotation();
 						System.out.println("Sending Zombie Position!");
 						serverThread.send(s);
 					}
