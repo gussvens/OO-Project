@@ -11,10 +11,10 @@ public class Weapon {
     private int ammo;
     private int damage;
     private int price;
-    private float spray;
-    private float rateOfFire;
+    private double spray;
+    private double rateOfFire;
 
-    public Weapon(int id, int ammo, int damage, int price, float spray, float rateOfFire){
+    public Weapon(int id, int ammo, int damage, int price, double spray, double rateOfFire){
         this.id = id; // Coordinate to weapon sprite in weaponSheet
         this.ammo = ammo;
         this.damage = damage; // Damage dealt on impact with foe (Zombie)
@@ -40,11 +40,11 @@ public class Weapon {
         return this.price;
     }
 
-    public float getSpray() {
+    public double getSpray() {
         return this.spray;
     }
 
-    public float getRateOfFire() {
+    public double getRateOfFire() {
         return this.rateOfFire;
     }
 

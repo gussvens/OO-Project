@@ -11,8 +11,8 @@ public class Gun extends Weapon {
     private final static int MAXAMMO = 999;
     private final static int DAMAGE = 10;
     private final static int PRICE = 0;
-    private final static float SPRAY = 1;
-    private final static float RATEOFFIRE = 1;
+    private final static double SPRAY = 0.5;
+    private final static double RATEOFFIRE = 1;
 
     public Gun() {
         super(ID, MAXAMMO, DAMAGE, PRICE, SPRAY, RATEOFFIRE);
