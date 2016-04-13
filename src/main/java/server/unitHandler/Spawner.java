@@ -1,4 +1,4 @@
-package server.threads;
+package server.unitHandler;
 
 import server.serverUnits.ServerPlayer;
 import server.serverUnits.ServerZombie;
@@ -8,20 +8,20 @@ import java.util.ArrayList;
 /**
  * Created by Marcus on 2016-04-05.
  */
-public class SpawnerThread{
+public class Spawner{
 
     private static ArrayList<ServerZombie> zombies;
     private static int idCounter = 0;
-    private static SpawnerThread instance;
+    private static Spawner instance;
     private int lapCounter;
 
-    private SpawnerThread(){
+    private Spawner(){
         zombies = new ArrayList<ServerZombie>();
     }
 
-    public static SpawnerThread getInstance(){
+    public static Spawner getInstance(){
         if(instance == null){
-            instance = new SpawnerThread();
+            instance = new Spawner();
         }
         return instance;
     }
