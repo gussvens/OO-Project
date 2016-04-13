@@ -21,7 +21,7 @@ public class WorldHandler {
     }
 
     public void createMap(String mapPath){
-        // If we choose map, mapPath will replace "src/main/..." below
+        
         File file = new File(mapPath);
 
         try {
