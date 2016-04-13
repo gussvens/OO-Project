@@ -5,8 +5,10 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 import java.util.List;
 
 import utilities.*;
@@ -16,6 +18,7 @@ public class Player {
 	private Animation feetAnimation;
 	private int x;
 	private int y;
+	private static float RADIUS = 32;
 	private double rotation;
 	boolean walking;
 
@@ -34,12 +37,16 @@ public class Player {
 	public synchronized int getY(){
 		return y;
 	}
+	
+	public float getRadius(){
+		return RADIUS;
+	}
 
 	public synchronized void setTexture(Image sprite){
 		this.sprite = sprite;
 	}
 
-	public synchronized void update(List<Character> pressedKeys, Point cursor, boolean isMousePressed){
+	public synchronized void update(List<Character> pressedKeys, Point cursor, boolean isMousePressed, ArrayList<Rectangle> walls){
 		/**
 		 * Key events
 		 */
