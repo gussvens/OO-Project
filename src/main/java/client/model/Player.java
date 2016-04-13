@@ -11,16 +11,20 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.model.weapon.Weapon;
 import utilities.*;
 
 public class Player {
+	private static float RADIUS = 32;
+
 	private Image sprite;
 	private Animation feetAnimation;
 	private int x;
 	private int y;
-	private static float RADIUS = 32;
+	private int health;
+	private Weapon weapon;
 	private double rotation;
-	boolean walking;
+	private boolean walking;
 
 	public Player(int x, int y, Image sprite, Image feet){
 		this.x = x;
