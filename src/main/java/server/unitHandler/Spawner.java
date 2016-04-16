@@ -2,6 +2,7 @@ package server.unitHandler;
 
 import server.serverUnits.ServerPlayer;
 import server.serverUnits.ServerZombie;
+import server.serverWorld.serverTiles.SpawnerTile;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public class Spawner{
         return instance;
     }
 
-    public void update(ArrayList<ServerPlayer> positions) {
+    public void update(ArrayList<ServerPlayer> positions, ArrayList<SpawnerTile> spawnPoints) {
 
         for(ServerZombie zombie : zombies){
 
@@ -57,8 +58,10 @@ public class Spawner{
 
         if (lapCounter == 30) {
 
+            int point = (int)(Math.random() * spawnPoints.size());
 
-            zombies.add(new ServerZombie(idCounter));
+
+            zombies.add(new ServerZombie(idCounter, spawnPoints.get(point)));
 
             idCounter++;
             lapCounter = 0;
