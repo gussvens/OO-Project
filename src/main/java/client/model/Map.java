@@ -44,10 +44,10 @@ public class Map {
 	 * @param graphics
 	 */
 	public void draw(Graphics2D graphics){
-		int startX = Math.max(Camera.getX() / TILE_SIZE, 0);
-		int startY = Math.max(Camera.getY() / TILE_SIZE, 0);
-		int endX = Math.min((Camera.getX() + GameView.getScreenWidth()) / TILE_SIZE + 1, tiles.get(0).size() - 1);
-		int endY = Math.min((Camera.getY() + GameView.getScreenHeight()) / TILE_SIZE + 1, tiles.size() - 1);
+		int startX = Math.max(Camera.getX() / TILE_SIZE - 1, 0);
+		int startY = Math.max(Camera.getY() / TILE_SIZE - 1, 0);
+		int endX = Math.min((Camera.getX() + GameView.getScreenWidth()) / TILE_SIZE + 2, tiles.get(0).size() - 1);
+		int endY = Math.min((Camera.getY() + GameView.getScreenHeight()) / TILE_SIZE + 2, tiles.size() - 1);
 		for (int y = startY; y < endY; y++) {
 			ArrayList<Integer> tileRow = tiles.get(y);
 			for (int x = startX; x < endX; x++){

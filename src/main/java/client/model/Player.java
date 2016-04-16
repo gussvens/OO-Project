@@ -95,16 +95,16 @@ public class Player {
 		 */
 		x += speedX;
 		y += speedY;
-
+		/*
 		for (Rectangle wall : walls){
 			Point retardation = Physics.collision(x, y, 32, wall);
 			if (retardation != null){
-				System.out.println("COLLISION: "+retardation);
-				x += retardation.getX();
-				y += retardation.getY();
+				//System.out.println("COLLISION: "+retardation);
+				//x += retardation.getX();
+				//y += retardation.getY();
 			}
 		}
-
+		 */
 		if (walking){
 			feetAnimation.play();
 		} else {
