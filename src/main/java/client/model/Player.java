@@ -41,7 +41,7 @@ public class Player {
 	public synchronized int getY(){
 		return y;
 	}
-	
+
 	public float getRadius(){
 		return RADIUS;
 	}
@@ -88,13 +88,23 @@ public class Player {
 
 		int dX = (int)(cursor.getX() - x + Camera.getX());
 		int dY = (int)(cursor.getY() - y + Camera.getY());
-		rotation = Math.atan2(dY, dX); //Probably not working correct. Have to wait for textures in order to investigate 
+		rotation = Math.atan2(dY, dX);
 
 		/**
 		 * Logic
 		 */
 		x += speedX;
 		y += speedY;
+
+		for (Rectangle wall : walls){
+			Point retardation = Physics.collision(x, y, 32, wall);
+			if (retardation != null){
+				System.out.println("COLLISION: "+retardation);
+				x += retardation.getX();
+				y += retardation.getY();
+			}
+		}
+
 		if (walking){
 			feetAnimation.play();
 		} else {

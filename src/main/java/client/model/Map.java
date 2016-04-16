@@ -63,7 +63,7 @@ public class Map {
 					col = id/10;
 				}
 				
-				graphics.drawImage(tileSheet, x*TILE_SIZE - Camera.getX(), y*TILE_SIZE - Camera.getY(), (x + 1)*TILE_SIZE - Camera.getX(), (y + 1)*TILE_SIZE - Camera.getY(), col*TILE_SIZE, row*TILE_SIZE, (col + 1)*TILE_SIZE, (row + 1)*TILE_SIZE, null);
+				graphics.drawImage(tileSheet, x*TILE_SIZE - TILE_SIZE/2 - Camera.getX(), y*TILE_SIZE - TILE_SIZE/2 - Camera.getY(), (x + 1)*TILE_SIZE - TILE_SIZE/2 - Camera.getX(), (y + 1)*TILE_SIZE  - TILE_SIZE/2 - Camera.getY(), col*TILE_SIZE, row*TILE_SIZE, (col + 1)*TILE_SIZE, (row + 1)*TILE_SIZE, null);
 				//graphics.drawString(temp, x*32 - Camera.getX(), y*32 - Camera.getY());
 			}
 		}

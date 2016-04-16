@@ -51,7 +51,7 @@ public class Model {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		player = new Player(30, 30, playerSprite[0], playerFeetSheet);
+		player = new Player(120, 120, playerSprite[0], playerFeetSheet);
 		otherPlayers = new ArrayList<Unit>();
 		zombies = new ArrayList<Unit>();
 		for (int i = 0; i < 4; i++){ // Test. Creates 4 players in order to match ID to index.
