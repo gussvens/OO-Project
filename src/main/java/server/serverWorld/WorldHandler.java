@@ -2,6 +2,7 @@ package server.serverWorld;
 
 import server.serverWorld.serverTiles.*;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -25,27 +26,32 @@ public class WorldHandler {
         File file = new File(mapPath);
 
         try {
+
+
+
             Scanner scanner = new Scanner(file);
 
 
             int yPosition = 0;
 
             while (scanner.hasNextLine()) {
+                String[] line = scanner.nextLine().split(" ");
+
 
                 int xPosition = 0;
                 int tileCounter = 0;
-                while (scanner.hasNextInt()) {
+                for(int i = 0; i < line.length; i++) {
 
 
-                    if (scanner.nextInt() == 00) {
+                    if (line[i].equals("00")) {
                         wallList.add(new SolidTile(xPosition, yPosition));
                         tileCounter++;
                         System.out.println("Found Solid Tile " + tileCounter);
 
-                    } else if (scanner.nextInt() == 10) {
+                    } else if (line[i].equals("10")) {
                         spawnList.add(new SpawnerTile(xPosition, yPosition));
                         tileCounter++;
-                        System.out.println("Found Spawner Tile " + tileCounter);
+                        System.out.println("Found Spawner Tile " + xPosition + ", " + yPosition);
                     }
 
                     xPosition = xPosition + 32;

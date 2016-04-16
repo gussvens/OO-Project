@@ -1,6 +1,8 @@
 package server.serverUnits;
 
 
+import server.serverWorld.serverTiles.SpawnerTile;
+
 /**
  * Created by Marcus on 2016-04-05.
  */
@@ -13,13 +15,13 @@ public class ServerZombie implements ServerUnit{
     private int[] temp;
     private int id;
 
-    public ServerZombie(int id){
+    public ServerZombie(int id, SpawnerTile spawnPoint){
         speed = 4;
-        x = 0;
-        y = 0;
+        x = spawnPoint.getX();
+        y = spawnPoint.getY();
         rotation = 1;
         this.id = id;
-        System.out.println("New zombie spawned!");
+        System.out.println("New zombie spawned! X: " + x + ", Y: " + y);
 
     }
 
