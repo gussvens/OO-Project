@@ -28,8 +28,6 @@ public abstract class Unit {
 		this.sprite = sprite;
 	}
 
-
-
 	public void draw(Graphics2D graphics){
 		graphics.drawImage(sprite, GraphicsUtils.Transform(sprite, x - Camera.getX(), y - Camera.getY(), rotation), null);
 	}
