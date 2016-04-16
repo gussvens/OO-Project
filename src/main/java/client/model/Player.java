@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import client.model.weapon.Weapon;
+import client.view.GameView;
 import utilities.*;
 
 public class Player {
@@ -95,6 +96,11 @@ public class Player {
 		 */
 		x += speedX;
 		y += speedY;
+		
+		//COLLISION TESTING STARTS HERE
+		int tileX = x / Map.TILE_SIZE - 1;
+		int tileY = y / Map.TILE_SIZE - 1;
+		
 		/*
 		for (Rectangle wall : walls){
 			Point retardation = Physics.collision(x, y, 32, wall);
