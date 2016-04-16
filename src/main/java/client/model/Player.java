@@ -103,8 +103,8 @@ public class Player {
 
 		
 		for (Rectangle wall : walls){
-			x = Physics.collisionX(x, y, 32, wall);
-			y = Physics.collisionY(x, y, 32, wall);
+			x = Physics.collisionX(x, y, 16, wall);
+			y = Physics.collisionY(x, y, 16, wall);
 		}
 
 		if (walking){
