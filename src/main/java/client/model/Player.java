@@ -96,27 +96,23 @@ public class Player {
 		 */
 		x += speedX;
 		y += speedY;
-		
+
 		//COLLISION TESTING STARTS HERE
 		//int tileX = x / Map.TILE_SIZE - 1;
 		//int tileY = y / Map.TILE_SIZE - 1;
-		
+
 		
 		for (Rectangle wall : walls){
-			Point retardation = Physics.getAntiCollisionVector(x, y, 32, wall);
-			if (retardation != null){
-				//System.out.println("COLLISION: "+retardation);
-				x -= retardation.getX();
-				y -= retardation.getY();
-			}
+			x = Physics.collisionX(x, y, 32, wall);
+			y = Physics.collisionY(x, y, 32, wall);
 		}
-		
+
 		if (walking){
 			feetAnimation.play();
 		} else {
 			feetAnimation.reset();
 		}
-		
+
 		feetAnimation.update();
 	}
 

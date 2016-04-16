@@ -29,7 +29,7 @@ public class Map {
 		tiles.add(floorRow);
 	}
 
-	public void addWall(Rectangle wall){ //same reference should also be added in the tileRow
+	public void addWall(Rectangle wall){
 		bounds.add(wall);
 	}
 
