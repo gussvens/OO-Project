@@ -68,5 +68,13 @@ public class WorldHandler {
 
     }
 
+    public ArrayList<SpawnerTile> getSpawnTiles(){
+        return spawnList;
+    }
+
+    public ArrayList<SolidTile> getWallTiles(){
+        return wallList;
+    }
+
 
 }
