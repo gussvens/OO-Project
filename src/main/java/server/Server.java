@@ -3,7 +3,7 @@ package server;
 import server.serverUnits.ServerPlayer;
 import server.serverUnits.ServerZombie;
 import server.serverWorld.WorldHandler;
-import server.threads.SpawnerThread;
+import server.unitHandler.Spawner;
 
 import java.net.*;
 import java.util.*;
@@ -15,13 +15,13 @@ public class Server extends Thread {
 	private ArrayList<ServerPlayer> players;
 	private int amountConnected = 0;
 	private ArrayList<ServerThread> serverThreads;
-	private SpawnerThread spawner;
+	private Spawner spawner;
 	private WorldHandler handler;
 
 	private Server(){
 		players = new ArrayList<ServerPlayer>();
 		serverThreads = new ArrayList<ServerThread>();
-		spawner = SpawnerThread.getInstance();
+		spawner = Spawner.getInstance();
 		handler = new WorldHandler();
 	}
 
@@ -43,7 +43,7 @@ public class Server extends Thread {
 
 	public void run(){
 		Thread mainUpdate = new Thread(() -> update());
-		handler.createMap();
+		handler.createMap("src/main/resources/maps/mapTest.txt");
 		mainUpdate.start();
 		listenForConnections();
 

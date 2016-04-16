@@ -20,9 +20,9 @@ public class WorldHandler {
         spawnList = new ArrayList<SpawnerTile>();
     }
 
-    public void createMap(){
-
-        File file = new File("src/main/resources/maps/mapTest.txt");
+    public void createMap(String mapPath){
+        
+        File file = new File(mapPath);
 
         try {
             Scanner scanner = new Scanner(file);
