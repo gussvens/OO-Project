@@ -110,7 +110,7 @@ public class Player {
 		} else {
 			feetAnimation.reset();
 		}
-
+		
 		feetAnimation.update();
 	}
 
