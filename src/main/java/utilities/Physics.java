@@ -20,8 +20,10 @@ public class Physics {
 		return new Point(0, 0);
 	}
 
-	public static Point getAntiCollisionVector(int xPlayer, int yPlayer, int radiusPlayer, Rectangle rect){
+	public static Point getAntiCollisionVector(int xPlayer, int yPlayer, float radiusPlayer, Rectangle rect){
 		int cL = (int)(Math.sqrt(32*32/2)); //composant length
+		double vDist = rect.getHeight()/2;
+		double hDist = rect.getWidth()/2;
 
 		//8 collision points around the player
 		Point rightSide = new Point(xPlayer+32,yPlayer);
@@ -40,11 +42,11 @@ public class Physics {
 				double vectorX = rect.getCenterX()-p.getX();
 				double vectorY = rect.getCenterY()-p.getY();
 				if(Math.abs(vectorX)>=Math.abs(vectorY)){
-					vectorX = ( vectorX/(Math.abs(vectorX)) ) * (48-Math.abs(vectorX));
+					vectorX = ( vectorX/(Math.abs(vectorX)) ) * (hDist-Math.abs(vectorX) + 2);
 					vectorY = 0;
 				}else{
 					vectorX = 0;
-					vectorY = ( vectorY/(Math.abs(vectorY)) ) * (48-Math.abs(vectorY));
+					vectorY = ( vectorY/(Math.abs(vectorY)) ) * (vDist-Math.abs(vectorY) + 2);
 				}
 				return new Point((int)vectorX,(int)vectorY);
 			}
@@ -53,9 +55,9 @@ public class Physics {
 	}
 
 
-	public static Point getAntiCollisionVector(int xPlayer, int yPlayer, int radiusPlayer, int xOther, int yOther, int radiusOther){
-		double vectorX = xPlayer - xOther;
-		double vectorY = yPlayer - yOther;
+	public static Point getAntiCollisionVector(int xPlayer, int yPlayer, float radiusPlayer, int xOther, int yOther, float radiusOther){
+		double vectorX = xOther - xPlayer;
+		double vectorY = yOther - yPlayer;
 		double length = Math.sqrt( vectorX*vectorX + vectorY*vectorY );
 		double overlap = radiusPlayer + radiusOther - length;
 
@@ -63,10 +65,16 @@ public class Physics {
 			return new Point(0,0);
 		}
 
-		vectorX = (vectorX/length*overlap);
-		vectorY = (vectorY/length*overlap);
+		vectorX = (vectorX/length)*overlap;
+		vectorY = (vectorY/length)*overlap;
 
 		return new Point((int)vectorX,(int)vectorY);
+	}
+
+	public static Point addVector(Point vectorA, Point vectorB){
+		double x = vectorA.getX() + vectorB.getX();
+		double y = vectorA.getY() + vectorB.getY();
+		return new Point((int)x,(int)y);
 	}
 }
 

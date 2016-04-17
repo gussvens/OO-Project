@@ -1,9 +1,12 @@
 package server.unitHandler;
 
+import client.model.Map;
 import server.serverUnits.ServerPlayer;
 import server.serverUnits.ServerZombie;
 import server.serverWorld.serverTiles.SpawnerTile;
+import utilities.Physics;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -28,7 +31,6 @@ public class Spawner{
     }
 
     public void update(ArrayList<ServerPlayer> positions, ArrayList<SpawnerTile> spawnPoints) {
-
         for(ServerZombie zombie : zombies){
 
             double shortestDistance = 100000000;
@@ -46,14 +48,32 @@ public class Spawner{
                     xDirection = tempX / shortestDistance;
                     yDirection = tempY / shortestDistance;
                     rotation = Math.atan2(tempY, tempX);
+                }
+
+
+            }
+            //COLLISION TESTING STARTS HERE
+            Point antiCollisionVetor = new Point(0,0);
+            Point vector;
+            for(ServerZombie zombie1 : zombies){
+                float xDist = zombie.getX() - zombie1.getX();
+                float yDist = zombie.getY() - zombie1.getY();
+                double dist = Math.sqrt(xDist*xDist + yDist*yDist);
+                if(dist<64){
+                    vector= Physics.getAntiCollisionVector(zombie.getX(),zombie.getY(),32,zombie1.getX(),zombie1.getY(),32);
+                    antiCollisionVetor = Physics.addVector(antiCollisionVetor,vector);
+                }
             }
 
-
+            if(antiCollisionVetor!=null){
+                xDirection -= antiCollisionVetor.getX();
+                yDirection -= antiCollisionVetor.getY();
             }
 
             System.out.println(rotation);
 
             zombie.update(xDirection, yDirection, rotation);
+
         }
 
         if (lapCounter == 30) {
