@@ -72,11 +72,11 @@ public class Physics {
 				double vectorX = rect.getCenterX()-p.getX();
 				double vectorY = rect.getCenterY()-p.getY();
 				if(Math.abs(vectorX)>=Math.abs(vectorY)){
-					vectorX = ( vectorX/(Math.abs(vectorX)) ) * (hDist-Math.abs(vectorX) + 2);
+					vectorX = ( vectorX/(Math.abs(vectorX)) ) * (hDist-Math.abs(vectorX));
 					vectorY = 0;
 				}else{
 					vectorX = 0;
-					vectorY = ( vectorY/(Math.abs(vectorY)) ) * (vDist-Math.abs(vectorY) + 2);
+					vectorY = ( vectorY/(Math.abs(vectorY)) ) * (vDist-Math.abs(vectorY));
 				}
 				return new Point((int)vectorX,(int)vectorY);
 			}
