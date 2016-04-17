@@ -29,6 +29,7 @@ public class MapLoader {
 					thisRow.add(id);
 					if (id < 10){
 						map.addWall(new Rectangle(x * Map.TILE_SIZE, y * Map.TILE_SIZE, Map.TILE_SIZE, map.TILE_SIZE));
+						System.out.println("WALL LOADED @:" + x*Map.TILE_SIZE + "," + y * Map.TILE_SIZE);
 					}
 					x++;
 				}

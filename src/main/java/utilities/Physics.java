@@ -16,8 +16,38 @@ public class Physics {
 	 * @param r
 	 * @return the retardationVector if intersects, null otherwise
 	 */
-	public static Point collision(int x, int y, int radius, Rectangle r){
-		return new Point(0, 0);
+	public static int collisionX(int x, int y, int radius, Rectangle r){
+		if (y + radius > r.getY() + 2 && y - radius < r.getY() + r.getHeight() - 2) {
+			if (x + radius > r.getX() && 
+					x + radius < r.getX() + r.getWidth()/2 &&
+					y + radius > r.getY() &&
+					y - radius < r.getY() + r.getHeight()){
+				return (int)r.getX() - radius;
+			} else if (x - radius < r.getX() + r.getWidth() &&
+					x - radius > r.getX() + r.getWidth()/2 &&
+					y + radius > r.getY() &&
+					y - radius < r.getY() + r.getHeight()){
+				return (int)(r.getX() + r.getWidth() + radius);
+			}
+		}
+		return x;
+	}
+
+	public static int collisionY(int x, int y, int radius, Rectangle r){
+		if (x + radius > r.getX() + 2 && x - radius < r.getX() + r.getWidth() - 2) {
+			if (y + radius > r.getY() &&
+					y + radius < r.getY() + r.getHeight()/2 &&
+					x + radius > r.getX() &&
+					x - radius < r.getX() + r.getWidth()){
+				return (int)r.getY() - radius;
+			} else if (y - radius < r.getY() + r.getHeight() &&
+					y - radius > r.getY() + r.getHeight()/2  &&
+					x + radius > r.getX() &&
+					x - radius < r.getX() + r.getWidth()){
+				return (int)(r.getY() + r.getHeight() + radius);
+			}
+		}
+		return y;
 	}
 
 	public static Point getAntiCollisionVector(int xPlayer, int yPlayer, float radiusPlayer, Rectangle rect){
