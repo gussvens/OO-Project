@@ -98,13 +98,23 @@ public class Player {
 		y += speedY;
 
 		//COLLISION TESTING STARTS HERE
-		//int tileX = x / Map.TILE_SIZE - 1;
-		//int tileY = y / Map.TILE_SIZE - 1;
+		int tileX = x / Map.TILE_SIZE - 1;
+		int tileY = y / Map.TILE_SIZE - 1;
+		Point antiCollisionVector = new Point(0,0);
+		Point vector;
 
-		
-		for (Rectangle wall : walls){
-			x = Physics.collisionX(x, y, 16, wall);
-			y = Physics.collisionY(x, y, 16, wall);
+		for(int i = 0; i<3; i++){
+			for(int j = 0; j<3; j++){
+				Rectangle rect = new Rectangle((tileX + i) * Map.TILE_SIZE, (tileY + j) * Map.TILE_SIZE, Map.TILE_SIZE, Map.TILE_SIZE);
+				if(walls.contains(rect)){
+					vector = Physics.getAntiCollisionVector(this.getX(), this.getY(), this.getRadius(), rect);
+					antiCollisionVector = Physics.addVector(antiCollisionVector,vector);
+				}
+			}
+		}
+		if(antiCollisionVector!=null){
+			this.x -= antiCollisionVector.getX();
+			this.y -= antiCollisionVector.getY();
 		}
 
 		if (walking){
