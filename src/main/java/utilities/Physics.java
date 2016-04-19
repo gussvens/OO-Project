@@ -106,5 +106,39 @@ public class Physics {
 		double y = vectorA.getY() + vectorB.getY();
 		return new Point((int)x,(int)y);
 	}
+
+	public static Point getNonCollideingCoordinate(int xOld, int yOld, int xNew, int yNew, Rectangle rect){
+		if(rect.contains(xNew,yNew)){
+			int x = xNew;
+			int y = yNew;
+			int xDif = Math.abs(xOld-xNew);
+			int yDif = Math.abs(yOld-yNew);
+			if(xDif<yDif){
+				for(int i = xNew; i>=xOld; i--){
+					for(int j = yNew; j>=yOld; j--){
+						if(!rect.contains(i,j)){
+							x=i;
+							y=j;
+
+							return new Point(x,y);
+						}
+					}
+				}
+			} else{
+				for(int j = yNew; j>=yOld; j--){
+					for(int i = xNew; i>=xOld; i--){
+						if(!rect.contains(i,j)){
+							x=i;
+							y=j;
+
+							return new Point(x,y);
+						}
+					}
+				}
+			}
+
+		}
+		return new Point(xNew,yNew);
+	}
 }
 
