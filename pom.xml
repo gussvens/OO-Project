@@ -50,7 +50,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <!-- Will create executable jar -->
-                            <mainClass>edu.chalmers.projecttemplate.Main</mainClass>
+                            <mainClass>zombienado_v1.projecttemplate.Main</mainClass>
                         </manifest>
             
                     </archive>
