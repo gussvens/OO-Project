@@ -21,6 +21,7 @@ import client.controller.Controller;
 import client.view.GameView;
 import utilities.Camera;
 import utilities.GraphicsUtils;
+import utilities.MapLoader;
 
 public class Model {
 	private int myID = -1;
@@ -30,8 +31,8 @@ public class Model {
 	private ArrayList<Unit> zombies;
 	private Image[] playerSprite = new Image[4]; 
 	private Image playerFeetSheet; //TEST
- 	private Image zombieSprite; 
-	private Image backgroundTest;
+ 	private Image zombieSprite;
+	private Map map;
 	
 
 	/** INITIALIZATION/LOAD.
@@ -45,11 +46,12 @@ public class Model {
 			playerSprite[3] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerDark.png")));
 			playerFeetSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/testFeet.png")));
 			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
-			backgroundTest = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/test.png")));
+			map = new Map(ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")));
+			MapLoader.Load(map, new File("src/main/resources/maps/mapTest.txt"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		player = new Player(30, 30, playerSprite[0], playerFeetSheet);
+		player = new Player(320, 320, playerSprite[0], playerFeetSheet);
 		otherPlayers = new ArrayList<Unit>();
 		zombies = new ArrayList<Unit>();
 		for (int i = 0; i < 4; i++){ // Test. Creates 4 players in order to match ID to index.
@@ -68,7 +70,7 @@ public class Model {
 			player.setTexture(playerSprite[myID]);
 			idIsSet = true;
 		}
-		player.update(pressedKeys, cursor, isMousePressed);
+		player.update(pressedKeys, cursor, isMousePressed, map.getSolids());
 		Camera.setX(player.getX());
 		Camera.setY(player.getY());
 		Client.sendToServer(player.getParsedServerString());
@@ -79,11 +81,9 @@ public class Model {
 	 * @param graphics
 	 */
 	public synchronized void draw(Graphics2D graphics){
-		Color c = new Color(new Random().nextInt(255), new Random().nextInt(255), new Random().nextInt(255));
-		graphics.setColor(c);
+		graphics.setColor(Color.black);
 		graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenWidth());
-		graphics.setColor(Color.white);
-		graphics.drawImage(backgroundTest, 0 - Camera.getX(), 0 - Camera.getY(), GameView.getScreenWidth(), GameView.getScreenHeight(), null);
+		map.draw(graphics);
 		player.draw(graphics);
 		for (Unit op : otherPlayers) {
 			if (op != null)
@@ -94,14 +94,15 @@ public class Model {
 			if (zombie != null)
 				zombie.draw(graphics);
 		}
-		graphics.setColor(Color.black);
 		graphics.drawString("FPS: "+Controller.getFramesPerSecond(), 9, 19);
+		graphics.drawString("Zombinado Beta", GameView.getScreenWidth() - 101, GameView.getScreenHeight() - 11);
 		graphics.setColor(Color.white);
 		graphics.drawString("FPS: "+Controller.getFramesPerSecond(), 10, 20);
+		graphics.drawString("Zombinado Beta", GameView.getScreenWidth() - 100, GameView.getScreenHeight() - 10);
 	}
 	
 	/** SERVER COMMAND PARSING
-	 * @param s - The message that the client recieved
+	 * @param s - The message that the client received
 	 */
 	public synchronized void serverCommand(String s){
 

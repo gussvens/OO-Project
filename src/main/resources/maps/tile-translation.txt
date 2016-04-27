@@ -1,0 +1,8 @@
+00 wall
+10 floorSpawn
+20 floorGrass
+21 floorStoneDark
+22 floorStoneRed
+23 floorWoodLight
+24 floorWoodDark
+25 floorAsphalt

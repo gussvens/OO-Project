@@ -2,7 +2,8 @@ package server;
 
 import server.serverUnits.ServerPlayer;
 import server.serverUnits.ServerZombie;
-import server.threads.SpawnerThread;
+import server.serverWorld.WorldHandler;
+import server.unitHandler.Spawner;
 
 import java.net.*;
 import java.util.*;
@@ -14,12 +15,14 @@ public class Server extends Thread {
 	private ArrayList<ServerPlayer> players;
 	private int amountConnected = 0;
 	private ArrayList<ServerThread> serverThreads;
-	private SpawnerThread spawner;
+	private Spawner spawner;
+	private WorldHandler handler;
 
 	private Server(){
 		players = new ArrayList<ServerPlayer>();
 		serverThreads = new ArrayList<ServerThread>();
-		spawner = SpawnerThread.getInstance();
+		spawner = Spawner.getInstance();
+		handler = new WorldHandler();
 	}
 
 	public static Server getInstance(){
@@ -40,6 +43,7 @@ public class Server extends Thread {
 
 	public void run(){
 		Thread mainUpdate = new Thread(() -> update());
+		handler.createMap("src/main/resources/maps/mapTest.txt");
 		mainUpdate.start();
 		listenForConnections();
 
@@ -75,7 +79,7 @@ public class Server extends Thread {
 			 * Send stuff to clients
 			 */
 			ArrayList<ServerPlayer> positions = getPlayerPositions(); //tidy this up
-			spawner.update();
+			spawner.update(players, handler.getSpawnTiles());
 
 			for (ServerThread serverThread : serverThreads){
 				for(int i = 0; i < positions.size(); i++){
@@ -88,7 +92,7 @@ public class Server extends Thread {
 				for(ServerZombie zombie : spawner.getZombies()){
 
 					if(zombie != null) {
-						String s = "zombies;" + zombie.getId() + ";pos;" + zombie.getX() + ";" + zombie.getY() + ";" + zombie.getRotation();
+						String s = "zombies;" + zombie.getID() + ";pos;" + zombie.getX() + ";" + zombie.getY() + ";" + zombie.getRotation();
 						System.out.println("Sending Zombie Position!");
 						serverThread.send(s);
 					}

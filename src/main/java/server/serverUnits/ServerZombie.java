@@ -1,10 +1,12 @@
 package server.serverUnits;
 
 
+import server.serverWorld.serverTiles.SpawnerTile;
+
 /**
  * Created by Marcus on 2016-04-05.
  */
-public class ServerZombie {
+public class ServerZombie implements ServerUnit{
 
     private int x;
     private int y;
@@ -13,13 +15,13 @@ public class ServerZombie {
     private int[] temp;
     private int id;
 
-    public ServerZombie(int id){
+    public ServerZombie(int id, SpawnerTile spawnPoint){
         speed = 4;
-        x = 100;
-        y = 100;
+        x = spawnPoint.getX();
+        y = spawnPoint.getY();
         rotation = 1;
         this.id = id;
-        System.out.println("New zombie spawned!");
+        System.out.println("New zombie spawned! X: " + x + ", Y: " + y);
 
     }
 
@@ -31,7 +33,7 @@ public class ServerZombie {
         return y;
     }
 
-    public int getId(){
+    public int getID(){
         return id;
     }
 
@@ -39,9 +41,13 @@ public class ServerZombie {
         return rotation;
     }
 
-    public void update(){
-        x = x + speed;
-        y = y + speed;
+    public void update(double xDirection, double yDirection, double rotation){
+        double tempX = xDirection * speed;
+        double tempY = yDirection * speed;
+
+        this.rotation = rotation;
+        x = x + (int)tempX;
+        y = y + (int)tempY;
         //rotation = rotation +1; //Kommenterade ut bara för att testa lite :-) /Erkan
     }
 
