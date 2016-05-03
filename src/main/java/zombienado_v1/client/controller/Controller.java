@@ -39,6 +39,7 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	
 	public void run(){
 		model.initialize();
+		gameView.load();
 		gameLoop();
 	}
 
@@ -47,8 +48,7 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 		long startTime;
 		while (true){
 			startTime = System.nanoTime();
-			model.tick(pressedKeys, cursor, mousePress);	
-			model.draw(gameView.getGraphicsBatch());
+			model.tick(pressedKeys, cursor, mousePress);
 			gameView.render();
 			wait = Math.max((long)(targetFrameTime*1000) - ((System.nanoTime() - startTime)/1000000), 0); //ms precision, can be improved
 			

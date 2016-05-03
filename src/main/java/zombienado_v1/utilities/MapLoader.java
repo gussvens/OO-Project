@@ -7,10 +7,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import zombienado_v1.client.model.Map;
+import zombienado_v1.client.view.MapView;
 
 public class MapLoader {
-	public static void Load(Map map, File file) throws IOException{
+	public static void Load(MapView map, File file) throws IOException{
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			String line;
 			int x = 0;
@@ -23,8 +23,8 @@ public class MapLoader {
 					int id = Integer.parseInt(tile);
 					thisRow.add(id);
 					if (id < 10){
-						map.addWall(new Rectangle(x * Map.TILE_SIZE, y * Map.TILE_SIZE, Map.TILE_SIZE, map.TILE_SIZE));
-						System.out.println("WALL LOADED @:" + x*Map.TILE_SIZE + "," + y * Map.TILE_SIZE);
+						map.addWall(new Rectangle(x * MapView.TILE_SIZE, y * MapView.TILE_SIZE, MapView.TILE_SIZE, map.TILE_SIZE));
+						System.out.println("WALL LOADED @:" + x* MapView.TILE_SIZE + "," + y * MapView.TILE_SIZE);
 					}
 					x++;
 				}

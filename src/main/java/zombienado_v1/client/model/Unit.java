@@ -7,7 +7,7 @@ import zombienado_v1.utilities.Camera;
 import zombienado_v1.utilities.GraphicsUtils;
 
 public abstract class Unit {
-	private Image sprite;
+	private Image sprite; //TODO: remove
 	private double rotation;
 	private int x;
 	private int y;
@@ -20,15 +20,17 @@ public abstract class Unit {
 	public void setRotation(double rot) {
 		this.rotation = rot;
 	}
-	
-	public abstract void setAnimation();
-	
-	public void setTexture(Image sprite) {
-		this.sprite = sprite;
+
+
+	public int getX() {
+		return x;
 	}
 
-	public void draw(Graphics2D graphics){
-		graphics.drawImage(sprite, GraphicsUtils.Transform(sprite, x - Camera.getX(), y - Camera.getY(), rotation), null);
+	public int getY() {
+		return y;
 	}
-	
+
+	public double getRotation() {
+		return rotation;
+	}
 }

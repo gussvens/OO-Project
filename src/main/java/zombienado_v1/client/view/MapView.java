@@ -1,28 +1,27 @@
-package zombienado_v1.client.model;
+package zombienado_v1.client.view;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import zombienado_v1.client.view.GameView;
 import zombienado_v1.utilities.Camera;
 
-public class Map {
+public class MapView {
 	//how do we want to map the tiles?
 	private ArrayList<ArrayList<Integer>> tiles; //ALL tiles (x, y) 
 	private ArrayList<Rectangle> bounds; //Only wall tiles
 	public static final int TILE_SIZE = 32;
 	private static Image tileSheet;
 
-	public Map(Image tileSheet){
+	public MapView(Image tileSheet){
 		tiles = new ArrayList<ArrayList<Integer>>();
 		bounds = new ArrayList<Rectangle>();
 		this.tileSheet = tileSheet;
 	}
 
 	public static void setTileSheet(Image tileSheet){
-		Map.tileSheet = tileSheet;
+		MapView.tileSheet = tileSheet;
 	}
 
 	public void addTileRow(ArrayList<Integer> floorRow){ 

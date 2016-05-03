@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import zombienado_v1.client.model.weapon.Weapon;
+import zombienado_v1.client.view.MapView;
 import zombienado_v1.utilities.*;
 
 public class Player {
 	private static float RADIUS = 32;
 
-	private Image sprite;
-	private Animation feetAnimation;
+	private int id = 0;
 	private int x;
 	private int y;
 	private int health;
@@ -22,12 +22,14 @@ public class Player {
 	private double rotation;
 	private boolean walking;
 
-	public Player(int x, int y, Image sprite, Image feet){
+	public Player(int id, int x, int y) { //, Image sprite, Image feet){
+		this.id = id;
 		this.x = x;
 		this.y = y;
-		this.sprite = sprite;
-		feetAnimation = new Animation(feet, 6, 1, 10);
-		feetAnimation.play();
+	}
+
+	public synchronized int getID(){
+		return id;
 	}
 
 	public synchronized int getX(){
@@ -38,15 +40,19 @@ public class Player {
 		return y;
 	}
 
+	public synchronized double getRotation(){
+		return rotation;
+	}
+
 	public float getRadius(){
 		return RADIUS;
 	}
 
-	public synchronized void setTexture(Image sprite){
-		this.sprite = sprite;
-	}
+	//public synchronized void setTexture(Image sprite){
+	//	this.sprite = sprite;
+	//}
 
-	public synchronized void update(List<Character> pressedKeys, Point cursor, boolean isMousePressed, ArrayList<Rectangle> walls){
+	public synchronized void update(List<Character> pressedKeys, Point cursor, boolean isMousePressed){
 		/**
 		 * Key events
 		 */
@@ -93,16 +99,16 @@ public class Player {
 		int yOld = y;
 		x += speedX;
 		y += speedY;
-
+/*
 		//COLLISION TESTING STARTS HERE
-		int tileX = x / Map.TILE_SIZE - 1;
-		int tileY = y / Map.TILE_SIZE - 1;
+		int tileX = x / MapView.TILE_SIZE - 1;
+		int tileY = y / MapView.TILE_SIZE - 1;
 		Point nonCollideingCoordinate = new Point(0,0);
 
 		for(int i = 0; i<3; i++){
 			for(int j = 0; j<3; j++){
 				for(Rectangle rect : walls){
-					if(rect.contains((tileX + i) * Map.TILE_SIZE, (tileY + j) * Map.TILE_SIZE)){
+					if(rect.contains((tileX + i) * MapView.TILE_SIZE, (tileY + j) * MapView.TILE_SIZE)){
 						nonCollideingCoordinate = Physics.getNonCollideingCoordinate(xOld, yOld, x, y, rect);
 					}
 				}
@@ -112,20 +118,7 @@ public class Player {
 			this.x = (int)nonCollideingCoordinate.getX();
 			this.y = (int)nonCollideingCoordinate.getY();
 		}
-
-		if (walking){
-			feetAnimation.play();
-		} else {
-			feetAnimation.reset();
-		}
-
-		feetAnimation.update();
-	}
-
-	public synchronized void draw(Graphics2D graphics){
-		feetAnimation.draw(x - Camera.getX(), y - Camera.getY(), rotation, graphics);
-		graphics.drawImage(sprite, GraphicsUtils.Transform(sprite, x - Camera.getX(), y - Camera.getY(), rotation), null);
-	}
+*/	}
 
 	public synchronized String getParsedServerString(){
 		return x+";"+y+";"+rotation;

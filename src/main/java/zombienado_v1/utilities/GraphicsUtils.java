@@ -14,6 +14,14 @@ import java.awt.image.RGBImageFilter;
  * @author Erik
  */
 public class GraphicsUtils {
+	/**
+	 * Does affine transformations
+	 * @param imageData
+	 * @param x
+	 * @param y
+	 * @param rotation
+     * @return the transformed image
+     */
 	public static AffineTransform Transform(Image imageData, int x, int y, double rotation){
 		AffineTransform at = new AffineTransform();
 		at.translate(x, y);
@@ -22,6 +30,11 @@ public class GraphicsUtils {
 		return at;
 	}
 
+	/**
+	 * Replaces white with transparent
+	 * @param image
+	 * @return An image copy with transparent background
+     */
 	public static Image makeTransparent(BufferedImage image) {
 		 ImageFilter filter = new RGBImageFilter() {
 	         int transparentColor = Color.white.getRGB() | 0xFF000000;

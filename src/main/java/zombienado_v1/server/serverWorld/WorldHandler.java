@@ -61,7 +61,7 @@ public class WorldHandler {
 
             }
 
-            System.out.println("Map created!");
+            System.out.println("MapView created!");
         } catch (FileNotFoundException f){
             f.printStackTrace();
         }
