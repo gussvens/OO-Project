@@ -55,7 +55,11 @@ public class Model {
 		Camera.setX(players.get(myID).getX());
 		Camera.setY(players.get(myID).getY());
 		//TODO: Send velocity vector
-		//ServerCommunicator.getInstance().movePlayer();
+		try {
+			ServerCommunicator.getInstance().movePlayer((int)getPlayerVelocity(pressedKeys).getX(), (int)getPlayerVelocity(pressedKeys).getY(), getPlayerRotation(cursor));
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	public double getPlayerRotation(Point cursor){

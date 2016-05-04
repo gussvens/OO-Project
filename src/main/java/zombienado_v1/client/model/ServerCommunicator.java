@@ -78,7 +78,9 @@ public class ServerCommunicator extends Thread{
 
     public void movePlayer(int x, int y, double r){
 
+
         String message = "move;" + x + ";" + y + ";" + r;
+        System.out.println(message);
         out.println(message);
     }
 

@@ -31,7 +31,7 @@ public class ServerThread extends Thread {
 
 				if(splits[0].equals("move")) {
 
-					mainServer.updatePlayerPosition(Integer.parseInt(splits[1]), Integer.parseInt(splits[2]), Integer.parseInt(splits[3]), ID);
+					mainServer.updatePlayerPosition(Integer.parseInt(splits[1]), Integer.parseInt(splits[2]), Double.parseDouble(splits[3]), ID);
 
 				}
 
