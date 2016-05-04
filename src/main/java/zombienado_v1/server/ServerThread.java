@@ -29,8 +29,18 @@ public class ServerThread extends Thread {
 				//System.out.println(ID + " " + inputString);
 				String[] splits = inputString.split(";");
 
+				if(splits[0].equals("move")) {
+					if(splits[1].equalsIgnoreCase("w")){
+						mainServer.updatePlayerPosition(0, -2, Integer.parseInt(splits[2]), Integer.parseInt(splits[3]), ID);
+					} else if(splits[1].equalsIgnoreCase("a")){
+						mainServer.updatePlayerPosition(-2, 0, Integer.parseInt(splits[2]), Integer.parseInt(splits[3]), ID);
+					} else if(splits[1].equalsIgnoreCase("s")){
+						mainServer.updatePlayerPosition(0, 2, Integer.parseInt(splits[2]), Integer.parseInt(splits[3]), ID);
+					} else if(splits[1].equalsIgnoreCase("d")){
+						mainServer.updatePlayerPosition(2, 0, Integer.parseInt(splits[2]), Integer.parseInt(splits[3]), ID);
+					}
 
-				mainServer.updatePlayerPosition(Integer.parseInt(splits[0]),Integer.parseInt(splits[1]),Double.parseDouble(splits[2]), ID);
+				}
 
 				//output.println(inputString);
 				//System.out.println(socket.getInetAddress().toString() + inputString);

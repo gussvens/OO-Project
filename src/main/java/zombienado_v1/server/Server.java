@@ -111,7 +111,7 @@ public class Server extends Thread {
 		return players;
 	}
 
-	public synchronized void updatePlayerPosition(int x, int y, double r, int id){
-		players.get(id).update(x,y,r);
+	public synchronized void updatePlayerPosition(int x, int y, int cursorX, int cursorY, int id){
+		players.get(id).update(x, y, cursorX, cursorY);
 	}
 }

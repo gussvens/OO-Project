@@ -61,7 +61,10 @@ public class Model {
 		player.update(pressedKeys, cursor, isMousePressed);
 		Camera.setX(player.getX());
 		Camera.setY(player.getY());
-		Client.sendToServer(player.getParsedServerString());
+		for(int i = 0; i < pressedKeys.size(); i++) {
+
+			ServerCommunicator.movePlayer(pressedKeys.get(i), (int)cursor.getX(), (int)cursor.getY());
+		}
 	}
 	
 	/** SERVER COMMAND PARSING
@@ -78,7 +81,7 @@ public class Model {
 		} else if (arg[0].equals("players")){
 
 			int id = Integer.parseInt(arg[1]);
-			if (id != player.getID()){
+			//if (id != player.getID()){
 				if (arg[2].equals("pos")){
 					System.out.println("PLAYERS: "+otherPlayers.size());
 					if (otherPlayers.get(id) == null){
@@ -92,7 +95,7 @@ public class Model {
 					otherPlayers.get(id).setPosition(x,y);
 					otherPlayers.get(id).setRotation(rot);
 				}
-			}
+			//}
 
 		} else if(arg[0].equals("zombies")){
 			int id = Integer.parseInt(arg[1]);
