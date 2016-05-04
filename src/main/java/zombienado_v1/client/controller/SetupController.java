@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import zombienado_v1.client.model.ServerCommunicator;
 import zombienado_v1.server.Server;
 
 import java.net.InetAddress;
@@ -57,7 +58,8 @@ public class SetupController {
     public void join(InetAddress ip, int port){
         Model model = new Model();
         GameView view = new GameView(model);
-        Client.create(model, ip, port);
+        ServerCommunicator.create(model, ip, port);
+        //Client.create(model, ip, port); TODO: maybe remove?
         Controller controller = Controller.create(model, view);
         controller.start();
     }

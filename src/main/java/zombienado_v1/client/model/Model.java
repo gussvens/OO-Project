@@ -46,6 +46,8 @@ public class Model {
 	 * @param isMousePressed
 	 */
 	public synchronized void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed) {
+<<<<<<< HEAD
+				/**
 		if (myID == -1) return;
 		if (players.get(myID) == null){
 			players.set(myID, new Player());
@@ -91,6 +93,17 @@ public class Model {
 		}
 		double speed = Math.hypot(speedX, speedY);
 		return new Point((int)(speedX/speed), (int)(speedY/speed));
+				 */
+
+		if (player == null) return;
+		player.update(pressedKeys, cursor, isMousePressed);
+		Camera.setX(player.getX());
+		Camera.setY(player.getY());
+		for(int i = 0; i < pressedKeys.size(); i++) {
+
+			ServerCommunicator.movePlayer(pressedKeys.get(i), (int)cursor.getX(), (int)cursor.getY());
+		}
+
 	}
 	
 	/** SERVER COMMAND PARSING
@@ -106,7 +119,11 @@ public class Model {
 		} else if (arg[0].equals("players")){
 
 			int id = Integer.parseInt(arg[1]);
+<<<<<<< HEAD
 			if (id != myID){
+=======
+			//if (id != player.getID()){
+>>>>>>> modelRework
 				if (arg[2].equals("pos")){
 					System.out.println("PLAYERS: "+players.size());
 					if (players.get(id) == null){
@@ -119,7 +136,7 @@ public class Model {
 					players.get(id).setPosition(x,y);
 					players.get(id).setRotation(rot);
 				}
-			}
+			//}
 
 		} else if(arg[0].equals("zombies")){
 			int id = Integer.parseInt(arg[1]);
