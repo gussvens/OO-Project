@@ -25,11 +25,11 @@ public class Model {
 	}
 
 	//public synchronized oldPlayer getPlayer(){
-	//	return player;
+	// return player;
 	//}
 
 	/** INITIALIZATION/LOAD.
-	 *	Executed before gameloop starts
+	 * Executed before gameloop starts
 	 */
 	public synchronized void initialize(){
 		players = new ArrayList<Unit>();
@@ -46,7 +46,6 @@ public class Model {
 	 * @param isMousePressed
 	 */
 	public synchronized void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed) {
-
 		if (myID == -1) return;
 		if (players.get(myID) == null){
 			players.set(myID, new Player());
@@ -90,14 +89,7 @@ public class Model {
 			}
 		}
 		double speed = Math.hypot(speedX, speedY);
-
-		if (player == null) return;
-		player.update(pressedKeys, cursor, isMousePressed);
-		Camera.setX(player.getX());
-		Camera.setY(player.getY());
-		for(int i = 0; i < pressedKeys.size(); i++) {
-
-			ServerCommunicator.movePlayer(pressedKeys.get(i), (int)cursor.getX(), (int)cursor.getY());
+		return new Point((int)(speedX/speed), (int)(speedY/speed));
 
 	}
 
@@ -113,18 +105,18 @@ public class Model {
 			}
 		} else if (arg[0].equals("players")){
 			int id = Integer.parseInt(arg[1]);
-				if (arg[2].equals("pos")){
-					System.out.println("PLAYERS: "+players.size());
-					if (players.get(id) == null){
-						players.set(id, new Player());
-					}
-
-					int x = Integer.parseInt(arg[3]);
-					int y = Integer.parseInt(arg[4]);
-					double rot = Double.parseDouble(arg[5]);
-					players.get(id).setPosition(x,y);
-					players.get(id).setRotation(rot);
+			if (arg[2].equals("pos")){
+				System.out.println("PLAYERS: "+players.size());
+				if (players.get(id) == null){
+					players.set(id, new Player());
 				}
+
+				int x = Integer.parseInt(arg[3]);
+				int y = Integer.parseInt(arg[4]);
+				double rot = Double.parseDouble(arg[5]);
+				players.get(id).setPosition(x,y);
+				players.get(id).setRotation(rot);
+			}
 		} else if(arg[0].equals("zombies")){
 			int id = Integer.parseInt(arg[1]);
 			if (arg[2].equals("pos")){
