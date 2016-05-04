@@ -13,6 +13,7 @@ public class Model {
 	private ArrayList<Unit> players;
 	private ArrayList<Unit> zombies;
 	private int myID = -1;
+	private ServerCommunicator coms;
 	/**
 	 * Getters
 	 */
@@ -32,6 +33,11 @@ public class Model {
 	 * Executed before gameloop starts
 	 */
 	public synchronized void initialize(){
+		try {
+			coms = ServerCommunicator.getInstance();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 		players = new ArrayList<Unit>();
 		zombies = new ArrayList<Unit>();
 		for (int i = 0; i < 4; i++){ // Test. Creates 4 players in order to match ID to index.
@@ -46,6 +52,14 @@ public class Model {
 	 * @param isMousePressed
 	 */
 	public synchronized void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed) {
+		this.myID = coms.getID();
+
+		if(coms.getPlayers() == null && this.getPlayers() == null){
+			return;
+		}
+
+		this.players = coms.getPlayers();
+		this.zombies = coms.getZombies();
 		if (myID == -1) return;
 		if (players.get(myID) == null){
 			players.set(myID, new Player());
@@ -56,7 +70,7 @@ public class Model {
 		Camera.setY(players.get(myID).getY());
 		//TODO: Send velocity vector
 		try {
-			ServerCommunicator.getInstance().movePlayer((int)getPlayerVelocity(pressedKeys).getX(), (int)getPlayerVelocity(pressedKeys).getY(), getPlayerRotation(cursor));
+			coms.movePlayer((int)getPlayerVelocity(pressedKeys).getX(), (int)getPlayerVelocity(pressedKeys).getY(), getPlayerRotation(cursor));
 		} catch (Exception e){
 			e.printStackTrace();
 		}
