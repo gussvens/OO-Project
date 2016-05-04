@@ -76,9 +76,33 @@ public class ServerCommunicator extends Thread{
         }
     }
 
-    public static void movePlayer(char c, int cursorX, int cursorY){
+    public void movePlayer(int x, int y, double r){
 
-        String message = "move;" + c + ";" + cursorX + ";" + cursorY;
+        String message = "move;" + x + ";" + y + ";" + r;
+        out.println(message);
+    }
+
+    public void moveLeft(){
+
+        String message = "move;" + ";" + "-2" + ";" + 0;
+        out.println(message);
+    }
+
+    public void moveRight(){
+
+        String message = "move;" + 2 + ";" + 0;
+        out.println(message);
+    }
+
+    public void moveUp(){
+
+        String message = "move;" + 0 + ";" + "-2";
+        out.println(message);
+    }
+
+    public void moveDown(){
+
+        String message = "move;" + 0 + ";" + 2;
         out.println(message);
     }
 

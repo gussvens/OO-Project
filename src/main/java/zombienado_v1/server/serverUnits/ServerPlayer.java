@@ -33,12 +33,10 @@ public class ServerPlayer implements ServerUnit{
         return r;
     }
 
-    public void update(int x, int y, int cursorX, int cursorY){
+    public void update(int x, int y, double r){
         this.x = this.x + x;
         this.y = this.y + y;
-        int dX = cursorX - x;
-        int dY = cursorY;
-        r = Math.atan2(dY, dX);
+        this.r = r;
     }
 
 

@@ -30,15 +30,8 @@ public class ServerThread extends Thread {
 				String[] splits = inputString.split(";");
 
 				if(splits[0].equals("move")) {
-					if(splits[1].equalsIgnoreCase("w")){
-						mainServer.updatePlayerPosition(0, -2, Integer.parseInt(splits[2]), Integer.parseInt(splits[3]), ID);
-					} else if(splits[1].equalsIgnoreCase("a")){
-						mainServer.updatePlayerPosition(-2, 0, Integer.parseInt(splits[2]), Integer.parseInt(splits[3]), ID);
-					} else if(splits[1].equalsIgnoreCase("s")){
-						mainServer.updatePlayerPosition(0, 2, Integer.parseInt(splits[2]), Integer.parseInt(splits[3]), ID);
-					} else if(splits[1].equalsIgnoreCase("d")){
-						mainServer.updatePlayerPosition(2, 0, Integer.parseInt(splits[2]), Integer.parseInt(splits[3]), ID);
-					}
+
+					mainServer.updatePlayerPosition(Integer.parseInt(splits[1]), Integer.parseInt(splits[2]), Integer.parseInt(splits[3]), ID);
 
 				}
 

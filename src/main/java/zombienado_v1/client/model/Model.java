@@ -47,7 +47,6 @@ public class Model {
 	 */
 	public synchronized void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed) {
 <<<<<<< HEAD
-				/**
 		if (myID == -1) return;
 		if (players.get(myID) == null){
 			players.set(myID, new Player());
@@ -93,8 +92,7 @@ public class Model {
 		}
 		double speed = Math.hypot(speedX, speedY);
 		return new Point((int)(speedX/speed), (int)(speedY/speed));
-				 */
-
+=======
 		if (player == null) return;
 		player.update(pressedKeys, cursor, isMousePressed);
 		Camera.setX(player.getX());
@@ -103,7 +101,7 @@ public class Model {
 
 			ServerCommunicator.movePlayer(pressedKeys.get(i), (int)cursor.getX(), (int)cursor.getY());
 		}
-
+>>>>>>> modelRework
 	}
 	
 	/** SERVER COMMAND PARSING
