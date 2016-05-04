@@ -1,52 +1,41 @@
 package zombienado_v1.client.model;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
-import java.io.File;
-import java.io.IOException;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
 import zombienado_v1.client.controller.Client;
-import zombienado_v1.client.controller.Controller;
-import zombienado_v1.client.view.GameView;
-import zombienado_v1.client.view.MapView;
 import zombienado_v1.utilities.Camera;
-import zombienado_v1.utilities.GraphicsUtils;
-import zombienado_v1.utilities.MapLoader;
 
 public class Model {
-	private Player player;
-	private ArrayList<Unit> otherPlayers;
+	//private oldPlayer player;
+	private ArrayList<Unit> players;
 	private ArrayList<Unit> zombies;
-
+	private int myID = -1;
 	/**
 	 * Getters
 	 */
-	public synchronized List<Unit> getOtherPlayers(){
-		return otherPlayers;
+	public synchronized List<Unit> getPlayers(){
+		return players;
 	}
 
 	public synchronized List<Unit> getZombies(){
 		return zombies;
 	}
 
-	public synchronized Player getPlayer(){
-		return player;
-	}
+	//public synchronized oldPlayer getPlayer(){
+	//	return player;
+	//}
 
 	/** INITIALIZATION/LOAD.
 	 *	Executed before gameloop starts
 	 */
 	public synchronized void initialize(){
-		otherPlayers = new ArrayList<Unit>();
+		players = new ArrayList<Unit>();
 		zombies = new ArrayList<Unit>();
 		for (int i = 0; i < 4; i++){ // Test. Creates 4 players in order to match ID to index.
-			otherPlayers.add(null);
+			players.add(null);
 		}
 	}
 	
@@ -57,11 +46,51 @@ public class Model {
 	 * @param isMousePressed
 	 */
 	public synchronized void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed) {
-		if (player == null) return;
-		player.update(pressedKeys, cursor, isMousePressed);
-		Camera.setX(player.getX());
-		Camera.setY(player.getY());
-		Client.sendToServer(player.getParsedServerString());
+		if (myID == -1) return;
+		if (players.get(myID) == null){
+			players.set(myID, new Player());
+		}
+		//player.update(pressedKeys, cursor, isMousePressed)
+		players.get(myID).setPosition(getPlayerVelocity(pressedKeys));
+		players.get(myID).setRotation(getPlayerRotation(cursor));
+		Camera.setX(players.get(myID).getX());
+		Camera.setY(players.get(myID).getY());
+		//TODO: Send velocity vector
+		//Client.sendToServer(player.getParsedServerString());
+	}
+
+	public double getPlayerRotation(Point cursor){
+		int dX = (int)(cursor.getX() - players.get(myID).getX() + Camera.getX());
+		int dY = (int)(cursor.getY() - players.get(myID).getY() + Camera.getY());
+		return Math.atan2(dY, dX);
+	}
+
+	public Point getPlayerVelocity(List<Character> pressedKeys){
+		float totalSpeed = 2;
+		float speedX = 0;
+		float speedY = 0;
+		for (char key : pressedKeys){
+			switch (key){
+				case 'w':
+				case 'W':
+					speedY=-1;
+					break;
+				case 'a':
+				case 'A':
+					speedX=-1;
+					break;
+				case 's':
+				case 'S':
+					speedY=1;
+					break;
+				case 'd':
+				case 'D':
+					speedX=1;
+					break;
+			}
+		}
+		double speed = Math.hypot(speedX, speedY);
+		return new Point((int)(speedX/speed), (int)(speedY/speed));
 	}
 	
 	/** SERVER COMMAND PARSING
@@ -72,25 +101,23 @@ public class Model {
 		String[] arg = s.split(";");		
 		if (arg[0].equals("player")){
 			if (arg[1].equals("id")){
-				int id = Integer.parseInt(arg[2]);
-				player = new Player(id, 320, 320);
+				myID = Integer.parseInt(arg[2]);
 			}
 		} else if (arg[0].equals("players")){
 
 			int id = Integer.parseInt(arg[1]);
-			if (id != player.getID()){
+			if (id != myID){
 				if (arg[2].equals("pos")){
-					System.out.println("PLAYERS: "+otherPlayers.size());
-					if (otherPlayers.get(id) == null){
-						otherPlayers.set(id, new OtherPlayer());
-						//otherPlayers.get(id).setTexture(playerSprite[id]);
+					System.out.println("PLAYERS: "+players.size());
+					if (players.get(id) == null){
+						players.set(id, new Player());
 					}
 
 					int x = Integer.parseInt(arg[3]);
 					int y = Integer.parseInt(arg[4]);
 					double rot = Double.parseDouble(arg[5]);
-					otherPlayers.get(id).setPosition(x,y);
-					otherPlayers.get(id).setRotation(rot);
+					players.get(id).setPosition(x,y);
+					players.get(id).setRotation(rot);
 				}
 			}
 
