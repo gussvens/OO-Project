@@ -69,7 +69,7 @@ public class Client extends Thread{
                 if (fromServer.equals("shutdown")) {
                     break;
                 }
-                model.serverCommand(fromServer);
+                //serverCommand(fromServer);
             }
         } catch (IOException e){
         	System.out.println("Connection ended... ");
