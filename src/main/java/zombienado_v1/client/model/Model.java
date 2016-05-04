@@ -38,7 +38,7 @@ public class Model {
 			players.add(null);
 		}
 	}
-	
+
 	/** MAIN UPDATE METHOD
 	 * Used for all game logic and events
 	 * @param pressedKeys - Currently pressed keys
@@ -46,18 +46,17 @@ public class Model {
 	 * @param isMousePressed
 	 */
 	public synchronized void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed) {
-<<<<<<< HEAD
+
 		if (myID == -1) return;
 		if (players.get(myID) == null){
 			players.set(myID, new Player());
 		}
-		//player.update(pressedKeys, cursor, isMousePressed)
-		players.get(myID).setPosition(getPlayerVelocity(pressedKeys));
-		players.get(myID).setRotation(getPlayerRotation(cursor));
+		//players.get(myID).setPosition(getPlayerVelocity(pressedKeys));
+		//players.get(myID).setRotation(getPlayerRotation(cursor));
 		Camera.setX(players.get(myID).getX());
 		Camera.setY(players.get(myID).getY());
 		//TODO: Send velocity vector
-		//Client.sendToServer(player.getParsedServerString());
+		//ServerCommunicator.getInstance().movePlayer();
 	}
 
 	public double getPlayerRotation(Point cursor){
@@ -91,8 +90,7 @@ public class Model {
 			}
 		}
 		double speed = Math.hypot(speedX, speedY);
-		return new Point((int)(speedX/speed), (int)(speedY/speed));
-=======
+
 		if (player == null) return;
 		player.update(pressedKeys, cursor, isMousePressed);
 		Camera.setX(player.getX());
@@ -100,28 +98,21 @@ public class Model {
 		for(int i = 0; i < pressedKeys.size(); i++) {
 
 			ServerCommunicator.movePlayer(pressedKeys.get(i), (int)cursor.getX(), (int)cursor.getY());
-		}
->>>>>>> modelRework
+
 	}
-	
+
 	/** SERVER COMMAND PARSING
 	 * @param s - The message that the zombienado_v1.client received
 	 */
 	public synchronized void serverCommand(String s){
 
-		String[] arg = s.split(";");		
+		String[] arg = s.split(";");
 		if (arg[0].equals("player")){
 			if (arg[1].equals("id")){
 				myID = Integer.parseInt(arg[2]);
 			}
 		} else if (arg[0].equals("players")){
-
 			int id = Integer.parseInt(arg[1]);
-<<<<<<< HEAD
-			if (id != myID){
-=======
-			//if (id != player.getID()){
->>>>>>> modelRework
 				if (arg[2].equals("pos")){
 					System.out.println("PLAYERS: "+players.size());
 					if (players.get(id) == null){
@@ -134,8 +125,6 @@ public class Model {
 					players.get(id).setPosition(x,y);
 					players.get(id).setRotation(rot);
 				}
-			//}
-
 		} else if(arg[0].equals("zombies")){
 			int id = Integer.parseInt(arg[1]);
 			if (arg[2].equals("pos")){
