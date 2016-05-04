@@ -50,6 +50,7 @@ public class Model {
 		if (players.get(myID) == null){
 			players.set(myID, new Player());
 		}
+		//players.get(myID).setPosition(comms.getPosition());
 		//players.get(myID).setPosition(getPlayerVelocity(pressedKeys));
 		//players.get(myID).setRotation(getPlayerRotation(cursor));
 		Camera.setX(players.get(myID).getX());
