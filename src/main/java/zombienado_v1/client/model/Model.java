@@ -69,9 +69,9 @@ public class Model {
 	}
 
 	public Point getPlayerVelocity(List<Character> pressedKeys){
-		float totalSpeed = 2;
-		float speedX = 0;
-		float speedY = 0;
+		int totalSpeed = 2;
+		int speedX = 0;
+		int speedY = 0;
 		for (char key : pressedKeys){
 			switch (key){
 				case 'w':
@@ -92,9 +92,7 @@ public class Model {
 					break;
 			}
 		}
-		double speed = Math.hypot(speedX, speedY);
-		return new Point((int)(speedX/speed), (int)(speedY/speed));
-
+		return new Point(speedX*totalSpeed, speedY*totalSpeed);
 	}
 
 	/** SERVER COMMAND PARSING
@@ -110,7 +108,7 @@ public class Model {
 		} else if (arg[0].equals("players")){
 			int id = Integer.parseInt(arg[1]);
 			if (arg[2].equals("pos")){
-				System.out.println("PLAYERS: "+players.size());
+				if (players == null) return;
 				if (players.get(id) == null){
 					players.set(id, new Player());
 				}
@@ -124,6 +122,8 @@ public class Model {
 		} else if(arg[0].equals("zombies")){
 			int id = Integer.parseInt(arg[1]);
 			if (arg[2].equals("pos")){
+
+				if (zombies == null) return;
 				if (zombies.size() <= id){
 					zombies.add(new Zombie());
 					//zombies.get(id).setTexture(zombieSprite);
