@@ -1,8 +1,10 @@
-package zombienado_v1.client.proxyModel;
+package zombienado_v1.client.model;
 
 import java.awt.*;
 
 import zombienado_v1.Interface.IUnit;
+import zombienado_v1.utilities.Camera;
+import zombienado_v1.utilities.GraphicsUtils;
 
 /**
  * A class representing a unit in the proxy-model
@@ -13,16 +15,14 @@ public abstract class Unit implements IUnit{
 	private double rotation;
 	private int x;
 	private int y;
-	private float radius;
 
 	public Unit(){}
 
-	public Unit(int x, int y, double rotation, int id, float radius){
+	public Unit(int x, int y, double rotation, int id){
 		this.x = x;
 		this.y = y;
 		this.rotation = rotation;
 		this.id = id;
-		this.radius = radius;
 	}
 
 	/**

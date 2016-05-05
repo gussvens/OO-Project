@@ -1,4 +1,4 @@
-package zombienado_v1.client.proxyModel.weapon;
+package zombienado_v1.client.model.weapon;
 
 /**
  * Created by Gustav on 16-04-12.

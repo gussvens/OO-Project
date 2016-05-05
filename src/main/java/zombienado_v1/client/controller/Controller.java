@@ -11,7 +11,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import zombienado_v1.client.proxyModel.Model;
+import zombienado_v1.client.model.Model;
 import zombienado_v1.client.view.GameView;
 
 public class Controller extends Thread implements KeyListener, MouseMotionListener, MouseListener{

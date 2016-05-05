@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
 
-import zombienado_v1.client.proxyModel.Model;
+import zombienado_v1.client.model.Model;
 
 /**
  * Created by Marcus on 2016-03-23.

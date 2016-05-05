@@ -2,7 +2,7 @@ package zombienado_v1.projecttemplate.model;
 
 import org.junit.Test;
 
-import zombienado_v1.client.proxyModel.Model;
+import zombienado_v1.client.model.Model;
 
 public class ProjectTest {
 	private static final int NUM_INCREMENTATIONS = 128;
