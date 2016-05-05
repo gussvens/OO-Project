@@ -1,4 +1,4 @@
-package zombienado_v1.client.proxyModel.Units;
+package zombienado_v1.client.proxyModel;
 
 import java.awt.*;
 

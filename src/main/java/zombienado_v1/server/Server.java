@@ -85,7 +85,7 @@ public class Server extends Thread {
 				for(int i = 0; i < positions.size(); i++){
 					ServerPlayer q = positions.get(i);
 					String s = "players;"+ i + ";pos"  + ";" + q.getX() + ";" + q.getY() + ";" + q.getRotation();
-					System.out.println("Sending Player Position!");
+					System.out.println("Sending oldPlayer Position!");
 					serverThread.send(s);
 				}
 

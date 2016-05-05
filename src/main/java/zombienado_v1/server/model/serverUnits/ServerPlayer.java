@@ -1,6 +1,5 @@
 package zombienado_v1.server.model.serverUnits;
 
-import zombienado_v1.Interface.IWeapon;
 import zombienado_v1.server.serverWorld.WorldHandler;
 import zombienado_v1.utilities.Physics;
 
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 public class ServerPlayer extends ServerUnit {
     private static final int RADIUS = 32;
 
-    private IWeapon weapon;
+
     private int x;
     private int y;
     private double rotation;
@@ -22,14 +21,6 @@ public class ServerPlayer extends ServerUnit {
 
     public ServerPlayer(int x, int y, double rotation, int id){
         super(x,y,rotation,id,RADIUS);
-    }
-
-    /**
-     * Returns current weapon
-     * @return Return
-     */
-    public IWeapon getWeapon(){
-        return weapon;
     }
 
     /**

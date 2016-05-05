@@ -4,12 +4,10 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import zombienado_v1.client.proxyModel.Units.Player;
-import zombienado_v1.client.proxyModel.Units.Unit;
-import zombienado_v1.client.proxyModel.Units.Zombie;
 import zombienado_v1.utilities.Camera;
 
 public class Model {
+	//private oldPlayer player;
 	private ArrayList<Unit> players;
 	private ArrayList<Unit> zombies;
 	private int myID = -1;
@@ -24,6 +22,10 @@ public class Model {
 	public synchronized List<Unit> getZombies(){
 		return zombies;
 	}
+
+	//public synchronized oldPlayer getPlayer(){
+	// return player;
+	//}
 
 	/** INITIALIZATION/LOAD.
 	 * Executed before gameloop starts
