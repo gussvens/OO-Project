@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -171,11 +170,7 @@ public class ServerCommunicator extends Thread{
     }
 
     public ArrayList<Unit> getPlayers(){
-        ArrayList<Unit> copy = new ArrayList<Unit>();
-        for (Unit u : players){
-            copy.add(u); //DEEP COPY THIS SHIT ///TEST
-        }
-        return copy;
+        return players;
     }
 
     public ArrayList<Unit> getZombies(){
