@@ -174,11 +174,7 @@ public class ServerCommunicator extends Thread{
     }
 
     public ArrayList<Unit> getPlayers(){
-        ArrayList<Unit> copy = new ArrayList<Unit>();
-        for (Unit u : players){
-            copy.add(u); //DEEP COPY THIS SHIT ///TEST
-        }
-        return copy;
+        return players;
     }
 
     public ArrayList<Unit> getZombies(){
