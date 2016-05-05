@@ -1,4 +1,4 @@
-package zombienado_v1.server.serverUnits;
+package zombienado_v1.server.model.serverUnits;
 
 import zombienado_v1.Interface.IUnit;
 

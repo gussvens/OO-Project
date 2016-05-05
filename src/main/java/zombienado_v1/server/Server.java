@@ -1,7 +1,7 @@
 package zombienado_v1.server;
 
-import zombienado_v1.server.serverUnits.ServerPlayer;
-import zombienado_v1.server.serverUnits.ServerZombie;
+import zombienado_v1.server.model.serverUnits.ServerPlayer;
+import zombienado_v1.server.model.serverUnits.ServerZombie;
 import zombienado_v1.server.serverWorld.WorldHandler;
 import zombienado_v1.server.unitHandler.Spawner;
 
@@ -79,7 +79,7 @@ public class Server extends Thread {
 			 * Send stuff to clients
 			 */
 			ArrayList<ServerPlayer> positions = getPlayerPositions(); //tidy this up
-			spawner.update(players, handler.getSpawnTiles());
+			spawner.update(players, handler.getSpawnTiles(), handler.getSolidMap());
 
 			for (ServerThread serverThread : serverThreads){
 				for(int i = 0; i < positions.size(); i++){
@@ -112,6 +112,6 @@ public class Server extends Thread {
 	}
 
 	public synchronized void updatePlayerPosition(int x, int y, double r, int id){
-		players.get(id).update(x, y, r);
+		players.get(id).update(x, y, r,handler.getSolidMap());
 	}
 }

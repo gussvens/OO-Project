@@ -1,8 +1,6 @@
-package zombienado_v1.client.model.weapon;
+package zombienado_v1.client.proxyModel.weapon;
 
 import zombienado_v1.Interface.IWeapon;
-
-import java.awt.*;
 
 /**
  * Created by Gustav on 16-04-12.

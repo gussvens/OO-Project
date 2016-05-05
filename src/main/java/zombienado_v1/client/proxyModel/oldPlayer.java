@@ -1,15 +1,4 @@
-package zombienado_v1.client.model;
-
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
-
-import zombienado_v1.client.model.weapon.Weapon;
-import zombienado_v1.client.view.MapView;
-import zombienado_v1.utilities.*;
+package zombienado_v1.client.proxyModel;
 
 public class oldPlayer {
 /*	private static float RADIUS = 32;

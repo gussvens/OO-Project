@@ -1,7 +1,7 @@
 package zombienado_v1.server.unitHandler;
 
-import zombienado_v1.server.serverUnits.ServerPlayer;
-import zombienado_v1.server.serverUnits.ServerZombie;
+import zombienado_v1.server.model.serverUnits.ServerPlayer;
+import zombienado_v1.server.model.serverUnits.ServerZombie;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class Spawner{
         return instance;
     }
 
-    public void update(ArrayList<ServerPlayer> positions, ArrayList<Point> spawnPoints) {
+    public void update(ArrayList<ServerPlayer> positions, ArrayList<Point> spawnPoints, ArrayList<ArrayList<Boolean>> solidMap) {
         for(ServerZombie zombie : zombies){
 
             double shortestDistance = 100000000;
@@ -52,7 +52,7 @@ public class Spawner{
 
             System.out.println(rotation);
 
-            zombie.update(xDirection, yDirection, rotation);
+            zombie.update(xDirection, yDirection, rotation, solidMap);
 
         }
 

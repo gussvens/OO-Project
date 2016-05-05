@@ -4,13 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import zombienado_v1.client.model.ServerCommunicator;
+import zombienado_v1.client.proxyModel.ServerCommunicator;
 import zombienado_v1.server.Server;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import zombienado_v1.client.model.Model;
+import zombienado_v1.client.proxyModel.Model;
 import zombienado_v1.client.view.GameView;
 
 /**

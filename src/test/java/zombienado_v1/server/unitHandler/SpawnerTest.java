@@ -2,7 +2,7 @@ package zombienado_v1.server.unitHandler;
 
 import junit.framework.TestCase;
 import org.junit.Test;
-import zombienado_v1.server.serverUnits.ServerPlayer;
+import zombienado_v1.server.model.serverUnits.ServerPlayer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -23,12 +23,13 @@ public class SpawnerTest extends TestCase {
         Spawner s = Spawner.getInstance();
         ArrayList<ServerPlayer> pos = new ArrayList<ServerPlayer>();
         ArrayList<Point> spawns = new ArrayList<>();
+        ArrayList<ArrayList<Boolean>> solidMap = new ArrayList<ArrayList<Boolean>>();
 
         spawns.add(new Point(0,0));
         pos.add(0, new ServerPlayer(0,0,0,0));
 
         for(int i = 0; i<=30; i++){
-            s.update(pos, spawns);
+            s.update(pos, spawns, solidMap);
         }
 
         assertTrue(s.getZombies().get(0) != null);

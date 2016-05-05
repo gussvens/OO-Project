@@ -1,4 +1,4 @@
-package zombienado_v1.client.model.weapon;
+package zombienado_v1.client.proxyModel.weapon;
 
 /**
  * Created by Gustav on 16-04-12.
@@ -17,7 +17,7 @@ public class Gun extends Weapon {
     }
 
     @Override
-    public boolean shoot(){
+    public boolean fire(){
         if(canFire()){
             return true;
         }
