@@ -1,4 +1,4 @@
-package zombienado_v1.iModel;
+package zombienado_v1.Interface;
 
 /**
  * Created by Gustav on 16-05-05.

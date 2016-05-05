@@ -1,4 +1,4 @@
-package zombienado_v1.server.model;
+package zombienado_v1.client.proxyModel;
 
 import zombienado_v1.Interface.IProjectile;
 import zombienado_v1.Interface.IUnit;
@@ -9,17 +9,16 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * A class to represent a projectile in the model
  * Created by Gustav on 16-05-05.
  */
-public class ServerProjectile implements IProjectile{
+public class Projectile implements IProjectile{
     private int x;
     private int y;
     private int damage;
     private int speed;
     private double rotation;
 
-    public ServerProjectile(int x, int y, int damage, int speed, double rotation){
+    public Projectile(int x, int y, int damage, int speed, double rotation){
         this.x = x;
         this.y = y;
         this.damage = damage;

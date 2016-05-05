@@ -1,6 +1,6 @@
 package zombienado_v1.client.proxyModel.weapon;
 
-import zombienado_v1.iModel.IWeapon;
+import zombienado_v1.Interface.IWeapon;
 
 /**
  * Created by Gustav on 16-04-12.

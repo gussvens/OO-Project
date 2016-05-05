@@ -49,7 +49,7 @@ public class ServerZombie extends ServerUnit {
             for(int j = 0; j<3; j++){
                 int a = tileX + i;
                 int b = tileY + j;
-                if(solidMap.get(b).get(a)){
+                if(solidMap.get(a).get(b)){
                     if(Physics.collidesWithWall(this.x,yOld,RADIUS,new Rectangle(a*tileWidth,b*tileWidth,tileWidth,tileWidth))){
                         this.x = xOld;
                     }
