@@ -1,8 +1,7 @@
 package zombienado_v1.server.serverWorld;
 
-import zombienado_v1.Interface.IWorldHandler;
+import zombienado_v1.server.serverWorld.serverTiles.*;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -11,20 +10,16 @@ import java.util.Scanner;
 /**
  * Created by Marcus on 2016-04-11.
  */
-public class WorldHandler implements IWorldHandler{
-    private static final int TILEWIDTH = 32;
+public class WorldHandler {
 
-    private ArrayList<ArrayList<Boolean>> solidMap;
-    private ArrayList<Point> spawnList;
+    private ArrayList<SolidTile> wallList;
+    private ArrayList<SpawnerTile> spawnList;
 
     public WorldHandler(){
-        solidMap = new ArrayList<ArrayList<Boolean>>();
-        spawnList = new ArrayList<Point>();
+        wallList = new ArrayList<SolidTile>();
+        spawnList = new ArrayList<SpawnerTile>();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public void createMap(String mapPath){
         
         File file = new File(mapPath);
@@ -45,25 +40,24 @@ public class WorldHandler implements IWorldHandler{
                 int xPosition = 0;
                 int tileCounter = 0;
                 for(int i = 0; i < line.length; i++) {
-                    solidMap.add(new ArrayList<Boolean>());
+
 
                     if (line[i].equals("00")) {
-                        solidMap.get(i).add(true);
+                        wallList.add(new SolidTile(xPosition, yPosition));
                         tileCounter++;
                         System.out.println("Found Solid Tile " + tileCounter);
 
                     } else if (line[i].equals("10")) {
-                        solidMap.get(i).add(false);
-                        spawnList.add(new Point(xPosition, yPosition));
+                        spawnList.add(new SpawnerTile(xPosition, yPosition));
                         tileCounter++;
                         System.out.println("Found Spawner Tile " + xPosition + ", " + yPosition);
                     }
 
-                    xPosition = xPosition + TILEWIDTH;
+                    xPosition = xPosition + 32;
 
                 }
 
-                yPosition = yPosition + TILEWIDTH;
+                yPosition = yPosition + 32;
 
             }
 
@@ -75,25 +69,16 @@ public class WorldHandler implements IWorldHandler{
 
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public ArrayList<Point> getSpawnTiles(){
+    public void checkCollisions(){
+
+    }
+
+    public ArrayList<SpawnerTile> getSpawnTiles(){
         return spawnList;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public ArrayList<ArrayList<Boolean>> getSolidMap(){
-        return solidMap;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static int getTileWidth(){
-        return TILEWIDTH;
+    public ArrayList<SolidTile> getWallTiles(){
+        return wallList;
     }
 
 

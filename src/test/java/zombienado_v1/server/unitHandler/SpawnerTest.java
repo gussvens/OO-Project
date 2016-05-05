@@ -3,8 +3,8 @@ package zombienado_v1.server.unitHandler;
 import junit.framework.TestCase;
 import org.junit.Test;
 import zombienado_v1.server.serverUnits.ServerPlayer;
+import zombienado_v1.server.serverWorld.serverTiles.SpawnerTile;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -22,9 +22,9 @@ public class SpawnerTest extends TestCase {
     public void testGetZombies(){
         Spawner s = Spawner.getInstance();
         ArrayList<ServerPlayer> pos = new ArrayList<ServerPlayer>();
-        ArrayList<Point> spawns = new ArrayList<>();
+        ArrayList<SpawnerTile> spawns = new ArrayList<>();
 
-        spawns.add(new Point(0,0));
+        spawns.add(new SpawnerTile(0,0));
         pos.add(0, new ServerPlayer(0,0,0,0));
 
         for(int i = 0; i<=30; i++){

@@ -1,57 +1,42 @@
 package zombienado_v1.server.serverUnits;
 
-import zombienado_v1.server.serverWorld.WorldHandler;
-import zombienado_v1.utilities.Physics;
-
-import java.awt.*;
-import java.util.ArrayList;
-
 /**
- * A class representing a player in the model
  * Created by Marcus on 2016-04-05.
  */
-public class ServerPlayer extends ServerUnit {
-    private static final int RADIUS = 32;
-
+public class ServerPlayer implements ServerUnit{
 
     private int x;
     private int y;
-    private double rotation;
+    private double r;
     private int id;
 
-    public ServerPlayer(int x, int y, double rotation, int id){
-        super(x,y,rotation,id,RADIUS);
+    public ServerPlayer(int x, int y, double r, int id){
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        this.id = id;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public void update(double x, double y, double rotation, ArrayList<ArrayList<Boolean>> solidMap){
-        int tileWidth = WorldHandler.getTileWidth();
+    public int getX(){
+        return x;
+    }
 
-        int xOld = this.x;
-        int yOld = this.y;
-        this.x = this.x + (int)x;
-        this.y = this.y + (int)y;
-        this.rotation = rotation;
+    public int getY(){
+        return y;
+    }
 
-        int tileX =(int) (x / WorldHandler.getTileWidth() - 1);
-        int tileY =(int) (y / WorldHandler.getTileWidth() - 1);
+    public int getID(){
+        return id;
+    }
 
-        for(int i = 0; i<3; i++){
-            for(int j = 0; j<3; j++){
-                int a = tileX + i;
-                int b = tileY + j;
-                if(solidMap.get(a).get(b)){
-                    if(Physics.collidesWithWall(this.x,yOld,RADIUS,new Rectangle(a*tileWidth,b*tileWidth,tileWidth,tileWidth))){
-                        this.x = xOld;
-                    }
-                    if(Physics.collidesWithWall(xOld,this.y,RADIUS,new Rectangle(a*tileWidth,b*tileWidth,tileWidth,tileWidth))){
-                        this.y = yOld;
-                    }
-                }
-            }
-        }
+    public double getRotation(){
+        return r;
+    }
+
+    public void update(int x, int y, double r){
+        this.x = this.x + x;
+        this.y = this.y + y;
+        this.r = r;
     }
 
 
