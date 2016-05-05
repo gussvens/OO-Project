@@ -1,8 +1,8 @@
-package zombienado_v1.client.proxyModel.Units;
+package zombienado_v1.client.proxyModel.units;
 
 import java.awt.*;
 
-import zombienado_v1.Interface.IUnit;
+import zombienado_v1.iModel.IUnit;
 
 /**
  * A class representing a unit in the proxy-model

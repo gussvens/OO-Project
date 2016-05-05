@@ -1,8 +1,7 @@
 package zombienado_v1.server.model;
 
-import zombienado_v1.Interface.IProjectile;
-import zombienado_v1.Interface.IUnit;
-import zombienado_v1.server.model.serverUnits.ServerZombie;
+import zombienado_v1.iModel.IProjectile;
+import zombienado_v1.iModel.IUnit;
 import zombienado_v1.server.serverWorld.WorldHandler;
 
 import java.awt.*;

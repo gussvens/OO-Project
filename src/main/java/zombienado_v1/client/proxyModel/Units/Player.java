@@ -1,6 +1,5 @@
-package zombienado_v1.client.proxyModel.Units;
+package zombienado_v1.client.proxyModel.units;
 
-import zombienado_v1.client.proxyModel.Unit;
 import zombienado_v1.client.proxyModel.weapon.Gun;
 import zombienado_v1.client.proxyModel.weapon.Weapon;
 
@@ -13,7 +12,8 @@ public class Player extends Unit {
     private static final float RADIUS = 32;
     private Weapon weapon;
 
-    public Player(){}
+    public Player(){
+    }
 
     public Player(int x, int y, double r, int id){
         super(x,y,r,id,RADIUS);

@@ -1,6 +1,4 @@
-package zombienado_v1.Interface;
-
-import zombienado_v1.server.model.serverUnits.ServerZombie;
+package zombienado_v1.iModel;
 
 import java.util.ArrayList;
 

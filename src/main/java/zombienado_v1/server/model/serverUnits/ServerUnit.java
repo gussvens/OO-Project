@@ -1,6 +1,6 @@
 package zombienado_v1.server.model.serverUnits;
 
-import zombienado_v1.Interface.IUnit;
+import zombienado_v1.iModel.IUnit;
 
 /**
  * A class representing a unit in the model

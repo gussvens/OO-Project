@@ -56,7 +56,7 @@ public class Server extends Thread {
 				st.start();
 				//new SendThread(socket.accept(),this.getInstance()).start();
 				amountConnected = amountConnected +1;
-				players.add(new ServerPlayer(0,0,0,amountConnected));
+				players.add(new ServerPlayer(100,100,0,amountConnected));
 				System.out.println("Something connected");
 
 			} catch (IOException e) {

@@ -1,7 +1,7 @@
 package zombienado_v1.client.view;
 
 import zombienado_v1.client.proxyModel.Model;
-import zombienado_v1.client.proxyModel.Unit;
+import zombienado_v1.client.proxyModel.units.Unit;
 import zombienado_v1.utilities.Camera;
 import zombienado_v1.utilities.GraphicsUtils;
 

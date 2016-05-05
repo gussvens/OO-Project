@@ -1,4 +1,4 @@
-package zombienado_v1.Interface;
+package zombienado_v1.iModel;
 
 import java.util.ArrayList;
 

@@ -1,5 +1,9 @@
 package zombienado_v1.client.proxyModel;
 
+import zombienado_v1.client.proxyModel.units.Player;
+import zombienado_v1.client.proxyModel.units.Unit;
+import zombienado_v1.client.proxyModel.units.Zombie;
+
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;

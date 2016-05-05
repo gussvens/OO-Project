@@ -4,9 +4,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import zombienado_v1.client.proxyModel.Units.Player;
-import zombienado_v1.client.proxyModel.Units.Unit;
-import zombienado_v1.client.proxyModel.Units.Zombie;
+import zombienado_v1.client.proxyModel.units.Player;
+import zombienado_v1.client.proxyModel.units.Unit;
+import zombienado_v1.client.proxyModel.units.Zombie;
 import zombienado_v1.utilities.Camera;
 
 public class Model {
