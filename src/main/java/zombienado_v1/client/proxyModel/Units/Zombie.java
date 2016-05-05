@@ -1,4 +1,6 @@
-package zombienado_v1.client.proxyModel;
+package zombienado_v1.client.proxyModel.Units;
+
+import zombienado_v1.client.proxyModel.Units.Unit;
 
 import java.util.ArrayList;
 

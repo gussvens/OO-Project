@@ -18,7 +18,7 @@ public class ServerThread extends Thread {
 		this.mainServer = server;
 		this.socket = socket;
 
-		System.out.println("oldPlayer " + id + " connected!");
+		System.out.println("Player " + id + " connected!");
 
 	}
 
