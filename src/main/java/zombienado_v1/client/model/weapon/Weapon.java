@@ -1,11 +1,13 @@
 package zombienado_v1.client.model.weapon;
 
+import zombienado_v1.Interface.IWeapon;
+
 import java.awt.*;
 
 /**
  * Created by Gustav on 16-04-12.
  */
-public class Weapon {
+public class Weapon implements IWeapon{
 
     private int id;
     private int ammo;
@@ -23,32 +25,52 @@ public class Weapon {
         this.rateOfFire = rateOfFire; // The number of firable bullets per second
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int getId() {
         return this.id;
     }
 
-    public int getAmmo() {
+    /**
+     * {@inheritDoc}
+     */
+    public int getNumberOfBulletsLeft() {
         return this.ammo;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int getDamage() {
         return this.damage;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public int getPrice() {
         return this.price;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public double getSpray() {
         return this.spray;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public double getRateOfFire() {
         return this.rateOfFire;
     }
 
-    public boolean shoot(){
+    /**
+     * {@inheritDoc}
+     */
+    public boolean fire(){
         if(canFire()){
             this.ammo--;
             return true;
@@ -56,6 +78,9 @@ public class Weapon {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean canFire(){
         // TODO
         // check if enough time has passed since last fire, use rateOfFire variable
@@ -63,11 +88,16 @@ public class Weapon {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void update(){
         // do stuff repeatedly
-    };
+    }
 
+    /*
     public void draw(Graphics2D graphics){
         // do stuff with id
     };
+    */
 }
