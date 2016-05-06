@@ -107,6 +107,10 @@ public class Server extends Thread {
 						serverThread.sendZombieData(zombie.getID(), zombie.getX(), zombie.getY(), zombie.getRotation());
 					}
 				}
+
+				for(Bullet bullet : bullets) {
+					serverThread.sendBulletData(bullet.getID(), bullet.getX(), bullet.getY(), 0.3);
+				}
 			}
 			try {
 				Thread.sleep((long) 33); //Gotta fix this

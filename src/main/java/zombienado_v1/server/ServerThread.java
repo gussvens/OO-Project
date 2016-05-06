@@ -107,6 +107,11 @@ public class ServerThread extends Thread {
 		send(s);
 	}
 
+	public void sendBulletData(int id, int x, int y, double direction){
+		String s = "bullet;" + id + ";" + x + ";" + y + ";" + ";" + direction;
+		send(s);
+	}
+
 	public void run(){
 		try {
 			output = new PrintWriter(socket.getOutputStream(), true);
