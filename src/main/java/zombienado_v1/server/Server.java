@@ -72,7 +72,7 @@ public class Server extends Thread {
 			 */
 			for (int i = 0; i < players.size(); i++) {
 				final ServerThread st = serverThreads.get(i);
-				players.get(i).update(st.getDeltaX(), st.getDeltaY(), st.getDeltaRotation());
+				players.get(i).update(st.getDeltaX(), st.getDeltaY(), st.getDeltaRotation(), st.getIsShooting());
 			}
 			
 			

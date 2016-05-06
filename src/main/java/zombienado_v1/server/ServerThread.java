@@ -49,6 +49,10 @@ public class ServerThread extends Thread {
 		return temp;
 	}
 
+	public boolean getIsShooting(){
+		return isShooting;
+	}
+
 	/** Setters of delta values
 	 *
 	 */
