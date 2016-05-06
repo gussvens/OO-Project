@@ -20,7 +20,7 @@ public class ServerGun implements iWeapon {
 
     }
 
-    public Bullet shoot(){
+    public Bullet shoot(int x, int y, double direction){
         //Fix with better values
         return new Bullet(1,1,1,0.1);
     }

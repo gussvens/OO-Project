@@ -7,7 +7,7 @@ import zombienado_v1.server.serverUnits.Bullet;
  */
 public interface iWeapon {
 
-    public Bullet shoot();
+    public Bullet shoot(int x, int y, double direction);
     public int getAmmo();
 
 }

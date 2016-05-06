@@ -1,7 +1,7 @@
 package zombienado_v1.server.serverUnits;
 
-import zombienado_v1.client.model.weapon.Gun;
-import zombienado_v1.client.model.weapon.Weapon;
+import zombienado_v1.interfaces.iWeapon;
+import zombienado_v1.server.serverWeapon.ServerGun;
 import zombienado_v1.server.serverWorld.WorldHandler;
 import zombienado_v1.utilities.Physics;
 
@@ -18,7 +18,7 @@ public class ServerPlayer implements ServerUnit{
     private int y;
     private double r;
     private int id;
-    private Weapon weapon;
+    private iWeapon weapon;
 
     public ServerPlayer(int x, int y, double r, int id){
         this.x = x;
@@ -27,7 +27,7 @@ public class ServerPlayer implements ServerUnit{
         this.id = id;
 
         //TODO: move weapons to server
-        this.weapon = new Gun();
+        this.weapon = new ServerGun();
     }
 
     public int getX(){
@@ -46,7 +46,7 @@ public class ServerPlayer implements ServerUnit{
         return r;
     }
 
-    public void update(int x, int y, double r, boolean isShooting, ArrayList<Point> walls){
+    public void update(int x, int y, double r, ArrayList<Point> walls){
         int tileWidth = WorldHandler.getTileWidth();
 
         int xOld = this.x;
@@ -74,13 +74,10 @@ public class ServerPlayer implements ServerUnit{
                 }
             }
         }
-
-
-        if(isShooting == true){
-            weapon.shoot();
-        }
     }
 
-
+    public Bullet shoot(){
+        return weapon.shoot(x,y,r);
+    }
 
 }
