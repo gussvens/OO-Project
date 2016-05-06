@@ -29,7 +29,7 @@ public class Spawner{
         return instance;
     }
 
-    public void update(ArrayList<ServerPlayer> positions, ArrayList<SpawnerTile> spawnPoints) {
+    public void update(ArrayList<ServerPlayer> positions, ArrayList<SpawnerTile> spawnPoints, ArrayList<Point> walls) {
         for(ServerZombie zombie : zombies){
 
             double shortestDistance = 100000000;
@@ -51,27 +51,10 @@ public class Spawner{
 
 
             }
-            //COLLISION TESTING STARTS HERE
-            Point antiCollisionVetor = new Point(0,0);
-            Point vector;
-            for(ServerZombie zombie1 : zombies){
-                float xDist = zombie.getX() - zombie1.getX();
-                float yDist = zombie.getY() - zombie1.getY();
-                double dist = Math.sqrt(xDist*xDist + yDist*yDist);
-                if(dist<64){
-                    vector= Physics.getAntiCollisionVector(zombie.getX(),zombie.getY(),32,zombie1.getX(),zombie1.getY(),32);
-                    antiCollisionVetor = Physics.addVector(antiCollisionVetor,vector);
-                }
-            }
-
-            if(antiCollisionVetor!=null){
-                xDirection -= antiCollisionVetor.getX();
-                yDirection -= antiCollisionVetor.getY();
-            }
 
             System.out.println(rotation);
 
-            zombie.update(xDirection, yDirection, rotation);
+            zombie.update(xDirection, yDirection, rotation, walls);
 
         }
 

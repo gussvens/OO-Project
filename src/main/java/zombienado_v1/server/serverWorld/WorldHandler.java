@@ -2,6 +2,7 @@ package zombienado_v1.server.serverWorld;
 
 import zombienado_v1.server.serverWorld.serverTiles.*;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -11,12 +12,13 @@ import java.util.Scanner;
  * Created by Marcus on 2016-04-11.
  */
 public class WorldHandler {
+    private static final int TILE_WIDTH = 32;
 
-    private ArrayList<SolidTile> wallList;
+    private ArrayList<Point> wallList;
     private ArrayList<SpawnerTile> spawnList;
 
     public WorldHandler(){
-        wallList = new ArrayList<SolidTile>();
+        wallList = new ArrayList<Point>();
         spawnList = new ArrayList<SpawnerTile>();
     }
 
@@ -43,7 +45,7 @@ public class WorldHandler {
 
 
                     if (line[i].equals("00")) {
-                        wallList.add(new SolidTile(xPosition, yPosition));
+                        wallList.add(new Point(xPosition, yPosition));
                         tileCounter++;
                         System.out.println("Found Solid Tile " + tileCounter);
 
@@ -77,9 +79,12 @@ public class WorldHandler {
         return spawnList;
     }
 
-    public ArrayList<SolidTile> getWallTiles(){
+    public ArrayList<Point> getWallTiles(){
         return wallList;
     }
 
+    public static int getTileWidth(){
+        return TILE_WIDTH;
+    }
 
 }

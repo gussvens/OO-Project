@@ -55,7 +55,7 @@ public class Server extends Thread {
 				serverThreads.add(st);
 				st.start();
 				amountConnected = amountConnected +1;
-				players.add(new ServerPlayer(0,0,0,amountConnected));
+				players.add(new ServerPlayer(100,100,0,amountConnected));
 				System.out.println("Something connected");
 
 			} catch (IOException e) {
@@ -72,7 +72,7 @@ public class Server extends Thread {
 			 */
 			for (int i = 0; i < players.size(); i++) {
 				final ServerThread st = serverThreads.get(i);
-				players.get(i).update(st.getDeltaX(), st.getDeltaY(), st.getDeltaRotation(), st.getIsShooting());
+				players.get(i).update(st.getDeltaX(), st.getDeltaY(), st.getDeltaRotation(), st.getIsShooting(),handler.getWallTiles());
 			}
 			
 			
@@ -81,7 +81,7 @@ public class Server extends Thread {
 			 * Send stuff to clients
 			 */
 			ArrayList<ServerPlayer> positions = getPlayerPositions(); //tidy this up
-			spawner.update(players, handler.getSpawnTiles());
+			spawner.update(players, handler.getSpawnTiles(),handler.getWallTiles());
 
 			for (ServerThread serverThread : serverThreads){
 				for(int i = 0; i < positions.size(); i++){
