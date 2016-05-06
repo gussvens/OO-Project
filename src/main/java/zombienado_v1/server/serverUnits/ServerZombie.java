@@ -22,8 +22,8 @@ public class ServerZombie implements ServerUnit{
 
     public ServerZombie(int id, Point spawnPoint){
         speed = 4;
-        x = (int)spawnPoint.getX()+WorldHandler.getTileWidth()/2;
-        y = (int)spawnPoint.getY()+WorldHandler.getTileWidth()/2;
+        x = (int)spawnPoint.getX();
+        y = (int)spawnPoint.getY();
         rotation = 1;
         this.id = id;
         System.out.println("New zombie spawned! X: " + x + ", Y: " + y);
