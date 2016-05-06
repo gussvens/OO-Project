@@ -89,34 +89,8 @@ public class ServerCommunicator extends Thread {
     }
 
     public void movePlayer(int x, int y, double r) {
-
-
+        if (x == 0 && y == 0 && r == 0.0) return; //If nothing changed, do not send
         String message = "move;" + x + ";" + y + ";" + r;
-        System.out.println(message);
-        out.println(message);
-    }
-
-    public void moveLeft() {
-
-        String message = "move;" + ";" + "-2" + ";" + 0;
-        out.println(message);
-    }
-
-    public void moveRight() {
-
-        String message = "move;" + 2 + ";" + 0;
-        out.println(message);
-    }
-
-    public void moveUp() {
-
-        String message = "move;" + 0 + ";" + "-2";
-        out.println(message);
-    }
-
-    public void moveDown() {
-
-        String message = "move;" + 0 + ";" + 2;
         out.println(message);
     }
 

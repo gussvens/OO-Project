@@ -36,7 +36,7 @@ public class ServerPlayer implements ServerUnit{
     public void update(int x, int y, double r){
         this.x = this.x + x;
         this.y = this.y + y;
-        this.r = r;
+        this.r = this.r + r;
     }
 
 

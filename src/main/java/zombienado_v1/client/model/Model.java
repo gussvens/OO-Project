@@ -16,7 +16,7 @@ public class Model {
 	private ArrayList<Unit> zombies;
 	private int myID = -1;
 	/**
-	 * Getters
+	 * Getters for view
 	 */
 	public synchronized List<Unit> getPlayers(){
 		return players;
@@ -25,11 +25,7 @@ public class Model {
 		return zombies;
 	}
 
-	//public synchronized oldPlayer getPlayer(){
-	// return player;
-	//}
-
-	/** INITIALIZATION/LOAD.
+	/** INITIALIZATION
 	 * Executed before gameloop starts
 	 */
 	public synchronized void initialize(){
@@ -60,9 +56,9 @@ public class Model {
 		Camera.setX(players.get(myID).getX());
 		Camera.setY(players.get(myID).getY());
 		Point velocityVector = PlayerInputHandler.getPlayerVelocity(pressedKeys);
-		double playerRotation = PlayerInputHandler.getPlayerRotation(players.get(myID).getX(), players.get(myID).getY(), cursor);
+		double deltaRotation = PlayerInputHandler.getPlayerRotation(players.get(myID).getX(), players.get(myID).getY(), cursor) - players.get(myID).getRotation();
 		try {
-			coms.movePlayer((int)velocityVector.getX(), (int)velocityVector.getY(), playerRotation);
+			coms.movePlayer((int)velocityVector.getX(), (int)velocityVector.getY(), deltaRotation);
 		} catch (Exception e){
 			e.printStackTrace();
 		}
