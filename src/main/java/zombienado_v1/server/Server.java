@@ -113,7 +113,7 @@ public class Server extends Thread {
 				}
 			}
 			try {
-				Thread.sleep((long) 33); //Gotta fix this
+				Thread.sleep((long) 16); //Gotta fix this
 			} catch(InterruptedException e){
 				e.printStackTrace();
 			}

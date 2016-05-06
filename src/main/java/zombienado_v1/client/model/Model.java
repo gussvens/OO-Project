@@ -49,6 +49,7 @@ public class Model {
 	 */
 	public synchronized void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed) {
 		this.myID = coms.getID();
+		if (myID == -1) return;
 		if(this.getPlayers() == null) return;
 
 		this.players = coms.getPlayers();
