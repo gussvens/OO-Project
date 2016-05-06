@@ -25,7 +25,6 @@ public abstract class Unit {
 		this.rotation = rot;
 	}
 
-
 	public int getX() {
 		return x;
 	}

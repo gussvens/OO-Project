@@ -11,6 +11,8 @@ public class ServerThread extends Thread {
 	private Server mainServer;
 	private int ID;
 
+	
+
 	public ServerThread(Socket socket, Server server, int id) throws SocketException{
 		super("ServerThread "+connectedUnits);
 		connectedUnits ++;
