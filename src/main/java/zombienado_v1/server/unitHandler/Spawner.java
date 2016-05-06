@@ -1,10 +1,6 @@
 package zombienado_v1.server.unitHandler;
 
-import zombienado_v1.server.serverUnits.ServerPlayer;
-import zombienado_v1.server.serverUnits.ServerZombie;
-import zombienado_v1.server.serverWorld.serverTiles.SpawnerTile;
-import zombienado_v1.utilities.Physics;
-
+import zombienado_v1.server.serverUnits.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -29,7 +25,7 @@ public class Spawner{
         return instance;
     }
 
-    public void update(ArrayList<ServerPlayer> positions, ArrayList<SpawnerTile> spawnPoints, ArrayList<Point> walls) {
+    public void update(ArrayList<ServerPlayer> positions, ArrayList<Point> spawnPoints, ArrayList<Point> walls) {
         for(ServerZombie zombie : zombies){
 
             double shortestDistance = 100000000;

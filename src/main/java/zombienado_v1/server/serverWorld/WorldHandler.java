@@ -1,7 +1,5 @@
 package zombienado_v1.server.serverWorld;
 
-import zombienado_v1.server.serverWorld.serverTiles.*;
-
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,11 +13,11 @@ public class WorldHandler {
     private static final int TILE_WIDTH = 32;
 
     private ArrayList<Point> wallList;
-    private ArrayList<SpawnerTile> spawnList;
+    private ArrayList<Point> spawnList;
 
     public WorldHandler(){
         wallList = new ArrayList<Point>();
-        spawnList = new ArrayList<SpawnerTile>();
+        spawnList = new ArrayList<Point>();
     }
 
     public void createMap(String mapPath){
@@ -50,7 +48,7 @@ public class WorldHandler {
                         System.out.println("Found Solid Tile " + tileCounter);
 
                     } else if (line[i].equals("10")) {
-                        spawnList.add(new SpawnerTile(xPosition, yPosition));
+                        spawnList.add(new Point(xPosition, yPosition));
                         tileCounter++;
                         System.out.println("Found Spawner Tile " + xPosition + ", " + yPosition);
                     }
@@ -75,7 +73,7 @@ public class WorldHandler {
 
     }
 
-    public ArrayList<SpawnerTile> getSpawnTiles(){
+    public ArrayList<Point> getSpawnTiles(){
         return spawnList;
     }
 

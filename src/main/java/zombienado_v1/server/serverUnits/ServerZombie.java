@@ -2,7 +2,6 @@ package zombienado_v1.server.serverUnits;
 
 
 import zombienado_v1.server.serverWorld.WorldHandler;
-import zombienado_v1.server.serverWorld.serverTiles.SpawnerTile;
 import zombienado_v1.utilities.Physics;
 
 import java.awt.*;
@@ -21,10 +20,10 @@ public class ServerZombie implements ServerUnit{
     private int[] temp;
     private int id;
 
-    public ServerZombie(int id, SpawnerTile spawnPoint){
+    public ServerZombie(int id, Point spawnPoint){
         speed = 4;
-        x = spawnPoint.getX()+WorldHandler.getTileWidth()/2;
-        y = spawnPoint.getY()+WorldHandler.getTileWidth()/2;
+        x = (int)spawnPoint.getX()+WorldHandler.getTileWidth()/2;
+        y = (int)spawnPoint.getY()+WorldHandler.getTileWidth()/2;
         rotation = 1;
         this.id = id;
         System.out.println("New zombie spawned! X: " + x + ", Y: " + y);
