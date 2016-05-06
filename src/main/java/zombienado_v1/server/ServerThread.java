@@ -11,7 +11,7 @@ public class ServerThread extends Thread {
 	private Server mainServer;
 	private int ID;
 
-	
+
 
 	public ServerThread(Socket socket, Server server, int id) throws SocketException{
 		super("ServerThread "+connectedUnits);
@@ -56,9 +56,21 @@ public class ServerThread extends Thread {
 
 	}
 
-	public void send(String message){
+	private void send(String message){
 		if (output != null)
 			output.println(message);
+	}
+
+	public void sendPlayerData(int id, int x, int y, double rotation){
+		String s = "players;"+ id + ";pos"  + ";" + x + ";" + y + ";" + rotation;
+		System.out.println("Sending oldPlayer Position!");
+		send(s);
+	}
+
+	public void sendZombieData(int id, int x, int y, double rotation){
+		String s = "zombies;" + id + ";pos;" + x + ";" + y + ";" + rotation;
+		System.out.println("Sending Zombie Position!");
+		send(s);
 	}
 
 	public void run(){
