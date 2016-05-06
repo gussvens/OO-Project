@@ -88,7 +88,7 @@ public class ServerCommunicator extends Thread {
         }
     }
 
-    public void movePlayer(int x, int y, double r) {
+    public synchronized void movePlayer(int x, int y, double r) {
         if (x == 0 && y == 0 && r == 0.0) return; //If nothing changed, do not send
         String message = "move;" + x + ";" + y + ";" + r;
         out.println(message);
@@ -145,7 +145,7 @@ public class ServerCommunicator extends Thread {
         isReady = true;
     }
 
-    public ArrayList<Unit> getPlayers() {
+    public synchronized ArrayList<Unit> getPlayers() {
         ArrayList<Unit> copy = new ArrayList<Unit>();
         for (Unit player : players) {
             Player p = (Player) player;
@@ -155,7 +155,7 @@ public class ServerCommunicator extends Thread {
         return copy;
     }
 
-    public ArrayList<Unit> getZombies() {
+    public synchronized ArrayList<Unit> getZombies() {
         ArrayList<Unit> copy = new ArrayList<Unit>();
         for (Unit zombie : zombies) {
             Zombie z = (Zombie) zombie;
