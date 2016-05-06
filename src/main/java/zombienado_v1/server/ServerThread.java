@@ -68,14 +68,12 @@ public class ServerThread extends Thread {
 		try {
 			String inputString;
 			while ((inputString = input.readLine()) != null) {
-				//System.out.println(ID + " " + inputString);
 				String[] splits = inputString.split(";");
 
 				if(splits[0].equals("move")) {
 					pushDeltaX(Integer.parseInt(splits[1]));
 					pushDeltaY(Integer.parseInt(splits[2]));
 					pushDeltaRotation(Double.parseDouble(splits[3]));
-					//mainServer.updatePlayerPosition(Integer.parseInt(splits[1]), Integer.parseInt(splits[2]), Double.parseDouble(splits[3]), ID);
 				}
 			}
 
@@ -109,7 +107,7 @@ public class ServerThread extends Thread {
 		try {
 			output = new PrintWriter(socket.getOutputStream(), true);
 			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			send("Connected to zombienado_v1.client");
+			send("Connected to client");
 			send("player;id;" + ID);
 		} catch (IOException e) {
 			e.printStackTrace();

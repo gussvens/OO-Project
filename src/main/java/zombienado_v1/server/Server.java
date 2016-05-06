@@ -54,7 +54,6 @@ public class Server extends Thread {
 				ServerThread st = new  ServerThread(socket.accept(), this.getInstance(), amountConnected);
 				serverThreads.add(st);
 				st.start();
-				//new SendThread(socket.accept(),this.getInstance()).start();
 				amountConnected = amountConnected +1;
 				players.add(new ServerPlayer(0,0,0,amountConnected));
 				System.out.println("Something connected");
@@ -106,9 +105,5 @@ public class Server extends Thread {
 
 	public synchronized ArrayList<ServerPlayer> getPlayerPositions(){
 		return players;
-	}
-
-	public synchronized void updatePlayerPosition(int x, int y, double r, int id){
-		players.get(id).update(x, y, r);
 	}
 }
