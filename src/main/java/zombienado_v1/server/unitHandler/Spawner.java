@@ -50,7 +50,7 @@ public class Spawner{
 
             System.out.println(rotation);
 
-            zombie.update(xDirection, yDirection, rotation, walls);
+            zombie.update(xDirection, yDirection, rotation, zombies, walls);
 
         }
 

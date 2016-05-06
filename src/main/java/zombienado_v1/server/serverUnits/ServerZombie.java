@@ -46,7 +46,7 @@ public class ServerZombie implements ServerUnit{
         return rotation;
     }
 
-    public void update(double xDirection, double yDirection, double rotation, ArrayList<Point> walls){
+    public void update(double xDirection, double yDirection, double rotation, ArrayList<ServerZombie> zombies, ArrayList<Point> walls){
         int tileWidth = WorldHandler.getTileWidth();
         double tempX = xDirection * speed;
         double tempY = yDirection * speed;
@@ -54,11 +54,24 @@ public class ServerZombie implements ServerUnit{
         this.rotation = rotation;
         int xOld = this.x;
         int yOld = this.y;
-        x += (int)tempX;
-        y += (int)tempY;
+        this.x += (int)tempX;
+        this.y += (int)tempY;
 
         int tileX =(this.x/tileWidth) -1;
         int tileY =(this.y/tileWidth) -1;
+
+        for(ServerZombie zombie:zombies){
+            boolean overlaps = true;
+
+            while( this.getID()!=zombie.getID() && overlaps && (this.x == xOld && this.y == yOld)){
+                if(!Physics.collidesWithUnit(this.x,this.y,RADIUS,zombie.getX(),zombie.getY(),RADIUS)){
+                    overlaps = false;
+                } else{
+                    this.x = (int)(xOld + 0.9*tempX);
+                    this.y = (int)(yOld + 0.9*tempY);
+                }
+            }
+        }
 
         for(int i = 0; i<3; i++){
             for(int j = 0; j<3; j++){
