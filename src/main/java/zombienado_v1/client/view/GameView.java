@@ -15,8 +15,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class GameView extends JFrame{
-	private static int WIDTH = 860;
-	private static int HEIGHT = 480;
+	//private static int WIDTH = 860;
+	//private static int HEIGHT = 480;
+	private static int WIDTH = 645;
+	private static int HEIGHT = 360;
+
+
 
 	private Model model;
 	private Canvas canvas;

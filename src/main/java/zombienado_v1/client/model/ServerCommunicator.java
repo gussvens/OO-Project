@@ -23,8 +23,8 @@ public class ServerCommunicator extends Thread {
     private ArrayList<Unit> players;
     private ArrayList<Unit> zombies;
     private int myID = -1;
-    private boolean isReady = false;
     private Point playerPosition;
+    private boolean wasShooting = false;
 
     public static synchronized void create(Model model, InetAddress address, int port) {
         if (instance == null)
@@ -77,7 +77,7 @@ public class ServerCommunicator extends Thread {
         String fromServer;
         try {
             while ((fromServer = in.readLine()) != null) {
-                System.out.println("Server: " + fromServer);
+                //System.out.println("Server: " + fromServer);
                 if (fromServer.equals("shutdown")) {
                     break;
                 }
@@ -94,8 +94,11 @@ public class ServerCommunicator extends Thread {
         out.println(message);
     }
 
-    public static void shoot() {
-
+    public synchronized void shoot(boolean isShooting) {
+       if (wasShooting != isShooting) {
+           String message = "shoot;" + isShooting;
+           wasShooting = isShooting;
+       }
     }
 
 
@@ -140,9 +143,12 @@ public class ServerCommunicator extends Thread {
                 double rot = Double.parseDouble(arg[5]);
                 zombies.get(id).setPosition(x, y);
                 zombies.get(id).setRotation(rot);
+
+                if (id == 1)
+                    System.out.println(zombies.get(0).getX() + "," + zombies.get(0).getY() + "," + zombies.get(0).getRotation());
+
             }
         }
-        isReady = true;
     }
 
     public synchronized ArrayList<Unit> getPlayers() {
@@ -169,8 +175,5 @@ public class ServerCommunicator extends Thread {
         return myID;
     }
 
-    public boolean isReady(){
-        return isReady;
-    }
 
 }
