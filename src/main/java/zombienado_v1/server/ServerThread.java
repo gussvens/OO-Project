@@ -78,6 +78,8 @@ public class ServerThread extends Thread {
 					pushDeltaX(Integer.parseInt(splits[1]));
 					pushDeltaY(Integer.parseInt(splits[2]));
 					pushDeltaRotation(Double.parseDouble(splits[3]));
+				} else if(splits[0].equals("shoot")) {
+					isShooting = Boolean.parseBoolean(splits[1]);
 				}
 			}
 
