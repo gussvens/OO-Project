@@ -51,9 +51,9 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 			model.tick(pressedKeys, cursor, mousePress);
 			gameView.render();
 			wait = Math.max((long)(targetFrameTime*1000) - ((System.nanoTime() - startTime)/1000000), 0); //ms precision, can be improved
-			
+
 			try{
-				Thread.sleep(wait); 
+				Thread.sleep(wait);
 			} catch (InterruptedException ie){
 				ie.printStackTrace();
 			}
