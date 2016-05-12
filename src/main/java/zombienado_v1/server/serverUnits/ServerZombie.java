@@ -11,13 +11,12 @@ import java.util.ArrayList;
  * Created by Marcus on 2016-04-05.
  */
 public class ServerZombie implements ServerUnit{
-    private static final int RADIUS = 32;
+    private static final int RADIUS = 16;
 
     private int x;
     private int y;
     private double rotation;
     private int speed;
-    private int[] temp;
     private int id;
 
     public ServerZombie(int id, Point spawnPoint){
@@ -46,12 +45,15 @@ public class ServerZombie implements ServerUnit{
         return rotation;
     }
 
-    public void update(double xDirection, double yDirection, double rotation, ArrayList<ServerZombie> zombies, ArrayList<Point> walls){
+    public void nudge(int x, int y, ArrayList<Point> walls){
+        checkWallCollision((int)x/speed, (int)y/speed, walls);
+    }
+
+    public void checkWallCollision(double xDirection, double yDirection, ArrayList<Point> walls){
         int tileWidth = WorldHandler.getTileWidth();
         double tempX = xDirection * speed;
         double tempY = yDirection * speed;
 
-        this.rotation = rotation;
         int xOld = this.x;
         int yOld = this.y;
         this.x += (int)tempX;
@@ -59,19 +61,6 @@ public class ServerZombie implements ServerUnit{
 
         int tileX =(this.x/tileWidth) -1;
         int tileY =(this.y/tileWidth) -1;
-
-        for(ServerZombie zombie:zombies){
-            boolean overlaps = true;
-
-            while( this.getID()!=zombie.getID() && overlaps && (this.x == xOld && this.y == yOld)){
-                if(!Physics.collidesWithUnit(this.x,this.y,RADIUS,zombie.getX(),zombie.getY(),RADIUS)){
-                    overlaps = false;
-                } else{
-                    this.x = (int)(xOld + 0.9*tempX);
-                    this.y = (int)(yOld + 0.9*tempY);
-                }
-            }
-        }
 
         for(int i = 0; i<3; i++){
             for(int j = 0; j<3; j++){
@@ -97,6 +86,28 @@ public class ServerZombie implements ServerUnit{
                 }
             }
         }
+    }
+
+    public void update(double xDirection, double yDirection, double rotation, ArrayList<ServerZombie> zombies, ArrayList<Point> walls){
+        this.rotation = rotation;
+
+        checkWallCollision(xDirection,yDirection,walls);
+
+        for(ServerZombie zombie:zombies){
+            boolean overlaps = true;
+
+            while( this.getID()!=zombie.getID() && overlaps && (this.x != xOld && this.y != yOld)){
+                if(!Physics.collidesWithUnit(this.x,this.y,RADIUS,zombie.getX(),zombie.getY(),RADIUS)){
+                    overlaps = false;
+                } else{
+                    zombie.nudge((int)tempX, (int)tempY);
+                    this.x = (int)(xOld + 0*tempX);
+                    this.y = (int)(yOld + 0*tempY);
+                }
+            }
+        }
+
+
     }
 
 }
