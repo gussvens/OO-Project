@@ -23,8 +23,8 @@ public class ServerCommunicator extends Thread {
     private ArrayList<Unit> players;
     private ArrayList<Unit> zombies;
     private int myID = -1;
-    private boolean isReady = false;
     private Point playerPosition;
+    private boolean wasShooting = false;
 
     public static synchronized void create(Model model, InetAddress address, int port) {
         if (instance == null)
@@ -77,7 +77,7 @@ public class ServerCommunicator extends Thread {
         String fromServer;
         try {
             while ((fromServer = in.readLine()) != null) {
-                System.out.println("Server: " + fromServer);
+                //System.out.println("Server: " + fromServer);
                 if (fromServer.equals("shutdown")) {
                     break;
                 }
@@ -88,14 +88,17 @@ public class ServerCommunicator extends Thread {
         }
     }
 
-    public void movePlayer(int x, int y, double r) {
+    public synchronized void movePlayer(int x, int y, double r) {
         if (x == 0 && y == 0 && r == 0.0) return; //If nothing changed, do not send
         String message = "move;" + x + ";" + y + ";" + r;
         out.println(message);
     }
 
-    public static void shoot() {
-
+    public synchronized void shoot(boolean isShooting) {
+       if (wasShooting != isShooting) {
+           String message = "shoot;" + isShooting;
+           wasShooting = isShooting;
+       }
     }
 
 
@@ -140,12 +143,15 @@ public class ServerCommunicator extends Thread {
                 double rot = Double.parseDouble(arg[5]);
                 zombies.get(id).setPosition(x, y);
                 zombies.get(id).setRotation(rot);
+
+                if (id == 1)
+                    System.out.println(zombies.get(0).getX() + "," + zombies.get(0).getY() + "," + zombies.get(0).getRotation());
+
             }
         }
-        isReady = true;
     }
 
-    public ArrayList<Unit> getPlayers() {
+    public synchronized ArrayList<Unit> getPlayers() {
         ArrayList<Unit> copy = new ArrayList<Unit>();
         for (Unit player : players) {
             Player p = (Player) player;
@@ -155,7 +161,7 @@ public class ServerCommunicator extends Thread {
         return copy;
     }
 
-    public ArrayList<Unit> getZombies() {
+    public synchronized ArrayList<Unit> getZombies() {
         ArrayList<Unit> copy = new ArrayList<Unit>();
         for (Unit zombie : zombies) {
             Zombie z = (Zombie) zombie;
@@ -169,8 +175,5 @@ public class ServerCommunicator extends Thread {
         return myID;
     }
 
-    public boolean isReady(){
-        return isReady;
-    }
 
 }

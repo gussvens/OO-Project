@@ -34,8 +34,10 @@ public class Bullet implements ServerUnit {
     public void update(){
 
         //This wont work but shows how its supposed to be done
-        x = x + (int)(speed*direction);
-        x = x + (int)(speed*direction);
+        double temp = Math.toDegrees(direction);
+
+        x = x + (int)(speed*Math.cos(temp));
+        y = y + (int)(speed*Math.sin(temp));
     }
 
 

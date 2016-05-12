@@ -44,11 +44,7 @@ public class Spawner{
                     yDirection = tempY / shortestDistance;
                     rotation = Math.atan2(tempY, tempX);
                 }
-
-
             }
-
-            System.out.println(rotation);
 
             zombie.update(xDirection, yDirection, rotation, zombies, walls);
 

@@ -60,6 +60,7 @@ public class Model {
 		double deltaRotation = PlayerInputHandler.getPlayerRotation(players.get(myID).getX(), players.get(myID).getY(), cursor) - players.get(myID).getRotation();
 		try {
 			coms.movePlayer((int)velocityVector.getX(), (int)velocityVector.getY(), deltaRotation);
+			coms.shoot(isMousePressed);
 		} catch (Exception e){
 			e.printStackTrace();
 		}

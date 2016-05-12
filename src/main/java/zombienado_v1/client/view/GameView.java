@@ -15,8 +15,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class GameView extends JFrame{
-	private static int WIDTH = 860;
-	private static int HEIGHT = 480;
+	//private static int WIDTH = 860;
+	//private static int HEIGHT = 480;
+	private static int WIDTH = 645;
+	private static int HEIGHT = 360;
+
+
 
 	private Model model;
 	private Canvas canvas;
@@ -30,7 +34,7 @@ public class GameView extends JFrame{
 
 	private class Canvas extends JPanel {
 		@Override
-		public void paintComponent(Graphics g){
+		public synchronized void paintComponent(Graphics g){
 			g.drawImage(imageData, 0, 0, this.getWidth(), this.getHeight(), null);
 		}
 	}
@@ -80,7 +84,7 @@ public class GameView extends JFrame{
 		}
 	}
 	
-	public void render() {
+	public synchronized void render() {
 		/**
 		 * TODO: renderstuff ?
 		 */
