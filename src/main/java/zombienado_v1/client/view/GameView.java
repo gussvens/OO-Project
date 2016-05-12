@@ -26,6 +26,7 @@ public class GameView extends JFrame{
 
 	private MapView mapView;
 	private CharacterView characterView;
+	private ZombieView zombieView;
 
 	private class Canvas extends JPanel {
 		@Override
@@ -72,7 +73,8 @@ public class GameView extends JFrame{
 			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
 			mapView = new MapView(ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")));
 			MapLoader.Load(mapView, new File("src/main/resources/maps/mapTest.txt"));
-			characterView = new CharacterView(model, playerSprite, zombieSprite);
+			characterView = new CharacterView(model, playerSprite);
+			zombieView = new ZombieView(model, zombieSprite);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -87,6 +89,7 @@ public class GameView extends JFrame{
 		graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenWidth());
 		mapView.draw(graphics);
 		characterView.draw(graphics);
+		zombieView.draw(graphics);
 		graphics.drawString("FPS: "+ Controller.getFramesPerSecond(), 9, 19);
 		graphics.drawString("Zombinado Beta", GameView.getScreenWidth() - 101, GameView.getScreenHeight() - 11);
 		graphics.setColor(Color.white);

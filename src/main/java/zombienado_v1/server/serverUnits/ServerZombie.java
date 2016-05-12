@@ -82,14 +82,14 @@ public class ServerZombie implements ServerUnit{
                         if(Physics.collidesWithWall(this.x,yOld,RADIUS,new Rectangle(a,b,tileWidth,tileWidth))){
                             this.x = xOld;
                             int temp = (int)(yOld + yDirection/Math.abs(yDirection) * speed);
-                            if(!Physics.collidesWithWall(this.x,temp,RADIUS,new Rectangle(a,b,tileWidth,tileWidth))){
+                            if(Physics.collidesWithWall(this.x,temp,RADIUS,new Rectangle(a,b,tileWidth,tileWidth))){
                                 this.y = temp;
                             }
                         }
                         if(Physics.collidesWithWall(xOld,this.y,RADIUS,new Rectangle(a,b,tileWidth,tileWidth))){
                             this.y = yOld;
                             int temp = (int)(xOld + xDirection/Math.abs(xDirection) * speed);
-                            if(!Physics.collidesWithWall(temp,this.y,RADIUS,new Rectangle(a,b,tileWidth,tileWidth))){
+                            if(Physics.collidesWithWall(temp,this.y,RADIUS,new Rectangle(a,b,tileWidth,tileWidth))){
                                 this.x = temp;
                             }
                         }

@@ -12,13 +12,13 @@ import java.awt.*;
  */
 public class CharacterView {
     private Image[] playerSprites;
-    private Image zombieSprite;
+    //private Image[] weaponSprites;
     private Model model;
 
-    public CharacterView(Model model, Image[] playerSprites, Image zombieSprite){
+    public CharacterView(Model model, Image[] playerSprites){
         this.model = model;
         this.playerSprites = playerSprites;
-        this.zombieSprite = zombieSprite;
+        //this.weaponSprites = weaponSprites;
     }
 
     public synchronized void draw(Graphics2D graphics){
@@ -26,15 +26,7 @@ public class CharacterView {
             if (model.getPlayers().get(i) != null) {
                 Unit p = model.getPlayers().get(i);
                 graphics.drawImage(playerSprites[i], GraphicsUtils.Transform(playerSprites[i], p.getX() - Camera.getX(), p.getY() - Camera.getY(), p.getRotation()), null);
-            }
-        }
-
-    //    graphics.drawImage(playerSprites[model.getPlayer().getID()], GraphicsUtils.Transform(playerSprites[model.getPlayer().getID()], model.getPlayer().getX() - Camera.getX(), model.getPlayer().getY() - Camera.getY(), model.getPlayer().getRotation()), null);
-
-        for (int i = 0; i < model.getZombies().size(); i++){
-            if (model.getZombies().get(i) != null) {
-                Unit z = model.getZombies().get(i);
-                graphics.drawImage(zombieSprite, GraphicsUtils.Transform(zombieSprite, z.getX() - Camera.getX(), z.getY() - Camera.getY(), z.getRotation()), null);
+                //graphics.drawImage(weaponSprites[p.getWeapon().getId()], GraphicsUtils.Transform(weaponSprites[p.getWeapon().getId()], p.getX() - Camera.getX() + Math.cos(p.getRotation())*32, p.getY() - Camera.getY() + Math.sin(p.getRotation())*32, p.getRotation()), null);
             }
         }
     }
