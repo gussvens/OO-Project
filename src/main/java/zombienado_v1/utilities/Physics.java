@@ -1,5 +1,7 @@
 package zombienado_v1.utilities;
 
+import javafx.scene.shape.Circle;
+
 import java.awt.Point;
 import java.awt.Rectangle;
 
@@ -43,11 +45,12 @@ public class Physics {
 	 * @return True if this unit is overlapping the other unit
 	 */
 	public static boolean collidesWithUnit(int xThisUnit, int yThisUnit, float radiusThisUnit, int xOtherUnit, int yOtherUnit, float radiusOtherUnit){
+		Point thisUnit = new Point(xThisUnit,yThisUnit);
+		Point otherUnit = new Point(xOtherUnit,yOtherUnit);
+
 		double alowedDistance = radiusThisUnit + radiusOtherUnit;
-		double distanceX = Math.abs(xOtherUnit - xThisUnit);
-		double distanceY = Math.abs(yOtherUnit - yThisUnit);
-		double distanceDiagonal = Math.sqrt( distanceX*distanceX + distanceY*distanceY );
-		if(distanceDiagonal<alowedDistance){
+
+		if(thisUnit.distance(otherUnit)<alowedDistance){
 			return true;
 		}
 		return false;

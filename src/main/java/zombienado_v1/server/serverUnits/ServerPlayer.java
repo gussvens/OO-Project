@@ -16,6 +16,7 @@ public class ServerPlayer implements ServerUnit{
 
     private int x;
     private int y;
+    private int health;
     private double r;
     private int id;
     private iWeapon weapon;
@@ -28,6 +29,7 @@ public class ServerPlayer implements ServerUnit{
 
         //TODO: move weapons to server
         this.weapon = new ServerGun();
+        this.health = 100;
     }
 
     public int getX(){
@@ -44,6 +46,14 @@ public class ServerPlayer implements ServerUnit{
 
     public double getRotation(){
         return r;
+    }
+
+    public int getHealth(){
+        return this.health;
+    }
+
+    public void takeDamage(int damage){
+        this.health -= damage;
     }
 
     public void update(int x, int y, double r, ArrayList<Point> walls){
