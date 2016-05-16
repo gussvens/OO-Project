@@ -8,7 +8,5 @@ public interface ServerUnit {
     int getX();
     int getY();
     int getID();
-    int getHealth();
-    void takeDamage(int damage);
 
 }

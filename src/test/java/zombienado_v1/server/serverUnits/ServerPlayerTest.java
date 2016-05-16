@@ -14,8 +14,9 @@ public class ServerPlayerTest extends TestCase {
     @Test
     public void testUpdate(){
         ServerPlayer sP = new ServerPlayer(0,0,0.0,0);
-        ArrayList<Point> walls = new ArrayList<Point>();
-        sP.update(1,2,3.4,walls);
+        ArrayList<Point> walls = new ArrayList<>();
+        ArrayList<ServerZombie> zombies = new ArrayList<>();
+        sP.update(1,2,3.4,zombies,walls);
         assertTrue(sP.getX() == 1);
         assertTrue(sP.getY() == 2);
     }

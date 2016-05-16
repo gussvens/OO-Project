@@ -1,7 +1,5 @@
 package zombienado_v1.server.serverUnits;
 
-
-import zombienado_v1.server.Server;
 import zombienado_v1.server.serverWorld.WorldHandler;
 import zombienado_v1.utilities.Physics;
 
@@ -32,6 +30,10 @@ public class ServerZombie implements ServerUnit{
         System.out.println("New zombie spawned! X: " + x + ", Y: " + y);
     }
 
+    public static int getRadius(){
+        return RADIUS;
+    }
+
     public int getX(){
         return x;
     }
@@ -56,26 +58,35 @@ public class ServerZombie implements ServerUnit{
         this.health -= damage;
     }
 
-    public void checkZombiesCollisions(double xDiff, double yDiff, ArrayList<ServerZombie> zombies, ArrayList<Point> walls){
-        int xOld = (int)(this.x - xDiff);
-        int yOld = (int)(this.y - yDiff);
 
+    public void update(double xDirection, double yDirection, double rotation, ArrayList<ServerZombie> zombies, ArrayList<Point> walls){
+        this.rotation = rotation;
+        int xOld = this.x;
+        int yOld = this.y;
+
+        double xDiff = xDirection * speed;
+        double yDiff = yDirection * speed;
+
+        this.x += (int)xDiff;
+        this.y += (int)yDiff;
+
+        checkZombiesCollisions(zombies);
+        checkWallsCollisions(xOld, yOld, walls);
+    }
+
+    public void checkZombiesCollisions(ArrayList<ServerZombie> zombies){
         for(ServerZombie zombie: zombies){
             if (this.getID()!=zombie.getID()){
-                if(Physics.collidesWithUnit(this.x, this.y, RADIUS, zombie.getX(), zombie.getY(), RADIUS)){
-                    this.x = xOld;
-                    this.y = yOld;
-                }
+                Point bounce = Physics.bounce(this.x,this.y,RADIUS,zombie.getX(),zombie.getY(),RADIUS);
+                this.x += bounce.getX();
+                this.y += bounce.getY();
             }
         }
 
     }
 
-    public void checkWallsCollisions(double xDiff, double yDiff, ArrayList<Point> walls){
+    public void checkWallsCollisions(int xOld, int yOld, ArrayList<Point> walls){
         int tileWidth = WorldHandler.getTileWidth();
-
-        int xOld = (int)(this.x - xDiff);
-        int yOld = (int)(this.y - yDiff);
 
         int tileX =(this.x/tileWidth) -1;
         int tileY =(this.y/tileWidth) -1;
@@ -86,14 +97,17 @@ public class ServerZombie implements ServerUnit{
                 int b = (tileY + j)*tileWidth;
                 if(a>=0 && b>=0){
                     if(walls.contains(new Point(a,b))){
-                        checkSingleWallCollision(tileWidth,xOld,yOld,xDiff,yDiff,a,b);
+                        checkSingleWallCollision(tileWidth,xOld,yOld,a,b);
                     }
                 }
             }
         }
     }
 
-    public void checkSingleWallCollision(int tileWidth, int xOld, int yOld, double xDiff, double yDiff, int x, int y){
+    public void checkSingleWallCollision(int tileWidth, int xOld, int yOld, int x, int y){
+        double xDiff = this.x - xOld;
+        double yDiff = this.y - yOld;
+
         if(Physics.collidesWithWall(this.x,yOld,RADIUS,new Rectangle(x,y,tileWidth,tileWidth))){
             this.x = xOld;
             int temp = (int)(yOld + yDiff*0.5);
@@ -109,18 +123,4 @@ public class ServerZombie implements ServerUnit{
             }
         }
     }
-
-    public void update(double xDirection, double yDirection, double rotation, ArrayList<ServerZombie> zombies, ArrayList<Point> walls){
-        this.rotation = rotation;
-
-        double xDiff = xDirection * speed;
-        double yDiff = yDirection * speed;
-
-        this.x += (int)xDiff;
-        this.y += (int)yDiff;
-
-        checkZombiesCollisions(xDiff, yDiff, zombies, walls);
-        checkWallsCollisions(xDiff, yDiff, walls);
-    }
-
 }

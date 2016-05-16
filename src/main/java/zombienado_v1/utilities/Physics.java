@@ -1,9 +1,11 @@
 package zombienado_v1.utilities;
 
 import javafx.scene.shape.Circle;
+import zombienado_v1.server.serverWorld.WorldHandler;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 public class Physics {
 	/**
@@ -34,27 +36,31 @@ public class Physics {
 		}
 		return false;
 	}
+
 	/**
-	 * Checks if this unit is overlapping an other unit
+	 * Returns a bounce vector that prevents overlap between two units
 	 * @param xThisUnit Coordinate along x axis for this unit
 	 * @param yThisUnit Coordinate along y axis for this unit
 	 * @param radiusThisUnit Radius for this unit
 	 * @param xOtherUnit Coordinate along x axis for other unit
 	 * @param yOtherUnit Coordinate along y axis for other unit
 	 * @param radiusOtherUnit Radius for other unit
-	 * @return True if this unit is overlapping the other unit
+	 * @return
 	 */
-	public static boolean collidesWithUnit(int xThisUnit, int yThisUnit, float radiusThisUnit, int xOtherUnit, int yOtherUnit, float radiusOtherUnit){
-		Point thisUnit = new Point(xThisUnit,yThisUnit);
-		Point otherUnit = new Point(xOtherUnit,yOtherUnit);
+	public static Point bounce(int xThisUnit, int yThisUnit, float radiusThisUnit, int xOtherUnit, int yOtherUnit, float radiusOtherUnit){
+		double dX = xOtherUnit-xThisUnit;
+		double dY = yOtherUnit-yThisUnit;
+		double actualDistance = Math.sqrt( (dX)*(dX) + (dY)*(dY) );
+		dX /= actualDistance;
+		dY /= actualDistance;
+		double allowedDistance = radiusThisUnit + radiusOtherUnit;
+		double overlap = allowedDistance - actualDistance;
 
-		double alowedDistance = radiusThisUnit + radiusOtherUnit;
+		if(overlap<=0) return new Point(0,0);
 
-		if(thisUnit.distance(otherUnit)<alowedDistance){
-			return true;
-		}
-		return false;
-
+		dX *= overlap;
+		dY *= overlap;
+		return new Point((int)(-dX), (int)(-dY));
 	}
 }
 
