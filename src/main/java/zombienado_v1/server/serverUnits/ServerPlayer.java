@@ -56,7 +56,7 @@ public class ServerPlayer implements ServerUnit{
 
     public void takeDamage(int damage){
         long timeDiff = System.nanoTime() - timeWhenDamaged;
-        if(timeDiff>1000000){
+        if(timeDiff>1000000000){
             this.health -= damage;
             this.timeWhenDamaged = System.nanoTime();
         }
@@ -110,7 +110,7 @@ public class ServerPlayer implements ServerUnit{
             double allowedDistance = RADIUS + ServerZombie.getRadius();
             double overlap = allowedDistance - actualDistance;
 
-            if(overlap<=0) this.takeDamage(1);
+            if(overlap>0) this.takeDamage(1);
         }
     }
 
