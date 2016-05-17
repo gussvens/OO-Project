@@ -9,5 +9,6 @@ public interface iWeapon {
 
     public ServerBullet shoot(int x, int y, double direction, int bulletCounter);
     public int getAmmo();
+    public boolean canShoot();
 
 }

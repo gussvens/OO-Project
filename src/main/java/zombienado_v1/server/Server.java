@@ -79,7 +79,7 @@ public class Server extends Thread {
 				final ServerThread st = serverThreads.get(i);
 				players.get(i).update(st.getDeltaX(), st.getDeltaY(), st.getDeltaRotation(),spawner.getZombies(),handler.getWallTiles());
 				if(st.getIsShooting()){
-					if(players.get(i).shoot(bulletCounter) != null) {
+					if(players.get(i).canShoot()) {
 						bullets.add(players.get(i).shoot(bulletCounter));
 						bulletCounter++;
 					}
