@@ -13,22 +13,17 @@ public class ServerGun implements iWeapon {
     private final static int DAMAGE = 10;
     private final static int PRICE = 0;
     private final static double SPRAY = 0.5;
-    private final static long RATEOFFIRE = 1000;
+    private final static double RATEOFFIRE = 1;
     private final int BULLETSPEED = 20;
-    private int lastFired = 2000;
     private int ammo;
 
     public ServerGun() {
 
     }
 
-    public ServerBullet shoot(int x, int y, double direction, int ID){
+    public ServerBullet shoot(int x, int y, double direction){
         //Fix with better values
-        if(System.currentTimeMillis() - lastFired >= RATEOFFIRE) {
-            return new ServerBullet(x, y, ID, direction, DAMAGE, BULLETSPEED);
-        } else {
-            return null;
-        }
+        return new ServerBullet(x, y, 1, direction, DAMAGE, BULLETSPEED);
     }
 
     public int getAmmo(){

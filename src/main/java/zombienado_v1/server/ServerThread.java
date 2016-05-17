@@ -110,7 +110,7 @@ public class ServerThread extends Thread {
 	}
 
 	public void sendBulletData(int id, int x, int y, double direction){
-		String s = "bullet;" + id + ";" + x + ";" + y + ";" + direction;
+		String s = "bullet;" + id + ";" + x + ";" + y + ";" + ";" + direction;
 		send(s);
 	}
 
