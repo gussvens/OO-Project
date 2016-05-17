@@ -14,6 +14,7 @@ public class ServerGun implements iWeapon {
     private final static int PRICE = 0;
     private final static double SPRAY = 0.5;
     private final static double RATEOFFIRE = 1;
+    private final int BULLETSPEED = 20;
     private int ammo;
 
     public ServerGun() {
@@ -22,7 +23,7 @@ public class ServerGun implements iWeapon {
 
     public Bullet shoot(int x, int y, double direction){
         //Fix with better values
-        return new Bullet(1,1,1,0.1);
+        return new Bullet(x, y, 1, direction, DAMAGE, BULLETSPEED);
     }
 
     public int getAmmo(){

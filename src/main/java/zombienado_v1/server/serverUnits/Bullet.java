@@ -10,13 +10,15 @@ public class Bullet implements ServerUnit {
     private int ID;
     private double direction;
     private int speed;
+    private int damage;
 
-    public Bullet(int x, int y, int ID, double direction){
+    public Bullet(int x, int y, int ID, double direction, int damage, int bulletSpeed){
         this.x = x;
         this.y = y;
         this.ID = ID;
         this.direction = direction;
-        this.speed = 20;
+        this.speed = bulletSpeed;
+        this.damage = damage;
     }
 
     public int getX(){
@@ -29,6 +31,10 @@ public class Bullet implements ServerUnit {
 
     public int getID(){
         return ID;
+    }
+
+    public int getDamage(){
+        return damage;
     }
 
     public void update(){
