@@ -29,7 +29,7 @@ public class CharacterView {
                 int weaponId = p.getWeapon().getId();
                 graphics.drawImage(playerSprites[i], GraphicsUtils.Transform(playerSprites[i], p.getX() - Camera.getX(), p.getY() - Camera.getY(), p.getRotation()), null);
 
-                graphics.drawImage(weaponSprites[weaponId], GraphicsUtils.Transform(weaponSprites[weaponId], p.getX() - Camera.getX() + Math.cos(p.getRotation())*32, p.getY() - Camera.getY() + Math.sin(p.getRotation())*32, p.getRotation()), null);
+                //graphics.drawImage(weaponSprites[weaponId], GraphicsUtils.Transform(weaponSprites[weaponId], p.getX() - Camera.getX() + Math.cos(p.getRotation())*32, p.getY() - Camera.getY() + Math.sin(p.getRotation())*32, p.getRotation()), null);
             }
         }
     }
