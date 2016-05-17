@@ -20,7 +20,7 @@ public class ServerCommunicator extends Thread {
     private Socket socket;
     private BufferedReader in;
     private static PrintWriter out;
-    private ArrayList<Unit> players;
+    private ArrayList<Player> players;
     private ArrayList<Unit> zombies;
     private ArrayList<Unit> bullets;
     private int myID = -1;
@@ -42,7 +42,7 @@ public class ServerCommunicator extends Thread {
 
     private ServerCommunicator(Model model, InetAddress address, int port) {
         ServerCommunicator.model = model;
-        players = new ArrayList<Unit>();
+        players = new ArrayList<Player>();
         for (int i = 0; i < 4; i++) {
             players.add(null);
         }
@@ -168,8 +168,8 @@ public class ServerCommunicator extends Thread {
         }
     }
 
-    public synchronized ArrayList<Unit> getPlayers() {
-        ArrayList<Unit> copy = new ArrayList<Unit>();
+    public synchronized ArrayList<Player> getPlayers() {
+        ArrayList<Player> copy = new ArrayList<>();
         for (Unit player : players) {
             Player p = (Player) player;
             if (p != null)
