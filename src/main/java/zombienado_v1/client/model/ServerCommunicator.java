@@ -97,6 +97,7 @@ public class ServerCommunicator extends Thread {
     public synchronized void shoot(boolean isShooting) {
        if (wasShooting != isShooting) {
            String message = "shoot;" + isShooting;
+           out.println(message);
            wasShooting = isShooting;
        }
     }

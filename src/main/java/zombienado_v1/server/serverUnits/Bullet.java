@@ -19,6 +19,7 @@ public class Bullet implements ServerUnit {
         this.direction = direction;
         this.speed = bulletSpeed;
         this.damage = damage;
+        System.out.println("Shot fired!");
     }
 
     public int getX(){
