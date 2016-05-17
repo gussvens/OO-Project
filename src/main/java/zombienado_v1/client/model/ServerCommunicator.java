@@ -22,6 +22,7 @@ public class ServerCommunicator extends Thread {
     private static PrintWriter out;
     private ArrayList<Unit> players;
     private ArrayList<Unit> zombies;
+    private ArrayList<Unit> bullets;
     private int myID = -1;
     private Point playerPosition;
     private boolean wasShooting = false;
@@ -149,6 +150,21 @@ public class ServerCommunicator extends Thread {
                     System.out.println(zombies.get(0).getX() + "," + zombies.get(0).getY() + "," + zombies.get(0).getRotation());
 
             }
+        } else if (arg[0].equals("bullet")) {
+
+            int id = Integer.parseInt(arg[1]);
+
+            if (bullets == null) return;
+            if (bullets.size() <= id) {
+                bullets.add(new Bullet());
+            }
+
+            int x = Integer.parseInt(arg[3]);
+            int y = Integer.parseInt(arg[4]);
+            double rot = Double.parseDouble(arg[5]);
+            bullets.get(id).setPosition(x, y);
+            bullets.get(id).setRotation(rot);
+
         }
     }
 
@@ -168,6 +184,16 @@ public class ServerCommunicator extends Thread {
             Zombie z = (Zombie) zombie;
             if (z != null)
                 copy.add(z.copy());
+        }
+        return copy;
+    }
+
+    public synchronized ArrayList<Unit> getBullets() {
+        ArrayList<Unit> copy = new ArrayList<Unit>();
+        for (Unit bullet : bullets) {
+            Bullet b = (Bullet) bullet;
+            if (b != null)
+                copy.add(b.copy());
         }
         return copy;
     }

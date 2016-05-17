@@ -9,20 +9,20 @@ import java.util.ArrayList;
 /**
  * Created by Marcus on 2016-05-06.
  */
-public class Bullet implements ServerUnit {
+public class ServerBullet implements ServerUnit {
 
     private int x;
     private int y;
     private int ID;
-    private double direction;
+    private double rotation;
     private int speed;
     private int damage;
 
-    public Bullet(int x, int y, int ID, double direction, int damage, int bulletSpeed){
+    public ServerBullet(int x, int y, int ID, double rotation, int damage, int bulletSpeed){
         this.x = x;
         this.y = y;
         this.ID = ID;
-        this.direction = direction;
+        this.rotation = rotation;
         this.speed = bulletSpeed;
         this.damage = damage;
         System.out.println("Shot fired!");
@@ -53,8 +53,8 @@ public class Bullet implements ServerUnit {
         checkCollisionWithWalls(walls);
         checkZombieCollision(zombies);
 
-        x = x + (int)(speed*Math.cos(direction));
-        y = y + (int)(speed*Math.sin(direction));
+        x = x + (int)(speed*Math.cos(rotation));
+        y = y + (int)(speed*Math.sin(rotation));
     }
 
     private void checkZombieCollision(ArrayList<ServerZombie> zombies){

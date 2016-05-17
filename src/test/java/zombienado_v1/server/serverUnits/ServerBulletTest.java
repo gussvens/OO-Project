@@ -11,8 +11,7 @@ import java.util.ArrayList;
 public class ServerBulletTest extends TestCase {
 
     public void testUpdate(){
-
-        Bullet b = new Bullet(0,0,1,0.0,0,20);
+        ServerBullet b = new ServerBullet(0,0,1,0.0,0,20);
         ArrayList<ServerZombie> zombies = new ArrayList<>();
         ArrayList<Point> walls = new ArrayList<>();
 
@@ -23,7 +22,7 @@ public class ServerBulletTest extends TestCase {
     }
 
     public void testStopping(){
-        Bullet b = new Bullet(0,0,1,0.0,0,20);
+        ServerBullet b = new ServerBullet(0,0,1,0.0,0,20);
         ArrayList<ServerZombie> zombies = new ArrayList<>();
         ArrayList<Point> walls = new ArrayList<>();
         Point wall = new Point(0,0);
