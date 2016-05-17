@@ -48,6 +48,10 @@ public class ServerBullet implements ServerUnit {
         return damage;
     }
 
+    public double getRotation(){
+        return rotation;
+    }
+
     public void update(ArrayList<ServerZombie> zombies, ArrayList<Point> walls){
 
         checkCollisionWithWalls(walls);
