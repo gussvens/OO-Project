@@ -12,14 +12,14 @@ import zombienado_v1.utilities.PlayerInputHandler;
 public class Model {
 	//private oldPlayer player;
 	private ServerCommunicator coms;
-	private ArrayList<Unit> players;
+	private ArrayList<Player> players;
 	private ArrayList<Unit> zombies;
 	private ArrayList<Unit> bullets;
 	private int myID = -1;
 	/**
 	 * Getters for view
 	 */
-	public synchronized List<Unit> getPlayers(){
+	public synchronized List<Player> getPlayers(){
 		return players;
 	}
 	public synchronized List<Unit> getZombies(){
@@ -38,7 +38,7 @@ public class Model {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		players = new ArrayList<Unit>();
+		players = new ArrayList<Player>();
 		zombies = new ArrayList<Unit>();
 		bullets = new ArrayList<Unit>();
 		for (int i = 0; i < 4; i++){ // Test. Creates 4 players in order to match ID to index.
