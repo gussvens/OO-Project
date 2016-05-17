@@ -85,7 +85,7 @@ public class Server extends Thread {
 
 			//Update all bullets
 			for(Bullet b : bullets) {
-				b.update();
+				b.update(spawner.getZombies(),handler.getWallTiles());
 			}
 			
 			
