@@ -65,13 +65,13 @@ public class Server extends Thread {
 
 			} catch (IOException e) {
 				e.printStackTrace();
-			}		
+			}
 		}
 	}
 
 	public void update(){
 		while (true){
-			
+
 			/**
 			 * Logic
 			 */
@@ -90,9 +90,8 @@ public class Server extends Thread {
 			for(ServerBullet b : bullets) {
 				b.update(spawner.getZombies(),handler.getWallTiles());
 			}
-			
-			
-			
+
+
 			/**
 			 * Send stuff to clients
 			 */
