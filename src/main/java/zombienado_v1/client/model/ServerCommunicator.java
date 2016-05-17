@@ -22,7 +22,7 @@ public class ServerCommunicator extends Thread {
     private static PrintWriter out;
     private ArrayList<Player> players;
     private ArrayList<Unit> zombies;
-    private ArrayList<Unit> bullets;
+    private ArrayList<Bullet> bullets;
     private int myID = -1;
     private boolean wasShooting = false;
 
@@ -46,7 +46,7 @@ public class ServerCommunicator extends Thread {
             players.add(null);
         }
         zombies = new ArrayList<Unit>();
-        bullets = new ArrayList<Unit>();
+        bullets = new ArrayList<Bullet>();
         try {
             socket = new Socket(address, port);
         } catch (UnknownHostException u) {
@@ -138,7 +138,10 @@ public class ServerCommunicator extends Thread {
             }
         } else if (arg[0].equals("zombies")) {
             int id = Integer.parseInt(arg[1]);
-            if (arg[2].equals("pos")) {
+            if (arg[2].equals("remove")){
+
+            }
+            else if (arg[2].equals("pos")) {
 
                 if (zombies == null) return;
                 if (zombies.size() <= id) {
@@ -151,25 +154,27 @@ public class ServerCommunicator extends Thread {
                 double rot = Double.parseDouble(arg[5]);
                 zombies.get(id).setPosition(x, y);
                 zombies.get(id).setRotation(rot);
-
-                if (id == 1)
-                    System.out.println(zombies.get(0).getX() + "," + zombies.get(0).getY() + "," + zombies.get(0).getRotation());
-
             }
         } else if (arg[0].equals("bullet")) {
             int id = Integer.parseInt(arg[1]);
+            if (arg[2].equals("remove")) {
+                if (bullets.size() > id) {
+                    bullets.remove(id);
+                }
+            } else if (arg[2].equals("pos")) {
+                if (bullets == null) return;
+                if (bullets.size() <= id) {
+                    bullets.add(new Bullet(id));
+                }
 
-            if (bullets == null) return;
-            if (bullets.size() <= id) {
-                bullets.add(new Bullet());
+                int x = Integer.parseInt(arg[3]);
+                int y = Integer.parseInt(arg[4]);
+                double rot = Double.parseDouble(arg[5]);
+
+                bullets.get(id).setPosition(x, y);
+                bullets.get(id).setRotation(rot);
+
             }
-
-            int x = Integer.parseInt(arg[2]);
-            int y = Integer.parseInt(arg[3]);
-            double rot = Double.parseDouble(arg[4]);
-            bullets.get(id).setPosition(x, y);
-            bullets.get(id).setRotation(rot);
-
         }
     }
 

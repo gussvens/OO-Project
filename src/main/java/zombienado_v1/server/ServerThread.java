@@ -109,8 +109,18 @@ public class ServerThread extends Thread {
 		send(s);
 	}
 
+	public void sendRemoveData(int id, int x, int y, double rotation){
+		String s = "zombies;" + id + ";remove";
+		send(s);
+	}
+
 	public void sendBulletData(int id, int x, int y, double direction){
-		String s = "bullet;" + id + ";" + x + ";" + y + ";" + direction;
+		String s = "bullet;" + id + ";pos;" + x + ";" + y + ";" + direction;
+		send(s);
+	}
+
+	public void sendRemoveBullet(int id){
+		String s = "bullet;" + id + ";" + "remove";
 		send(s);
 	}
 

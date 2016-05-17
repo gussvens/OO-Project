@@ -36,6 +36,8 @@ public class ServerBullet implements ServerUnit {
         return y;
     }
 
+    public double getRotation() { return rotation; }
+
     public int getID(){
         return ID;
     }

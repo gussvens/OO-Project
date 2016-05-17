@@ -111,9 +111,22 @@ public class Server extends Thread {
 				}
 
 				for(ServerBullet bullet : bullets) {
-					serverThread.sendBulletData(bullet.getID(), bullet.getX(), bullet.getY(), 0.3);
+					if (bullet.getSpeed() == 0){
+						serverThread.sendRemoveBullet(bullets.indexOf(bullet));
+					} else {
+						serverThread.sendBulletData(bullets.indexOf(bullet), bullet.getX(), bullet.getY(), bullet.getRotation());
+					}
 				}
 			}
+
+			//remove old bullets
+			for (int i = bullets.size() - 1; i >= 0; i--){
+				if (bullets.get(i).getSpeed() == 0){
+					bullets.remove(i);
+				}
+			}
+
+			System.out.println("SERVER: bullets: " + bullets.size());
 			try {
 				Thread.sleep((long) 16); //Gotta fix this
 			} catch(InterruptedException e){
