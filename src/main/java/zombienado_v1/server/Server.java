@@ -1,6 +1,6 @@
 package zombienado_v1.server;
 
-import zombienado_v1.server.serverUnits.Bullet;
+import zombienado_v1.server.serverUnits.ServerBullet;
 import zombienado_v1.server.serverUnits.ServerPlayer;
 import zombienado_v1.server.serverUnits.ServerZombie;
 import zombienado_v1.server.serverWorld.WorldHandler;
@@ -16,14 +16,14 @@ public class Server extends Thread {
 	private ArrayList<ServerPlayer> players;
 	private int amountConnected = 0;
 	private ArrayList<ServerThread> serverThreads;
-	private ArrayList<Bullet> bullets;
+	private ArrayList<ServerBullet> bullets;
 	private Spawner spawner;
 	private WorldHandler handler;
 
 	private Server(){
 		players = new ArrayList<ServerPlayer>();
 		serverThreads = new ArrayList<ServerThread>();
-		bullets = new ArrayList<Bullet>();
+		bullets = new ArrayList<ServerBullet>();
 		spawner = Spawner.getInstance();
 		handler = new WorldHandler();
 	}
@@ -84,7 +84,7 @@ public class Server extends Thread {
 			}
 
 			//Update all bullets
-			for(Bullet b : bullets) {
+			for(ServerBullet b : bullets) {
 				b.update(spawner.getZombies(),handler.getWallTiles());
 			}
 			
@@ -108,7 +108,7 @@ public class Server extends Thread {
 					}
 				}
 
-				for(Bullet bullet : bullets) {
+				for(ServerBullet bullet : bullets) {
 					serverThread.sendBulletData(bullet.getID(), bullet.getX(), bullet.getY(), 0.3);
 				}
 			}

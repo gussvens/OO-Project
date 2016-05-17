@@ -9,7 +9,7 @@ public class ServerBulletTest extends TestCase {
 
     public void testUpdate(){
 
-        Bullet b = new Bullet(0,0,1,0.0,0,20);
+        ServerBullet b = new ServerBullet(0,0,1,0.0,0,20);
         b.update();
         assertTrue(b.getX() == 20);
         assertTrue(b.getY() == 0);

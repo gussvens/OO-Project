@@ -1,7 +1,7 @@
 package zombienado_v1.server.serverWeapon;
 
 import zombienado_v1.interfaces.iWeapon;
-import zombienado_v1.server.serverUnits.Bullet;
+import zombienado_v1.server.serverUnits.ServerBullet;
 
 /**
  * Created by Marcus on 2016-05-06.
@@ -21,9 +21,9 @@ public class ServerGun implements iWeapon {
 
     }
 
-    public Bullet shoot(int x, int y, double direction){
+    public ServerBullet shoot(int x, int y, double direction){
         //Fix with better values
-        return new Bullet(x, y, 1, direction, DAMAGE, BULLETSPEED);
+        return new ServerBullet(x, y, 1, direction, DAMAGE, BULLETSPEED);
     }
 
     public int getAmmo(){
