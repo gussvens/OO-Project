@@ -21,9 +21,9 @@ public class ServerGun implements iWeapon {
 
     }
 
-    public ServerBullet shoot(int x, int y, double direction){
+    public ServerBullet shoot(int x, int y, double direction, int bulletCounter){
         //Fix with better values
-        return new ServerBullet(x, y, 1, direction, DAMAGE, BULLETSPEED);
+        return new ServerBullet(x, y, bulletCounter, direction, DAMAGE, BULLETSPEED);
     }
 
     public int getAmmo(){

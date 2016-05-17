@@ -114,8 +114,8 @@ public class ServerPlayer implements ServerUnit{
         }
     }
 
-    public ServerBullet shoot(){
-        return weapon.shoot(x,y,r);
+    public ServerBullet shoot(int bulletCounter){
+        return weapon.shoot(x,y,r,bulletCounter);
     }
 
 }
