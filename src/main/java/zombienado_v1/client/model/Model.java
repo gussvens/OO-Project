@@ -14,6 +14,7 @@ public class Model {
 	private ServerCommunicator coms;
 	private ArrayList<Unit> players;
 	private ArrayList<Unit> zombies;
+	private ArrayList<Unit> bullets;
 	private int myID = -1;
 	/**
 	 * Getters for view
@@ -23,6 +24,9 @@ public class Model {
 	}
 	public synchronized List<Unit> getZombies(){
 		return zombies;
+	}
+	public synchronized List<Unit> getBullets(){
+		return bullets;
 	}
 
 	/** INITIALIZATION
@@ -36,6 +40,7 @@ public class Model {
 		}
 		players = new ArrayList<Unit>();
 		zombies = new ArrayList<Unit>();
+		bullets = new ArrayList<Unit>();
 		for (int i = 0; i < 4; i++){ // Test. Creates 4 players in order to match ID to index.
 			players.add(null);
 		}
@@ -54,6 +59,7 @@ public class Model {
 
 		this.players = coms.getPlayers();
 		this.zombies = coms.getZombies();
+		this.bullets = coms.getBullets();
 		Camera.setX(players.get(myID).getX());
 		Camera.setY(players.get(myID).getY());
 		Point velocityVector = PlayerInputHandler.getPlayerVelocity(pressedKeys);
