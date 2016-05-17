@@ -118,4 +118,8 @@ public class ServerPlayer implements ServerUnit{
         return weapon.shoot(x,y,r,bulletCounter);
     }
 
+    public boolean canShoot(){
+        return weapon.canShoot();
+    }
+
 }
