@@ -46,6 +46,7 @@ public class ServerCommunicator extends Thread {
             players.add(null);
         }
         zombies = new ArrayList<Unit>();
+        bullets = new ArrayList<Unit>();
         try {
             socket = new Socket(address, port);
         } catch (UnknownHostException u) {
@@ -158,9 +159,9 @@ public class ServerCommunicator extends Thread {
                 bullets.add(new Bullet());
             }
 
-            int x = Integer.parseInt(arg[3]);
-            int y = Integer.parseInt(arg[4]);
-            double rot = Double.parseDouble(arg[5]);
+            int x = Integer.parseInt(arg[2]);
+            int y = Integer.parseInt(arg[3]);
+            double rot = Double.parseDouble(arg[4]);
             bullets.get(id).setPosition(x, y);
             bullets.get(id).setRotation(rot);
 
