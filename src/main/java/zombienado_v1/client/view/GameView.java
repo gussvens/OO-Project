@@ -31,6 +31,7 @@ public class GameView extends JFrame{
 	private MapView mapView;
 	private CharacterView characterView;
 	private ZombieView zombieView;
+	private BulletView bulletView;
 
 	private class Canvas extends JPanel {
 		@Override
@@ -67,18 +68,23 @@ public class GameView extends JFrame{
 
 	public synchronized void load(){
 		Image[] playerSprite = new Image[4];
+		Image bulletSprite;
+		Image weaponSpriteSheet;
 		Image zombieSprite;
 		try { //LOAD
 			playerSprite[0] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerRocker.png")));
 			playerSprite[1] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerPunk.png")));
 			playerSprite[2] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerGirl.png")));
 			playerSprite[3] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerDark.png")));
+			weaponSpriteSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/weaponGrid.png")));
+			bulletSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/bullet.png")));
 			//playerFeetSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/testFeet.png")));
 			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
 			mapView = new MapView(ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")));
 			MapLoader.Load(mapView, new File("src/main/resources/maps/mapTest.txt"));
-			characterView = new CharacterView(model, playerSprite);
+			characterView = new CharacterView(model, playerSprite, weaponSpriteSheet);
 			zombieView = new ZombieView(model, zombieSprite);
+			bulletView = new BulletView(model, bulletSprite);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -93,6 +99,7 @@ public class GameView extends JFrame{
 		graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenWidth());
 		mapView.draw(graphics);
 		characterView.draw(graphics);
+		bulletView.draw(graphics);
 		zombieView.draw(graphics);
 		graphics.drawString("FPS: "+ Controller.getFramesPerSecond(), 9, 19);
 		graphics.drawString("Zombinado Beta", GameView.getScreenWidth() - 101, GameView.getScreenHeight() - 11);

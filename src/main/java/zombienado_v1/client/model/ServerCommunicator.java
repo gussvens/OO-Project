@@ -150,7 +150,7 @@ public class ServerCommunicator extends Thread {
 
             }
         } else if (arg[0].equals("bullet")) {
-
+            System.out.println(s);
             int id = Integer.parseInt(arg[1]);
 
             if (bullets == null) return;
@@ -163,7 +163,6 @@ public class ServerCommunicator extends Thread {
             double rot = Double.parseDouble(arg[5]);
             bullets.get(id).setPosition(x, y);
             bullets.get(id).setRotation(rot);
-
         }
     }
 
