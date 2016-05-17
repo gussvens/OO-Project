@@ -23,7 +23,6 @@ public class ServerCommunicator extends Thread {
     private ArrayList<Unit> players;
     private ArrayList<Unit> zombies;
     private int myID = -1;
-    private Point playerPosition;
     private boolean wasShooting = false;
 
     public static synchronized void create(Model model, InetAddress address, int port) {
