@@ -66,8 +66,4 @@ public class Weapon {
     public void update(){
         // do stuff repeatedly
     };
-
-    public void draw(Graphics2D graphics){
-        // do stuff with id
-    };
 }
