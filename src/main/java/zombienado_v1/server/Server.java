@@ -19,7 +19,6 @@ public class Server extends Thread {
 	private ArrayList<ServerBullet> bullets;
 	private Spawner spawner;
 	private WorldHandler handler;
-	private int bulletCounter;
 
 	private Server(){
 		players = new ArrayList<ServerPlayer>();
@@ -27,7 +26,6 @@ public class Server extends Thread {
 		bullets = new ArrayList<ServerBullet>();
 		spawner = Spawner.getInstance();
 		handler = new WorldHandler();
-		bulletCounter = 0;
 	}
 
 	public static Server getInstance(){
@@ -79,9 +77,8 @@ public class Server extends Thread {
 				final ServerThread st = serverThreads.get(i);
 				players.get(i).update(st.getDeltaX(), st.getDeltaY(), st.getDeltaRotation(),spawner.getZombies(),handler.getWallTiles());
 				if(st.getIsShooting()){
-					if(players.get(i).shoot(bulletCounter) != null) {
-						bullets.add(players.get(i).shoot(bulletCounter));
-						bulletCounter++;
+					if(players.get(i).shoot() != null) {
+						bullets.add(players.get(i).shoot());
 					}
 				}
 			}
@@ -112,7 +109,7 @@ public class Server extends Thread {
 				}
 
 				for(ServerBullet bullet : bullets) {
-					serverThread.sendBulletData(bullet.getID(), bullet.getX(), bullet.getY(), bullet.getRotation());
+					serverThread.sendBulletData(bullet.getID(), bullet.getX(), bullet.getY(), 0.3);
 				}
 			}
 			try {
