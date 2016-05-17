@@ -96,11 +96,17 @@ public class ServerCommunicator extends Thread {
     }
 
     public synchronized void shoot(boolean isShooting) {
-       if (wasShooting != isShooting) {
-           String message = "shoot;" + isShooting;
-           out.println(message);
-           wasShooting = isShooting;
-       }
+        if (wasShooting != isShooting) {
+            String message = "shoot;" + isShooting;
+            out.println(message);
+            wasShooting = isShooting;
+        }
+    }
+
+    public synchronized void requestReload(boolean reload) {
+        if (!reload) return;
+        String message = "reload;";
+        out.println(message);
     }
 
 
@@ -158,7 +164,6 @@ public class ServerCommunicator extends Thread {
                 bullets.add(new Bullet());
             }
 
-            System.out.println("AAAAAAAAAAAAAAAAAAA_:" + bullets.size());
             int x = Integer.parseInt(arg[2]);
             int y = Integer.parseInt(arg[3]);
             double rot = Double.parseDouble(arg[4]);
@@ -168,6 +173,10 @@ public class ServerCommunicator extends Thread {
         }
     }
 
+    /**
+     * returns a copy of the last received players
+     * @return
+     */
     public synchronized ArrayList<Player> getPlayers() {
         ArrayList<Player> copy = new ArrayList<>();
         for (Unit player : players) {
@@ -178,6 +187,10 @@ public class ServerCommunicator extends Thread {
         return copy;
     }
 
+    /**
+     * returns a copy of the last received
+     * @return
+     */
     public synchronized ArrayList<Unit> getZombies() {
         ArrayList<Unit> copy = new ArrayList<Unit>();
         for (Unit zombie : zombies) {

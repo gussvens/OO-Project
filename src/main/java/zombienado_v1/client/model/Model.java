@@ -64,9 +64,11 @@ public class Model {
 		Camera.setY(players.get(myID).getY());
 		Point velocityVector = PlayerInputHandler.getPlayerVelocity(pressedKeys);
 		double deltaRotation = PlayerInputHandler.getPlayerRotation(players.get(myID).getX(), players.get(myID).getY(), cursor) - players.get(myID).getRotation();
+		boolean reload = PlayerInputHandler.getReload(pressedKeys);
 		try {
 			coms.movePlayer((int)velocityVector.getX(), (int)velocityVector.getY(), deltaRotation);
 			coms.shoot(isMousePressed);
+			coms.requestReload(reload);
 		} catch (Exception e){
 			e.printStackTrace();
 		}

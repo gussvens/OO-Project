@@ -14,6 +14,17 @@ public class PlayerInputHandler {
         return Math.atan2(dY, dX);
     }
 
+    public static boolean getReload(java.util.List<Character> pressedKeys){
+        for (char key : pressedKeys) {
+            switch (key){
+                case 'r':
+                case 'R':
+                    return true;
+            }
+        }
+        return false;
+    }
+
     public static Point getPlayerVelocity(java.util.List<Character> pressedKeys){
         int totalSpeed = 2;
         int speedX = 0;
