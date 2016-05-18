@@ -11,10 +11,11 @@ import java.util.Random;
 public class ServerGun implements iWeapon {
 
     private final static int ID = 00;
-    private final static int MAXAMMO = 999;
+    private final static int MAXAMMO = 999999999;
     private final static int DAMAGE = 10;
     private final static int PRICE = 0;
     private final static double SPRAY = 0.3;
+    private final static int DISTANCE_TO_MUZZLE = 41; //distance from player center to muzzle in pixels
     //TEST
     //private final static double RATEOFFIRE = 1000;
     private final static double RATEOFFIRE = 100;
@@ -47,4 +48,7 @@ public class ServerGun implements iWeapon {
         return ammo;
     }
 
+    public int getDistanceToMuzzle(){
+        return DISTANCE_TO_MUZZLE;
+    }
 }

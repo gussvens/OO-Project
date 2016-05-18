@@ -17,8 +17,9 @@ public class ServerPlayer implements ServerUnit{
     private int x;
     private int y;
     private int health;
-    private double r;
     private int id;
+    private int balance;
+    private double r;
     private iWeapon weapon;
     private long timeWhenDamaged;
 
@@ -34,6 +35,7 @@ public class ServerPlayer implements ServerUnit{
         //TODO: move weapons to server
         this.weapon = new ServerGun();
         this.health = 100;
+        this.balance = 0;
         this.timeWhenDamaged = System.nanoTime();
     }
 
@@ -65,10 +67,15 @@ public class ServerPlayer implements ServerUnit{
         return this.health;
     }
 
+    public int getBalance(){
+        return this.balance;
+    }
+
     public void takeDamage(int damage){
         long timeDiff = System.nanoTime() - timeWhenDamaged;
         if(timeDiff>1000000000){
             this.health -= damage;
+            if(this.health<0) this.health =0;
             this.timeWhenDamaged = System.nanoTime();
         }
     }

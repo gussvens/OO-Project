@@ -1,11 +1,11 @@
 package zombienado_v1.client.model.weapon;
 
-import java.awt.*;
+import zombienado_v1.interfaces.iWeapon;
 
 /**
  * Created by Gustav on 16-04-12.
  */
-public class Weapon {
+public class Weapon{
 
     private int id;
     private int ammo;
@@ -19,6 +19,14 @@ public class Weapon {
 
     public int getId() {
         return this.id;
+    }
+
+    public int getAmmo(){
+        return this.ammo;
+    }
+
+    public int getDistanceToMuzzle(){
+        return 0;
     }
 
 }

@@ -5,6 +5,8 @@ import zombienado_v1.client.model.weapon.Weapon;
 public class Player extends Unit{
     //TEST
     private Weapon weapon = new Weapon(30, 100, 100);
+    private int balance;
+    private int health;
     public boolean hasShot;
 
     /**
@@ -33,4 +35,12 @@ public class Player extends Unit{
     }
 
     public Weapon getWeapon(){return weapon;}
+
+    public int getHealth(){
+        return this.health;
+    }
+
+    public int getBalance(){
+        return this.balance;
+    }
 }
