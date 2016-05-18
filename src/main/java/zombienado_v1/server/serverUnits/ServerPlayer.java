@@ -1,7 +1,6 @@
 package zombienado_v1.server.serverUnits;
 
-import zombienado_v1.server.serverWeapon.ServerGun;
-import zombienado_v1.server.serverWeapon.ServerWeapon;
+import zombienado_v1.server.serverWeapon.*;
 import zombienado_v1.server.serverWorld.WorldHandler;
 import zombienado_v1.utilities.Physics;
 
@@ -33,7 +32,7 @@ public class ServerPlayer implements ServerUnit{
         this.id = id;
 
         //TODO: move weapons to server
-        this.weapon = new ServerGun();
+        this.weapon = new ServerAutoShotgun();
         this.health = 100;
         this.balance = 0;
         this.timeWhenDamaged = System.nanoTime();
