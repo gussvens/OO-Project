@@ -75,6 +75,7 @@ public class GameView extends JFrame{
 		Image weaponSpriteSheet;
 		Image zombieSprite;
 		SoundEffect gunSound;
+		SoundEffect backgroundMusic;
 		Animation muzzle;
 
 		try { //LOAD
@@ -87,13 +88,14 @@ public class GameView extends JFrame{
 			//playerFeetSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/testFeet.png")));
 			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
 			gunSound = new SoundEffect(new File("src/main/resources/soundeffects/gunshot.wav"));
+			backgroundMusic = new SoundEffect(new File("src/main/resources/soundeffects/backgroundmusic2.wav"));
 			muzzle = new Animation(GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/muzzle.png"))), 8, 1, 60);
 			mapView = new MapView(ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")));
 			MapLoader.Load(mapView, new File("src/main/resources/maps/mapTest.txt"));
 			characterView = new CharacterView(model, playerSprite, weaponSpriteSheet, muzzle, gunSound);
 			zombieView = new ZombieView(model, zombieSprite);
 			bulletView = new BulletView(model, bulletSprite);
-
+			backgroundMusic.play();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -45,12 +45,14 @@ public class CharacterView {
                 }
                 graphics.drawImage(playerSprites[i], GraphicsUtils.Transform(playerSprites[i], p.getX() - Camera.getX(), p.getY() - Camera.getY(), p.getRotation()), null);
                 Image weapon = GraphicsUtils.getImageFromSheet(wX, wY, 64, 64, weaponSprites);
-                graphics.drawImage(weapon, GraphicsUtils.Transform(weapon, (int)(p.getX() - Camera.getX() + Math.cos(p.getRotation())*32), (int)(p.getY() - Camera.getY() + Math.sin(p.getRotation())*32), p.getRotation()), null);
                 muzzle.update();
-                muzzle.draw((int)(p.getX() - Camera.getX() + Math.cos(p.getRotation())*74), (int)(p.getY() - Camera.getY() + Math.sin(p.getRotation())*74), p.getRotation(), graphics);
+                muzzle.draw((int)(p.getX() - Camera.getX() + Math.cos(p.getRotation())*72), (int)(p.getY() - Camera.getY() + Math.sin(p.getRotation())*72), p.getRotation(), graphics);
+
+                graphics.drawImage(weapon, GraphicsUtils.Transform(weapon, (int)(p.getX() - Camera.getX() + Math.cos(p.getRotation())*32), (int)(p.getY() - Camera.getY() + Math.sin(p.getRotation())*32), p.getRotation()), null);
                 if (p.hasShot()){
                     System.out.println("HAS SHOT");
                     gunsound.play();
+                    muzzle.reset();
                     muzzle.play();
                 }
             }
