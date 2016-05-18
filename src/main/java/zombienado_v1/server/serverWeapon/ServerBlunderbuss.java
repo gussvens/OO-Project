@@ -11,10 +11,11 @@ public class ServerBlunderbuss extends ServerWeapon {
     private final static int DISTANCE_TO_MUZZLE = 80; //distance from player center to muzzle in pixels
     private final static int BULLETSPEED = 20;
     private final static int MAXAMMO = 50;
+    private final static int SHOTS = 10;
     private final static double SPRAY = 1.0;
     private final static double RATEOFFIRE = 1000;
 
     public ServerBlunderbuss() {
-        super(ID,DAMAGE,PRICE,DISTANCE_TO_MUZZLE,BULLETSPEED,MAXAMMO,SPRAY,RATEOFFIRE);
+        super(ID,DAMAGE,PRICE,DISTANCE_TO_MUZZLE,BULLETSPEED,MAXAMMO,SHOTS,SPRAY,RATEOFFIRE);
     }
 }

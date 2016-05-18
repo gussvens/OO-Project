@@ -32,7 +32,7 @@ public class ServerPlayer implements ServerUnit{
         this.id = id;
 
         //TODO: move weapons to server
-        this.weapon = new ServerAutoShotgun();
+        this.weapon = new ServerBlunderbuss();
         this.health = 100;
         this.balance = 0;
         this.timeWhenDamaged = System.nanoTime();
@@ -131,7 +131,7 @@ public class ServerPlayer implements ServerUnit{
         }
     }
 
-    public ServerBullet shoot(int bulletCounter){
+    public ServerBullet[] shoot(int bulletCounter){
         hasShot = true;
         return weapon.shoot(x,y,r,bulletCounter);
     }

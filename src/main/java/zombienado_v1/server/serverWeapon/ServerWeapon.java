@@ -14,17 +14,19 @@ public class ServerWeapon implements iWeapon {
     private int distanceToMuzzle; //distance from player center to muzzle in pixels
     private int bulletSpeed;
     private int ammo;
+    private int shots;
     private double spray;
     private double rateOfFire;
     private long lastFired = System.currentTimeMillis();
 
-    public ServerWeapon(int id, int damage, int price, int distanceToMuzzle, int bulletSpeed, int ammo, double spray, double rateOfFire) {
+    public ServerWeapon(int id, int damage, int price, int distanceToMuzzle, int bulletSpeed, int ammo, int shots, double spray, double rateOfFire) {
         this.id = id;
         this.damage = damage;
         this.price = price;
         this.distanceToMuzzle = distanceToMuzzle;
         this.bulletSpeed = bulletSpeed;
         this.ammo = ammo;
+        this.shots = shots;
         this.spray = spray;
         this.rateOfFire = rateOfFire;
     }
@@ -37,12 +39,19 @@ public class ServerWeapon implements iWeapon {
         }
     }
 
-    public ServerBullet shoot(int x, int y, double direction, int bulletCounter){
+    public ServerBullet[] shoot(int x, int y, double direction, int bulletCounter){
         //Fix with better values
 
         lastFired = System.currentTimeMillis();
         Random r = new Random();
-        return new ServerBullet((int)(x + Math.cos(direction)*48), (int)(y+ Math.sin(direction)*48), bulletCounter, direction - spray/2 + r.nextDouble() * spray, damage, bulletSpeed);
+
+        ServerBullet[] bullets = new ServerBullet[shots];
+        for (int i = 0; i<shots; i++){
+            bullets[i] = new ServerBullet((int)(x + Math.cos(direction)*48), (int)(y+ Math.sin(direction)*48), bulletCounter, direction - spray/2 + r.nextDouble() * spray, damage, bulletSpeed);
+        }
+
+
+        return  bullets;
 
     }
 
