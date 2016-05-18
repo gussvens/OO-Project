@@ -1,7 +1,7 @@
 package zombienado_v1.server.serverUnits;
 
-import zombienado_v1.interfaces.iWeapon;
 import zombienado_v1.server.serverWeapon.ServerGun;
+import zombienado_v1.server.serverWeapon.ServerWeapon;
 import zombienado_v1.server.serverWorld.WorldHandler;
 import zombienado_v1.utilities.Physics;
 
@@ -20,7 +20,7 @@ public class ServerPlayer implements ServerUnit{
     private int id;
     private int balance;
     private double r;
-    private iWeapon weapon;
+    private ServerWeapon weapon;
     private long timeWhenDamaged;
 
     // reports if has shot

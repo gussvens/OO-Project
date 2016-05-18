@@ -1,10 +1,11 @@
 package zombienado_v1.client.model;
 
-import zombienado_v1.client.model.weapon.Weapon;
+import zombienado_v1.client.model.weapon.*;
+import zombienado_v1.interfaces.iWeapon;
 
 public class Player extends Unit{
     //TEST
-    private Weapon weapon = new Weapon(40, 100, 100);
+    private iWeapon weapon = new Ak47();
     private int balance;
     private int health;
     public boolean hasShot;
@@ -34,7 +35,7 @@ public class Player extends Unit{
         return copy;
     }
 
-    public Weapon getWeapon(){return weapon;}
+    public iWeapon getWeapon(){return weapon;}
 
     public int getHealth(){
         return this.health;

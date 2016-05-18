@@ -1,6 +1,7 @@
 package zombienado_v1.server.serverUnits;
 
 import javafx.scene.shape.Circle;
+import zombienado_v1.interfaces.iBullet;
 import zombienado_v1.server.serverWorld.WorldHandler;
 
 import java.awt.*;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by Marcus on 2016-05-06.
  */
-public class ServerBullet implements ServerUnit {
+public class ServerBullet implements iBullet {
 
     private int x;
     private int y;

@@ -6,16 +6,12 @@ package zombienado_v1.client.model.weapon;
 public class Ak47 extends Weapon {
 
     private final static int ID = 20;
-    private final static int MAXAMMO = 60;
+    private final static int DAMAGE = 60;
     private final static int PRICE = 400;
-    private final static int DISTANCE_TO_MUZZLE = 64;
+    private final static int MAXAMMO = 60;
+    private final static int DISTANCE_TO_MUZZLE = 80;
 
     public Ak47() {
-        super(ID, MAXAMMO, PRICE);
+        super(ID, DAMAGE, PRICE, MAXAMMO, DISTANCE_TO_MUZZLE);
     }
-
-    public int getDistanceToMuzzle(){
-        return DISTANCE_TO_MUZZLE;
-    }
-
 }

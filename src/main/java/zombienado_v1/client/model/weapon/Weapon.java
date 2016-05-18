@@ -5,20 +5,32 @@ import zombienado_v1.interfaces.iWeapon;
 /**
  * Created by Gustav on 16-04-12.
  */
-public class Weapon{
+public class Weapon implements iWeapon{
 
     private int id;
-    private int ammo;
+    private int damage;
     private int price;
+    private int ammo;
+    private int distanceToMuzzle;
 
-    public Weapon(int id, int ammo, int price){
+    public Weapon(int id, int damage, int ammo, int price, int distanceToMuzzle){
         this.id = id; // Coordinate to weapon sprite in weaponSheet
-        this.ammo = ammo;
+        this.damage = damage;
         this.price = price;
+        this.ammo = ammo;
+        this.distanceToMuzzle = distanceToMuzzle;
     }
 
     public int getId() {
         return this.id;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public int getPrice() {
+        return damage;
     }
 
     public int getAmmo(){
@@ -26,7 +38,7 @@ public class Weapon{
     }
 
     public int getDistanceToMuzzle(){
-        return 0;
+        return distanceToMuzzle;
     }
 
 }

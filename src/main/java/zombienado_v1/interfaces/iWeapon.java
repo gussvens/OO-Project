@@ -7,9 +7,9 @@ import zombienado_v1.server.serverUnits.ServerBullet;
  */
 public interface iWeapon {
 
-    public ServerBullet shoot(int x, int y, double direction, int bulletCounter);
-    public int getAmmo();
-    public int getDistanceToMuzzle();
-    public boolean canShoot();
+    //public iBullet shoot(int x, int y, double direction, int bulletCounter);
+    int getId();
+    int getAmmo();
+    int getDistanceToMuzzle();
 
 }
