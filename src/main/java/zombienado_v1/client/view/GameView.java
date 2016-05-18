@@ -2,6 +2,7 @@ package zombienado_v1.client.view;
 
 import zombienado_v1.client.controller.Controller;
 import zombienado_v1.client.model.Model;
+import zombienado_v1.client.model.Player;
 import zombienado_v1.utilities.Animation;
 import zombienado_v1.utilities.GraphicsUtils;
 import zombienado_v1.utilities.MapLoader;
@@ -35,6 +36,7 @@ public class GameView extends JFrame{
 	private CharacterView characterView;
 	private ZombieView zombieView;
 	private BulletView bulletView;
+	private HudView hudView;
 
 	private class Canvas extends JPanel {
 		@Override
@@ -71,6 +73,9 @@ public class GameView extends JFrame{
 
 	public synchronized void load(){
 		Image[] playerSprite = new Image[4];
+		Image[] numberSprites = new Image[10];
+		Image hudSprite;
+		Image hudWeaponShopSprite;
 		Image bulletSprite;
 		Image weaponSpriteSheet;
 		Image zombieSprite;
@@ -83,6 +88,18 @@ public class GameView extends JFrame{
 			playerSprite[1] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerPunk.png")));
 			playerSprite[2] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerGirl.png")));
 			playerSprite[3] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerDark.png")));
+			numberSprites[0] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/0.png")));
+			numberSprites[1] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/1.png")));
+			numberSprites[2] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/2.png")));
+			numberSprites[3] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/3.png")));
+			numberSprites[4] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/4.png")));
+			numberSprites[5] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/5.png")));
+			numberSprites[6] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/6.png")));
+			numberSprites[7] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/7.png")));
+			numberSprites[8] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/8.png")));
+			numberSprites[9] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/9.png")));
+			hudSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/hudTrans.png")));
+			hudWeaponShopSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/weaponGun.png")));
 			weaponSpriteSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/weaponGrid.png")));
 			bulletSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/bullet2.png")));
 			//playerFeetSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/testFeet.png")));
@@ -95,6 +112,7 @@ public class GameView extends JFrame{
 			characterView = new CharacterView(model, playerSprite, weaponSpriteSheet, muzzle, gunSound);
 			zombieView = new ZombieView(model, zombieSprite);
 			bulletView = new BulletView(model, bulletSprite);
+			hudView = new HudView(new Player(), hudSprite, hudWeaponShopSprite, numberSprites, model);
 			backgroundMusic.play();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -112,11 +130,12 @@ public class GameView extends JFrame{
 		bulletView.draw(graphics);
 		characterView.draw(graphics);
 		zombieView.draw(graphics);
-		graphics.drawString("FPS: "+ Controller.getFramesPerSecond(), 9, 19);
+		hudView.draw(graphics);
+		graphics.drawString("FPS: " + Controller.getFramesPerSecond(), 9, 19);
 		graphics.drawString("Zombinado Beta", GameView.getScreenWidth() - 101, GameView.getScreenHeight() - 11);
 		graphics.setColor(Color.white);
-		graphics.drawString("FPS: "+Controller.getFramesPerSecond(), 10, 20);
-		graphics.drawString("Zombinado Beta", GameView.getScreenWidth() - 100, GameView.getScreenHeight() - 10);
+		graphics.drawString("FPS: " + Controller.getFramesPerSecond(), 10, 20);
+		graphics.drawString("Zombinado Beta", GameView.getScreenHeight() - 100, GameView.getScreenHeight() - 10);
 
 		canvas.repaint();
 		//canvas.paintComponent(renderer);

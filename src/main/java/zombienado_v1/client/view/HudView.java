@@ -24,8 +24,8 @@ public class HudView {
     }
 
     public synchronized void draw(Graphics2D graphics){
-        int x = 289;
-        int y = 264;
+        int x = 0;
+        int y = GameView.getScreenHeight() - 96;
         int[] ammo = getCertanNumberArray(9, player.getWeapon().getAmmo());
         int[] balance = getCertanNumberArray(9, player.getBalance());
         int[] health = getCertanNumberArray(3, player.getHealth());
@@ -36,15 +36,19 @@ public class HudView {
         graphics.drawImage(weaponShopSprite, x+16, y+16, null);
 
         for(int i = 0; i<9; i++){
-            graphics.drawImage(numberSprites[ammo[i]], x+112, y+12, null);
+            graphics.drawImage(numberSprites[ammo[i]], x+111+16*i, y+52, null);
         }
 
         for(int i = 0; i<9; i++){
-            graphics.drawImage(numberSprites[balance[i]], x+112, y+52, null);
+            graphics.drawImage(numberSprites[balance[i]], x+289+16*i, y+52, null);
         }
 
         for(int i = 0; i<3; i++){
-            graphics.drawImage(numberSprites[health[i]], x+298, y+12, null);
+            graphics.drawImage(numberSprites[health[i]], x+485+16*i, y+52, null);
+        }
+
+        for(int i = 0; i<3; i++){
+            graphics.drawImage(numberSprites[waveNumber[i]], x+587+16*i, y+52, null);
         }
     }
 
@@ -52,9 +56,10 @@ public class HudView {
         int[] array = new int[length];
         for(int i = length-1; i>=0; i--){
             if(number < Math.pow(10,i)){
-                array[length-i] = 0;
+                array[length-1-i] = 0;
             }else{
-                array[length-i] = number/(int)Math.pow(10,i);
+                array[length-1-i] = number/(int)Math.pow(10,i);
+                number -= (number/(int)Math.pow(10,i))*(int)Math.pow(10,i);
             }
         }
         return array;
