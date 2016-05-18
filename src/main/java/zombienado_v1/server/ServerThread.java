@@ -99,8 +99,8 @@ public class ServerThread extends Thread {
 			output.println(message);
 	}
 
-	public void sendPlayerData(int id, int x, int y, double rotation){
-		String s = "players;"+ id + ";pos"  + ";" + x + ";" + y + ";" + rotation;
+	public void sendPlayerData(int id, int x, int y, double rotation, boolean hasFired){
+		String s = "players;"+ id + ";pos"  + ";" + x + ";" + y + ";" + rotation+";"+hasFired;
 		send(s);
 	}
 

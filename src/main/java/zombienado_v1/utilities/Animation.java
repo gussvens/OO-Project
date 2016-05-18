@@ -17,6 +17,7 @@ public class Animation {
 	private int startX = 0;
 	private int startY = 0;
 	private long lastUpdate;
+	private boolean looping = false;
 
 	public Animation(Image spriteSheet, int cols, int rows, int fps){
 		this.sheet = spriteSheet;
@@ -26,6 +27,10 @@ public class Animation {
 		this.cols = cols;
 		this.frameTime = 1/(double)fps;
 
+	}
+
+	public void loop(boolean loop){
+		looping = loop;
 	}
 
 	public void play(){
@@ -49,6 +54,9 @@ public class Animation {
 					startY += height;
 					if (startY >= rows * height){
 						startY = 0;
+						if(!looping){
+							reset();
+						}
 					}
 				}
 				lastUpdate = System.currentTimeMillis();
@@ -57,9 +65,11 @@ public class Animation {
 	}
 
 	public void draw(int x, int y, double rotation, Graphics2D graphics){
-		thisImage = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
-		g = (Graphics2D)thisImage.getGraphics();
-		g.drawImage(sheet, 0, 0, width, height, startX, startY, startX + width, startY + height, null);
-		graphics.drawImage(thisImage, GraphicsUtils.Transform(thisImage, x, y, rotation), null);
+		if (playing) {
+			thisImage = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+			g = (Graphics2D) thisImage.getGraphics();
+			g.drawImage(sheet, 0, 0, width, height, startX, startY, startX + width, startY + height, null);
+			graphics.drawImage(thisImage, GraphicsUtils.Transform(thisImage, x, y, rotation), null);
+		}
 	}
 }

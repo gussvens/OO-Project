@@ -133,8 +133,14 @@ public class ServerCommunicator extends Thread {
                 int x = Integer.parseInt(arg[3]);
                 int y = Integer.parseInt(arg[4]);
                 double rot = Double.parseDouble(arg[5]);
+                boolean hasFired = Boolean.parseBoolean(arg[6]);
                 players.get(id).setPosition(x, y);
                 players.get(id).setRotation(rot);
+                if (hasFired) {
+                    players.get(id).shoot();
+                } else {
+                    players.get(id).hasShot();
+                }
             }
         } else if (arg[0].equals("zombies")) {
             int id = Integer.parseInt(arg[1]);
@@ -164,7 +170,10 @@ public class ServerCommunicator extends Thread {
             } else if (arg[2].equals("pos")) {
                 if (bullets == null) return;
                 if (bullets.size() <= id) {
-                    bullets.add(new Bullet(id));
+                    int diff = id - bullets.size();
+                    for (int i = 0; i<= diff; i++) {
+                        bullets.add(new Bullet());
+                    }
                 }
 
                 int x = Integer.parseInt(arg[3]);

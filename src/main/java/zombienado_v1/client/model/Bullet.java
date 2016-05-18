@@ -5,17 +5,8 @@ package zombienado_v1.client.model;
  */
 public class Bullet extends Unit {
 
-    private int id;
-    public Bullet (int id){
-        this.id = id;
-    }
-
-    public int getId(){
-        return id;
-    }
-
     public Unit copy (){
-        Unit copy = new Bullet(getId());
+        Unit copy = new Bullet();
         copy.setPosition(getX(), getY());
         copy.setRotation(getRotation());
         return copy;

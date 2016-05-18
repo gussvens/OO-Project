@@ -2,8 +2,10 @@ package zombienado_v1.client.view;
 
 import zombienado_v1.client.controller.Controller;
 import zombienado_v1.client.model.Model;
+import zombienado_v1.utilities.Animation;
 import zombienado_v1.utilities.GraphicsUtils;
 import zombienado_v1.utilities.MapLoader;
+import zombienado_v1.utilities.SoundEffect;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -47,7 +50,7 @@ public class GameView extends JFrame{
 	public static int getScreenHeight(){
 		return HEIGHT;
 	}
-	
+
 	public GameView(Model model){
 		super("fullscreen");
 		imageData = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
@@ -71,6 +74,9 @@ public class GameView extends JFrame{
 		Image bulletSprite;
 		Image weaponSpriteSheet;
 		Image zombieSprite;
+		SoundEffect gunSound;
+		Animation muzzle;
+
 		try { //LOAD
 			playerSprite[0] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerRocker.png")));
 			playerSprite[1] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerPunk.png")));
@@ -80,16 +86,19 @@ public class GameView extends JFrame{
 			bulletSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/bullet2.png")));
 			//playerFeetSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/testFeet.png")));
 			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
+			gunSound = new SoundEffect(new File("src/main/resources/soundeffects/gunshot.wav"));
+			muzzle = new Animation(GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/muzzle.png"))), 8, 1, 60);
 			mapView = new MapView(ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")));
 			MapLoader.Load(mapView, new File("src/main/resources/maps/mapTest.txt"));
-			characterView = new CharacterView(model, playerSprite, weaponSpriteSheet);
+			characterView = new CharacterView(model, playerSprite, weaponSpriteSheet, muzzle, gunSound);
 			zombieView = new ZombieView(model, zombieSprite);
 			bulletView = new BulletView(model, bulletSprite);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public synchronized void render() {
 		/**
 		 * TODO: renderstuff ?
@@ -98,8 +107,8 @@ public class GameView extends JFrame{
 		graphics.setColor(Color.black);
 		graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenWidth());
 		mapView.draw(graphics);
-		characterView.draw(graphics);
 		bulletView.draw(graphics);
+		characterView.draw(graphics);
 		zombieView.draw(graphics);
 		graphics.drawString("FPS: "+ Controller.getFramesPerSecond(), 9, 19);
 		graphics.drawString("Zombinado Beta", GameView.getScreenWidth() - 101, GameView.getScreenHeight() - 11);

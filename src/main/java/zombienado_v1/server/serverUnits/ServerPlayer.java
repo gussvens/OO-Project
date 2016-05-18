@@ -22,6 +22,9 @@ public class ServerPlayer implements ServerUnit{
     private iWeapon weapon;
     private long timeWhenDamaged;
 
+    // reports if has shot
+    private boolean hasShot;
+
     public ServerPlayer(int x, int y, double r, int id){
         this.x = x;
         this.y = y;
@@ -32,6 +35,14 @@ public class ServerPlayer implements ServerUnit{
         this.weapon = new ServerGun();
         this.health = 100;
         this.timeWhenDamaged = System.nanoTime();
+    }
+
+    public boolean hasShot() {
+        if (hasShot){
+            hasShot = false;
+            return true;
+        }
+        return false;
     }
 
     public int getX(){
@@ -115,6 +126,7 @@ public class ServerPlayer implements ServerUnit{
     }
 
     public ServerBullet shoot(int bulletCounter){
+        hasShot = true;
         return weapon.shoot(x,y,r,bulletCounter);
     }
 
