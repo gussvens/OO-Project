@@ -2,6 +2,7 @@ package zombienado_v1.client.view;
 
 import zombienado_v1.client.model.Model;
 import zombienado_v1.client.model.Player;
+import zombienado_v1.utilities.GraphicsUtils;
 
 import java.awt.*;
 
@@ -33,7 +34,9 @@ public class HudView {
         int[] waveNumber = getCertanNumberArray(3, 0);
 
         graphics.drawImage(hudSprite,x,y,null);
-        graphics.drawImage(weaponShopSprite, x+16, y+16, null);
+
+        graphics.drawImage(weaponShopSprite, GraphicsUtils.Transform(weaponShopSprite, x+44, y+48, 0), null);
+        //graphics.drawImage(weaponShopSprite, x+16, y+16, null);
 
         for(int i = 0; i<9; i++){
             graphics.drawImage(numberSprites[ammo[i]], x+111+16*i, y+52, null);
