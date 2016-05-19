@@ -109,7 +109,7 @@ public class ServerThread extends Thread {
 		send(s);
 	}
 
-	public void sendRemoveData(int id, int x, int y, double rotation){
+	public void sendRemoveZombie(int id, int x, int y, double rotation){
 		String s = "zombies;" + id + ";remove";
 		send(s);
 	}

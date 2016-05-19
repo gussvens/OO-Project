@@ -18,6 +18,7 @@ public class ServerPlayer implements ServerUnit{
     private int health;
     private int id;
     private int balance;
+    private int score;
     private double r;
     private ServerWeapon weapon;
     private long timeWhenDamaged;
@@ -35,6 +36,7 @@ public class ServerPlayer implements ServerUnit{
         this.weapon = new ServerTommyGun();
         this.health = 100;
         this.balance = 0;
+        this.score = 0;
         this.timeWhenDamaged = System.nanoTime();
     }
 
@@ -142,6 +144,11 @@ public class ServerPlayer implements ServerUnit{
 
     public boolean canShoot(){
         return weapon.canShoot();
+    }
+
+    public void addBalance(int money) {
+        this.balance += money;
+        this.score += money;
     }
 
 }
