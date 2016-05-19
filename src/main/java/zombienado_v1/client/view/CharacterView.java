@@ -43,12 +43,13 @@ public class CharacterView {
                     wX = Integer.parseInt(s.substring(0, 1));
                     wY = Integer.parseInt(s.substring(1, 2));
                 }
-                graphics.drawImage(playerSprites[i], GraphicsUtils.Transform(playerSprites[i], p.getX() - Camera.getX(), p.getY() - Camera.getY(), p.getRotation()), null);
+
                 Image weapon = GraphicsUtils.getImageFromSheet(wX, wY, 64, 64, weaponSprites);
                 muzzle[i].update();
                 muzzle[i].draw((int)(p.getX() - Camera.getX() + Math.cos(p.getRotation())*p.getWeapon().getDistanceToMuzzle()), (int)(p.getY() - Camera.getY() + Math.sin(p.getRotation())*p.getWeapon().getDistanceToMuzzle()), p.getRotation(), graphics);
 
                 graphics.drawImage(weapon, GraphicsUtils.Transform(weapon, (int)(p.getX() - Camera.getX() + Math.cos(p.getRotation())*32), (int)(p.getY() - Camera.getY() + Math.sin(p.getRotation())*32), p.getRotation()), null);
+                graphics.drawImage(playerSprites[i], GraphicsUtils.Transform(playerSprites[i], p.getX() - Camera.getX(), p.getY() - Camera.getY(), p.getRotation()), null);
                 if (p.hasShot()){
                     System.out.println("HAS SHOT");
                     try {
