@@ -56,4 +56,8 @@ public class Player extends Unit{
     public int getBalance(){
         return this.balance;
     }
+
+    public int getAmmo(){
+        return weapon.getAmmo();
+    }
 }
