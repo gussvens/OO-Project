@@ -36,7 +36,7 @@ public class ServerM4 extends ServerWeapon {
             }
 
             //ammo--;
-            super.setAmmo(super.getAmmo()-1);
+            super.setAmmo(super.getAmmo()-3);
 
             return bullets;
         } else {
