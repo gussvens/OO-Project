@@ -137,11 +137,13 @@ public class ServerCommunicator extends Thread {
                 int health = Integer.parseInt(arg[7]);
                 int ammo = Integer.parseInt(arg[8]);
                 int balance = Integer.parseInt(arg[9]);
+                int weaponID = Integer.parseInt(arg[10]);
                 players.get(id).setPosition(x, y);
                 players.get(id).setRotation(rot);
                 players.get(id).setHealth(health);
                 players.get(id).setAmmo(ammo);
                 players.get(id).setBalance(balance);
+                players.get(id).setWeapon(weaponID);
                 if (hasFired) {
                     players.get(id).shoot();
                 } else {
