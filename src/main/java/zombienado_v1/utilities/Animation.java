@@ -33,6 +33,10 @@ public class Animation {
 		looping = loop;
 	}
 
+	public boolean isPlaying(){
+		return playing;
+	}
+
 	public void play(){
 		if (!playing)
 			playing = true;

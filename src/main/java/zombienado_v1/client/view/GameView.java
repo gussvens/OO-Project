@@ -1,12 +1,12 @@
 package zombienado_v1.client.view;
 
+import com.sun.scenario.effect.ImageData;
 import zombienado_v1.client.controller.Controller;
+import zombienado_v1.client.model.Bullet;
 import zombienado_v1.client.model.Model;
 import zombienado_v1.client.model.Player;
-import zombienado_v1.utilities.Animation;
-import zombienado_v1.utilities.GraphicsUtils;
-import zombienado_v1.utilities.MapLoader;
-import zombienado_v1.utilities.SoundEffect;
+import zombienado_v1.client.model.Unit;
+import zombienado_v1.utilities.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -37,7 +37,7 @@ public class GameView extends JFrame{
 	private ZombieView zombieView;
 	private BulletView bulletView;
 	private HudView hudView;
-
+	private LightMap lightMap;
 	private class Canvas extends JPanel {
 		@Override
 		public synchronized void paintComponent(Graphics g){
@@ -58,10 +58,12 @@ public class GameView extends JFrame{
 		imageData = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		graphics = (Graphics2D)imageData.getGraphics();
 		canvas = new Canvas();
+		canvas.setDoubleBuffered(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("ZOMBIE STORM 0.3 BETA DEVELOPER EDITION");
 		this.setResizable(false);
 		this.getContentPane().add(canvas);
+		this.setUndecorated(true);
 		getContentPane().setPreferredSize( Toolkit.getDefaultToolkit().getScreenSize());
 		pack();
 	    setResizable(false);
@@ -123,6 +125,7 @@ public class GameView extends JFrame{
 			zombieView = new ZombieView(model, zombieSprite);
 			bulletView = new BulletView(model, bulletSprite);
 			hudView = new HudView(hudSprite, weaponSpriteSheet, numberSprites, model);
+			lightMap = new LightMap(model);
 			backgroundMusic.play();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -130,23 +133,26 @@ public class GameView extends JFrame{
 	}
 
 	public synchronized void render() {
+
 		/**
 		 * TODO: renderstuff ?
 		 */
-
 		graphics.setColor(Color.black);
 		graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenWidth());
 		mapView.draw(graphics);
+		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 		bulletView.draw(graphics);
 		characterView.draw(graphics);
 		zombieView.draw(graphics);
+		lightMap.draw(graphics);
 		hudView.draw(graphics);
+		graphics.setColor(Color.black);
 		graphics.drawString("FPS: " + Controller.getFramesPerSecond(), 9, 19);
 		graphics.setColor(Color.white);
 		graphics.drawString("FPS: " + Controller.getFramesPerSecond(), 10, 20);
 		graphics.drawString("Zombinado Beta", GameView.getScreenWidth() - 100, 20);
 
-		canvas.repaint();
-		//canvas.paintComponent(renderer);
+		canvas.paintComponent(canvas.getGraphics());
+		//canvas.repaint();
 	}
 }
