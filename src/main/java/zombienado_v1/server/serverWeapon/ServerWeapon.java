@@ -64,7 +64,10 @@ public class ServerWeapon implements iWeapon {
     }
 
     public void setAmmo(int ammo){
-
+        this.ammo = ammo;
+    }
+    public void setlastFired(long lastFired){
+        this.lastFired = lastFired;
     }
 
     public int getId() {
@@ -102,4 +105,6 @@ public class ServerWeapon implements iWeapon {
     public long getLastFired() {
         return getLastFired();
     }
+
+
 }
