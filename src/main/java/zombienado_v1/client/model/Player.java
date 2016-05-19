@@ -29,6 +29,9 @@ public class Player extends Unit{
         Player copy = new Player();
         copy.setPosition(getX(), getY());
         copy.setRotation(getRotation());
+        copy.setAmmo(getAmmo());
+        copy.setBalance(getBalance());
+        copy.setHealth(getHealth());
         if (hasShot) {
             copy.shoot();
         }

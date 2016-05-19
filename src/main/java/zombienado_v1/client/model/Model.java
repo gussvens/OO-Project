@@ -60,7 +60,6 @@ public class Model {
 		this.players = coms.getPlayers();
 		this.zombies = coms.getZombies();
 		this.bullets = coms.getBullets();
-		System.out.println("CLIENT: bullets: " + bullets.size());
 		Camera.setX(players.get(myID).getX());
 		Camera.setY(players.get(myID).getY());
 		Point velocityVector = PlayerInputHandler.getPlayerVelocity(pressedKeys);

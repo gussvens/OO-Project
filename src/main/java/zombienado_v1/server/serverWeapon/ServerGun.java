@@ -10,7 +10,7 @@ public class ServerGun extends ServerWeapon {
     private final static int PRICE = 0;
     private final static int DISTANCE_TO_MUZZLE = 41; //distance from player center to muzzle in pixels
     private final static int BULLETSPEED = 20;
-    private final static int MAXAMMO = 999999999;
+    private final static int MAXAMMO = 9999999;
     private final static int SHOTS = 1;
     private final static double SPRAY = 0.3;
     private final static double RATEOFFIRE = 100;
