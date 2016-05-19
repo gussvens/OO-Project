@@ -151,7 +151,9 @@ public class ServerCommunicator extends Thread {
         } else if (arg[0].equals("zombies")) {
             int id = Integer.parseInt(arg[1]);
             if (arg[2].equals("remove")){
-
+                if (zombies.size() > id) {
+                    zombies.remove(id);
+                }
             }
             else if (arg[2].equals("pos")) {
 
