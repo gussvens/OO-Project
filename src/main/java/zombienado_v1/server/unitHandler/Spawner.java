@@ -26,7 +26,9 @@ public class Spawner{
     }
 
     public void update(ArrayList<ServerPlayer> positions, ArrayList<Point> spawnPoints, ArrayList<Point> walls) {
-        for(ServerZombie zombie : zombies){
+
+			for (int i = getZombies().size() - 1; i >= 0; i--){
+
 
             double shortestDistance = 100000000;
             double yDirection = 0;
@@ -34,8 +36,8 @@ public class Spawner{
             double rotation = 0;
 
             for(ServerPlayer player : positions) {
-                double tempX = player.getX() - zombie.getX();
-                double tempY = player.getY() - zombie.getY();
+                double tempX = player.getX() - zombies.get(i).getX();
+                double tempY = player.getY() - zombies.get(i).getY();
                 double distance = Math.sqrt(Math.pow(tempX, 2) + Math.pow(tempY, 2));
 
                 if(Math.abs(distance) < shortestDistance){
@@ -46,8 +48,10 @@ public class Spawner{
                 }
             }
 
-            zombie.update(xDirection, yDirection, rotation, zombies, walls);
-
+                zombies.get(i).update(xDirection, yDirection, rotation, zombies, walls);
+                if (getZombies().get(i).getHealth() <= 0){
+                    getZombies().remove(i);
+                }
         }
 
         if (lapCounter == 30) {

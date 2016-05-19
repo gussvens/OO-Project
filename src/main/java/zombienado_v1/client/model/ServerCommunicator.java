@@ -69,7 +69,39 @@ public class ServerCommunicator extends Thread {
         this.start();
     }
 
+    /**
+     * Checks if entities are obsolete
+     */
+    private synchronized void checkForObsoletions(){
+        while (zombies == null ||bullets == null){
+            //WAIT
+        }
+
+        while (true){
+            long timeNow = System.currentTimeMillis();
+            for (int i = bullets.size() - 1; i >= 0; i--){
+                if (timeNow - bullets.get(i).getLastUpdate() > 300){
+                    bullets.remove(i);
+                }
+            }
+            for (int i = bullets.size() - 1; i >= 0; i--){
+                if (timeNow - zombies.get(i).getLastUpdate() > 300){
+                    zombies.remove(i);
+                }
+            }
+
+            try {
+                this.wait(50);
+            } catch (InterruptedException ie){
+                ie.printStackTrace();
+            }
+        }
+    }
+
     public void run() {
+
+        Thread checkObsoletions = new Thread(() -> checkForObsoletions());
+        checkObsoletions.start();
         listenToServer();
     }
 
@@ -152,17 +184,11 @@ public class ServerCommunicator extends Thread {
             }
         } else if (arg[0].equals("zombies")) {
             int id = Integer.parseInt(arg[1]);
-            if (arg[2].equals("remove")){
-                if (zombies.size() > id) {
-                    zombies.remove(id);
-                }
-            }
-            else if (arg[2].equals("pos")) {
+            if (arg[2].equals("pos")) {
 
                 if (zombies == null) return;
                 if (zombies.size() <= id) {
                     zombies.add(new Zombie());
-                    //zombies.get(id).setTexture(zombieSprite);
                 }
 
                 int x = Integer.parseInt(arg[3]);
@@ -170,14 +196,11 @@ public class ServerCommunicator extends Thread {
                 double rot = Double.parseDouble(arg[5]);
                 zombies.get(id).setPosition(x, y);
                 zombies.get(id).setRotation(rot);
+                zombies.get(id).setLastUpdate(System.currentTimeMillis());
             }
         } else if (arg[0].equals("bullet")) {
             int id = Integer.parseInt(arg[1]);
-            if (arg[2].equals("remove")) {
-                if (bullets.size() > id) {
-                    bullets.remove(id);
-                }
-            } else if (arg[2].equals("pos")) {
+            if (arg[2].equals("pos")) {
                 if (bullets == null) return;
                 if (bullets.size() <= id) {
                     int diff = id - bullets.size();
@@ -192,7 +215,7 @@ public class ServerCommunicator extends Thread {
 
                 bullets.get(id).setPosition(x, y);
                 bullets.get(id).setRotation(rot);
-
+                bullets.get(id).setLastUpdate(System.currentTimeMillis());
             }
         }
     }

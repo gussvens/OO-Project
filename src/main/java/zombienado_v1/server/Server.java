@@ -91,11 +91,12 @@ public class Server extends Thread {
 				}
 			}
 
-			//Update all bullets
-			for(ServerBullet b : bullets) {
-				b.update(spawner.getZombies(),handler.getWallTiles());
+			for (int i = bullets.size() - 1; i >= 0; i--){
+				bullets.get(i).update(spawner.getZombies(), handler.getWallTiles());
+				if (bullets.get(i).getSpeed() == 0){
+					bullets.remove(i);
+				}
 			}
-
 
 			/**
 			 * Send stuff to clients
@@ -110,36 +111,12 @@ public class Server extends Thread {
 				}
 
 				for(ServerZombie zombie : spawner.getZombies()){
-					if(zombie.getHealth() <= 0) {
-						serverThread.sendRemoveZombie(zombie.getID(), zombie.getX(),zombie.getY(), zombie.getRotation());
-						for(ServerPlayer player: players){
-							player.addBalance(10);
-						}
-					}
-					else {
-						serverThread.sendZombieData(zombie.getID(), zombie.getX(), zombie.getY(), zombie.getRotation());
-					}
+					serverThread.sendZombieData(spawner.getZombies().indexOf(zombie), zombie.getX(), zombie.getY(), zombie.getRotation());
 				}
 
 				for(ServerBullet bullet : bullets) {
-					if (bullet.getSpeed() == 0){
-						serverThread.sendRemoveBullet(bullets.indexOf(bullet));
-					} else {
-						serverThread.sendBulletData(bullets.indexOf(bullet), bullet.getX(), bullet.getY(), bullet.getRotation());
-					}
-				}
-			}
+					serverThread.sendBulletData(bullets.indexOf(bullet), bullet.getX(), bullet.getY(), bullet.getRotation());
 
-			//remove old bullets
-			for (int i = bullets.size() - 1; i >= 0; i--){
-				if (bullets.get(i).getSpeed() == 0){
-					bullets.remove(i);
-				}
-			}
-			//remove dead zombies
-			for (int i = spawner.getZombies().size() - 1; i >= 0; i--){
-				if (spawner.getZombies().get(i).getHealth() <= 0){
-					spawner.getZombies().remove(i);
 				}
 			}
 
