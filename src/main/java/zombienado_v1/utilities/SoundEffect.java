@@ -32,4 +32,26 @@ public class SoundEffect {
             e.printStackTrace();
         }
     }
+
+    private void playSound(int xSource, int ySource, int xCamera, int yCamera){
+        int dX = xSource - xCamera;
+        int dY = ySource - yCamera;
+        double distance = Math.sqrt((dX)*(dX)+(dY)*(dY));
+        int alfa = 2 - (int)(Math.log(distance));
+
+        try {
+            Clip sound = AudioSystem.getClip();
+            sound.open(AudioSystem.getAudioInputStream(soundFile));
+            FloatControl volume = (FloatControl) sound.getControl(FloatControl.Type.MASTER_GAIN);
+            volume.setValue(alfa);
+
+            sound.start();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
 }
