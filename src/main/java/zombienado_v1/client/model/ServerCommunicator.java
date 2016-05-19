@@ -134,8 +134,14 @@ public class ServerCommunicator extends Thread {
                 int y = Integer.parseInt(arg[4]);
                 double rot = Double.parseDouble(arg[5]);
                 boolean hasFired = Boolean.parseBoolean(arg[6]);
+                int health = Integer.parseInt(arg[7]);
+                int ammo = Integer.parseInt(arg[8]);
+                int balance = Integer.parseInt(arg[9]);
                 players.get(id).setPosition(x, y);
                 players.get(id).setRotation(rot);
+                players.get(id).setHealth(health);
+                players.get(id).setAmmo(ammo);
+                players.get(id).setBalance(balance);
                 if (hasFired) {
                     players.get(id).shoot();
                 } else {

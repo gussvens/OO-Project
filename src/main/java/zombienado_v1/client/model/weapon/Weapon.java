@@ -21,6 +21,10 @@ public class Weapon implements iWeapon{
         this.distanceToMuzzle = distanceToMuzzle;
     }
 
+    public void setAmmo(int ammo){
+        this.ammo = ammo;
+    }
+
     public int getId() {
         return this.id;
     }

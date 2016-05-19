@@ -12,5 +12,6 @@ public interface iWeapon {
     int getAmmo();
     int getDamage();
     int getDistanceToMuzzle();
+    void setAmmo(int ammo);
 
 }

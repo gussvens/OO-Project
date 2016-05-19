@@ -55,6 +55,10 @@ public class ServerWeapon implements iWeapon {
 
     }
 
+    public void setAmmo(int ammo){
+        
+    }
+
     public int getId() {
         return id;
     }

@@ -35,6 +35,18 @@ public class Player extends Unit{
         return copy;
     }
 
+    public void setHealth(int health){
+        this.health = health;
+    }
+
+    public void setBalance(int balance){
+        this.balance = balance;
+    }
+
+    public void setAmmo(int ammo){
+        weapon.setAmmo(ammo);
+    }
+
     public iWeapon getWeapon(){return weapon;}
 
     public int getHealth(){
