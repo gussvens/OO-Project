@@ -176,7 +176,6 @@ public class ServerCommunicator extends Thread {
                 players.get(id).setAmmo(ammo);
                 players.get(id).setBalance(balance);
                 players.get(id).setWeapon(weaponID);
-                System.out.println(s);
                 if (hasFired) {
                     players.get(id).shoot();
                 } else {

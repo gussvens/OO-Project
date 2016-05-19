@@ -51,6 +51,9 @@ public class Spawner{
                 zombies.get(i).update(xDirection, yDirection, rotation, zombies, walls);
                 if (getZombies().get(i).getHealth() <= 0){
                     getZombies().remove(i);
+                    for (ServerPlayer p : positions){
+                        p.addBalance(10);
+                    }
                 }
         }
 
