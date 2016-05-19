@@ -27,7 +27,7 @@ public class HudView {
     public synchronized void draw(Graphics2D graphics){
         int x = 0;
         int y = GameView.getScreenHeight() - 96;
-        int[] ammo = getCertanNumberArray(9, player.getWeapon().getAmmo());
+        int[] ammo = getCertanNumberArray(6, player.getWeapon().getAmmo());
         int[] balance = getCertanNumberArray(9, player.getBalance());
         int[] health = getCertanNumberArray(3, player.getHealth());
         //int[] waveNumber = getCertanNumberArray(3, model.getWave()); //This needs wave number from model
@@ -38,7 +38,7 @@ public class HudView {
         graphics.drawImage(weaponShopSprite, GraphicsUtils.Transform(weaponShopSprite, x+44, y+48, 0), null);
         //graphics.drawImage(weaponShopSprite, x+16, y+16, null);
 
-        for(int i = 0; i<9; i++){
+        for(int i = 0; i<6; i++){
             graphics.drawImage(numberSprites[ammo[i]], x+111+16*i, y+52, null);
         }
 

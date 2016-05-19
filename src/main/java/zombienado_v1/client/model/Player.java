@@ -3,10 +3,9 @@ package zombienado_v1.client.model;
 import zombienado_v1.client.model.weapon.*;
 import zombienado_v1.interfaces.iWeapon;
 
-
 public class Player extends Unit{
     //TEST
-    private iWeapon weapon = new Blunderbuss();
+    private iWeapon weapon = new TommyGun();
     private int balance;
     private int health;
     public boolean hasShot;
