@@ -110,7 +110,13 @@ public class Server extends Thread {
 				}
 
 				for(ServerZombie zombie : spawner.getZombies()){
-					if(zombie != null) {
+					if(zombie.getHealth() <= 0) {
+						serverThread.sendRemoveZombie(zombie.getID(), zombie.getX(),zombie.getY(), zombie.getRotation());
+						for(ServerPlayer player: players){
+							player.addBalance(10);
+						}
+					}
+					else {
 						serverThread.sendZombieData(zombie.getID(), zombie.getX(), zombie.getY(), zombie.getRotation());
 					}
 				}
