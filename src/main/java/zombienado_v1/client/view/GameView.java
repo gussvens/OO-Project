@@ -113,7 +113,7 @@ public class GameView extends JFrame{
 			gunSound[40] = new SoundEffect(new File("src/main/resources/soundeffects/uzi.wav"));
 			gunSound[41] = new SoundEffect(new File("src/main/resources/soundeffects/doubleuzi.wav"));
 			gunSound[42] = new SoundEffect(new File("src/main/resources/soundeffects/tripleuzi.wav"));
-			backgroundMusic = new SoundEffect(new File("src/main/resources/soundeffects/backgroundmusic2.wav"));
+			backgroundMusic = new SoundEffect(new File("src/main/resources/soundeffects/backgroundmusic2.wav"), true);
 			for (int i = 0; i < 4; i++) {
 				muzzle[i] = new Animation(GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/muzzle.png"))), 8, 1, 60);
 			}

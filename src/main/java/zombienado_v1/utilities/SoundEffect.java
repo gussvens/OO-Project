@@ -9,9 +9,15 @@ import java.io.IOException;
  */
 public class SoundEffect {
     File soundFile;
+    boolean isLooping;
+    public SoundEffect(File sound, boolean loop) {
+        soundFile = sound;
+        isLooping = loop;
+    }
+
     public SoundEffect(File sound) {
         soundFile = sound;
-
+        isLooping = false;
     }
 
     public void play(){
@@ -23,6 +29,9 @@ public class SoundEffect {
         try {
             Clip sound = AudioSystem.getClip();
             sound.open(AudioSystem.getAudioInputStream(soundFile));
+            if(isLooping){
+                sound.loop(Clip.LOOP_CONTINUOUSLY);
+            }
             sound.start();
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
