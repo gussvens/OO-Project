@@ -11,6 +11,8 @@ public abstract class Unit {
 	private int x;
 	private int y;
 
+	private long lastUpdate;
+
 	public void setPosition(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -23,6 +25,14 @@ public abstract class Unit {
 	
 	public void setRotation(double rot) {
 		this.rotation = rot;
+	}
+
+	public void setLastUpdate(long timeStamp){
+		this.lastUpdate = timeStamp;
+	}
+
+	public long getLastUpdate(){
+		return this.lastUpdate;
 	}
 
 	public int getX() {
