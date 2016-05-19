@@ -107,7 +107,7 @@ public class Server extends Thread {
 			for (ServerThread serverThread : serverThreads){
 				for(int i = 0; i < positions.size(); i++){
 					ServerPlayer q = positions.get(i);
-					serverThread.sendPlayerData(i, q.getX(), q.getY(), q.getRotation(), q.hasShot(), q.getHealth(), q.getAmmo(), q.getBalance());
+					serverThread.sendPlayerData(i, q.getX(), q.getY(), q.getRotation(), q.hasShot(), q.getHealth(), q.getAmmo(), q.getBalance(), q.getWeaponID());
 				}
 
 				for(ServerZombie zombie : spawner.getZombies()){

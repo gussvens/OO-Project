@@ -76,6 +76,10 @@ public class ServerPlayer implements ServerUnit{
         return weapon.getAmmo();
     }
 
+    public int getWeaponID(){
+        return weapon.getId();
+    }
+
     public void takeDamage(int damage){
         long timeDiff = System.nanoTime() - timeWhenDamaged;
         if(timeDiff>1000000000){
@@ -139,6 +143,9 @@ public class ServerPlayer implements ServerUnit{
 
     public ArrayList<ServerBullet> shoot(int bulletCounter){
         hasShot = true;
+        if(weapon.getAmmo() == 0) {
+            weapon = new ServerGun();
+        }
         return weapon.shoot(x,y,r,bulletCounter);
     }
 
