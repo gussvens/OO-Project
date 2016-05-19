@@ -33,7 +33,7 @@ public class ServerPlayer implements ServerUnit{
         this.id = id;
 
         //TODO: move weapons to server
-        this.weapon = new ServerM4();
+        this.weapon = new ServerTommyGun();
         this.health = 100;
         this.balance = 0;
         this.score = 0;
@@ -143,7 +143,7 @@ public class ServerPlayer implements ServerUnit{
 
     public ArrayList<ServerBullet> shoot(int bulletCounter){
         hasShot = true;
-        if(weapon.getAmmo() == 0) {
+        if(weapon.getAmmo() <= 0) {
             weapon = new ServerGun();
         }
         return weapon.shoot(x,y,r,bulletCounter);

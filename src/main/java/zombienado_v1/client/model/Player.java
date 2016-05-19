@@ -5,7 +5,7 @@ import zombienado_v1.interfaces.iWeapon;
 
 public class Player extends Unit{
     //TEST
-    private iWeapon weapon = new M4();
+    private iWeapon weapon = new TommyGun();
     private int balance;
     private int health;
     public boolean hasShot;
