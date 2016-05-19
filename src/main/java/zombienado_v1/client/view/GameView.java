@@ -81,7 +81,7 @@ public class GameView extends JFrame{
 		Image zombieSprite;
 		SoundEffect[] gunSound = new SoundEffect[99];
 		SoundEffect backgroundMusic;
-		Animation muzzle;
+		Animation[] muzzle = new Animation[4];
 
 		try { //LOAD
 			playerSprite[0] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerRocker.png")));
@@ -99,7 +99,6 @@ public class GameView extends JFrame{
 			numberSprites[8] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/8.png")));
 			numberSprites[9] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/9.png")));
 			hudSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/hudTrans.png")));
-			hudWeaponShopSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/weaponAutoShotgun.png")));
 			weaponSpriteSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/weaponGrid.png")));
 			bulletSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/bullet2.png")));
 			//playerFeetSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/testFeet.png")));
@@ -115,13 +114,15 @@ public class GameView extends JFrame{
 			gunSound[41] = new SoundEffect(new File("src/main/resources/soundeffects/doubleuzi.wav"));
 			gunSound[42] = new SoundEffect(new File("src/main/resources/soundeffects/tripleuzi.wav"));
 			backgroundMusic = new SoundEffect(new File("src/main/resources/soundeffects/backgroundmusic2.wav"));
-			muzzle = new Animation(GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/muzzle.png"))), 8, 1, 60);
+			for (int i = 0; i < 4; i++) {
+				muzzle[i] = new Animation(GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/muzzle.png"))), 8, 1, 60);
+			}
 			mapView = new MapView(ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")));
 			MapLoader.Load(mapView, new File("src/main/resources/maps/mapTest.txt"));
 			characterView = new CharacterView(model, playerSprite, weaponSpriteSheet, muzzle, gunSound);
 			zombieView = new ZombieView(model, zombieSprite);
 			bulletView = new BulletView(model, bulletSprite);
-			hudView = new HudView(hudSprite, hudWeaponShopSprite, numberSprites, model);
+			hudView = new HudView(hudSprite, weaponSpriteSheet, numberSprites, model);
 			backgroundMusic.play();
 		} catch (IOException e) {
 			e.printStackTrace();

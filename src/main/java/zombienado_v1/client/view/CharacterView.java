@@ -16,11 +16,11 @@ import java.awt.*;
 public class CharacterView {
     private Image[] playerSprites;
     private Image weaponSprites;
-    private Animation muzzle;
+    private Animation[] muzzle;
     private SoundEffect[] gunsound;
     private Model model;
 
-    public CharacterView(Model model, Image[] playerSprites, Image weaponSpriteSheet, Animation muzzle, SoundEffect[] gunsound){
+    public CharacterView(Model model, Image[] playerSprites, Image weaponSpriteSheet, Animation[] muzzle, SoundEffect[] gunsound){
         this.model = model;
         this.playerSprites = playerSprites;
         this.weaponSprites = weaponSpriteSheet;
@@ -45,8 +45,8 @@ public class CharacterView {
                 }
                 graphics.drawImage(playerSprites[i], GraphicsUtils.Transform(playerSprites[i], p.getX() - Camera.getX(), p.getY() - Camera.getY(), p.getRotation()), null);
                 Image weapon = GraphicsUtils.getImageFromSheet(wX, wY, 64, 64, weaponSprites);
-                muzzle.update();
-                muzzle.draw((int)(p.getX() - Camera.getX() + Math.cos(p.getRotation())*p.getWeapon().getDistanceToMuzzle()), (int)(p.getY() - Camera.getY() + Math.sin(p.getRotation())*p.getWeapon().getDistanceToMuzzle()), p.getRotation(), graphics);
+                muzzle[i].update();
+                muzzle[i].draw((int)(p.getX() - Camera.getX() + Math.cos(p.getRotation())*p.getWeapon().getDistanceToMuzzle()), (int)(p.getY() - Camera.getY() + Math.sin(p.getRotation())*p.getWeapon().getDistanceToMuzzle()), p.getRotation(), graphics);
 
                 graphics.drawImage(weapon, GraphicsUtils.Transform(weapon, (int)(p.getX() - Camera.getX() + Math.cos(p.getRotation())*32), (int)(p.getY() - Camera.getY() + Math.sin(p.getRotation())*32), p.getRotation()), null);
                 if (p.hasShot()){
@@ -56,8 +56,8 @@ public class CharacterView {
                     } catch (NullPointerException e){
                         gunsound[0].play();
                     }
-                    muzzle.reset();
-                    muzzle.play();
+                    muzzle[i].reset();
+                    muzzle[i].play();
                 }
             }
         }
