@@ -127,6 +127,12 @@ public class Server extends Thread {
 					bullets.remove(i);
 				}
 			}
+			//remove dead zombies
+			for (int i = spawner.getZombies().size() - 1; i >= 0; i--){
+				if (spawner.getZombies().get(i).getHealth() <= 0){
+					spawner.getZombies().remove(i);
+				}
+			}
 
 			System.out.println("SERVER: bullets: " + bullets.size());
 			try {

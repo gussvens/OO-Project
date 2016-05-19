@@ -14,20 +14,19 @@ public class HudView {
     private Image weaponShopSprite;
     private Image[] numberSprites;
     private Model model;
-    private Player player;
 
     public HudView(Image hudSprite, Image weaponShopSprite, Image[] numberSprites, Model model){
         this.hudSprite = hudSprite;
         this.weaponShopSprite = weaponShopSprite;
         this.numberSprites = numberSprites;
         this.model = model;
-        this.player = this.model.getPlayer();
     }
 
     public synchronized void draw(Graphics2D graphics){
+        Player player = model.getPlayer();
         int x = 0;
         int y = GameView.getScreenHeight() - 96;
-        int[] ammo = getCertanNumberArray(6, player.getWeapon().getAmmo());
+        int[] ammo = getCertanNumberArray(6, player.getAmmo());
         int[] balance = getCertanNumberArray(9, player.getBalance());
         int[] health = getCertanNumberArray(3, player.getHealth());
         //int[] waveNumber = getCertanNumberArray(3, model.getWave()); //This needs wave number from model

@@ -83,7 +83,6 @@ public class Model {
 		if(myID<0){
 			return new Player();
 		} else{
-			System.out.println("Found me!");
 			return players.get(myID);
 		}
 	}
