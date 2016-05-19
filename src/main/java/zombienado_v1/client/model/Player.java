@@ -70,8 +70,6 @@ public class Player extends Unit{
             } else if (weaponID == 40) {
                 weapon = new Uzi();
             }
-
-            System.out.println("Switched weapons!");
         }
 
     }
