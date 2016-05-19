@@ -79,7 +79,7 @@ public class GameView extends JFrame{
 		Image bulletSprite;
 		Image weaponSpriteSheet;
 		Image zombieSprite;
-		SoundEffect gunSound;
+		SoundEffect[] gunSound = new SoundEffect[99];
 		SoundEffect backgroundMusic;
 		Animation muzzle;
 
@@ -104,7 +104,16 @@ public class GameView extends JFrame{
 			bulletSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/bullet2.png")));
 			//playerFeetSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/testFeet.png")));
 			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
-			gunSound = new SoundEffect(new File("src/main/resources/soundeffects/gunshot.wav"));
+			gunSound[0] = new SoundEffect(new File("src/main/resources/soundeffects/gunshot.wav"));
+			gunSound[20] = new SoundEffect(new File("src/main/resources/soundeffects/ak47.wav"));
+			gunSound[21] = new SoundEffect(new File("src/main/resources/soundeffects/tommygun.wav"));
+			gunSound[22] = new SoundEffect(new File("src/main/resources/soundeffects/m4.wav"));
+			gunSound[30] = new SoundEffect(new File("src/main/resources/soundeffects/shotgun.wav"));
+			gunSound[31] = new SoundEffect(new File("src/main/resources/soundeffects/blunderbuss.wav"));
+			gunSound[32] = new SoundEffect(new File("src/main/resources/soundeffects/autoshotgun.wav"));
+			gunSound[40] = new SoundEffect(new File("src/main/resources/soundeffects/uzi.wav"));
+			gunSound[41] = new SoundEffect(new File("src/main/resources/soundeffects/doubleuzi.wav"));
+			gunSound[42] = new SoundEffect(new File("src/main/resources/soundeffects/tripleuzi.wav"));
 			backgroundMusic = new SoundEffect(new File("src/main/resources/soundeffects/backgroundmusic2.wav"));
 			muzzle = new Animation(GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/muzzle.png"))), 8, 1, 60);
 			mapView = new MapView(ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")));
