@@ -120,6 +120,11 @@ public class Server extends Thread {
 				}
 			}
 
+			for(int i = 0; i < positions.size(); i++){
+				ServerPlayer q = positions.get(i);
+				q.resetShot();
+			}
+
 			System.out.println("SERVER: bullets: " + bullets.size());
 			try {
 				Thread.sleep((long) 16); //Gotta fix this

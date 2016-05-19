@@ -40,12 +40,16 @@ public class ServerPlayer implements ServerUnit{
         this.timeWhenDamaged = System.nanoTime();
     }
 
-    public boolean hasShot() {
+    public boolean resetShot() {
         if (hasShot){
             hasShot = false;
             return true;
         }
         return false;
+    }
+
+    public boolean hasShot() {
+        return hasShot;
     }
 
     public int getX(){
