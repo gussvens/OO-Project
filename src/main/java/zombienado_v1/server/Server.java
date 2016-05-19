@@ -82,7 +82,7 @@ public class Server extends Thread {
 					if(players.get(i).canShoot()) {
 						ArrayList<ServerBullet> temp = players.get(i).shoot(bulletCounter);
 						if(!temp.isEmpty()) {
-							for (int j = 0; j < players.get(i).shoot(bulletCounter).size(); j++) {
+							for (int j = 0; j < temp.size(); j++) {
 								bullets.add(temp.get(j));
 								bulletCounter++;
 							}
