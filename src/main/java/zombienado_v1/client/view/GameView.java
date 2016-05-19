@@ -112,7 +112,7 @@ public class GameView extends JFrame{
 			characterView = new CharacterView(model, playerSprite, weaponSpriteSheet, muzzle, gunSound);
 			zombieView = new ZombieView(model, zombieSprite);
 			bulletView = new BulletView(model, bulletSprite);
-			hudView = new HudView(new Player(), hudSprite, hudWeaponShopSprite, numberSprites, model);
+			hudView = new HudView(hudSprite, hudWeaponShopSprite, numberSprites, model);
 			backgroundMusic.play();
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -13,15 +13,15 @@ public class HudView {
     private Image hudSprite;
     private Image weaponShopSprite;
     private Image[] numberSprites;
-    private Player player;
     private Model model;
+    private Player player;
 
-    public HudView(Player player, Image hudSprite, Image weaponShopSprite, Image[] numberSprites, Model model){
-        this.player = player;
+    public HudView(Image hudSprite, Image weaponShopSprite, Image[] numberSprites, Model model){
         this.hudSprite = hudSprite;
         this.weaponShopSprite = weaponShopSprite;
         this.numberSprites = numberSprites;
         this.model = model;
+        this.player = this.model.getPlayer();
     }
 
     public synchronized void draw(Graphics2D graphics){

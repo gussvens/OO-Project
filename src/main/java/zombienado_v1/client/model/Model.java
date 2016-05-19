@@ -74,4 +74,17 @@ public class Model {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Returns the client's Player instance
+	 * @return the client's Player instance
+	 */
+	public Player getPlayer(){
+		if(myID<0){
+			return new Player();
+		} else{
+			System.out.println("Found me!");
+			return players.get(myID);
+		}
+	}
 }

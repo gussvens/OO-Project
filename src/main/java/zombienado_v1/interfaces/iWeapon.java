@@ -10,6 +10,7 @@ public interface iWeapon {
     //public iBullet shoot(int x, int y, double direction, int bulletCounter);
     int getId();
     int getAmmo();
+    int getDamage();
     int getDistanceToMuzzle();
 
 }
