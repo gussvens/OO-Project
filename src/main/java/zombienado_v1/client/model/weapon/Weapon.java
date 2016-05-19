@@ -30,7 +30,7 @@ public class Weapon implements iWeapon{
     }
 
     public int getPrice() {
-        return damage;
+        return price;
     }
 
     public int getAmmo(){

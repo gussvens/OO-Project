@@ -2,11 +2,11 @@ package zombienado_v1.client.model;
 
 import zombienado_v1.client.model.weapon.*;
 import zombienado_v1.interfaces.iWeapon;
-import zombienado_v1.server.serverWeapon.ServerBlunderbuss;
+
 
 public class Player extends Unit{
     //TEST
-    private iWeapon weapon = new ServerBlunderbuss();
+    private iWeapon weapon = new Blunderbuss();
     private int balance;
     private int health;
     public boolean hasShot;

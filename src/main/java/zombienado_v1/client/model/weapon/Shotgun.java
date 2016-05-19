@@ -12,6 +12,6 @@ public class Shotgun extends Weapon {
     private final static int DISTANCE_TO_MUZZLE = 78;
 
     public Shotgun() {
-        super(ID, DAMAGE, PRICE, MAXAMMO, DISTANCE_TO_MUZZLE);
+        super(ID, DAMAGE, MAXAMMO, PRICE, DISTANCE_TO_MUZZLE);
     }
 }

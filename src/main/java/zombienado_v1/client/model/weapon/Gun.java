@@ -12,6 +12,6 @@ public class Gun extends Weapon {
     private final static int DISTANCE_TO_MUZZLE = 41;
 
     public Gun() {
-        super(ID, DAMAGE, PRICE, MAXAMMO, DISTANCE_TO_MUZZLE);
+        super(ID, DAMAGE, MAXAMMO, PRICE, DISTANCE_TO_MUZZLE);
     }
 }

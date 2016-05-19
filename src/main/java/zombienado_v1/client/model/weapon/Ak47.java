@@ -12,6 +12,6 @@ public class Ak47 extends Weapon {
     private final static int DISTANCE_TO_MUZZLE = 80;
 
     public Ak47() {
-        super(ID, DAMAGE, PRICE, MAXAMMO, DISTANCE_TO_MUZZLE);
+        super(ID, DAMAGE, MAXAMMO, PRICE, DISTANCE_TO_MUZZLE);
     }
 }
