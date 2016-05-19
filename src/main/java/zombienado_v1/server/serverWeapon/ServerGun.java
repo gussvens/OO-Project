@@ -6,14 +6,14 @@ package zombienado_v1.server.serverWeapon;
 public class ServerGun extends ServerWeapon {
 
     private final static int ID = 00;
-    private final static int DAMAGE = 10;
+    private final static int DAMAGE = 20;
     private final static int PRICE = 0;
-    private final static int DISTANCE_TO_MUZZLE = 41; //distance from player center to muzzle in pixels
+    private final static int DISTANCE_TO_MUZZLE = 60; //distance from player center to muzzle in pixels
     private final static int BULLETSPEED = 20;
-    private final static int MAXAMMO = 9999999;
+    private final static int MAXAMMO = 999999;
     private final static int SHOTS = 1;
     private final static double SPRAY = 0.3;
-    private final static double RATEOFFIRE = 100;
+    private final static double RATEOFFIRE = 200;
 
     public ServerGun() {
         super(ID,DAMAGE,PRICE,DISTANCE_TO_MUZZLE,BULLETSPEED,MAXAMMO,SHOTS,SPRAY,RATEOFFIRE);
