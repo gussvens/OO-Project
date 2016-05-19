@@ -2,6 +2,8 @@ package zombienado_v1.server.serverWeapon;
 
 import zombienado_v1.interfaces.iWeapon;
 import zombienado_v1.server.serverUnits.ServerBullet;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -32,26 +34,32 @@ public class ServerWeapon implements iWeapon {
     }
 
     public boolean canShoot(){
-        if(System.currentTimeMillis() - lastFired >= rateOfFire) {
+        if(System.currentTimeMillis() - lastFired >= rateOfFire && ammo > 0) {
             return true;
         } else {
             return false;
         }
     }
 
-    public ServerBullet[] shoot(int x, int y, double direction, int bulletCounter){
+    public ArrayList<ServerBullet> shoot(int x, int y, double direction, int bulletCounter){
         //Fix with better values
+        if(ammo > 0) {
 
-        lastFired = System.currentTimeMillis();
-        Random r = new Random();
+            lastFired = System.currentTimeMillis();
+            Random r = new Random();
 
-        ServerBullet[] bullets = new ServerBullet[shots];
-        for (int i = 0; i<shots; i++){
-            bullets[i] = new ServerBullet((int)(x + Math.cos(direction)*48), (int)(y+ Math.sin(direction)*48), bulletCounter, direction - spray/2 + r.nextDouble() * spray, damage, bulletSpeed);
+            ArrayList<ServerBullet> bullets = new ArrayList<ServerBullet>();
+            for (int i = 0; i < shots; i++) {
+                bullets.add(new ServerBullet((int) (x + Math.cos(direction) * 48), (int) (y + Math.sin(direction) * 48), bulletCounter, direction - spray / 2 + r.nextDouble() * spray, damage, bulletSpeed));
+            }
+
+            ammo--;
+
+
+            return bullets;
+        } else {
+            return new ArrayList<ServerBullet>();
         }
-
-
-        return  bullets;
 
     }
 

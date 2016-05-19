@@ -80,9 +80,12 @@ public class Server extends Thread {
 				players.get(i).update(st.getDeltaX(), st.getDeltaY(), st.getDeltaRotation(),spawner.getZombies(),handler.getWallTiles());
 				if(st.getIsShooting()){
 					if(players.get(i).canShoot()) {
-						for(int j=0; j<players.get(i).shoot(bulletCounter).length; j++) {
-							bullets.add(players.get(i).shoot(bulletCounter)[j]);
-							bulletCounter++;
+						ArrayList<ServerBullet> temp = players.get(i).shoot(bulletCounter);
+						if(!temp.isEmpty()) {
+							for (int j = 0; j < players.get(i).shoot(bulletCounter).size(); j++) {
+								bullets.add(temp.get(j));
+								bulletCounter++;
+							}
 						}
 					}
 				}

@@ -135,7 +135,7 @@ public class ServerPlayer implements ServerUnit{
         }
     }
 
-    public ServerBullet[] shoot(int bulletCounter){
+    public ArrayList<ServerBullet> shoot(int bulletCounter){
         hasShot = true;
         return weapon.shoot(x,y,r,bulletCounter);
     }
