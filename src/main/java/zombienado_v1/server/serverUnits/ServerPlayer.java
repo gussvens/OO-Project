@@ -70,6 +70,10 @@ public class ServerPlayer implements ServerUnit{
         return this.balance;
     }
 
+    public int getAmmo(){
+        return weapon.getAmmo();
+    }
+
     public void takeDamage(int damage){
         long timeDiff = System.nanoTime() - timeWhenDamaged;
         if(timeDiff>1000000000){
