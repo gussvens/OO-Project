@@ -123,7 +123,7 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 
 	@Override
 	public void mousePressed(MouseEvent me) {
-
+		mousePress = true;
 	}
 
 	@Override
