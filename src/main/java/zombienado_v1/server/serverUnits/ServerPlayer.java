@@ -146,10 +146,12 @@ public class ServerPlayer implements ServerUnit{
     }
 
     public ArrayList<ServerBullet> shoot(int bulletCounter){
-        hasShot = true;
+        System.out.println("Ammo: " + weapon.getAmmo());
         if(weapon.getAmmo() <= 0) {
             weapon = new ServerGun();
         }
+        hasShot = true;
+
         return weapon.shoot(x,y,r,bulletCounter);
     }
 

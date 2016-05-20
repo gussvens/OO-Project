@@ -27,7 +27,7 @@ public class ServerWeapon implements iWeapon {
         this.price = price;
         this.distanceToMuzzle = distanceToMuzzle;
         this.bulletSpeed = bulletSpeed;
-        this.ammo = ammo;
+        this.ammo = ammo+1;
         this.shots = shots;
         this.spray = spray;
         this.rateOfFire = rateOfFire;
@@ -91,7 +91,7 @@ public class ServerWeapon implements iWeapon {
     }
 
     public int getAmmo(){
-        return ammo;
+        return ammo-1;
     }
 
     public double getSpray() {
