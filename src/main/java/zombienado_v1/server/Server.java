@@ -56,7 +56,7 @@ public class Server extends Thread {
 	public void listenForConnections(){
 		while(true){
 			try {
-				ServerThread st = new  ServerThread(socket.accept(), this.getInstance(), amountConnected);
+				ServerThread st = new  ServerThread(socket.accept(), amountConnected);
 				serverThreads.add(st);
 				st.start();
 				amountConnected = amountConnected +1;

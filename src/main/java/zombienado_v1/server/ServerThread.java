@@ -9,7 +9,6 @@ public class ServerThread extends Thread {
 	private PrintWriter output = null;
 	private BufferedReader input;
 	private Socket socket;
-	private Server mainServer;
 	private int ID;
 
 	private int deltaX = 0;
@@ -17,11 +16,10 @@ public class ServerThread extends Thread {
 	private double deltaRotation = 0;
 	private boolean isShooting = false;
 
-	public ServerThread(Socket socket, Server server, int id) throws SocketException{
+	public ServerThread(Socket socket, int id) throws SocketException{
 		super("ServerThread "+connectedUnits);
 		connectedUnits ++;
 		this.ID = id;
-		this.mainServer = server;
 		this.socket = socket;
 
 		System.out.println("oldPlayer " + id + " connected!");
