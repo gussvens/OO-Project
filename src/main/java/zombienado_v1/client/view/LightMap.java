@@ -89,7 +89,7 @@ public class LightMap {
 
     private Image getLightMap(){
 
-        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.98f));
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.20f));
         graphics.setColor(new Color(0, 0, 0, 255));
         graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenHeight());
         graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.DST_OUT));
