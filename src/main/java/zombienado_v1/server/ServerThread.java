@@ -112,6 +112,11 @@ public class ServerThread extends Thread {
 		send(s);
 	}
 
+	public void sendWaveData(int wave){
+		String s = "wave;" + wave;
+		send(s);
+	}
+
 	public void run(){
 		try {
 			output = new PrintWriter(socket.getOutputStream(), true);

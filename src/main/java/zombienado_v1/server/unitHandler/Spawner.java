@@ -14,6 +14,7 @@ public class Spawner{
     private static Spawner instance;
     private int lapCounter;
     private int wave = 1;
+    private int startingZombies = 20;
     private int amountOfZombies = 20;
     private int timeBetweenWaves;
 
@@ -83,7 +84,7 @@ public class Spawner{
         } else {
             if(timeBetweenWaves == 1200){
                 wave++;
-                amountOfZombies += wave;
+                amountOfZombies = startingZombies + (wave*2);
                 zombies.clear();
                 timeBetweenWaves = 0;
                 System.out.println("New Wave: " + wave);

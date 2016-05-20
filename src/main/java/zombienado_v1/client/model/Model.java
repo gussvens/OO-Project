@@ -16,6 +16,7 @@ public class Model {
 	private ArrayList<Unit> zombies;
 	private ArrayList<Unit> bullets;
 	private int myID = -1;
+	private int wave = 1;
 	/**
 	 * Getters for view
 	 */
@@ -27,6 +28,9 @@ public class Model {
 	}
 	public synchronized List<Unit> getBullets(){
 		return bullets;
+	}
+	public synchronized int getWave(){
+		return wave;
 	}
 
 	/** INITIALIZATION
@@ -60,6 +64,7 @@ public class Model {
 		this.players = coms.getPlayers();
 		this.zombies = coms.getZombies();
 		this.bullets = coms.getBullets();
+		this.wave = coms.getWave();
 		Camera.setX(players.get(myID).getX());
 		Camera.setY(players.get(myID).getY());
 		Point velocityVector = PlayerInputHandler.getPlayerVelocity(pressedKeys);

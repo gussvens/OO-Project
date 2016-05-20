@@ -20,6 +20,7 @@ public class Server extends Thread {
 	private Spawner spawner;
 	private WorldHandler handler;
 	private int bulletCounter;
+	private int currentWave;
 
 	private Server(){
 		players = new ArrayList<ServerPlayer>();
@@ -28,6 +29,7 @@ public class Server extends Thread {
 		spawner = Spawner.getInstance();
 		handler = new WorldHandler();
 		bulletCounter = 0;
+		currentWave = spawner.getWave();
 	}
 
 	public static Server getInstance(){
@@ -104,6 +106,14 @@ public class Server extends Thread {
 			ArrayList<ServerPlayer> positions = getPlayerPositions(); //tidy this up
 			spawner.update(players, handler.getSpawnTiles(),handler.getWallTiles());
 
+			if(spawner.getWave() != currentWave) {
+				currentWave = spawner.getWave();
+
+				for(ServerThread serverThread : serverThreads) {
+					serverThread.sendWaveData(currentWave);
+				}
+			}
+
 			for (ServerThread serverThread : serverThreads){
 				for(int i = 0; i < positions.size(); i++){
 					ServerPlayer q = positions.get(i);
@@ -118,6 +128,8 @@ public class Server extends Thread {
 					serverThread.sendBulletData(bullets.indexOf(bullet), bullet.getX(), bullet.getY(), bullet.getRotation());
 
 				}
+
+
 			}
 
 			for(int i = 0; i < positions.size(); i++){

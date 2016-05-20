@@ -25,6 +25,7 @@ public class ServerCommunicator extends Thread {
     private ArrayList<Bullet> bullets;
     private int myID = -1;
     private boolean wasShooting = false;
+    private int wave = 1;
 
     public static synchronized void create(Model model, InetAddress address, int port) {
         if (instance == null)
@@ -217,6 +218,8 @@ public class ServerCommunicator extends Thread {
                 bullets.get(id).setRotation(rot);
                 bullets.get(id).setLastUpdate(System.currentTimeMillis());
             }
+        } else if (arg[0].equals("wave")) {
+            wave = Integer.parseInt(arg[1]);
         }
     }
 
@@ -262,6 +265,10 @@ public class ServerCommunicator extends Thread {
 
     public int getID(){
         return myID;
+    }
+
+    public int getWave(){
+        return wave;
     }
 
 
