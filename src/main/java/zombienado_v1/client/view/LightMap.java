@@ -8,8 +8,6 @@ import zombienado_v1.utilities.GraphicsUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.WritableRaster;
 import java.util.ArrayList;
 
 /**
@@ -29,6 +27,8 @@ public class LightMap {
     BufferedImage staticLight;
     BufferedImage bulletLight;
     BufferedImage playerLumination;
+    BufferedImage flickeringLight1;
+    BufferedImage flickeringLight2;
 
     BufferedImage lightMap;
     Graphics2D graphics;
@@ -42,6 +42,8 @@ public class LightMap {
         createStaticLight(100, 10);
         createBulletLight();
         createMuzzleLight();
+        createFlickeringLight1(100, 7);
+        createFlickeringLight2(100, 4);
 
         lightMap = new BufferedImage(GameView.getScreenWidth(), GameView.getScreenHeight(), BufferedImage.TYPE_INT_ARGB);
         graphics = (Graphics2D)lightMap.createGraphics();
@@ -96,6 +98,29 @@ public class LightMap {
         }
     }
 
+    public void createFlickeringLight1(int radius, int luminosity){
+        flickeringLight1 = new BufferedImage(radius*2, radius*2, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = (Graphics2D) flickeringLight1.getGraphics();
+
+        int step = 5;
+        int numberOfSteps = radius/step;
+        graphics.setColor(new Color(0, 0, 0, luminosity));
+        for (int i = 0; i < numberOfSteps; i++){
+            graphics.fillOval(radius - i * step, radius - i * step, i * step * 2, i * step * 2);
+        }
+    }
+    public void createFlickeringLight2(int radius, int luminosity){
+        flickeringLight2 = new BufferedImage(radius*2, radius*2, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = (Graphics2D) flickeringLight2.getGraphics();
+
+        int step = 5;
+        int numberOfSteps = radius/step;
+        graphics.setColor(new Color(0, 0, 0, luminosity));
+        for (int i = 0; i < numberOfSteps; i++){
+            graphics.fillOval(radius - i * step, radius - i * step, i * step * 2, i * step * 2);
+        }
+    }
+
     private Image getLightMap(){
 
         graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.20f));
@@ -112,9 +137,16 @@ public class LightMap {
         for (Unit bullet : model.getBullets()){
             graphics.drawImage(bulletLight, GraphicsUtils.Transform(bulletLight, (int)(bullet.getX() - Camera.getX()), (int)(bullet.getY()-Camera.getY()), bullet.getRotation()), null);
         }
-        for (Point light : getLights() )
-        {
-            graphics.drawImage(staticLight, GraphicsUtils.Transform(staticLight, (int)(light.getX() - Camera.getX()+16), (int)(light.getY()-Camera.getY()+32),0), null);
+
+        if(System.currentTimeMillis()/1000%2 == 0) {
+            for (Point light : getLights()) {
+                graphics.drawImage(flickeringLight1, GraphicsUtils.Transform(flickeringLight1, (int) (light.getX() - Camera.getX() + 16), (int) (light.getY() - Camera.getY() + 16), 0), null);
+            }
+        }
+        else {
+            for (Point light : getLights()) {
+                graphics.drawImage(flickeringLight2, GraphicsUtils.Transform(flickeringLight2, (int) (light.getX() - Camera.getX() + 16), (int) (light.getY() - Camera.getY() + 16), 0), null);
+            }
         }
 
         return lightMap;
