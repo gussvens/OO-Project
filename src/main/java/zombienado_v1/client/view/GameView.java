@@ -1,11 +1,7 @@
 package zombienado_v1.client.view;
 
-import com.sun.scenario.effect.ImageData;
 import zombienado_v1.client.controller.Controller;
-import zombienado_v1.client.model.Bullet;
 import zombienado_v1.client.model.Model;
-import zombienado_v1.client.model.Player;
-import zombienado_v1.client.model.Unit;
 import zombienado_v1.utilities.*;
 
 import java.awt.*;
@@ -14,13 +10,10 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class GameView extends JFrame{
-	//private static int WIDTH = 860;
-	//private static int HEIGHT = 480;
 	private static int WIDTH = 645;
 	private static int HEIGHT = 360;
 
@@ -76,35 +69,49 @@ public class GameView extends JFrame{
 	public synchronized void load(){
 		Image[] playerSprite = new Image[4];
 		Image[] numberSprites = new Image[10];
+		Image[] weaponSprites = new Image[100];
 		Image hudSprite;
-		Image hudWeaponShopSprite;
 		Image bulletSprite;
 		Image weaponSpriteSheet;
 		Image zombieSprite;
 		SoundEffect[] gunSound = new SoundEffect[99];
 		SoundEffect backgroundMusic;
 		Animation[] muzzle = new Animation[4];
+		// Animation[] dyingZombie = new Animation[10];
 
 		try { //LOAD
+
+			// ----- LOAD PLAYER & ZOMBIE SPRITES -----
 			playerSprite[0] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerRocker.png")));
 			playerSprite[1] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerPunk.png")));
 			playerSprite[2] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerGirl.png")));
 			playerSprite[3] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerDark.png")));
-			numberSprites[0] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/0.png")));
-			numberSprites[1] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/1.png")));
-			numberSprites[2] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/2.png")));
-			numberSprites[3] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/3.png")));
-			numberSprites[4] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/4.png")));
-			numberSprites[5] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/5.png")));
-			numberSprites[6] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/6.png")));
-			numberSprites[7] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/7.png")));
-			numberSprites[8] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/8.png")));
-			numberSprites[9] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/numbers/9.png")));
-			hudSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/hudTrans.png")));
-			weaponSpriteSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/weaponGrid.png")));
-			bulletSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/bullet2.png")));
-			//playerFeetSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/testFeet.png")));
 			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
+
+			// ----- LOAD HUD SPRITES -----
+			hudSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/hudTrans.png")));
+			for(int i = 0; i<numberSprites.length; i++){
+				String str = "src/main/resources/sprites/numbers/" + i + ".png";
+				numberSprites[i] = GraphicsUtils.makeTransparent(ImageIO.read(new File(str)));
+			}
+
+			// ----- LOAD WEAPON SPRITES -----
+			bulletSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/bullet2.png")));
+			weaponSpriteSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/weaponGrid.png")));
+			for(int i = 0; i<weaponSprites.length; i++){
+				weaponSprites[i] = GraphicsUtils.getImageFromSheet(i / 10, i - (i / 10)*10, 64, 64, weaponSpriteSheet);
+			}
+
+			// ----- LOAD ANIMATIONS -----
+			for (int i = 0; i < muzzle.length; i++) {
+				muzzle[i] = new Animation(GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/muzzle.png"))), 8, 1, 60);
+			}
+			/*for (int i = 0; i < dyingZombie.length; i++) {
+				dyingZombie[i] = new Animation(GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombieDeath.png"))), 8, 1, 60);
+			}*/
+			//playerFeetSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/testFeet.png")));
+
+			// ----- LOAD SOUND EFFECTS -----
 			gunSound[0] = new SoundEffect(new File("src/main/resources/soundeffects/gunshot.wav"));
 			gunSound[20] = new SoundEffect(new File("src/main/resources/soundeffects/ak47.wav"));
 			gunSound[21] = new SoundEffect(new File("src/main/resources/soundeffects/tommygun.wav"));
@@ -116,17 +123,19 @@ public class GameView extends JFrame{
 			gunSound[41] = new SoundEffect(new File("src/main/resources/soundeffects/doubleuzi.wav"));
 			gunSound[42] = new SoundEffect(new File("src/main/resources/soundeffects/tripleuzi.wav"));
 			backgroundMusic = new SoundEffect(new File("src/main/resources/soundeffects/ambientnoise.wav"), true);
-			for (int i = 0; i < 4; i++) {
-				muzzle[i] = new Animation(GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/muzzle.png"))), 8, 1, 60);
-			}
+
+			// ----- LOAD VIEWS -----
 			mapView = new MapView(ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")));
 			MapLoader.Load(mapView, new File("src/main/resources/maps/mapTest.txt"));
-			characterView = new CharacterView(model, playerSprite, weaponSpriteSheet, muzzle, gunSound);
+			characterView = new CharacterView(model, playerSprite, weaponSprites, muzzle, gunSound);
 			zombieView = new ZombieView(model, zombieSprite);
 			bulletView = new BulletView(model, bulletSprite);
-			hudView = new HudView(hudSprite, weaponSpriteSheet, numberSprites, model);
+			hudView = new HudView(hudSprite, weaponSprites, numberSprites, model);
 			lightMap = new LightMap(model);
+
+			// ----- START BACKGROUND MUSIC -----
 			backgroundMusic.play();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
