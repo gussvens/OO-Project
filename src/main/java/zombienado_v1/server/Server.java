@@ -48,7 +48,7 @@ public class Server extends Thread {
 
 	public void run(){
 		Thread mainUpdate = new Thread(() -> update());
-		handler.createMap("src/main/resources/maps/mapTest.txt");
+		handler.createMap("src/main/resources/maps/mapPillars.txt");
 		mainUpdate.start();
 		listenForConnections();
 

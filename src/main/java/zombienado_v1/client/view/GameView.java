@@ -124,9 +124,12 @@ public class GameView extends JFrame{
 			gunSound[42] = new SoundEffect(new File("src/main/resources/soundeffects/tripleuzi.wav"));
 			backgroundMusic = new SoundEffect(new File("src/main/resources/soundeffects/ambientnoise.wav"), true);
 
-			// ----- LOAD VIEWS -----
+			// ----- LOAD MAPS -----
 			mapView = new MapView(ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")));
-			MapLoader.Load(mapView, new File("src/main/resources/maps/mapTest.txt"));
+			MapLoader.Load(mapView, new File("src/main/resources/maps/mapPillars.txt"));
+
+
+			// ----- LOAD VIEWS -----
 			characterView = new CharacterView(model, playerSprite, weaponSprites, muzzle, gunSound);
 			zombieView = new ZombieView(model, zombieSprite);
 			bulletView = new BulletView(model, bulletSprite);
