@@ -5,7 +5,7 @@ import zombienado_v1.interfaces.iWeapon;
 
 public class Player extends Unit{
     //TEST
-    private iWeapon weapon = new Ak47();
+    private Weapon weapon = new Ak47();
     private int balance;
     private int health;
     public boolean hasShot;
@@ -32,6 +32,7 @@ public class Player extends Unit{
         copy.setAmmo(getAmmo());
         copy.setBalance(getBalance());
         copy.setHealth(getHealth());
+        copy.setWeapon(this.weapon.getId());
         if (hasShot) {
             copy.shoot();
         }
@@ -77,7 +78,7 @@ public class Player extends Unit{
 
     }
 
-    public iWeapon getWeapon(){return weapon;}
+    public Weapon getWeapon(){return weapon;}
 
     public int getHealth(){
         return this.health;

@@ -100,7 +100,6 @@ public class ServerThread extends Thread {
 	public void sendPlayerData(int id, int x, int y, double rotation, boolean hasFired, int health, int ammo, int balance, int weaponID){
 		String s = "players;"+ id + ";pos"  + ";" + x + ";" + y + ";" + rotation+";"+hasFired + ";" + health + ";" + ammo + ";" + balance + ";" + weaponID;
 		send(s);
-		System.out.println("WeaponID: " + weaponID);
 	}
 
 	public void sendZombieData(int id, int x, int y, double rotation){
