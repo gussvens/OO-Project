@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
+import java.util.ArrayList;
 
 /**
  * Created by Erik on 2016-05-19.
@@ -23,6 +24,7 @@ import java.awt.image.WritableRaster;
  *
  */
 public class LightMap {
+    private ArrayList<Point> lights; //Only light tiles
     BufferedImage flashLight;
     BufferedImage staticLight;
     BufferedImage bulletLight;
@@ -35,6 +37,7 @@ public class LightMap {
 
     public LightMap (Model model) {
         this.model = model;
+        lights = new ArrayList<Point>();
         createFlashLight();
         createStaticLight(100, 10);
         createBulletLight();
@@ -43,6 +46,12 @@ public class LightMap {
         lightMap = new BufferedImage(GameView.getScreenWidth(), GameView.getScreenHeight(), BufferedImage.TYPE_INT_ARGB);
         graphics = (Graphics2D)lightMap.createGraphics();
 
+    }
+    public void addLight(Point light){
+        lights.add(light);
+    }
+    public ArrayList<Point> getLights(){ //only return needed
+        return lights;
     }
 
     public void createStaticLight(int radius, int luminosity){
@@ -102,6 +111,10 @@ public class LightMap {
         }
         for (Unit bullet : model.getBullets()){
             graphics.drawImage(bulletLight, GraphicsUtils.Transform(bulletLight, (int)(bullet.getX() - Camera.getX()), (int)(bullet.getY()-Camera.getY()), bullet.getRotation()), null);
+        }
+        for (Point light : getLights() )
+        {
+            graphics.drawImage(staticLight, GraphicsUtils.Transform(staticLight, (int)(light.getX() - Camera.getX()+16), (int)(light.getY()-Camera.getY()+32),0), null);
         }
 
         return lightMap;

@@ -1,16 +1,17 @@
 package zombienado_v1.utilities;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import zombienado_v1.client.view.LightMap;
 import zombienado_v1.client.view.MapView;
 
 public class MapLoader {
-	public static void Load(MapView map, File file) throws IOException{
+	public static void Load(MapView map,LightMap lightMap, File file) throws IOException{
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			String line;
 			int x = 0;
@@ -25,6 +26,10 @@ public class MapLoader {
 					if (id < 10){
 						map.addWall(new Rectangle(x * MapView.TILE_SIZE, y * MapView.TILE_SIZE, MapView.TILE_SIZE, map.TILE_SIZE));
 						System.out.println("WALL LOADED @:" + x* MapView.TILE_SIZE + "," + y * MapView.TILE_SIZE);
+					}
+					else if (id == 33){
+						lightMap.addLight(new Point(x * MapView.TILE_SIZE, y * MapView.TILE_SIZE));
+						System.out.println("LIGHT LOADED @:" + x* MapView.TILE_SIZE + "," + y * MapView.TILE_SIZE);
 					}
 					x++;
 				}
