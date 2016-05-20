@@ -153,6 +153,5 @@ public class GameView extends JFrame{
 		graphics.drawString("Zombinado Beta", GameView.getScreenWidth() - 100, 20);
 
 		canvas.paintComponent(canvas.getGraphics());
-		//canvas.repaint();
 	}
 }

@@ -15,11 +15,22 @@ import java.awt.image.WritableRaster;
  * Created by Erik on 2016-05-19.
  */
 
+
+/**
+ *
+ *  THIS CLASS NEEDS MASSIVE IMPROVEMENTS
+ *    -- DROPS PERFORMANCE TOO MUCH --
+ *
+ */
 public class LightMap {
     BufferedImage flashLight;
     BufferedImage staticLight;
     BufferedImage bulletLight;
     BufferedImage playerLumination;
+
+    BufferedImage lightMap;
+    Graphics2D graphics;
+
     Model model;
 
     public LightMap (Model model) {
@@ -28,6 +39,10 @@ public class LightMap {
         createStaticLight(100, 10);
         createBulletLight();
         createMuzzleLight();
+
+        lightMap = new BufferedImage(GameView.getScreenWidth(), GameView.getScreenHeight(), BufferedImage.TYPE_INT_ARGB);
+        graphics = (Graphics2D)lightMap.createGraphics();
+
     }
 
     public void createStaticLight(int radius, int luminosity){
@@ -73,12 +88,10 @@ public class LightMap {
     }
 
     private Image getLightMap(){
-        BufferedImage lightMap = new BufferedImage(GameView.getScreenWidth(), GameView.getScreenHeight(), BufferedImage.TYPE_INT_ARGB);
-        Graphics2D graphics = (Graphics2D)lightMap.createGraphics();
+
         graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.98f));
         graphics.setColor(new Color(0, 0, 0, 255));
         graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenHeight());
-
         graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.DST_OUT));
 
         for (Player player : model.getPlayers()){

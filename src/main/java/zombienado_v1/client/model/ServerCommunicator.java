@@ -84,7 +84,7 @@ public class ServerCommunicator extends Thread {
                     bullets.remove(i);
                 }
             }
-            for (int i = bullets.size() - 1; i >= 0; i--){
+            for (int i = zombies.size() - 1; i >= 0; i--){
                 if (timeNow - zombies.get(i).getLastUpdate() > 300){
                     zombies.remove(i);
                 }

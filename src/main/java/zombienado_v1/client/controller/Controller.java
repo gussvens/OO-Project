@@ -74,6 +74,10 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	
 	@Override
 	public void keyPressed(KeyEvent ke) {
+		if (ke.getKeyCode() == KeyEvent.VK_ESCAPE){
+			System.exit(0);
+		}
+
 		if (!pressedKeys.contains(ke.getKeyChar())){
 			pressedKeys.add(ke.getKeyChar());
 		}

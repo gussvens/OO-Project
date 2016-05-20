@@ -33,7 +33,7 @@ public class ServerPlayer implements ServerUnit{
         this.id = id;
 
         //TODO: move weapons to server
-        this.weapon = new ServerGun();
+        this.weapon = new ServerAK47();
         this.health = 100;
         this.balance = 0;
         this.score = 0;
