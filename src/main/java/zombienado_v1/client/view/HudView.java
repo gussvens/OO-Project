@@ -11,13 +11,13 @@ import java.awt.*;
  */
 public class HudView {
     private Image hudSprite;
-    private Image weaponGridSprite;
+    private Image[] weaponSprites;
     private Image[] numberSprites;
     private Model model;
 
-    public HudView(Image hudSprite, Image weaponGridSprite, Image[] numberSprites, Model model){
+    public HudView(Image hudSprite, Image[] weaponSprites, Image[] numberSprites, Model model){
         this.hudSprite = hudSprite;
-        this.weaponGridSprite = weaponGridSprite;
+        this.weaponSprites = weaponSprites;
         this.numberSprites = numberSprites;
         this.model = model;
     }
@@ -31,21 +31,11 @@ public class HudView {
         int[] health = getCertanNumberArray(3, player.getHealth());
         //int[] waveNumber = getCertanNumberArray(3, model.getWave()); //This needs wave number from model
         int[] waveNumber = getCertanNumberArray(3, 0);
-        int wX,wY;
         int weaponId = player.getWeapon().getId();
-        if (weaponId < 10) {
-            wX = 0;
-            wY = weaponId;
-        } else {
-            String s = "" + weaponId;
-            wX = Integer.parseInt(s.substring(0, 1));
-            wY = Integer.parseInt(s.substring(1, 2));
-        }
-        Image weaponSprite = GraphicsUtils.getImageFromSheet(wX,wY,64,64,weaponGridSprite);
 
         graphics.drawImage(hudSprite,x,y,null);
 
-        graphics.drawImage(weaponSprite, GraphicsUtils.Transform(weaponSprite, x+44, y+48, 0), null);
+        graphics.drawImage(weaponSprites[weaponId], GraphicsUtils.Transform(weaponSprites[weaponId], x+44, y+48, 0), null);
         //graphics.drawImage(weaponShopSprite, x+16, y+16, null);
 
         for(int i = 0; i<6; i++){

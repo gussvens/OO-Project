@@ -15,52 +15,48 @@ import java.awt.*;
  */
 public class CharacterView {
     private Image[] playerSprites;
-    private Image weaponSprites;
+    private Image[] weaponSprites;
     private Animation[] muzzle;
     private SoundEffect[] gunsound;
     private Model model;
 
-    public CharacterView(Model model, Image[] playerSprites, Image weaponSpriteSheet, Animation[] muzzle, SoundEffect[] gunsound){
+    public CharacterView(Model model, Image[] playerSprites, Image[] weaponSprites, Animation[] muzzle, SoundEffect[] gunsound){
         this.model = model;
         this.playerSprites = playerSprites;
-        this.weaponSprites = weaponSpriteSheet;
+        this.weaponSprites = weaponSprites;
         this.muzzle = muzzle;
         this.gunsound = gunsound;
     }
 
     public synchronized void draw(Graphics2D graphics){
        for (int i = 0; i < model.getPlayers().size(); i++){
-            if (model.getPlayers().get(i) != null) {
-                Player p = model.getPlayers().get(i);
-                int weaponId = p.getWeapon().getId();
-                int wX;
-                int wY;
-                if (weaponId < 10) {
-                    wX = 0;
-                    wY = weaponId;
-                } else {
-                    String s = "" + weaponId;
-                    wX = Integer.parseInt(s.substring(0, 1));
-                    wY = Integer.parseInt(s.substring(1, 2));
-                }
-
-                Image weapon = GraphicsUtils.getImageFromSheet(wX, wY, 64, 64, weaponSprites);
-                muzzle[i].update();
-                muzzle[i].draw((int)(p.getX() - Camera.getX() + Math.cos(p.getRotation())*p.getWeapon().getDistanceToMuzzle()), (int)(p.getY() - Camera.getY() + Math.sin(p.getRotation())*p.getWeapon().getDistanceToMuzzle()), p.getRotation(), graphics);
-
-                graphics.drawImage(weapon, GraphicsUtils.Transform(weapon, (int)(p.getX() - Camera.getX() + Math.cos(p.getRotation())*32), (int)(p.getY() - Camera.getY() + Math.sin(p.getRotation())*32), p.getRotation()), null);
-                graphics.drawImage(playerSprites[i], GraphicsUtils.Transform(playerSprites[i], p.getX() - Camera.getX(), p.getY() - Camera.getY(), p.getRotation()), null);
-                if (p.hasShot()){
-                    System.out.println("HAS SHOT");
-                    try {
-                        gunsound[weaponId].play();
-                    } catch (NullPointerException e){
-                        gunsound[0].play();
-                    }
-                    muzzle[i].reset();
-                    muzzle[i].play();
-                }
+           if (model.getPlayers().get(i) != null) {
+               Player p = model.getPlayers().get(i);
+               double rotation = p.getRotation();
+               drawWeapon(graphics,p,i);
+               graphics.drawImage(playerSprites[i], GraphicsUtils.Transform(playerSprites[i], p.getX() - Camera.getX(), p.getY() - Camera.getY(), rotation), null);
             }
+        }
+    }
+
+    public synchronized void drawWeapon(Graphics2D graphics, Player p, int i){
+        int weaponId = p.getWeapon().getId();
+        double rotation = p.getRotation();
+        int distanceToMuzzle = p.getWeapon().getDistanceToMuzzle();
+
+        muzzle[i].update();
+        muzzle[i].draw((int)(p.getX() - Camera.getX() + Math.cos(rotation)*distanceToMuzzle), (int)(p.getY() - Camera.getY() + Math.sin(rotation)*distanceToMuzzle), rotation, graphics);
+
+        graphics.drawImage(weaponSprites[weaponId], GraphicsUtils.Transform(weaponSprites[weaponId], (int)(p.getX() - Camera.getX() + Math.cos(rotation)*32), (int)(p.getY() - Camera.getY() + Math.sin(rotation)*32), rotation), null);
+
+        if (p.hasShot()){
+            try {
+                gunsound[weaponId].play();
+            } catch (NullPointerException e){
+                gunsound[0].play();
+            }
+            muzzle[i].reset();
+            muzzle[i].play();
         }
     }
 }
