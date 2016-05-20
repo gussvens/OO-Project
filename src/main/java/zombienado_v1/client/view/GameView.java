@@ -126,7 +126,7 @@ public class GameView extends JFrame{
 
 			// ----- LOAD MAPS -----
 			mapView = new MapView(ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")));
-			MapLoader.Load(mapView, new File("src/main/resources/maps/mapPillars.txt"));
+			MapLoader.Load(mapView, new File("src/main/resources/maps/mapTestSmall.txt"));
 
 
 			// ----- LOAD VIEWS -----
