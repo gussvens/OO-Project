@@ -152,6 +152,11 @@ public class GameView extends JFrame{
 		graphics.drawString("FPS: " + Controller.getFramesPerSecond(), 10, 20);
 		graphics.drawString("Zombinado Beta", GameView.getScreenWidth() - 100, 20);
 
-		canvas.paintComponent(canvas.getGraphics());
+		if(System.getProperty("os.name").substring(0,7).equalsIgnoreCase("windows")){	//paintcomponent does not work on mac, but is optimal for windows
+			canvas.paintComponent(canvas.getGraphics());
+		} else{
+			canvas.repaint();
+		}
+
 	}
 }
