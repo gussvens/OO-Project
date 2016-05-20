@@ -1,5 +1,10 @@
 package zombienado_v1.server.serverWeapon;
 
+import zombienado_v1.server.serverUnits.ServerBullet;
+
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * Created by Marcus on 2016-05-06.
  */
@@ -17,5 +22,24 @@ public class ServerGun extends ServerWeapon {
 
     public ServerGun() {
         super(ID,DAMAGE,PRICE,DISTANCE_TO_MUZZLE,BULLETSPEED,MAXAMMO,SHOTS,SPRAY,RATEOFFIRE);
+    }
+
+    @Override
+    public ArrayList<ServerBullet> shoot(int x, int y, double direction, int bulletCounter){
+        //Fix with better values
+        if(MAXAMMO > 0) {
+
+            super.setlastFired(System.currentTimeMillis());
+            Random r = new Random();
+
+            ArrayList<ServerBullet> bullets = new ArrayList<ServerBullet>();
+            for (int i = 0; i < SHOTS; i++) {
+                bullets.add(new ServerBullet((int) (x + Math.cos(direction) * 48), (int) (y + Math.sin(direction) * 48), bulletCounter, direction - SPRAY / 2 + r.nextDouble() * SPRAY, DAMAGE, BULLETSPEED));
+            }
+            return bullets;
+        } else {
+            return new ArrayList<ServerBullet>();
+        }
+
     }
 }
