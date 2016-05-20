@@ -3,6 +3,7 @@ package zombienado_v1.client.view;
 import zombienado_v1.client.model.Model;
 import zombienado_v1.client.model.Player;
 import zombienado_v1.utilities.GraphicsUtils;
+import zombienado_v1.utilities.MiscUtilites;
 
 import java.awt.*;
 
@@ -26,17 +27,15 @@ public class HudView {
         Player player = model.getPlayer();
         int x = 0;
         int y = GameView.getScreenHeight() - 96;
-        int[] ammo = getCertanNumberArray(6, player.getAmmo());
-        int[] balance = getCertanNumberArray(9, player.getBalance());
-        int[] health = getCertanNumberArray(3, player.getHealth());
-        //int[] waveNumber = getCertanNumberArray(3, model.getWave()); //This needs wave number from model
-        int[] waveNumber = getCertanNumberArray(3, 0);
+        int[] ammo = MiscUtilites.getCertanNumberArray(6, player.getAmmo());
+        int[] balance = MiscUtilites.getCertanNumberArray(9, player.getBalance());
+        int[] health = MiscUtilites.getCertanNumberArray(3, player.getHealth());
+        int[] waveNumber = MiscUtilites.getCertanNumberArray(3, model.getWave());
         int weaponId = player.getWeapon().getId();
 
         graphics.drawImage(hudSprite,x,y,null);
 
         graphics.drawImage(weaponSprites[weaponId], GraphicsUtils.Transform(weaponSprites[weaponId], x+44, y+48, 0), null);
-        //graphics.drawImage(weaponShopSprite, x+16, y+16, null);
 
         for(int i = 0; i<6; i++){
             graphics.drawImage(numberSprites[ammo[i]], x+111+16*i, y+52, null);
@@ -53,18 +52,5 @@ public class HudView {
         for(int i = 0; i<3; i++){
             graphics.drawImage(numberSprites[waveNumber[i]], x+587+16*i, y+52, null);
         }
-    }
-
-    private int[] getCertanNumberArray(int length, int number){
-        int[] array = new int[length];
-        for(int i = length-1; i>=0; i--){
-            if(number < Math.pow(10,i)){
-                array[length-1-i] = 0;
-            }else{
-                array[length-1-i] = number/(int)Math.pow(10,i);
-                number -= (number/(int)Math.pow(10,i))*(int)Math.pow(10,i);
-            }
-        }
-        return array;
     }
 }
