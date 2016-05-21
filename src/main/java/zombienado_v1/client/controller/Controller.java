@@ -48,17 +48,18 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 		long startTime;
 		while (true){
 			startTime = System.nanoTime();
+			//Does the work
 			model.tick(pressedKeys, cursor, mousePress);
 			gameView.render();
+			//Calculates sleep time
 			long elapsedTimeInNano = (System.nanoTime() - startTime);
 			long totalDifferenceInNano = (long)(targetFrameTime*1000000000 - elapsedTimeInNano);
 			long differenceInMillis = totalDifferenceInNano/1000000;
 			long differenceInNano = totalDifferenceInNano - differenceInMillis*1000000;
 
-			System.out.println("NANO:"+differenceInNano+" MILLIS:"+differenceInMillis);
-
 			long waitMillis = Math.max((long)(differenceInMillis), 0);
 			int waitNano = (int)Math.max(differenceInNano, 0);
+
 			try{
 				Thread.sleep(waitMillis, waitNano);
 			} catch (InterruptedException ie){

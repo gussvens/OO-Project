@@ -35,6 +35,9 @@ public class GameView extends JFrame{
 	private class Canvas extends JPanel {
 		Image nextFrame;
 		long timeSinceLastFrame;
+		float[] lastFrameTimes = new float[60];
+		public int fps;
+		int iteration = 0;
 
 		public void newFrame(Image image){
 			this.nextFrame = image;
@@ -42,13 +45,31 @@ public class GameView extends JFrame{
 		@Override
 		public synchronized void paintComponent(Graphics g){
 			g.drawImage(nextFrame, 0, 0, this.getWidth(), this.getHeight(), null);
+			storeFps();
+			g.drawString("FPS: "+fps, 0, 10);
+			g.drawString("TICK REATE: "+Controller.getTickPerSecond(), 0, 22);
+			g.drawString("ZOMBINADO BETA", getWidth() - 108, 10);
+			timeSinceLastFrame = System.nanoTime();
+		}
+
+		public void storeFps(){
+			if (iteration >= 60){
+				iteration = 0;
+			}
+
 			double fps = System.nanoTime() - timeSinceLastFrame;
 			fps /= 1000000000;
 			fps = 1 / fps;
-			g.drawString("FPS: "+(int)fps, 0, 10);
-			g.drawString("TICK REATE: "+Controller.getTickPerSecond(), 0, 22);
-			timeSinceLastFrame = System.nanoTime();
+			this.lastFrameTimes[iteration] = (float)fps;
+
+			float delta = 0;
+			for (float f : lastFrameTimes){
+				delta += f;
+			}
+			this.fps = (int)(delta/60);
+			iteration++;
 		}
+
 	}
 
 	public static int getScreenWidth(){
@@ -175,8 +196,7 @@ public class GameView extends JFrame{
 		zombieView.draw(graphics);
 		lightMap.draw(graphics);
 		hudView.draw(graphics);
-		graphics.setColor(Color.white);
-		graphics.drawString("Zombinado Beta", GameView.getScreenWidth() - 100, 20);
+
 		canvas.newFrame(frame);
 		canvas.repaint(); //BACK TO USING REPAINT ONLY :D
 	}

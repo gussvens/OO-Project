@@ -25,11 +25,9 @@ public class MapLoader {
 					thisRow.add(id);
 					if (id < 10){
 						map.addWall(new Rectangle(x * MapView.TILE_SIZE, y * MapView.TILE_SIZE, MapView.TILE_SIZE, map.TILE_SIZE));
-						System.out.println("WALL LOADED @:" + x* MapView.TILE_SIZE + "," + y * MapView.TILE_SIZE);
 					}
 					else if (id >=30 && id<40){
 						lightMap.addLight(new Point(x * MapView.TILE_SIZE, y * MapView.TILE_SIZE));
-						System.out.println("LIGHT LOADED @:" + x* MapView.TILE_SIZE + "," + y * MapView.TILE_SIZE);
 					}
 					x++;
 				}

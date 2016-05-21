@@ -22,7 +22,7 @@ public class ServerCommunicator extends Thread {
     private static PrintWriter out;
     private ArrayList<Player> players;
     private ArrayList<Unit> zombies;
-    private ArrayList<Bullet> bullets;
+    private ArrayList<Unit> bullets;
     private int myID = -1;
     private boolean wasShooting = false;
     private int wave = 1;
@@ -47,7 +47,7 @@ public class ServerCommunicator extends Thread {
             players.add(null);
         }
         zombies = new ArrayList<Unit>();
-        bullets = new ArrayList<Bullet>();
+        bullets = new ArrayList<Unit>();
         try {
             socket = new Socket(address, port);
         } catch (UnknownHostException u) {
