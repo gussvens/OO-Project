@@ -102,7 +102,7 @@ public class LightMap {
         flickeringLight1 = new BufferedImage(radius*2, radius*2, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = (Graphics2D) flickeringLight1.getGraphics();
 
-        int step = 5;
+        int step = 8;
         int numberOfSteps = radius/step;
         graphics.setColor(new Color(0, 0, 0, luminosity));
         for (int i = 0; i < numberOfSteps; i++){
@@ -113,7 +113,7 @@ public class LightMap {
         flickeringLight2 = new BufferedImage(radius*2, radius*2, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = (Graphics2D) flickeringLight2.getGraphics();
 
-        int step = 5;
+        int step = 8;
         int numberOfSteps = radius/step;
         graphics.setColor(new Color(0, 0, 0, luminosity));
         for (int i = 0; i < numberOfSteps; i++){
