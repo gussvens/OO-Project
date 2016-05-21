@@ -25,6 +25,11 @@ public class SoundEffect {
         playThread.start();
     }
 
+    public void play(int xSource, int ySource, int xPlayer, int yPlayer){
+        Thread playThread = new Thread(() -> playSound(xSource,ySource,xPlayer,yPlayer));
+        playThread.start();
+    }
+
     private void playSound(){
         try {
             Clip sound = AudioSystem.getClip();
@@ -42,11 +47,13 @@ public class SoundEffect {
         }
     }
 
-    private void playSound(int xSource, int ySource, int xCamera, int yCamera){
-        int dX = xSource - xCamera;
-        int dY = ySource - yCamera;
+    private void playSound(int xSource, int ySource, int xPlayer, int yPlayer){
+        int dX = xSource - xPlayer;
+        int dY = ySource - yPlayer;
         double distance = Math.sqrt((dX)*(dX)+(dY)*(dY));
-        int alfa = 2 - (int)(Math.log(distance));
+        distance = distance/64;
+        if(distance<1) distance = 1;
+        float alfa = (float)(-20*Math.log(distance));
 
         try {
             Clip sound = AudioSystem.getClip();

@@ -51,9 +51,9 @@ public class CharacterView {
 
         if (p.hasShot()){
             try {
-                gunsound[weaponId].play();
+                gunsound[weaponId].play(p.getX(),p.getY(),model.getPlayer().getX(),model.getPlayer().getY());
             } catch (NullPointerException e){
-                gunsound[0].play();
+                gunsound[0].play(p.getX(),p.getY(),model.getPlayer().getX(),model.getPlayer().getY());
             }
             muzzle[i].reset();
             muzzle[i].play();
