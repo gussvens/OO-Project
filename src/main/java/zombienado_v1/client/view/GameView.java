@@ -40,7 +40,7 @@ public class GameView extends JFrame{
 		public int fps;
 		int iteration = 0;
 
-		public void newFrame(Image image){
+		public void setNextFrame(Image image){
 			this.nextFrame = image;
 		}
 		@Override
@@ -210,7 +210,7 @@ public class GameView extends JFrame{
 		//storeView.draw(graphics);
 		hudView.draw(graphics);
 
-		canvas.newFrame(frame);
+		canvas.setNextFrame(frame);
 		canvas.repaint(); //BACK TO USING REPAINT ONLY :D
 	}
 
