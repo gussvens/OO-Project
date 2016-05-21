@@ -31,6 +31,7 @@ public class GameView extends JFrame{
 	private ZombieView zombieView;
 	private BulletView bulletView;
 	private HudView hudView;
+	private StoreView storeView;
 	private LightMap lightMap;
 	private class Canvas extends JPanel {
 		Image nextFrame;
@@ -91,7 +92,7 @@ public class GameView extends JFrame{
 		this.setResizable(false);
 		this.getContentPane().add(canvas);
 		this.setUndecorated(true);
-		getContentPane().setPreferredSize( Toolkit.getDefaultToolkit().getScreenSize());
+		getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
 		pack();
 	    setResizable(false);
 
@@ -104,6 +105,7 @@ public class GameView extends JFrame{
 		Image[] numberSprites = new Image[10];
 		Image[] weaponSprites = new Image[100];
 		Image hudSprite;
+		Image storeSprite;
 		Image bulletSprite;
 		Image weaponSpriteSheet;
 		Image zombieSprite;
@@ -124,8 +126,9 @@ public class GameView extends JFrame{
 			playerSprite[3] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerDark.png")));
 			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
 
-			// ----- LOAD HUD SPRITES -----
+			// ----- LOAD HUD & STORE SPRITES -----
 			hudSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/hudTrans.png")));
+			storeSprite = ImageIO.read(new File("src/main/resources/sprites/storeSprite.png"));
 			for(int i = 0; i<numberSprites.length; i++){
 				String str = "src/main/resources/sprites/numbers/" + i + ".png";
 				numberSprites[i] = GraphicsUtils.makeTransparent(ImageIO.read(new File(str)));
@@ -163,7 +166,7 @@ public class GameView extends JFrame{
 			// ----- LOAD MAPS -----
 			mapView = new MapView(ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")));
 			lightMap = new LightMap(model);
-			MapLoader.Load(mapView, lightMap, new File("src/main/resources/maps/mapPillars.txt"));
+			MapLoader.Load(mapView, lightMap, new File("src/main/resources/maps/mapTestSmall.txt"));
 
 
 			// ----- LOAD VIEWS -----
@@ -171,6 +174,7 @@ public class GameView extends JFrame{
 			zombieView = new ZombieView(model, zombieSprite);
 			bulletView = new BulletView(model, bulletSprite);
 			hudView = new HudView(hudSprite, weaponSprites, numberSprites, model);
+			storeView = new StoreView(storeSprite,weaponSprites,model);
 
 			// ----- SETS CURSOR -----
 			Cursor c = Toolkit.getDefaultToolkit().createCustomCursor(sight , new Point(this.getX(),
@@ -202,6 +206,8 @@ public class GameView extends JFrame{
 		characterView.draw(graphics);
 		zombieView.draw(graphics);
 		lightMap.draw(graphics);
+
+		//storeView.draw(graphics);
 		hudView.draw(graphics);
 
 		canvas.newFrame(frame);

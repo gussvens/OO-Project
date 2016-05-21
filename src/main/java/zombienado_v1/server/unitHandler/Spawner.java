@@ -14,8 +14,8 @@ public class Spawner{
     private static Spawner instance;
     private int lapCounter;
     private int wave = 1;
-    private int startingZombies = 20;
-    private int amountOfZombies = 20;
+    private int startingZombies = 50;
+    private int amountOfZombies = 50;
     private int timeBetweenWaves;
 
     private Spawner(){

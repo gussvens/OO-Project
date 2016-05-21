@@ -16,4 +16,16 @@ public class MiscUtilites {
         }
         return array;
     }
+
+    public static int factorial(int n) {
+        int fact = 1; // this  will be the result
+        for (int i = 1; i <= n; i++) {
+            fact *= i;
+        }
+        return fact;
+    }
+
+    public static double log2(double x) {
+        return Math.log(x)/Math.log(2.0d);
+    }
 }
