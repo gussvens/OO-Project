@@ -6,6 +6,8 @@ import zombienado_v1.utilities.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,13 +19,12 @@ public class GameView extends JFrame{
 	private static int WIDTH = 645;
 	private static int HEIGHT = 360;
 
-
+	private static final String OS = System.getProperty("os.name").substring(0,7);
 
 	private Model model;
 	private Canvas canvas;
-	private Image imageData;
-	private Graphics2D graphics;
-	private Graphics renderer;
+//	private BufferedImage imageData;
+//	private Graphics2D graphics;
 
 	private MapView mapView;
 	private CharacterView characterView;
@@ -32,9 +33,21 @@ public class GameView extends JFrame{
 	private HudView hudView;
 	private LightMap lightMap;
 	private class Canvas extends JPanel {
+		Image nextFrame;
+		long timeSinceLastFrame;
+
+		public void newFrame(Image image){
+			this.nextFrame = image;
+		}
 		@Override
 		public synchronized void paintComponent(Graphics g){
-			g.drawImage(imageData, 0, 0, this.getWidth(), this.getHeight(), null);
+			g.drawImage(nextFrame, 0, 0, this.getWidth(), this.getHeight(), null);
+			double fps = System.nanoTime() - timeSinceLastFrame;
+			fps /= 1000000000;
+			fps = 1 / fps;
+			g.drawString("FPS: "+(int)fps, 0, 10);
+			g.drawString("TICK REATE: "+Controller.getTickPerSecond(), 0, 22);
+			timeSinceLastFrame = System.nanoTime();
 		}
 	}
 
@@ -48,8 +61,8 @@ public class GameView extends JFrame{
 
 	public GameView(Model model){
 		super("fullscreen");
-		imageData = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
-		graphics = (Graphics2D)imageData.getGraphics();
+	//	imageData = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
+	//	graphics = (Graphics2D)imageData.getGraphics();
 		canvas = new Canvas();
 		canvas.setDoubleBuffered(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -63,7 +76,6 @@ public class GameView extends JFrame{
 
 		this.model = model;
 		this.setVisible(true);
-		renderer = canvas.getGraphics();
 	}
 
 	public synchronized void load(){
@@ -146,10 +158,14 @@ public class GameView extends JFrame{
 	}
 
 	public synchronized void render() {
-
+		//Has to create a new frame each time
+		Image frame = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D graphics = (Graphics2D)frame.getGraphics();
 		/**
 		 * TODO: renderstuff ?
 		 */
+
+
 		graphics.setColor(Color.black);
 		graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenWidth());
 		mapView.draw(graphics);
@@ -159,17 +175,10 @@ public class GameView extends JFrame{
 		zombieView.draw(graphics);
 		lightMap.draw(graphics);
 		hudView.draw(graphics);
-		graphics.setColor(Color.black);
-		graphics.drawString("FPS: " + Controller.getFramesPerSecond(), 9, 19);
 		graphics.setColor(Color.white);
-		graphics.drawString("FPS: " + Controller.getFramesPerSecond(), 10, 20);
 		graphics.drawString("Zombinado Beta", GameView.getScreenWidth() - 100, 20);
-
-		if(System.getProperty("os.name").substring(0,7).equalsIgnoreCase("windows")){	//paintcomponent does not work on mac, but is optimal for windows
-			canvas.paintComponent(canvas.getGraphics());
-		} else{
-			canvas.repaint();
-		}
-
+		canvas.newFrame(frame);
+		canvas.repaint(); //BACK TO USING REPAINT ONLY :D
 	}
+
 }

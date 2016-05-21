@@ -18,7 +18,7 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	private final Model model;
 	private final GameView gameView;
 	private static final double targetFrameTime = 1d/60d;
-	private static double frameTime = 0;
+	private static double tickTime = 0;
 	
 	private List<Character> pressedKeys;
 	private boolean mousePress = false;
@@ -44,25 +44,32 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	}
 
 	private void gameLoop(){
-		long wait;
+
 		long startTime;
 		while (true){
 			startTime = System.nanoTime();
 			model.tick(pressedKeys, cursor, mousePress);
 			gameView.render();
-			wait = Math.max((long)(targetFrameTime*1000) - ((System.nanoTime() - startTime)/1000000), 0); //ms precision, can be improved
+			long elapsedTimeInNano = (System.nanoTime() - startTime);
+			long totalDifferenceInNano = (long)(targetFrameTime*1000000000 - elapsedTimeInNano);
+			long differenceInMillis = totalDifferenceInNano/1000000;
+			long differenceInNano = totalDifferenceInNano - differenceInMillis*1000000;
 
+			System.out.println("NANO:"+differenceInNano+" MILLIS:"+differenceInMillis);
+
+			long waitMillis = Math.max((long)(differenceInMillis), 0);
+			int waitNano = (int)Math.max(differenceInNano, 0);
 			try{
-				Thread.sleep(wait);
+				Thread.sleep(waitMillis, waitNano);
 			} catch (InterruptedException ie){
 				ie.printStackTrace();
 			}
-			frameTime = (System.nanoTime() - startTime) * Math.pow(10, -9);
+			tickTime = (System.nanoTime() - startTime) * Math.pow(10, -9);
 		}
 	}
 	
-	public static int getFramesPerSecond(){
-		return (int)(1 / frameTime);
+	public static int getTickPerSecond(){
+		return (int)(1 / tickTime);
 	}
 	
 	public Point getRelativeMousePosition(MouseEvent me){

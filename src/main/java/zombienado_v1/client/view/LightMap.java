@@ -41,7 +41,7 @@ public class LightMap {
         createFlashLight();
         createStaticLight(100, 10);
         createBulletLight();
-        createMuzzleLight();
+        createPlayerLumination();
         createFlickeringLight1(100, 7);
         createFlickeringLight2(100, 4);
 
@@ -88,7 +88,7 @@ public class LightMap {
         }
     }
 
-    private void createMuzzleLight(){
+    private void createPlayerLumination(){
         playerLumination = new BufferedImage(400, 400, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = (Graphics2D)playerLumination.getGraphics();
 
@@ -121,7 +121,7 @@ public class LightMap {
         }
     }
 
-    private Image getLightMap(){
+    private void getLightMap(){
 
         graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.20f));
         graphics.setColor(new Color(0, 0, 0, 255));
@@ -138,7 +138,7 @@ public class LightMap {
             graphics.drawImage(bulletLight, GraphicsUtils.Transform(bulletLight, (int)(bullet.getX() - Camera.getX()), (int)(bullet.getY()-Camera.getY()), bullet.getRotation()), null);
         }
 
-        if(System.currentTimeMillis()/1000%2 == 0) {
+        if(System.currentTimeMillis()/150%2 == 0) {
             for (Point light : getLights()) {
                 graphics.drawImage(flickeringLight1, GraphicsUtils.Transform(flickeringLight1, (int) (light.getX() - Camera.getX() + 16), (int) (light.getY() - Camera.getY() + 16), 0), null);
             }
@@ -149,10 +149,11 @@ public class LightMap {
             }
         }
 
-        return lightMap;
+       // return lightMap;
     }
 
     public void draw(Graphics2D graphics){
-        graphics.drawImage(getLightMap(), 0, 0, null);
+        getLightMap();
+        graphics.drawImage(lightMap, 0, 0, null);
     }
 }

@@ -81,18 +81,18 @@ public class ServerCommunicator extends Thread {
         while (true){
             long timeNow = System.currentTimeMillis();
             for (int i = bullets.size() - 1; i >= 0; i--){
-                if (timeNow - bullets.get(i).getLastUpdate() > 300){
+                if (timeNow - bullets.get(i).getLastUpdate() > 100){
                     bullets.remove(i);
                 }
             }
             for (int i = zombies.size() - 1; i >= 0; i--){
-                if (timeNow - zombies.get(i).getLastUpdate() > 300){
+                if (timeNow - zombies.get(i).getLastUpdate() > 100){
                     zombies.remove(i);
                 }
             }
 
             try {
-                this.wait(50);
+                this.wait(30);
             } catch (InterruptedException ie){
                 ie.printStackTrace();
             }
