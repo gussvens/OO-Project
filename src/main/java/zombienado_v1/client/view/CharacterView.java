@@ -17,15 +17,17 @@ public class CharacterView {
     private Image[] playerSprites;
     private Image[] weaponSprites;
     private Animation[] muzzle;
+    private Animation recoilSight;
     private SoundEffect[] gunsound;
     private Model model;
 
-    public CharacterView(Model model, Image[] playerSprites, Image[] weaponSprites, Animation[] muzzle, SoundEffect[] gunsound){
+    public CharacterView(Model model, Image[] playerSprites, Image[] weaponSprites, Animation[] muzzle, SoundEffect[] gunsound, Animation recoilSight){
         this.model = model;
         this.playerSprites = playerSprites;
         this.weaponSprites = weaponSprites;
         this.muzzle = muzzle;
         this.gunsound = gunsound;
+        this.recoilSight = recoilSight;
     }
 
     public synchronized void draw(Graphics2D graphics){
@@ -57,6 +59,9 @@ public class CharacterView {
             }
             muzzle[i].reset();
             muzzle[i].play();
+            if (p == model.getPlayer()){
+                recoilSight.play();
+            }
         }
     }
 }
