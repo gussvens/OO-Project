@@ -107,6 +107,7 @@ public class GameView extends JFrame{
 		Image bulletSprite;
 		Image weaponSpriteSheet;
 		Image zombieSprite;
+		Image sight;
 		SoundEffect[] gunSound = new SoundEffect[99];
 		SoundEffect backgroundMusic;
 		Animation[] muzzle = new Animation[4];
@@ -114,6 +115,8 @@ public class GameView extends JFrame{
 
 		try { //LOAD
 
+			// ----- LOAD CURSOR IMAGE-----
+			sight = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/testSight.png")));
 			// ----- LOAD PLAYER & ZOMBIE SPRITES -----
 			playerSprite[0] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerRocker.png")));
 			playerSprite[1] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerPunk.png")));
@@ -169,6 +172,10 @@ public class GameView extends JFrame{
 			bulletView = new BulletView(model, bulletSprite);
 			hudView = new HudView(hudSprite, weaponSprites, numberSprites, model);
 
+			// ----- SETS CURSOR -----
+			Cursor c = Toolkit.getDefaultToolkit().createCustomCursor(sight , new Point(this.getX(),
+					this.getY()), "sight");
+			this.setCursor (c);
 
 			// ----- START BACKGROUND MUSIC -----
 			backgroundMusic.play();
