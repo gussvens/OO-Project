@@ -116,6 +116,11 @@ public class ServerThread extends Thread {
 		send(s);
 	}
 
+	public void sendTimeUntilNextWaveData(int timeUntilNextWave){
+		String s = "timeUntilNextWave;" + timeUntilNextWave;
+		send(s);
+	}
+
 	public void run(){
 		try {
 			output = new PrintWriter(socket.getOutputStream(), true);

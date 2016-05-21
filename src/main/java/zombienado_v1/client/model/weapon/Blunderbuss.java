@@ -5,6 +5,7 @@ package zombienado_v1.client.model.weapon;
  */
 public class Blunderbuss extends Weapon {
 
+    private final static String NAME = "Blunderbuss";
     private final static int ID = 31;
     private final static int DAMAGE = 120;
     private final static int PRICE = 700;
@@ -12,6 +13,6 @@ public class Blunderbuss extends Weapon {
     private final static int DISTANCE_TO_MUZZLE = 80;
 
     public Blunderbuss() {
-        super(ID, DAMAGE, MAXAMMO, PRICE, DISTANCE_TO_MUZZLE);
+        super(NAME, ID, DAMAGE, MAXAMMO, PRICE, DISTANCE_TO_MUZZLE);
     }
 }

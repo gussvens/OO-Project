@@ -26,6 +26,7 @@ public class ServerCommunicator extends Thread {
     private int myID = -1;
     private boolean wasShooting = false;
     private int wave = 1;
+    private int timeUntilNextWave = -1;
 
     public static synchronized void create(Model model, InetAddress address, int port) {
         if (instance == null)
@@ -220,6 +221,8 @@ public class ServerCommunicator extends Thread {
             }
         } else if (arg[0].equals("wave")) {
             wave = Integer.parseInt(arg[1]);
+        } else if (arg[0].equals("timeUntilNextWave")){
+            timeUntilNextWave = Integer.parseInt(arg[1]);
         }
     }
 
@@ -271,5 +274,7 @@ public class ServerCommunicator extends Thread {
         return wave;
     }
 
-
+    public int getTimeUntilNextWave(){
+        return timeUntilNextWave;
+    }
 }

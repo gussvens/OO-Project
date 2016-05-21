@@ -7,13 +7,15 @@ import zombienado_v1.interfaces.iWeapon;
  */
 public class Weapon implements iWeapon{
 
+    private String name;
     private int id;
     private int damage;
     private int price;
     private int ammo;
     private int distanceToMuzzle;
 
-    public Weapon(int id, int damage, int ammo, int price, int distanceToMuzzle){
+    public Weapon(String name, int id, int damage, int ammo, int price, int distanceToMuzzle){
+        this.name = name;
         this.id = id; // Coordinate to weapon sprite in weaponSheet
         this.damage = damage;
         this.price = price;
@@ -23,6 +25,10 @@ public class Weapon implements iWeapon{
 
     public void setAmmo(int ammo){
         this.ammo = ammo;
+    }
+
+    public String getName(){
+        return name;
     }
 
     public int getId() {

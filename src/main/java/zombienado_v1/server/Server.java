@@ -21,6 +21,7 @@ public class Server extends Thread {
 	private WorldHandler handler;
 	private int bulletCounter;
 	private int currentWave;
+	private int timeUntilNextWave;
 
 	private Server(){
 		players = new ArrayList<ServerPlayer>();
@@ -30,6 +31,7 @@ public class Server extends Thread {
 		handler = new WorldHandler();
 		bulletCounter = 0;
 		currentWave = spawner.getWave();
+		timeUntilNextWave = spawner.getTimeUntilNextWave();
 	}
 
 	public static Server getInstance(){
@@ -50,7 +52,7 @@ public class Server extends Thread {
 
 	public void run(){
 		Thread mainUpdate = new Thread(() -> update());
-		handler.createMap("src/main/resources/maps/mapTestSmall.txt");
+		handler.createMap("src/main/resources/maps/mapPillars.txt");
 		mainUpdate.start();
 		listenForConnections();
 
@@ -108,9 +110,13 @@ public class Server extends Thread {
 
 			if(spawner.getWave() != currentWave) {
 				currentWave = spawner.getWave();
+				if(spawner.getTimeUntilNextWave() != timeUntilNextWave){
+					timeUntilNextWave = spawner.getTimeUntilNextWave();
+				}
 
 				for(ServerThread serverThread : serverThreads) {
 					serverThread.sendWaveData(currentWave);
+					serverThread.sendTimeUntilNextWaveData(timeUntilNextWave);
 				}
 			}
 

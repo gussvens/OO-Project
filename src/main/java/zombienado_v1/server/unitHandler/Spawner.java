@@ -8,18 +8,21 @@ import java.util.ArrayList;
  * Created by Marcus on 2016-04-05.
  */
 public class Spawner{
-
     private static ArrayList<ServerZombie> zombies;
     private static int idCounter = 0;
     private static Spawner instance;
+    private static final int TIME_BETWEEN_WAVES = 10; //seconds
+    private boolean timerOn = false;
     private int lapCounter;
     private int wave = 1;
     private int startingZombies = 50;
     private int amountOfZombies = 50;
-    private int timeBetweenWaves;
+    private long timeStamp;
+    private long timeSinceLastWave;
 
     private Spawner(){
         zombies = new ArrayList<ServerZombie>();
+        timeSinceLastWave = -1;
     }
 
     public static Spawner getInstance(){
@@ -27,6 +30,14 @@ public class Spawner{
             instance = new Spawner();
         }
         return instance;
+    }
+
+    public int getTimeUntilNextWave(){
+        if(!timerOn) {
+            return -1;
+        } else{
+            return TIME_BETWEEN_WAVES - (int)(timeSinceLastWave/1000);
+        }
     }
 
     public void update(ArrayList<ServerPlayer> positions, ArrayList<Point> spawnPoints, ArrayList<Point> walls) {
@@ -82,15 +93,19 @@ public class Spawner{
                 lapCounter++;
             }
         } else {
-            if(timeBetweenWaves == 1200){
+            if(!timerOn){
+                timeStamp = System.currentTimeMillis();
+                timerOn = true;
+            }
+            timeSinceLastWave = System.currentTimeMillis() - timeStamp;
+
+            if(this.getTimeUntilNextWave() <= 0){
+                timerOn = false;
+                timeSinceLastWave = -1;
                 wave++;
                 amountOfZombies = startingZombies + (wave*2);
                 zombies.clear();
-                timeBetweenWaves = 0;
                 System.out.println("New Wave: " + wave);
-            } else {
-                timeBetweenWaves++;
-                System.out.println("Time to next wave: " + timeBetweenWaves);
             }
         }
 

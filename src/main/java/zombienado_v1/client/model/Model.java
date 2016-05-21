@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import zombienado_v1.client.controller.Client;
+import zombienado_v1.client.model.weapon.*;
 import zombienado_v1.utilities.Camera;
 import zombienado_v1.utilities.PlayerInputHandler;
 
@@ -15,8 +16,10 @@ public class Model {
 	private ArrayList<Player> players;
 	private ArrayList<Unit> zombies;
 	private ArrayList<Unit> bullets;
+	private Weapon[] weapons = new Weapon[100];
 	private int myID = -1;
 	private int wave = 1;
+	private int timeUntilNextWave = -1;
 	/**
 	 * Getters for view
 	 */
@@ -32,7 +35,12 @@ public class Model {
 	public synchronized int getWave(){
 		return wave;
 	}
-
+	public synchronized int getTimeUntilNextWave(){
+		return timeUntilNextWave;
+	}
+	public Weapon[] getWeapons(){
+		return weapons;
+	}
 	/** INITIALIZATION
 	 * Executed before gameloop starts
 	 */
@@ -48,6 +56,16 @@ public class Model {
 		for (int i = 0; i < 4; i++){ // Test. Creates 4 players in order to match ID to index.
 			players.add(null);
 		}
+
+		weapons[20] = new Ak47();
+		weapons[21] = new TommyGun();
+		weapons[22] = new M4();
+		weapons[30] = new Shotgun();
+		weapons[31] = new Blunderbuss();
+		weapons[32] = new AutoShotgun();
+		weapons[40] = new Uzi();
+		weapons[41] = new DoubleUzi();
+		weapons[42] = new TripleUzi();
 	}
 
 	/** MAIN UPDATE METHOD
@@ -65,6 +83,7 @@ public class Model {
 		this.zombies = coms.getZombies();
 		this.bullets = coms.getBullets();
 		this.wave = coms.getWave();
+		this.timeUntilNextWave = coms.getTimeUntilNextWave();
 		Camera.setX(players.get(myID).getX());
 		Camera.setY(players.get(myID).getY());
 		Point velocityVector = PlayerInputHandler.getPlayerVelocity(pressedKeys);
