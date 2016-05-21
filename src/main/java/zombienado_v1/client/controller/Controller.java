@@ -20,9 +20,9 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	private static final double targetFrameTime = 1d/60d;
 	private static double tickTime = 0;
 	
-	private List<Character> pressedKeys;
-	private boolean mousePress = false;
-	private Point cursor = new Point(0, 0);
+	private static List<Character> pressedKeys;
+	private static boolean mousePress = false;
+	private static Point cursor = new Point(0, 0);
 	
 	public static Controller create(Model project, GameView projectView) {
 		return new Controller(project, projectView);
@@ -72,8 +72,12 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	public static int getTickPerSecond(){
 		return (int)(1 / tickTime);
 	}
-	
-	public Point getRelativeMousePosition(MouseEvent me){
+
+	public static Point getMousePosition(){
+		return cursor;
+	}
+
+	private Point getRelativeMousePosition(MouseEvent me){
 		Dimension monitorSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double x = (double)((double)me.getX()*(double)GameView.getScreenWidth()/monitorSize.getWidth());
 		double y = (double)((double)me.getY()*(double)GameView.getScreenHeight()/monitorSize.getHeight());

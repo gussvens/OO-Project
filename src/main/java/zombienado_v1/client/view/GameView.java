@@ -33,6 +33,9 @@ public class GameView extends JFrame{
 	private HudView hudView;
 	private StoreView storeView;
 	private LightMap lightMap;
+
+	Animation recoilSight;
+
 	private class Canvas extends JPanel {
 		Image nextFrame;
 		long timeSinceLastFrame;
@@ -109,7 +112,6 @@ public class GameView extends JFrame{
 		Image bulletSprite;
 		Image weaponSpriteSheet;
 		Image zombieSprite;
-		Image sight;
 		SoundEffect[] gunSound = new SoundEffect[99];
 		SoundEffect backgroundMusic;
 		Animation[] muzzle = new Animation[4];
@@ -118,7 +120,6 @@ public class GameView extends JFrame{
 		try { //LOAD
 
 			// ----- LOAD CURSOR IMAGE-----
-			sight = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/testSight.png")));
 			// ----- LOAD PLAYER & ZOMBIE SPRITES -----
 			playerSprite[0] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerRocker.png")));
 			playerSprite[1] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerPunk.png")));
@@ -145,6 +146,8 @@ public class GameView extends JFrame{
 			for (int i = 0; i < muzzle.length; i++) {
 				muzzle[i] = new Animation(GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/weapons/muzzle.png"))), 8, 1, 60);
 			}
+			recoilSight = new Animation(GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/sightWithRecoil.png"))), 6, 1, 60);
+			recoilSight.setFirstFrameVisable(true);
 			/*for (int i = 0; i < dyingZombie.length; i++) {
 				dyingZombie[i] = new Animation(GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombieDeath.png"))), 8, 1, 60);
 			}*/
@@ -170,17 +173,17 @@ public class GameView extends JFrame{
 
 
 			// ----- LOAD VIEWS -----
-			characterView = new CharacterView(model, playerSprite, weaponSprites, muzzle, gunSound);
+			characterView = new CharacterView(model, playerSprite, weaponSprites, muzzle, gunSound, recoilSight);
 			zombieView = new ZombieView(model, zombieSprite);
 			bulletView = new BulletView(model, bulletSprite);
 			hudView = new HudView(hudSprite, weaponSprites, numberSprites, model);
 			storeView = new StoreView(storeSprite,weaponSprites,model);
 
-			// ----- SETS CURSOR -----
-			Cursor c = Toolkit.getDefaultToolkit().createCustomCursor(sight , new Point(this.getX(),
-					this.getY()), "sight");
-			this.setCursor (c);
-
+			// ----- HIDES CURSOR -----
+			BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+			Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+					cursorImg, new Point(0, 0), "blank cursor");
+			this.getContentPane().setCursor(blankCursor);
 			// ----- START BACKGROUND MUSIC -----
 			backgroundMusic.play();
 
@@ -206,6 +209,11 @@ public class GameView extends JFrame{
 		characterView.draw(graphics);
 		zombieView.draw(graphics);
 		lightMap.draw(graphics);
+
+
+		recoilSight.update();
+		Point mousePosition = Controller.getMousePosition();
+		recoilSight.draw((int)mousePosition.getX(), (int)mousePosition.getY(), 0, graphics);
 
 		//storeView.draw(graphics);
 		hudView.draw(graphics);
