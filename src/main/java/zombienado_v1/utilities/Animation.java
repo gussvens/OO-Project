@@ -18,6 +18,7 @@ public class Animation {
 	private int startY = 0;
 	private long lastUpdate;
 	private boolean looping = false;
+	private boolean firstFrameVisable;
 
 	public Animation(Image spriteSheet, int cols, int rows, int fps){
 		this.sheet = spriteSheet;
@@ -27,6 +28,10 @@ public class Animation {
 		this.cols = cols;
 		this.frameTime = 1/(double)fps;
 
+	}
+
+	public void setFirstFrameVisable(boolean visable){
+		firstFrameVisable = visable;
 	}
 
 	public void loop(boolean loop){
@@ -69,7 +74,7 @@ public class Animation {
 	}
 
 	public void draw(int x, int y, double rotation, Graphics2D graphics){
-		if (playing) {
+		if (playing || firstFrameVisable) {
 			thisImage = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
 			g = (Graphics2D) thisImage.getGraphics();
 			g.drawImage(sheet, 0, 0, width, height, startX, startY, startX + width, startY + height, null);
