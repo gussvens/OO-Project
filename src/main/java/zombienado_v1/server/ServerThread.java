@@ -52,7 +52,12 @@ public class ServerThread extends Thread {
 	}
 
 	public boolean getWeaponHasChanged(){
-		return weaponHasChanged;
+		if(weaponHasChanged) {
+			weaponHasChanged = false;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public double getDeltaRotation(){
