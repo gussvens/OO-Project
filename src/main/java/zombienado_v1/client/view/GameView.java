@@ -169,7 +169,7 @@ public class GameView extends JFrame{
 			// ----- LOAD MAPS -----
 			mapView = new MapView(ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")));
 			lightMap = new LightMap(model);
-			MapLoader.Load(mapView, lightMap, new File("src/main/resources/maps/mapPillars.txt"));
+			MapLoader.Load(mapView, lightMap, new File("src/main/resources/maps/mapTestSmall.txt"));
 
 
 			// ----- LOAD VIEWS -----
@@ -210,12 +210,11 @@ public class GameView extends JFrame{
 		zombieView.draw(graphics);
 		lightMap.draw(graphics);
 
-
+		storeView.draw(graphics);
 		recoilSight.update();
 		Point mousePosition = Controller.getMousePosition();
 		recoilSight.draw((int)mousePosition.getX(), (int)mousePosition.getY(), 0, graphics);
 
-		storeView.draw(graphics);
 		hudView.draw(graphics);
 
 		canvas.setNextFrame(frame);

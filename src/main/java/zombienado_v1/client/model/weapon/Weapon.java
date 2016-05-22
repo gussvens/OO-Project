@@ -13,6 +13,8 @@ public class Weapon implements iWeapon{
     private int price;
     private int ammo;
     private int distanceToMuzzle;
+    private int rateOfFire;
+    private double spray;
 
     public Weapon(String name, int id, int damage, int ammo, int price, int distanceToMuzzle){
         this.name = name;
@@ -21,6 +23,8 @@ public class Weapon implements iWeapon{
         this.price = price;
         this.ammo = ammo;
         this.distanceToMuzzle = distanceToMuzzle;
+        //this.rateOfFire = rateOfFire;
+        //this.spray = spray;
     }
 
     public void setAmmo(int ammo){

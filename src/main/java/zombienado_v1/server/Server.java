@@ -52,7 +52,7 @@ public class Server extends Thread {
 
 	public void run(){
 		Thread mainUpdate = new Thread(() -> update());
-		handler.createMap("src/main/resources/maps/mapPillars.txt");
+		handler.createMap("src/main/resources/maps/mapTestSmall.txt");
 		mainUpdate.start();
 		listenForConnections();
 
@@ -110,12 +110,16 @@ public class Server extends Thread {
 
 			if(spawner.getWave() != currentWave) {
 				currentWave = spawner.getWave();
-				if(spawner.getTimeUntilNextWave() != timeUntilNextWave){
-					timeUntilNextWave = spawner.getTimeUntilNextWave();
-				}
 
 				for(ServerThread serverThread : serverThreads) {
 					serverThread.sendWaveData(currentWave);
+				}
+			}
+
+			if(spawner.getTimeUntilNextWave() != timeUntilNextWave) {
+				timeUntilNextWave = spawner.getTimeUntilNextWave();
+
+				for (ServerThread serverThread : serverThreads) {
 					serverThread.sendTimeUntilNextWaveData(timeUntilNextWave);
 				}
 			}

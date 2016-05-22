@@ -29,18 +29,23 @@ public class StoreView {
         if(timeUntilNextWave != -1){
             graphics.setColor(Color.RED);
             Font f = graphics.getFont();
-            graphics.setFont(new Font(f.getName(),f.getStyle(),f.getSize()-2));
+            graphics.setFont(new Font(f.getName(),f.getStyle(),f.getSize()-3));
 
             graphics.drawImage(storeSprite, 0, 0, null);
             for(int i = 0; i<3; i++){
                 for(int j = 0; j<3; j++){
                     int index = (i+2)*10 + j;
-                    graphics.drawImage(weaponSprites[index], GraphicsUtils.Transform(weaponSprites[index], 175*i + 165, 90*j + 75, 0), null);
-                    graphics.drawString(weapons[index].getName(), 170*i + 242, 90*j + 50);
+                    graphics.drawImage(weaponSprites[index], GraphicsUtils.Transform(weaponSprites[index], 170 * i + 165, 90 * j + 75, 0), null);
+                    graphics.drawString(weapons[index].getName(), 170 * i + 242, 90 * j + 50);
+                    graphics.drawString(weapons[index].getPrice() + "", 170*i + 242, 90*j + 63);
+                    graphics.drawString(weapons[index].getDamage() + "", 170*i + 242, 90*j + 76);
+                    //graphics.drawString(1/weapons[index].getSpray() + "", 170*i + 242, 90*j + 89);
+                    //graphics.drawString(weapons[index].getRateOfFire() + "", 170*i + 242, 90*j + 102);
+                    graphics.drawString(weapons[index].getAmmo() + "", 170*i + 242, 90*j + 115);
                 }
             }
             graphics.setFont(f);
-            graphics.drawString("1" + timeUntilNextWave, 28, 66);
+            graphics.drawString("" + timeUntilNextWave, 38, 66);
             graphics.setColor(Color.BLACK);
         }
     }

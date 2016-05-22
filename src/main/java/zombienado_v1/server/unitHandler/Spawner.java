@@ -15,8 +15,8 @@ public class Spawner{
     private boolean timerOn = false;
     private int lapCounter;
     private int wave = 1;
-    private int startingZombies = 50;
-    private int amountOfZombies = 50;
+    private int startingZombies = 5;
+    private int amountOfZombies = 5;
     private long timeStamp;
     private long timeSinceLastWave;
 
