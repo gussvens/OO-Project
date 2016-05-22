@@ -18,6 +18,12 @@ public class ServerThread extends Thread {
 	private double deltaRotation = 0;
 	private boolean isShooting = false;
 
+	/**
+	 * Constructor for a ServerThread
+	 * @param socket - The socket it will listen to
+	 * @param id - The ID of this ServerThread
+	 * @throws SocketException
+     */
 	public ServerThread(Socket socket, int id) throws SocketException{
 		super("ServerThread "+connectedUnits);
 		connectedUnits ++;
@@ -43,14 +49,23 @@ public class ServerThread extends Thread {
 		return temp;
 	}
 
+	/**
+	 * @return weaponID the ID of the players weapon
+     */
 	public int getWeaponID(){
 		return weaponID;
 	}
 
+	/**
+	 * @return the ID of this ServerThread
+     */
 	public int getID(){
 		return ID;
 	}
 
+	/**
+	 * @return if the weapon has changed or not
+     */
 	public boolean getWeaponHasChanged(){
 		if(weaponHasChanged) {
 			weaponHasChanged = false;
@@ -85,6 +100,9 @@ public class ServerThread extends Thread {
 		deltaRotation += dR;
 	}
 
+	/**
+	 * Method that constantly is listening for input from the client
+	 */
 	public void listen(){
 		try {
 			String inputString;
@@ -114,35 +132,77 @@ public class ServerThread extends Thread {
 		}
 	}
 
+	/**
+	 * Method that sends messages to the client
+	 * @param message - The message to be sent to the client
+     */
 	private void send(String message){
 		if (output != null)
 			output.println(message);
 	}
 
+	/**
+	 * A method that creates a string of the player's data and sends it to the client
+	 * @param id - The player's ID
+	 * @param x - The player's x-coordinate
+	 * @param y - The player's y-coordinate
+	 * @param rotation - The player's roation
+	 * @param hasFired - If the player has fired
+	 * @param health - The player's health
+	 * @param ammo - The player's ammo
+     * @param balance - The player's funds
+     * @param weaponID - The ID of the weapon the player is wielding
+     */
 	public void sendPlayerData(int id, int x, int y, double rotation, boolean hasFired, int health, int ammo, int balance, int weaponID){
 		String s = "players;"+ id + ";pos"  + ";" + x + ";" + y + ";" + rotation+";"+hasFired + ";" + health + ";" + ammo + ";" + balance + ";" + weaponID;
 		send(s);
 	}
 
+	/**
+	 * A mehtod that creates a string of data from a zombie
+	 * @param id - The zombie's ID
+	 * @param x - The zombie's x-coordinate
+	 * @param y - The zombies y-coordinate
+	 * @param rotation - The zombie's rotation
+     */
 	public void sendZombieData(int id, int x, int y, double rotation){
 		String s = "zombies;" + id + ";pos;" + x + ";" + y + ";" + rotation;
 		send(s);
 	}
+
+	/**
+	 * A mehtod that creates a string of data from a bullet
+	 * @param id - The ID of the bullet
+	 * @param x - The x-coordinate if the bullet
+	 * @param y - The y-coordinate of the bullet
+	 * @param direction - The direction of the bullet
+     */
 	public void sendBulletData(int id, int x, int y, double direction){
 		String s = "bullet;" + id + ";pos;" + x + ";" + y + ";" + direction;
 		send(s);
 	}
 
+	/**
+	 * Creates a string of the current wave number
+	 * @param wave - The current wave number
+     */
 	public void sendWaveData(int wave){
 		String s = "wave;" + wave;
 		send(s);
 	}
 
+	/**
+	 * Creates a string with how much time until the next wave starts
+	 * @param timeUntilNextWave - The time until the next wave starts
+     */
 	public void sendTimeUntilNextWaveData(int timeUntilNextWave){
 		String s = "timeUntilNextWave;" + timeUntilNextWave;
 		send(s);
 	}
 
+	/**
+	 * Run-method
+	 */
 	public void run(){
 		try {
 			output = new PrintWriter(socket.getOutputStream(), true);
