@@ -143,6 +143,11 @@ public class ServerCommunicator extends Thread {
         out.println(message);
     }
 
+    public synchronized void switchWeapon(int weaponID){
+        String message = "weapon;" + weaponID;
+        out.println(message);
+    }
+
 
     /**
      * SERVER COMMAND PARSING

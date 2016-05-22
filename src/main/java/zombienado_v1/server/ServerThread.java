@@ -10,6 +10,8 @@ public class ServerThread extends Thread {
 	private BufferedReader input;
 	private Socket socket;
 	private int ID;
+	private int weaponID;
+	private boolean weaponHasChanged = false;
 
 	private int deltaX = 0;
 	private int deltaY = 0;
@@ -39,6 +41,18 @@ public class ServerThread extends Thread {
 		int temp = deltaY;
 		deltaY = 0;
 		return temp;
+	}
+
+	public int getWeaponID(){
+		return weaponID;
+	}
+
+	public int getID(){
+		return ID;
+	}
+
+	public boolean getWeaponHasChanged(){
+		return weaponHasChanged;
 	}
 
 	public double getDeltaRotation(){
@@ -78,6 +92,9 @@ public class ServerThread extends Thread {
 					pushDeltaRotation(Double.parseDouble(splits[3]));
 				} else if(splits[0].equals("shoot")) {
 					isShooting = Boolean.parseBoolean(splits[1]);
+				} else if(splits[0].equals("weapon")) {
+					weaponID = Integer.parseInt(splits[1]);
+					weaponHasChanged = true;
 				}
 			}
 

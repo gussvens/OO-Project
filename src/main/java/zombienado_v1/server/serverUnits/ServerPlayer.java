@@ -168,4 +168,28 @@ public class ServerPlayer implements ServerUnit{
         this.score += money;
     }
 
+    public void switchWeapon(int weaponID){
+        if (weaponID == 20) {
+            weapon = new ServerAK47();
+        } else if (weaponID == 32) {
+            weapon = new ServerAutoShotgun();
+        } else if (weaponID == 31) {
+            weapon = new ServerBlunderbuss();
+        } else if (weaponID == 41) {
+            weapon = new ServerDoubleUzi();
+        } else if (weaponID == 00) {
+            weapon = new ServerGun();
+        } else if (weaponID == 22) {
+            weapon = new ServerM4();
+        } else if (weaponID == 30) {
+            weapon = new ServerShotgun();
+        } else if (weaponID == 21) {
+            weapon = new ServerTommyGun();
+        } else if (weaponID == 42) {
+            weapon = new ServerTripleUzi();
+        } else if (weaponID == 40) {
+            weapon = new ServerUzi();
+        }
+    }
+
 }
