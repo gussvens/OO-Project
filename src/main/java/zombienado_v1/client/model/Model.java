@@ -87,9 +87,14 @@ public class Model {
 		this.bullets = coms.getBullets();
 		this.wave = coms.getWave();
 		this.timeUntilNextWave = coms.getTimeUntilNextWave();
+		Point velocityVector = PlayerInputHandler.getPlayerVelocity(pressedKeys);
+		if (getPlayer().isDead()) {
+			Camera.setX((int)(Camera.getX() + velocityVector.getX()));
+			Camera.setY((int)(Camera.getY() + velocityVector.getY()));
+			return;
+		}
 		Camera.setX(players.get(myID).getX());
 		Camera.setY(players.get(myID).getY());
-		Point velocityVector = PlayerInputHandler.getPlayerVelocity(pressedKeys);
 		double deltaRotation = PlayerInputHandler.getPlayerRotation(players.get(myID).getX(), players.get(myID).getY(), cursor) - players.get(myID).getRotation();
 		boolean reload = PlayerInputHandler.getReload(pressedKeys);
 		if (timeUntilNextWave != -1) {

@@ -34,7 +34,7 @@ public class Player extends Unit{
         copy.setBalance(getBalance());
         copy.setHealth(getHealth());
         copy.setWeapon(this.weapon.getId());
-        if(getHealth() <= 0) copy.setDead(getIsDead());
+        if(getHealth() <= 0) copy.setDead(isDead());
         if (hasShot) {
             copy.shoot();
         }
@@ -94,7 +94,7 @@ public class Player extends Unit{
         this.isDead = isDead;
     }
 
-    public boolean getIsDead(){
+    public boolean isDead(){
         return isDead;
     }
 
