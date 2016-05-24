@@ -125,7 +125,7 @@ public class ServerCommunicator extends Thread {
         }
     }
 
-    public synchronized void movePlayer(int x, int y, double r, double oldRotation) {
+    public synchronized void movePlayer(int x, int y, float r, float oldRotation) {
         if (x == 0 && y == 0 && r - oldRotation == 0.0) return; //If nothing changed, do not send
         String message = "move;" + x + ";" + y + ";" + r;
         out.println(message);
@@ -173,7 +173,7 @@ public class ServerCommunicator extends Thread {
 
                 int x = Integer.parseInt(arg[3]);
                 int y = Integer.parseInt(arg[4]);
-                double rot = Double.parseDouble(arg[5]);
+                float rot = Float.parseFloat(arg[5]);
                 boolean hasFired = Boolean.parseBoolean(arg[6]);
                 int health = Integer.parseInt(arg[7]);
                 int ammo = Integer.parseInt(arg[8]);
@@ -208,7 +208,7 @@ public class ServerCommunicator extends Thread {
 
                 int x = Integer.parseInt(arg[3]);
                 int y = Integer.parseInt(arg[4]);
-                double rot = Double.parseDouble(arg[5]);
+                float rot = Float.parseFloat(arg[5]);
                 zombies.get(id).setPosition(x, y);
                 zombies.get(id).setRotation(rot);
                 zombies.get(id).setLastUpdate(System.currentTimeMillis());
@@ -226,7 +226,7 @@ public class ServerCommunicator extends Thread {
 
                 int x = Integer.parseInt(arg[3]);
                 int y = Integer.parseInt(arg[4]);
-                double rot = Double.parseDouble(arg[5]);
+                float rot = Float.parseFloat(arg[5]);
 
                 bullets.get(id).setPosition(x, y);
                 bullets.get(id).setRotation(rot);

@@ -7,7 +7,7 @@ import zombienado_v1.utilities.GraphicsUtils;
 
 public abstract class Unit {
 	private Image sprite; //TODO: remove
-	private double rotation;
+	private float rotation;
 	private int x;
 	private int y;
 
@@ -23,7 +23,7 @@ public abstract class Unit {
 		this.y = (int)position.getY();
 	}
 	
-	public void setRotation(double rot) {
+	public void setRotation(float rot) {
 		this.rotation = rot;
 	}
 
@@ -43,7 +43,7 @@ public abstract class Unit {
 		return y;
 	}
 
-	public double getRotation() {
+	public float getRotation() {
 		return rotation;
 	}
 }

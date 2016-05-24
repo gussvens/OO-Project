@@ -8,10 +8,10 @@ import java.util.*;
  */
 public class PlayerInputHandler {
 
-    public static double getPlayerRotation(int x, int y, Point cursor){
+    public static float getPlayerRotation(int x, int y, Point cursor){
         int dX = (int)(cursor.getX() - x + Camera.getX());
         int dY = (int)(cursor.getY() - y + Camera.getY());
-        return Math.atan2(dY, dX);
+        return (float)Math.atan2(dY, dX);
     }
 
     public static boolean getReload(java.util.List<Character> pressedKeys){

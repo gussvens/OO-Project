@@ -90,8 +90,8 @@ public class Model {
 		this.timeUntilNextWave = coms.getTimeUntilNextWave();
 		Point velocityVector = PlayerInputHandler.getPlayerVelocity(pressedKeys);
 
-		double oldRotation = getPlayer().getRotation();
-		double newRotation = PlayerInputHandler.getPlayerRotation(getPlayer().getX(), getPlayer().getY(), cursor);
+		float oldRotation = getPlayer().getRotation();
+		float newRotation = PlayerInputHandler.getPlayerRotation(getPlayer().getX(), getPlayer().getY(), cursor);
 		boolean reload = PlayerInputHandler.getReload(pressedKeys);
 
 		if (getPlayer().isDead()) {

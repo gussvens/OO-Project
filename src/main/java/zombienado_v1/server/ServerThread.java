@@ -15,7 +15,7 @@ public class ServerThread extends Thread {
 
 	private int deltaX = 0;
 	private int deltaY = 0;
-	private double deltaRotation = 0; //absolute
+	private float rotation = 0; //absolute
 	private boolean isShooting = false;
 
 	/**
@@ -76,8 +76,8 @@ public class ServerThread extends Thread {
 	}
 
 	public double getDeltaRotation(){
-		double temp = deltaRotation;
-		deltaRotation = 0;
+		float temp = rotation;
+		rotation = 0;
 		return temp;
 	}
 
@@ -96,8 +96,8 @@ public class ServerThread extends Thread {
 		deltaY += dY;
 	}
 
-	public void pushDeltaRotation(double dR){
-		deltaRotation = dR;
+	public void pushDeltaRotation(float dR){
+		rotation = dR;
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class ServerThread extends Thread {
 				if(splits[0].equals("move")) {
 					pushDeltaX(Integer.parseInt(splits[1]));
 					pushDeltaY(Integer.parseInt(splits[2]));
-					pushDeltaRotation(Double.parseDouble(splits[3]));
+					pushDeltaRotation(Float.parseFloat(splits[3]));
 				} else if(splits[0].equals("shoot")) {
 					isShooting = Boolean.parseBoolean(splits[1]);
 				} else if(splits[0].equals("weapon")) {
