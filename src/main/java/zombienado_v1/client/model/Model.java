@@ -7,6 +7,7 @@ import java.util.List;
 
 import zombienado_v1.client.controller.Client;
 import zombienado_v1.client.model.weapon.*;
+import zombienado_v1.client.view.GameView;
 import zombienado_v1.utilities.Camera;
 import zombienado_v1.utilities.PlayerInputHandler;
 
@@ -88,15 +89,16 @@ public class Model {
 		this.wave = coms.getWave();
 		this.timeUntilNextWave = coms.getTimeUntilNextWave();
 		Point velocityVector = PlayerInputHandler.getPlayerVelocity(pressedKeys);
+
+		double deltaRotation = PlayerInputHandler.getPlayerRotation(getPlayer().getX(), getPlayer().getY(), cursor) - getPlayer().getRotation();
+		boolean reload = PlayerInputHandler.getReload(pressedKeys);
 		if (getPlayer().isDead()) {
-			Camera.setX((int)(Camera.getX() + velocityVector.getX()));
-			Camera.setY((int)(Camera.getY() + velocityVector.getY()));
+			Camera.setX((int)(Camera.getX() + GameView.getScreenWidth()/2 + velocityVector.getX()));
+			Camera.setY((int)(Camera.getY() + GameView.getScreenHeight()/2 + velocityVector.getY()));
 			return;
 		}
 		Camera.setX(players.get(myID).getX());
 		Camera.setY(players.get(myID).getY());
-		double deltaRotation = PlayerInputHandler.getPlayerRotation(players.get(myID).getX(), players.get(myID).getY(), cursor) - players.get(myID).getRotation();
-		boolean reload = PlayerInputHandler.getReload(pressedKeys);
 		if (timeUntilNextWave != -1) {
 			store.buyWeapon(cursor, isMousePressed);
 		}
