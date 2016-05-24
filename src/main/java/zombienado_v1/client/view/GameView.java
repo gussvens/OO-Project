@@ -114,6 +114,7 @@ public class GameView extends JFrame{
 		Image bulletSprite;
 		Image weaponSpriteSheet;
 		Image zombieSprite;
+		Image zombieDeadSprite;
 		SoundEffect[] gunSound = new SoundEffect[99];
 		SoundEffect backgroundMusic;
 		Animation[] muzzle = new Animation[4];
@@ -128,7 +129,6 @@ public class GameView extends JFrame{
 			playerSprite[2] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerGirl.png")));
 			playerSprite[3] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerDark.png")));
 			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
-
 			// ----- LOAD HUD & STORE SPRITES -----
 			hudSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/hudTrans.png")));
 			storeSprite = ImageIO.read(new File("src/main/resources/sprites/storeSprite.png"));
