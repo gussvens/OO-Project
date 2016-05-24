@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class ServerCommunicator extends Thread {
 
     private static ServerCommunicator instance = null;
-    private static Model model;
     private Socket socket;
     private BufferedReader in;
     private static PrintWriter out;
@@ -29,9 +28,9 @@ public class ServerCommunicator extends Thread {
     private int timeUntilNextWave = -1;
     private boolean gameOver = false;
 
-    public static synchronized void create(Model model, InetAddress address, int port) {
+    public static synchronized void create(InetAddress address, int port) {
         if (instance == null)
-            instance = new ServerCommunicator(model, address, port);
+            instance = new ServerCommunicator(address, port);
     }
 
     public static synchronized ServerCommunicator getInstance() throws Exception {
@@ -42,8 +41,7 @@ public class ServerCommunicator extends Thread {
         }
     }
 
-    private ServerCommunicator(Model model, InetAddress address, int port) {
-        ServerCommunicator.model = model;
+    private ServerCommunicator(InetAddress address, int port) {
         players = new ArrayList<Player>();
         for (int i = 0; i < 4; i++) {
             players.add(null);

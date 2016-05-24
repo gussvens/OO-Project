@@ -58,7 +58,7 @@ public class SetupController {
     public void join(InetAddress ip, int port){
         Model model = new Model();
         GameView view = new GameView(model);
-        ServerCommunicator.create(model, ip, port);
+        ServerCommunicator.create(ip, port);
         //Client.create(model, ip, port); TODO: maybe remove?
         Controller controller = Controller.create(model, view);
         controller.start();
