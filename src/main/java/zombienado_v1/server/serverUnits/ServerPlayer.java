@@ -19,7 +19,7 @@ public class ServerPlayer implements ServerUnit{
     private int id;
     private int balance;
     private int score;
-    private double r;
+    private float rotation;
     private ServerWeapon weapon;
     private long timeWhenDamaged;
     private boolean isDead = false;
@@ -27,10 +27,10 @@ public class ServerPlayer implements ServerUnit{
     // reports if has shot
     private boolean hasShot;
 
-    public ServerPlayer(int x, int y, double r, int id){
+    public ServerPlayer(int x, int y, float r, int id){
         this.x = x;
         this.y = y;
-        this.r = r;
+        this.rotation = r;
         this.id = id;
 
         //TODO: move weapons to server
@@ -73,8 +73,8 @@ public class ServerPlayer implements ServerUnit{
         return id;
     }
 
-    public double getRotation(){
-        return r;
+    public float getRotation(){
+        return rotation;
     }
 
     public int getHealth(){
@@ -110,7 +110,7 @@ public class ServerPlayer implements ServerUnit{
         }
     }
 
-    public void update(int x, int y, double r, ArrayList<ServerZombie> zombies, ArrayList<Point> walls){
+    public void update(int x, int y, float r, ArrayList<ServerZombie> zombies, ArrayList<Point> walls){
         if(health<=0){
             isDead = true;
         }
@@ -120,7 +120,7 @@ public class ServerPlayer implements ServerUnit{
 
         this.x += x;
         this.y += y;
-        this.r = r; //Absolute now
+        this.rotation = r; //Absolute now
 
         checkWallsCollisions(xOld,yOld,walls);
         checkDamageTaking(zombies);
@@ -173,7 +173,7 @@ public class ServerPlayer implements ServerUnit{
         }
         hasShot = true;
 
-        return weapon.shoot(x,y,r,bulletCounter);
+        return weapon.shoot(x,y,rotation,bulletCounter);
     }
 
     public boolean canShoot(){

@@ -42,8 +42,6 @@ public class Spawner{
 
     public void update(ArrayList<ServerPlayer> positions, ArrayList<Point> spawnPoints, ArrayList<Point> walls) {
 
-        System.out.println("Wave: " + wave + " Zombies left: " + amountOfZombies);
-
         if(amountOfZombies != 0 || !zombies.isEmpty()) {
             for (int i = getZombies().size() - 1; i >= 0; i--) {
 
@@ -51,7 +49,7 @@ public class Spawner{
                 double shortestDistance = 100000000;
                 double yDirection = 0;
                 double xDirection = 0;
-                double rotation = 0;
+                float rotation = 0;
 
                 for (ServerPlayer player : positions) {
                     if(!player.getIsDead()){
@@ -63,7 +61,7 @@ public class Spawner{
                             shortestDistance = distance;
                             xDirection = tempX / shortestDistance;
                             yDirection = tempY / shortestDistance;
-                            rotation = Math.atan2(tempY, tempX);
+                            rotation = (float)Math.atan2(tempY, tempX);
                         }
                     }
                 }

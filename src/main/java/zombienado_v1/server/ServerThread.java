@@ -37,13 +37,13 @@ public class ServerThread extends Thread {
 	/**	Getters/Resetters of delta values (Sync stuff)
 	 *
 	 */
-	 public int getDeltaX(){
+	 public synchronized  int getDeltaX(){
 		int temp = deltaX;
 		deltaX = 0;
 		return temp;
 	}
 
-	public int getDeltaY(){
+	public  synchronized int getDeltaY(){
 		int temp = deltaY;
 		deltaY = 0;
 		return temp;
@@ -52,21 +52,21 @@ public class ServerThread extends Thread {
 	/**
 	 * @return weaponID the ID of the players weapon
      */
-	public int getWeaponID(){
+	public synchronized  int getWeaponID(){
 		return weaponID;
 	}
 
 	/**
 	 * @return the ID of this ServerThread
      */
-	public int getID(){
+	public synchronized  int getID(){
 		return ID;
 	}
 
 	/**
 	 * @return if the weapon has changed or not
      */
-	public boolean getWeaponHasChanged(){
+	public synchronized boolean getWeaponHasChanged(){
 		if(weaponHasChanged) {
 			weaponHasChanged = false;
 			return true;
@@ -75,28 +75,26 @@ public class ServerThread extends Thread {
 		}
 	}
 
-	public double getDeltaRotation(){
-		float temp = rotation;
-		rotation = 0;
-		return temp;
+	public synchronized float getRotation(){
+		return rotation;
 	}
 
-	public boolean getIsShooting(){
+	public synchronized boolean getIsShooting(){
 		return isShooting;
 	}
 
 	/** Setters of delta values
 	 *
 	 */
-	public void pushDeltaX(int dX){
+	public synchronized void pushDeltaX(int dX){
 		deltaX += dX;
 	}
 
-	public void pushDeltaY(int dY){
+	public synchronized  void pushDeltaY(int dY){
 		deltaY += dY;
 	}
 
-	public void pushDeltaRotation(float dR){
+	public synchronized  void pushDeltaRotation(float dR){
 		rotation = dR;
 	}
 
@@ -113,6 +111,7 @@ public class ServerThread extends Thread {
 					pushDeltaX(Integer.parseInt(splits[1]));
 					pushDeltaY(Integer.parseInt(splits[2]));
 					pushDeltaRotation(Float.parseFloat(splits[3]));
+					System.out.println("ROTATION " +Float.parseFloat(splits[3]));
 				} else if(splits[0].equals("shoot")) {
 					isShooting = Boolean.parseBoolean(splits[1]);
 				} else if(splits[0].equals("weapon")) {
@@ -136,7 +135,7 @@ public class ServerThread extends Thread {
 	 * Method that sends messages to the client
 	 * @param message - The message to be sent to the client
      */
-	private void send(String message){
+	private synchronized void send(String message){
 		if (output != null)
 			output.println(message);
 	}
@@ -153,7 +152,7 @@ public class ServerThread extends Thread {
      * @param balance - The player's funds
      * @param weaponID - The ID of the weapon the player is wielding
      */
-	public void sendPlayerData(int id, int x, int y, double rotation, boolean hasFired, int health, int ammo, int balance, int weaponID){
+	public void sendPlayerData(int id, int x, int y, float rotation, boolean hasFired, int health, int ammo, int balance, int weaponID){
 		String s = "players;"+ id + ";pos"  + ";" + x + ";" + y + ";" + rotation+";"+hasFired + ";" + health + ";" + ammo + ";" + balance + ";" + weaponID;
 		send(s);
 	}

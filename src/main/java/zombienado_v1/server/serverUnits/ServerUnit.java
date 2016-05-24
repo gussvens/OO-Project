@@ -7,7 +7,7 @@ public interface ServerUnit {
 
     int getX();
     int getY();
-    double getRotation();
+    float getRotation();
     int getID();
 
 }

@@ -16,7 +16,7 @@ public class ServerZombie implements ServerUnit{
     private int y;
     private int id;
     private int health;
-    private double rotation;
+    private float rotation;
     private double speed;
 
 
@@ -47,7 +47,7 @@ public class ServerZombie implements ServerUnit{
         return id;
     }
 
-    public double getRotation(){
+    public float getRotation(){
         return rotation;
     }
 
@@ -60,7 +60,7 @@ public class ServerZombie implements ServerUnit{
     }
 
 
-    public void update(double xDirection, double yDirection, double rotation, ArrayList<ServerZombie> zombies, ArrayList<Point> walls){
+    public void update(double xDirection, double yDirection, float rotation, ArrayList<ServerZombie> zombies, ArrayList<Point> walls){
         this.rotation = rotation;
         int xOld = this.x;
         int yOld = this.y;

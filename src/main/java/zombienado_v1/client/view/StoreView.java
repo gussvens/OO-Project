@@ -25,7 +25,6 @@ public class StoreView {
 
     public synchronized void draw(Graphics2D graphics){
         int timeUntilNextWave = model.getTimeUntilNextWave();
-        System.out.println("time:" + timeUntilNextWave);
         if(timeUntilNextWave != -1){
             graphics.setColor(Color.RED);
             Font f = graphics.getFont();

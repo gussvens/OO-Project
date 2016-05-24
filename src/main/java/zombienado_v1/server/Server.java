@@ -83,7 +83,7 @@ public class Server extends Thread {
 			if(!gameOver) {
 				for (int i = 0; i < players.size(); i++) {
 					final ServerThread st = serverThreads.get(i);
-					players.get(i).update(st.getDeltaX(), st.getDeltaY(), st.getDeltaRotation(), spawner.getZombies(), handler.getWallTiles());
+					players.get(i).update(st.getDeltaX(), st.getDeltaY(), st.getRotation(), spawner.getZombies(), handler.getWallTiles());
 					if (st.getIsShooting()) {
 						if (players.get(i).canShoot()) {
 							ArrayList<ServerBullet> temp = players.get(i).shoot(bulletCounter);
@@ -176,7 +176,6 @@ public class Server extends Thread {
 				}
 			}
 
-			System.out.println("SERVER: bullets: " + bullets.size());
 			try {
 				Thread.sleep((long) 16); //Gotta fix this
 			} catch(InterruptedException e){

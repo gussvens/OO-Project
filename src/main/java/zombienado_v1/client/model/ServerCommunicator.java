@@ -195,7 +195,6 @@ public class ServerCommunicator extends Thread {
             }
         } else if (arg[0].equals("deadPlayer")){
             int id  = Integer.parseInt(arg[1]);
-            System.out.println("dead: " + id);
             players.get(id-1).setDead(true);
         }else if (arg[0].equals("zombies")) {
             int id = Integer.parseInt(arg[1]);
