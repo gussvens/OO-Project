@@ -29,7 +29,7 @@ public class StoreView {
         if(timeUntilNextWave != -1){
             graphics.setColor(Color.RED);
             Font f = graphics.getFont();
-            graphics.setFont(new Font(f.getName(),f.getStyle(),f.getSize()-3));
+            graphics.setFont(new Font(f.getName(), f.getStyle(), f.getSize() - 3));
 
             graphics.drawImage(storeSprite, 0, 0, null);
             for(int i = 0; i<3; i++){
@@ -39,13 +39,17 @@ public class StoreView {
                     graphics.drawString(weapons[index].getName(), 170 * i + 242, 90 * j + 50);
                     graphics.drawString(weapons[index].getPrice() + "", 170*i + 242, 90*j + 63);
                     graphics.drawString(weapons[index].getDamage() + "", 170*i + 242, 90*j + 76);
-                    //graphics.drawString(1/weapons[index].getSpray() + "", 170*i + 242, 90*j + 89);
-                    //graphics.drawString(weapons[index].getRateOfFire() + "", 170*i + 242, 90*j + 102);
+                    graphics.drawString("" + (int)(1/weapons[index].getSpray()), 170*i + 242, 90*j + 89);
+                    graphics.drawString((int)((1/weapons[index].getRateOfFire())*10000) + "", 170*i + 242, 90*j + 102);
                     graphics.drawString(weapons[index].getAmmo() + "", 170*i + 242, 90*j + 115);
                 }
             }
             graphics.setFont(f);
-            graphics.drawString("" + timeUntilNextWave, 38, 66);
+            if(timeUntilNextWave>=10){
+                graphics.drawString("" + timeUntilNextWave, 33, 66);
+            } else{
+                graphics.drawString("" + timeUntilNextWave, 38, 66);
+            }
             graphics.setColor(Color.BLACK);
         }
     }

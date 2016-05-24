@@ -54,15 +54,17 @@ public class Spawner{
                 double rotation = 0;
 
                 for (ServerPlayer player : positions) {
-                    double tempX = player.getX() - zombies.get(i).getX();
-                    double tempY = player.getY() - zombies.get(i).getY();
-                    double distance = Math.sqrt(Math.pow(tempX, 2) + Math.pow(tempY, 2));
+                    if(!player.getIsDead()){
+                        double tempX = player.getX() - zombies.get(i).getX();
+                        double tempY = player.getY() - zombies.get(i).getY();
+                        double distance = Math.sqrt(Math.pow(tempX, 2) + Math.pow(tempY, 2));
 
-                    if (Math.abs(distance) < shortestDistance) {
-                        shortestDistance = distance;
-                        xDirection = tempX / shortestDistance;
-                        yDirection = tempY / shortestDistance;
-                        rotation = Math.atan2(tempY, tempX);
+                        if (Math.abs(distance) < shortestDistance) {
+                            shortestDistance = distance;
+                            xDirection = tempX / shortestDistance;
+                            yDirection = tempY / shortestDistance;
+                            rotation = Math.atan2(tempY, tempX);
+                        }
                     }
                 }
 

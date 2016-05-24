@@ -11,8 +11,10 @@ public class AutoShotgun extends Weapon {
     private final static int PRICE = 1300;
     private final static int MAXAMMO = 90;
     private final static int DISTANCE_TO_MUZZLE = 78;
+    private final static double SPRAY = 0.5;
+    private final static double RATEOFFIRE = 200;
 
     public AutoShotgun() {
-        super(NAME, ID, DAMAGE, MAXAMMO, PRICE, DISTANCE_TO_MUZZLE);
+        super(NAME, ID, DAMAGE, MAXAMMO, PRICE, DISTANCE_TO_MUZZLE, SPRAY, RATEOFFIRE);
     }
 }

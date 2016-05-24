@@ -18,7 +18,6 @@ public class ServerAutoShotgun extends ServerWeapon {
     private final static int SHOTS = 5;
     private final static double SPRAY = 0.5;
     private final static double RATEOFFIRE = 200;
-    private long lastFired = System.currentTimeMillis();
 
     public ServerAutoShotgun() {
         super(ID,DAMAGE,PRICE,DISTANCE_TO_MUZZLE,BULLETSPEED,MAXAMMO,SHOTS,SPRAY,RATEOFFIRE);

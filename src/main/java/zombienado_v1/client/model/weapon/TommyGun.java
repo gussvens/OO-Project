@@ -11,8 +11,10 @@ public class TommyGun extends Weapon {
     private final static int PRICE = 800;
     private final static int MAXAMMO = 400;
     private final static int DISTANCE_TO_MUZZLE = 77;
+    private final static double SPRAY = 0.4;
+    private final static double RATEOFFIRE = 120;
 
     public TommyGun() {
-        super(NAME, ID, DAMAGE, MAXAMMO, PRICE, DISTANCE_TO_MUZZLE);
+        super(NAME, ID, DAMAGE, MAXAMMO, PRICE, DISTANCE_TO_MUZZLE, SPRAY, RATEOFFIRE);
     }
 }

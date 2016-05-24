@@ -35,9 +35,10 @@ public class CharacterView {
            if (model.getPlayers().get(i) != null) {
                Player p = model.getPlayers().get(i);
                double rotation = p.getRotation();
-               drawWeapon(graphics,p,i);
+               drawWeapon(graphics, p, i);
                graphics.drawImage(playerSprites[i], GraphicsUtils.Transform(playerSprites[i], p.getX() - Camera.getX(), p.getY() - Camera.getY(), rotation), null);
-            }
+           }
+
         }
     }
 
@@ -62,6 +63,15 @@ public class CharacterView {
             if (p == model.getPlayer()){
                 recoilSight.play();
             }
+        }
+    }
+
+    public synchronized void drawDead(Graphics2D graphics, Model model){
+        if(model.getPlayer().getIsDead() && model.getTimeUntilNextWave() == -1){
+            graphics.setColor(Color.RED);
+            graphics.drawString("YOU ARE DEAD", model.getPlayer().getX() - Camera.getX() - 32, model.getPlayer().getY() - Camera.getY() - 32);
+            graphics.drawString("wait until next wave", model.getPlayer().getX() - Camera.getX() - 32, model.getPlayer().getY() - Camera.getY() - 16);
+            graphics.setColor(Color.BLACK);
         }
     }
 }

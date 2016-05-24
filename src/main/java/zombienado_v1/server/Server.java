@@ -105,12 +105,17 @@ public class Server extends Thread {
 			/**
 			 * Send stuff to clients
 			 */
-			ArrayList<ServerPlayer> positions = getPlayerPositions(); //tidy this up
-			spawner.update(players, handler.getSpawnTiles(),handler.getWallTiles());
+			ArrayList<ServerPlayer> players = getPlayerPositions(); //tidy this up
+			spawner.update(this.players, handler.getSpawnTiles(),handler.getWallTiles());
 
 			if(spawner.getWave() != currentWave) {
 				currentWave = spawner.getWave();
-
+				for(ServerPlayer player : players){
+					if(player.getIsDead()){
+						player.setHealth(100);
+						player.setDead(false);
+					}
+				}
 				for(ServerThread serverThread : serverThreads) {
 					serverThread.sendWaveData(currentWave);
 				}
@@ -126,12 +131,15 @@ public class Server extends Thread {
 
 			for (ServerThread serverThread : serverThreads){
 				if(serverThread.getWeaponHasChanged()) {
-					players.get(serverThread.getID()).switchWeapon(serverThread.getWeaponID());
+					this.players.get(serverThread.getID()).switchWeapon(serverThread.getWeaponID());
 				}
 
-				for(int i = 0; i < positions.size(); i++){
-					ServerPlayer q = positions.get(i);
-					serverThread.sendPlayerData(i, q.getX(), q.getY(), q.getRotation(), q.hasShot(), q.getHealth(), q.getAmmo(), q.getBalance(), q.getWeaponID());
+				for(int i = 0; i < players.size(); i++){
+					ServerPlayer player = players.get(i);
+					if(player.getIsDead()){
+						serverThread.sendDeadPlayerData(player.getID());
+					}
+					serverThread.sendPlayerData(i, player.getX(), player.getY(), player.getRotation(), player.hasShot(), player.getHealth(), player.getAmmo(), player.getBalance(), player.getWeaponID());
 				}
 
 				for(ServerZombie zombie : spawner.getZombies()){
@@ -146,8 +154,8 @@ public class Server extends Thread {
 
 			}
 
-			for(int i = 0; i < positions.size(); i++){
-				ServerPlayer q = positions.get(i);
+			for(int i = 0; i < players.size(); i++){
+				ServerPlayer q = players.get(i);
 				q.resetShot();
 			}
 

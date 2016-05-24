@@ -91,7 +91,7 @@ public class Model {
 		boolean reload = PlayerInputHandler.getReload(pressedKeys);
 		try {
 			coms.movePlayer((int)velocityVector.getX(), (int)velocityVector.getY(), deltaRotation);
-			coms.shoot(isMousePressed);
+			coms.mousePressed(cursor, isMousePressed);
 			coms.requestReload(reload);
 		} catch (Exception e){
 			e.printStackTrace();

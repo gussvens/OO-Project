@@ -214,6 +214,7 @@ public class GameView extends JFrame{
 		recoilSight.update();
 		Point mousePosition = Controller.getMousePosition();
 		recoilSight.draw((int)mousePosition.getX(), (int)mousePosition.getY(), 0, graphics);
+		characterView.drawDead(graphics,model);
 
 		hudView.draw(graphics);
 

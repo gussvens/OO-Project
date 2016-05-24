@@ -13,18 +13,19 @@ public class Weapon implements iWeapon{
     private int price;
     private int ammo;
     private int distanceToMuzzle;
-    private int rateOfFire;
     private double spray;
 
-    public Weapon(String name, int id, int damage, int ammo, int price, int distanceToMuzzle){
+    private double rateOfFire;
+
+    public Weapon(String name, int id, int damage, int ammo, int price, int distanceToMuzzle, double spray, double rateOfFire){
         this.name = name;
         this.id = id; // Coordinate to weapon sprite in weaponSheet
         this.damage = damage;
         this.price = price;
         this.ammo = ammo;
         this.distanceToMuzzle = distanceToMuzzle;
-        //this.rateOfFire = rateOfFire;
-        //this.spray = spray;
+        this.rateOfFire = rateOfFire;
+        this.spray = spray;
     }
 
     public void setAmmo(int ammo){
@@ -53,6 +54,14 @@ public class Weapon implements iWeapon{
 
     public int getDistanceToMuzzle(){
         return distanceToMuzzle;
+    }
+
+    public double getSpray(){
+        return spray;
+    }
+
+    public double getRateOfFire(){
+        return rateOfFire;
     }
 
 }

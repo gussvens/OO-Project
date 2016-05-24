@@ -201,6 +201,15 @@ public class ServerThread extends Thread {
 	}
 
 	/**
+	 * Creates a string with the id of a dead player
+	 * @param id - The id of the dead player
+	 */
+	public void sendDeadPlayerData(int id){
+		String s = "deadPlayer;" + id;
+		send(s);
+	}
+
+	/**
 	 * Run-method
 	 */
 	public void run(){
