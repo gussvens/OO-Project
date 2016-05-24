@@ -61,6 +61,7 @@ public class CharacterView {
             muzzle[i].reset();
             muzzle[i].play();
             if (p == model.getPlayer()){
+                recoilSight.reset();
                 recoilSight.play();
             }
         }

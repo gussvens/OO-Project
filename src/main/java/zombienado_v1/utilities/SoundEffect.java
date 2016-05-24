@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * A simple sound player
  * Created by Erik on 2016-05-18.
  */
 public class SoundEffect {
@@ -20,11 +21,21 @@ public class SoundEffect {
         isLooping = false;
     }
 
+    /**
+     * plays the sound effect
+     */
     public void play(){
         Thread playThread = new Thread(() -> playSound());
         playThread.start();
     }
 
+    /**
+     * plays the sound effect with a lower volume based on the distance to the object
+     * @param xSource
+     * @param ySource
+     * @param xPlayer
+     * @param yPlayer
+     */
     public void play(int xSource, int ySource, int xPlayer, int yPlayer){
         Thread playThread = new Thread(() -> playSound(xSource,ySource,xPlayer,yPlayer));
         playThread.start();

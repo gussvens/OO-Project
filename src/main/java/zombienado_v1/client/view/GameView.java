@@ -19,12 +19,8 @@ public class GameView extends JFrame{
 	private static int WIDTH = 645;
 	private static int HEIGHT = 360;
 
-	private static final String OS = System.getProperty("os.name").substring(0,7);
-
 	private Model model;
 	private Canvas canvas;
-//	private BufferedImage imageData;
-//	private Graphics2D graphics;
 
 	private MapView mapView;
 	private CharacterView characterView;
@@ -49,7 +45,7 @@ public class GameView extends JFrame{
 		@Override
 		public synchronized void paintComponent(Graphics g){
 			g.drawImage(nextFrame, 0, 0, this.getWidth(), this.getHeight(), null);
-			storeFps();
+			calculateFps();
 			g.setColor(Color.gray);
 			g.drawString("FPS: "+fps, 1, 11);
 			g.drawString("Relative mouse position: ["+Controller.getMousePosition().getX() + ", "+ Controller.getMousePosition().getY()+"]", 0, 22);
@@ -58,7 +54,7 @@ public class GameView extends JFrame{
 			timeSinceLastFrame = System.nanoTime();
 		}
 
-		public void storeFps(){
+		public void calculateFps(){
 			if (iteration >= 60){
 				iteration = 0;
 			}
@@ -87,13 +83,11 @@ public class GameView extends JFrame{
 	}
 
 	public GameView(Model model){
-		super("fullscreen");
-	//	imageData = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
-	//	graphics = (Graphics2D)imageData.getGraphics();
+		super("Zombinado");
 		canvas = new Canvas();
 		canvas.setDoubleBuffered(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setTitle("ZOMBIE STORM 0.3 BETA DEVELOPER EDITION");
+		this.setTitle("ZOMBIENADO InDev");
 		this.setResizable(false);
 		this.getContentPane().add(canvas);
 		this.setUndecorated(true);
@@ -114,7 +108,6 @@ public class GameView extends JFrame{
 		Image bulletSprite;
 		Image weaponSpriteSheet;
 		Image zombieSprite;
-		Image zombieDeadSprite;
 		SoundEffect[] gunSound = new SoundEffect[99];
 		SoundEffect backgroundMusic;
 		Animation[] muzzle = new Animation[4];
@@ -150,10 +143,6 @@ public class GameView extends JFrame{
 			}
 			recoilSight = new Animation(GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/sightWithRecoil.png"))), 6, 1, 60);
 			recoilSight.setFirstFrameVisable(true);
-			/*for (int i = 0; i < dyingZombie.length; i++) {
-				dyingZombie[i] = new Animation(GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombieDeath.png"))), 8, 1, 60);
-			}*/
-			//playerFeetSheet = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/testFeet.png")));
 
 			// ----- LOAD SOUND EFFECTS -----
 			gunSound[0] = new SoundEffect(new File("src/main/resources/soundeffects/gunshot.wav"));
@@ -195,32 +184,27 @@ public class GameView extends JFrame{
 	}
 
 	public synchronized void render() {
-		//Has to create a new frame each time
+		//Creates new Frame
 		Image frame = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D graphics = (Graphics2D)frame.getGraphics();
-		/**
-		 * TODO: renderstuff ?
-		 */
 
-
+		//Renders all components to the frame
 		graphics.setColor(Color.black);
 		graphics.fillRect(0, 0, GameView.getScreenWidth(), GameView.getScreenWidth());
 		mapView.draw(graphics);
-		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 		bulletView.draw(graphics);
 		characterView.draw(graphics);
 		zombieView.draw(graphics);
 		lightMap.draw(graphics);
-
 		storeView.draw(graphics);
 		recoilSight.update();
 		Point mousePosition = Controller.getMousePosition();
 		recoilSight.draw((int)mousePosition.getX(), (int)mousePosition.getY(), 0, graphics);
-
 		hudView.draw(graphics);
 
+		//Passes frame to canvas and repaints
 		canvas.setNextFrame(frame);
-		canvas.repaint(); //BACK TO USING REPAINT ONLY :D
+		canvas.repaint();
 	}
 
 }
