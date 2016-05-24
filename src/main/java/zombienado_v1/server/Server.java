@@ -159,6 +159,19 @@ public class Server extends Thread {
 				q.resetShot();
 			}
 
+			int deadPlayers = 0;
+			for(int i = 0; i < players.size(); i++){
+				if(players.get(i).getIsDead()) {
+					deadPlayers++;
+				}
+			}
+			if(deadPlayers == players.size()){
+				for(ServerThread thread : serverThreads) {
+					thread.sendGameOver();
+				}
+				break;
+			}
+
 			System.out.println("SERVER: bullets: " + bullets.size());
 			try {
 				Thread.sleep((long) 16); //Gotta fix this

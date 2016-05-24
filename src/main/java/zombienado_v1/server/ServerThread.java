@@ -200,6 +200,11 @@ public class ServerThread extends Thread {
 		send(s);
 	}
 
+	public void sendGameOver() {
+		String message = "gameover";
+		send(message);
+	}
+
 	/**
 	 * Creates a string with the id of a dead player
 	 * @param id - The id of the dead player
