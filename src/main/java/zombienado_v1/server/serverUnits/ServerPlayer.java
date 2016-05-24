@@ -120,7 +120,7 @@ public class ServerPlayer implements ServerUnit{
 
         this.x += x;
         this.y += y;
-        this.r += r;
+        this.r = r; //Absolute now
 
         checkWallsCollisions(xOld,yOld,walls);
         checkDamageTaking(zombies);

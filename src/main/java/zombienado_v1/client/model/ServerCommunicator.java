@@ -125,8 +125,8 @@ public class ServerCommunicator extends Thread {
         }
     }
 
-    public synchronized void movePlayer(int x, int y, double r) {
-        if (x == 0 && y == 0 && r == 0.0) return; //If nothing changed, do not send
+    public synchronized void movePlayer(int x, int y, double r, double oldRotation) {
+        if (x == 0 && y == 0 && r - oldRotation == 0.0) return; //If nothing changed, do not send
         String message = "move;" + x + ";" + y + ";" + r;
         out.println(message);
     }
@@ -180,7 +180,9 @@ public class ServerCommunicator extends Thread {
                 int balance = Integer.parseInt(arg[9]);
                 int weaponID = Integer.parseInt(arg[10]);
                 players.get(id).setPosition(x, y);
-                players.get(id).setRotation(rot);
+                if (id != myID) {
+                    players.get(id).setRotation(rot);
+                }
                 players.get(id).setHealth(health);
                 players.get(id).setAmmo(ammo);
                 players.get(id).setBalance(balance);

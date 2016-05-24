@@ -15,7 +15,7 @@ public class ServerThread extends Thread {
 
 	private int deltaX = 0;
 	private int deltaY = 0;
-	private double deltaRotation = 0;
+	private double deltaRotation = 0; //absolute
 	private boolean isShooting = false;
 
 	/**
@@ -97,7 +97,7 @@ public class ServerThread extends Thread {
 	}
 
 	public void pushDeltaRotation(double dR){
-		deltaRotation += dR;
+		deltaRotation = dR;
 	}
 
 	/**

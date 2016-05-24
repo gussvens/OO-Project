@@ -90,13 +90,17 @@ public class Model {
 		this.timeUntilNextWave = coms.getTimeUntilNextWave();
 		Point velocityVector = PlayerInputHandler.getPlayerVelocity(pressedKeys);
 
-		double deltaRotation = PlayerInputHandler.getPlayerRotation(getPlayer().getX(), getPlayer().getY(), cursor) - getPlayer().getRotation();
+		double oldRotation = getPlayer().getRotation();
+		double newRotation = PlayerInputHandler.getPlayerRotation(getPlayer().getX(), getPlayer().getY(), cursor);
 		boolean reload = PlayerInputHandler.getReload(pressedKeys);
+
 		if (getPlayer().isDead()) {
 			Camera.setX((int)(Camera.getX() + GameView.getScreenWidth()/2 + velocityVector.getX()));
 			Camera.setY((int)(Camera.getY() + GameView.getScreenHeight()/2 + velocityVector.getY()));
 			return;
 		}
+
+		getPlayer().setRotation(newRotation);
 		Camera.setX(players.get(myID).getX());
 		Camera.setY(players.get(myID).getY());
 		if (timeUntilNextWave != -1) {
@@ -104,7 +108,7 @@ public class Model {
 		}
 
 		try {
-			coms.movePlayer((int) velocityVector.getX(), (int) velocityVector.getY(), deltaRotation);
+			coms.movePlayer((int) velocityVector.getX(), (int) velocityVector.getY(), newRotation, oldRotation);
 			if(store.hasBoughtNewWeapon()) {
 				coms.buyWeapon(store.getBoughtWeapon());
 			}
