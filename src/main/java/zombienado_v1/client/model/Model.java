@@ -92,20 +92,23 @@ public class Model {
 		Point velocityVector = PlayerInputHandler.getPlayerVelocity(pressedKeys);
 		double deltaRotation = PlayerInputHandler.getPlayerRotation(players.get(myID).getX(), players.get(myID).getY(), cursor) - players.get(myID).getRotation();
 		boolean reload = PlayerInputHandler.getReload(pressedKeys);
-		if (getTimeUntilNextWave() == -1){
+		if (timeUntilNextWave != -1) {
 			store.buyWeapon(cursor, isMousePressed);
-			System.out.println("UPDATING STORE");
 		}
 
 		try {
 			coms.movePlayer((int) velocityVector.getX(), (int) velocityVector.getY(), deltaRotation);
 
-			if(store.hasBoughtNewWeapon()){
+			if(store.hasBoughtNewWeapon()) {
 				coms.buyWeapon(store.getBoughtWeapon());
-			} else {
-				coms.shoot(isMousePressed);
 			}
-			coms.requestReload(reload);
+			if (getTimeUntilNextWave() == -1){
+				coms.shoot(isMousePressed);
+			} else {
+				coms.shoot(false);
+			}
+
+		//	coms.requestReload(reload);
 		} catch (Exception e){
 			e.printStackTrace();
 		}

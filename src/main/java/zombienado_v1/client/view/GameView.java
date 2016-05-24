@@ -50,9 +50,11 @@ public class GameView extends JFrame{
 		public synchronized void paintComponent(Graphics g){
 			g.drawImage(nextFrame, 0, 0, this.getWidth(), this.getHeight(), null);
 			storeFps();
-			g.drawString("FPS: "+fps, 0, 10);
-			g.drawString("TICK REATE: "+Controller.getTickPerSecond(), 0, 22);
+			g.setColor(Color.gray);
+			g.drawString("FPS: "+fps, 1, 11);
+			g.drawString("Relative mouse position: ["+Controller.getMousePosition().getX() + ", "+ Controller.getMousePosition().getY()+"]", 0, 22);
 			g.drawString("ZOMBINADO BETA", getWidth() - 108, 10);
+
 			timeSinceLastFrame = System.nanoTime();
 		}
 
