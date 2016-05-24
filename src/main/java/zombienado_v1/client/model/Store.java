@@ -7,6 +7,7 @@ import java.awt.*;
  */
 public class Store {
     private Rectangle[][] buyButtons = new Rectangle[3][3];
+    private boolean wasMousePressed;
     private boolean hasBoughtNewWeapon = false;
     private int boughtWeaponId;
 
@@ -18,19 +19,27 @@ public class Store {
         }
     }
 
-    public int buyWeapon(Point cursor){
-        for(int i = 0; i<3; i++){
-                for(int j = 0; j<3; j++){
-                    if(buyButtons[i][j].contains(cursor)){
-                        return (2+i)*10 +j;
-                    }
+    public void buyWeapon(Point cursor, boolean isMousePressed){
+        if (isMousePressed != wasMousePressed && isMousePressed){
+        for(int i = 0; i<3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (buyButtons[i][j].contains(cursor)) {
+                    boughtWeaponId = (i + 2) * 10 + j;
+                    System.out.println("BOUGHT: "+boughtWeaponId);
+                    System.out.println("BOUGHT: "+boughtWeaponId);
+                    System.out.println("BOUGHT: "+boughtWeaponId);
+                    System.out.println("BOUGHT: "+boughtWeaponId);
+                    System.out.println("BOUGHT: "+boughtWeaponId);
+                    System.out.println("BOUGHT: "+boughtWeaponId);
+                    System.out.println("BOUGHT: "+boughtWeaponId);
+                    System.out.println("BOUGHT: "+boughtWeaponId);
+                    hasBoughtNewWeapon = true;
+                    return;
                 }
+            }
         }
-        return -1;
-    }
-
-    public void setHasBoughtNewWeapon(boolean hasBoughtNewWeapon){
-        this.hasBoughtNewWeapon = hasBoughtNewWeapon;
+        }
+        wasMousePressed = isMousePressed;
     }
 
     public boolean hasBoughtNewWeapon(){
