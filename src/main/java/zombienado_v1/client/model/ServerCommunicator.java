@@ -27,6 +27,7 @@ public class ServerCommunicator extends Thread {
     private boolean wasPressing = false;
     private int wave = 1;
     private int timeUntilNextWave = -1;
+    private boolean gameOver = false;
 
     public static synchronized void create(Model model, InetAddress address, int port) {
         if (instance == null)
@@ -233,12 +234,14 @@ public class ServerCommunicator extends Thread {
             wave = Integer.parseInt(arg[1]);
         } else if (arg[0].equals("timeUntilNextWave")){
             timeUntilNextWave = Integer.parseInt(arg[1]);
+        } else if(arg[0].equals("gameover")) {
+            gameOver = true;
         }
     }
 
     /**
      * returns a copy of the last received players
-     * @return
+     * @return copy - A copy of the arraylist with players
      */
     public synchronized ArrayList<Player> getPlayers() {
         ArrayList<Player> copy = new ArrayList<>();
@@ -252,7 +255,7 @@ public class ServerCommunicator extends Thread {
 
     /**
      * returns a copy of the last received
-     * @return
+     * @return copy - A copy of the arraylist with zombies
      */
     public synchronized ArrayList<Unit> getZombies() {
         ArrayList<Unit> copy = new ArrayList<Unit>();
@@ -286,5 +289,9 @@ public class ServerCommunicator extends Thread {
 
     public int getTimeUntilNextWave(){
         return timeUntilNextWave;
+    }
+
+    public boolean getGameOver(){
+        return gameOver;
     }
 }
