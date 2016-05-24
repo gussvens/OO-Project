@@ -2,6 +2,7 @@ package zombienado_v1.client.view;
 
 import zombienado_v1.client.model.Model;
 import zombienado_v1.client.model.Player;
+import zombienado_v1.utilities.Camera;
 import zombienado_v1.utilities.GraphicsUtils;
 import zombienado_v1.utilities.MiscUtilites;
 
@@ -51,6 +52,19 @@ public class HudView {
 
         for(int i = 0; i<3; i++){
             graphics.drawImage(numberSprites[waveNumber[i]], x+587+16*i, y+52, null);
+        }
+        drawDead(graphics);
+    }
+
+    public synchronized void drawDead(Graphics2D graphics){
+        if(model.getPlayer().isDead() && model.getTimeUntilNextWave() == -1){
+            Font f = graphics.getFont();
+            graphics.setFont(new Font(f.getName(), f.getStyle(), f.getSize() + 10));
+            graphics.setColor(Color.RED);
+            graphics.drawString("YOU ARE DEAD", GameView.getScreenWidth()/2 - 80,GameView.getScreenHeight()/2 - 30);
+            graphics.setFont(f);
+            graphics.drawString("- wait until next wave -", GameView.getScreenWidth()/2 - 65,GameView.getScreenHeight()/2 - 15);
+            graphics.setColor(Color.BLACK);
         }
     }
 }

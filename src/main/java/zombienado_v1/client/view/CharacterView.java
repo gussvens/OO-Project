@@ -65,13 +65,4 @@ public class CharacterView {
             }
         }
     }
-
-    public synchronized void drawDead(Graphics2D graphics, Model model){
-        if(model.getPlayer().isDead() && model.getTimeUntilNextWave() == -1){
-            graphics.setColor(Color.RED);
-            graphics.drawString("YOU ARE DEAD", model.getPlayer().getX() - Camera.getX() - 32, model.getPlayer().getY() - Camera.getY() - 32);
-            graphics.drawString("wait until next wave", model.getPlayer().getX() - Camera.getX() - 32, model.getPlayer().getY() - Camera.getY() - 16);
-            graphics.setColor(Color.BLACK);
-        }
-    }
 }
