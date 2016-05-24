@@ -14,7 +14,7 @@ public class Store {
     public Store(){
         for(int i = 0; i<3; i++){
             for(int j = 0; j<3; j++){
-                buyButtons[i][j] = new Rectangle(170 * i + 165, 90 * j + 143, 64, 12);
+                buyButtons[i][j] = new Rectangle(170 * i + 140, 90 * j + 113, 64, 11);
             }
         }
     }

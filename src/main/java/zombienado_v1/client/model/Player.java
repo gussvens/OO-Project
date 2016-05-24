@@ -57,6 +57,9 @@ public class Player extends Unit{
         int ammo = weapon.getAmmo();
         if(weapon.getId() != weaponID) {
             switch(weaponID){
+                case 0:
+                    weapon = new Gun();
+                    break;
                 case 20:
                     weapon = new Ak47();
                     break;

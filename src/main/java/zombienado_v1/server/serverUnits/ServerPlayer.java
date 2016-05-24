@@ -190,36 +190,38 @@ public class ServerPlayer implements ServerUnit{
     }
 
     public void switchWeapon(int weaponID){
-        if (weaponID == 20 && balance<=400) {
+        System.out.println("new id:" + weaponID);
+        if (weaponID == 20 && balance>=400) {
             weapon = new ServerAK47();
             reduceBalance(400);
-        } else if (weaponID == 32 && balance<=1300) {
+        } else if (weaponID == 32 && balance>=1300) {
             weapon = new ServerAutoShotgun();
             reduceBalance(1300);
-        } else if (weaponID == 31 && balance<=700) {
+        } else if (weaponID == 31 && balance>=700) {
             weapon = new ServerBlunderbuss();
             reduceBalance(700);
-        } else if (weaponID == 41 && balance<=600) {
+        } else if (weaponID == 41 && balance>=600) {
             weapon = new ServerDoubleUzi();
             reduceBalance(600);
         } else if (weaponID == 00) {
             weapon = new ServerGun();
-        } else if (weaponID == 22 && balance<=1200) {
+        } else if (weaponID == 22 && balance>=1200) {
             weapon = new ServerM4();
             reduceBalance(1200);
-        } else if (weaponID == 30 && balance<=400) {
+        } else if (weaponID == 30 && balance>=400) {
             weapon = new ServerShotgun();
             reduceBalance(400);
-        } else if (weaponID == 21 && balance<=800) {
+        } else if (weaponID == 21 && balance>=800) {
             weapon = new ServerTommyGun();
             reduceBalance(800);
-        } else if (weaponID == 42 && balance<=900) {
+        } else if (weaponID == 42 && balance>=900) {
             weapon = new ServerTripleUzi();
             reduceBalance(900);
-        } else if (weaponID == 40 && balance<=300) {
+        } else if (weaponID == 40 && balance>=300) {
             weapon = new ServerUzi();
             reduceBalance(300);
         }
+        System.out.println("new id:" + this.weapon.getId());
     }
 
 }

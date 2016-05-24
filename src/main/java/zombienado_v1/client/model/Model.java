@@ -103,7 +103,6 @@ public class Model {
 
 		try {
 			coms.movePlayer((int) velocityVector.getX(), (int) velocityVector.getY(), deltaRotation);
-
 			if(store.hasBoughtNewWeapon()) {
 				coms.buyWeapon(store.getBoughtWeapon());
 			}
