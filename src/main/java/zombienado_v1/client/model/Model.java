@@ -16,6 +16,7 @@ public class Model {
 	private ArrayList<Player> players;
 	private ArrayList<Unit> zombies;
 	private ArrayList<Unit> bullets;
+	private Store store;
 	private Weapon[] weapons = new Weapon[100];
 	private int myID = -1;
 	private int wave = 1;
@@ -66,6 +67,8 @@ public class Model {
 		weapons[40] = new Uzi();
 		weapons[41] = new DoubleUzi();
 		weapons[42] = new TripleUzi();
+
+		store = new Store();
 	}
 
 	/** MAIN UPDATE METHOD
@@ -90,8 +93,11 @@ public class Model {
 		double deltaRotation = PlayerInputHandler.getPlayerRotation(players.get(myID).getX(), players.get(myID).getY(), cursor) - players.get(myID).getRotation();
 		boolean reload = PlayerInputHandler.getReload(pressedKeys);
 		try {
-			coms.movePlayer((int)velocityVector.getX(), (int)velocityVector.getY(), deltaRotation);
-			coms.mousePressed(cursor, isMousePressed);
+			coms.movePlayer((int) velocityVector.getX(), (int) velocityVector.getY(), deltaRotation);
+			coms.shoot(isMousePressed);
+			if(store.hasBoughtNewWeapon() && timeUntilNextWave != -1){
+				coms.buyWeapon(store.buyWeapon(cursor));
+			}
 			coms.requestReload(reload);
 		} catch (Exception e){
 			e.printStackTrace();

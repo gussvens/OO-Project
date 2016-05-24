@@ -23,7 +23,6 @@ public class ServerCommunicator extends Thread {
     private ArrayList<Player> players;
     private ArrayList<Unit> zombies;
     private ArrayList<Unit> bullets;
-    private Rectangle[][] buyButtons = new Rectangle[3][3];
     private int myID = -1;
     private boolean wasPressing = false;
     private int wave = 1;
@@ -68,12 +67,6 @@ public class ServerCommunicator extends Thread {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         } catch (IOException e) {
 
-        }
-
-        for(int i = 0; i<3; i++){
-            for(int j = 0; j<3; j++){
-                buyButtons[i][j] = new Rectangle(170 * i + 165, 90 * j + 143, 64, 12);
-            }
         }
 
         this.start();
@@ -137,21 +130,8 @@ public class ServerCommunicator extends Thread {
         out.println(message);
     }
 
-    public synchronized void mousePressed(Point cursor, boolean isMousePressed){
-        shoot(isMousePressed);
-        if(model.getTimeUntilNextWave() != -1 && isMousePressed){
-            for(int i = 0; i<3; i++){
-                for(int j = 0; j<3; j++){
-                    if(buyButtons[i][j].contains(cursor)){
-                        buyWeapon((i+2)*10 + j, isMousePressed);
-                    }
-                }
-            }
-        }
-    }
-
     public synchronized void shoot(boolean isShooting) {
-        if (wasPressing != isShooting && model.getTimeUntilNextWave() == -1) {
+        if (wasPressing != isShooting) {
             String message = "shoot;" + isShooting;
             out.println(message);
             wasPressing = isShooting;
@@ -164,13 +144,9 @@ public class ServerCommunicator extends Thread {
         out.println(message);
     }
 
-    public synchronized void buyWeapon(int weaponID, boolean isMousePressed){
-        if(wasPressing != isMousePressed){
-            String message = "weapon;" + weaponID;
-            out.println(message);
-            wasPressing = isMousePressed;
-        }
-
+    public synchronized void buyWeapon(int weaponID){
+        String message = "weapon;" + weaponID;
+        out.println(message);
     }
 
 
