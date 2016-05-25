@@ -10,16 +10,23 @@ import java.util.Scanner;
  * Created by Marcus on 2016-04-11.
  */
 public class WorldHandler {
-    private static final int TILE_WIDTH = 32;
 
+    private static final int TILE_WIDTH = 32;
     private ArrayList<Point> wallList;
     private ArrayList<Point> spawnList;
 
+    /**
+     * Constructor for a WorldHandler
+     */
     public WorldHandler(){
         wallList = new ArrayList<Point>();
         spawnList = new ArrayList<Point>();
     }
 
+    /**
+     * A method that creates a "map" from the specified text file and stores walls and spawnpoints int two different ArrayLists
+     * @param mapPath - The path to the text file
+     */
     public void createMap(String mapPath){
         
         File file = new File(mapPath);
@@ -69,18 +76,23 @@ public class WorldHandler {
 
     }
 
-    public void checkCollisions(){
-
-    }
-
+    /**
+     * @return - The ArrayList of spawnpoints
+     */
     public ArrayList<Point> getSpawnTiles(){
         return spawnList;
     }
 
+    /**
+     * @return - The ArrayList of walls
+     */
     public ArrayList<Point> getWallTiles(){
         return wallList;
     }
 
+    /**
+     * @return - The width of the tiles
+     */
     public static int getTileWidth(){
         return TILE_WIDTH;
     }
