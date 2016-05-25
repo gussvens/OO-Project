@@ -27,6 +27,13 @@ public class ServerPlayer implements ServerUnit{
     // reports if has shot
     private boolean hasShot;
 
+    /**
+     * A constructor that returns a new ServerPlayer
+     * @param x - The ServerPlayer's starting x-coordinate
+     * @param y - The ServerPlayer's starting y-coordinate
+     * @param r - The ServerPlayer's starting rotation
+     * @param id - The ServerPlayers ID
+     */
     public ServerPlayer(int x, int y, float r, int id){
         this.x = x;
         this.y = y;
@@ -41,6 +48,10 @@ public class ServerPlayer implements ServerUnit{
         this.timeWhenDamaged = System.nanoTime();
     }
 
+    /**
+     * A method that returns true if the player has shot
+     * @return - Returns true if player has shot, false otherwise
+     */
     public boolean resetShot() {
         if (hasShot){
             hasShot = false;
@@ -49,58 +60,103 @@ public class ServerPlayer implements ServerUnit{
         return false;
     }
 
+    /**
+     * A method that sets the health of the player
+     * @param newHealth - The new health of the player
+     */
     public void setHealth(int newHealth){
         health = newHealth;
     }
 
+    /**
+     * Method that change if the player is dead or not
+     * @param isDead - Boolean that tells wether the player is dead or not
+     */
     public void setDead(boolean isDead){
         this.isDead = isDead;
     }
 
+    /**
+     * @return - If the player has shot or not
+     */
     public boolean hasShot() {
         return hasShot;
     }
 
+    /**
+     * @return - The player's x-coordinate
+     */
     public int getX(){
         return x;
     }
 
+    /**
+     * @return - The player's y-coordinate
+     */
     public int getY(){
         return y;
     }
 
+    /**
+     * @return - The player's ID
+     */
     public int getID(){
         return id;
     }
 
+    /**
+     * @return - The player's rotation
+     */
     public float getRotation(){
         return rotation;
     }
 
+    /**
+     * @return The player's health
+     */
     public int getHealth(){
         return this.health;
     }
 
+    /**
+     * @return - The player's current balance
+     */
     public int getBalance(){
         return this.balance;
     }
 
+    /**
+     * @return - The ammo left in the weapon
+     */
     public int getAmmo(){
         return weapon.getAmmo();
     }
 
+    /**
+     * @return - The ID of the current weapon
+     */
     public int getWeaponID(){
         return weapon.getId();
     }
 
+    /**
+     * @return - The player's score
+     */
     public int getScore(){
         return score;
     }
 
+    /**
+     * @return - If the player is dead or not
+     */
     public boolean getIsDead(){
         return isDead;
     }
 
+    /**
+     * A method that reduces the player's health by a set amount
+     * @param damage - The amount of health removed
+     */
     public void takeDamage(int damage){
         long timeDiff = System.nanoTime() - timeWhenDamaged;
         if(timeDiff>500000000){
@@ -110,6 +166,14 @@ public class ServerPlayer implements ServerUnit{
         }
     }
 
+    /**
+     * A method that updates the player's position and rotation aswell as checking for colission with walls and zombies
+     * @param x - How far the player has moved on the x-axis
+     * @param y - How far the player has moved on the y-axis
+     * @param r - How the player is rotated
+     * @param zombies - All zombies on the map
+     * @param walls - All wall tiles on the map
+     */
     public void update(int x, int y, float r, ArrayList<ServerZombie> zombies, ArrayList<Point> walls){
         if(health<=0){
             isDead = true;
@@ -126,6 +190,12 @@ public class ServerPlayer implements ServerUnit{
         checkDamageTaking(zombies);
     }
 
+    /**
+     * A method that checks if the player has moved into a wall
+     * @param xOld - The x-position before the player moved
+     * @param yOld - The y-position before the player moved
+     * @param walls - All walls on the map
+     */
     public void checkWallsCollisions(int xOld, int yOld, ArrayList<Point> walls){
         int tileWidth = WorldHandler.getTileWidth();
 
@@ -154,6 +224,10 @@ public class ServerPlayer implements ServerUnit{
         }
     }
 
+    /**
+     * A method that checks if the player should take damage
+     * @param zombies - All zombies on the map
+     */
     private void checkDamageTaking(ArrayList<ServerZombie> zombies){
         for(ServerZombie zombie: zombies){
             double dX = zombie.getX()-this.x;
@@ -166,6 +240,11 @@ public class ServerPlayer implements ServerUnit{
         }
     }
 
+    /**
+     * A method that shoots the current weapon. If the weapon is out of ammo, the player switches to the weapon ServerGun
+     * @param bulletCounter - How many bullets has been fired. This is used to give each bullet an ID
+     * @return - An ArrayList with bullets
+     */
     public ArrayList<ServerBullet> shoot(int bulletCounter){
         System.out.println("Ammo: " + weapon.getAmmo());
         if(weapon.getAmmo() <= 0) {
@@ -176,19 +255,35 @@ public class ServerPlayer implements ServerUnit{
         return weapon.shoot(x,y,rotation,bulletCounter);
     }
 
+    /**
+     * A method that checks if the player can shoot
+     * @return - True if player can shoot, otherwise false
+     */
     public boolean canShoot(){
         return weapon.canShoot();
     }
 
+    /**
+     * A method that updates the score and balance of the player
+     * @param money - The amount of score and balance that will be added
+     */
     public void addBalance(int money) {
         this.balance += money;
         this.score += money;
     }
 
+    /**
+     * A method that reduces the balance of the player
+     * @param money - The amount of balance to be removed
+     */
     public void reduceBalance(int money){
         this.balance -= money;
     }
 
+    /**
+     * A method that switches to a specified weapon
+     * @param weaponID - The ID of the weapon to switch to
+     */
     public void switchWeapon(int weaponID){
         System.out.println("new id:" + weaponID);
         if (weaponID == 20 && balance>=400) {
