@@ -20,11 +20,18 @@ public class Spawner{
     private long timeStamp;
     private long timeSinceLastWave;
 
+    /**
+     * Private constructor for Spawner
+     */
     private Spawner(){
         zombies = new ArrayList<ServerZombie>();
         timeSinceLastWave = -1;
     }
 
+    /**
+     * A method that returns a Spawner. If no Spawner is created it creates one
+     * @return - An instance of the S9pawner
+     */
     public static Spawner getInstance(){
         if(instance == null){
             instance = new Spawner();
@@ -32,6 +39,9 @@ public class Spawner{
         return instance;
     }
 
+    /**
+     * @return - The time between two waves. Returns -1 if the wave is still going
+     */
     public int getTimeUntilNextWave(){
         if(!timerOn) {
             return -1;
@@ -40,6 +50,13 @@ public class Spawner{
         }
     }
 
+    /**
+     * A method that updates the positions on all zombies and spawn a new one every 30 times this method is called.
+     * This method also handles when a new wave starts.
+     * @param positions - An ArrayList with all the players
+     * @param spawnPoints - An ArrayList of points where zombies are allowed to spawn
+     * @param walls - An ArrayList with points for all walls
+     */
     public void update(ArrayList<ServerPlayer> positions, ArrayList<Point> spawnPoints, ArrayList<Point> walls) {
 
         if(amountOfZombies != 0 || !zombies.isEmpty()) {
@@ -111,12 +128,16 @@ public class Spawner{
 
     }
 
-
+    /**
+     * @return - The current wave number
+     */
     public int getWave(){
         return wave;
     }
 
-
+    /**
+     * @return - All spawned zombies
+     */
     public synchronized ArrayList<ServerZombie> getZombies(){
         return zombies;
     }
