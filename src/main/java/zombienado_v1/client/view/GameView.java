@@ -47,7 +47,6 @@ public class GameView extends JFrame{
 			calculateFps();
 			g.setColor(Color.gray);
 			g.drawString("FPS: "+fps, 1, 11);
-			g.drawString("Relative mouse position: ["+Controller.getMousePosition().getX() + ", "+ Controller.getMousePosition().getY()+"]", 0, 22);
 			g.drawString("ZOMBINADO BETA", getWidth() - 108, 10);
 
 			timeSinceLastFrame = System.nanoTime();
@@ -195,7 +194,7 @@ public class GameView extends JFrame{
 		mapView.drawLight(graphics);
 		storeView.draw(graphics);
 		recoilSight.update();
-		Point mousePosition = Controller.getMousePosition();
+		Point mousePosition = model.getAim();
 		recoilSight.draw((int)mousePosition.getX(), (int)mousePosition.getY(), 0, graphics);
 		hudView.draw(graphics);
 

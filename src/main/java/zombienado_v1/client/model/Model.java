@@ -22,6 +22,7 @@ public class Model {
 	private int myID = -1;
 	private int wave = 1;
 	private int timeUntilNextWave = -1;
+	private Point aim;
 	/**
 	 * Getters for view
 	 */
@@ -89,7 +90,7 @@ public class Model {
 		this.wave = coms.getWave();
 		this.timeUntilNextWave = coms.getTimeUntilNextWave();
 		Point velocityVector = PlayerInputHandler.getPlayerVelocity(pressedKeys);
-
+		aim = cursor;
 		float oldRotation = getPlayer().getRotation();
 		float newRotation = PlayerInputHandler.getPlayerRotation(getPlayer().getX(), getPlayer().getY(), cursor);
 		boolean reload = PlayerInputHandler.getReload(pressedKeys);
@@ -124,6 +125,9 @@ public class Model {
 		}
 	}
 
+	public Point getAim(){
+		return aim;
+	}
 	/**
 	 * Returns the client's Player instance
 	 * @return the client's Player instance

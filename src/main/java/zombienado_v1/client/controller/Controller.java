@@ -18,7 +18,6 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	private final Model model;
 	private final GameView gameView;
 	private static final double targetFrameTime = 1d/60d;
-	private static double tickTime = 0;
 	
 	private static List<Character> pressedKeys;
 	private static boolean mousePress = false;
@@ -56,25 +55,15 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 			long totalDifferenceInNano = (long)(targetFrameTime*1000000000 - elapsedTimeInNano);
 			long differenceInMillis = totalDifferenceInNano/1000000;
 			long differenceInNano = totalDifferenceInNano - differenceInMillis*1000000;
-
 			long waitMillis = Math.max((long)(differenceInMillis), 0);
 			int waitNano = (int)Math.max(differenceInNano, 0);
-
+			//Sleeps the desired time
 			try{
 				Thread.sleep(waitMillis, waitNano);
 			} catch (InterruptedException ie){
 				ie.printStackTrace();
 			}
-			tickTime = (System.nanoTime() - startTime) * Math.pow(10, -9);
 		}
-	}
-	
-	public static int getTickPerSecond(){
-		return (int)(1 / tickTime);
-	}
-
-	public static Point getMousePosition(){
-		return cursor;
 	}
 
 	private Point getRelativeMousePosition(MouseEvent me){
@@ -86,10 +75,11 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	
 	@Override
 	public void keyPressed(KeyEvent ke) {
+		//Closes the application
 		if (ke.getKeyCode() == KeyEvent.VK_ESCAPE){
 			System.exit(0);
 		}
-
+		//Saves the pressed keys
 		if (!pressedKeys.contains(ke.getKeyChar())){
 			pressedKeys.add(ke.getKeyChar());
 		}
