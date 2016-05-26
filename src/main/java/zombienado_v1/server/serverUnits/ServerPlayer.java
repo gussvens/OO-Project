@@ -16,7 +16,6 @@ public class ServerPlayer implements ServerUnit{
     private int x;
     private int y;
     private int health;
-    private int id;
     private int balance;
     private int score;
     private float rotation;
@@ -38,7 +37,6 @@ public class ServerPlayer implements ServerUnit{
         this.x = x;
         this.y = y;
         this.rotation = r;
-        this.id = id;
 
         //TODO: move weapons to server
         this.weapon = new ServerBlunderbuss();
@@ -95,13 +93,6 @@ public class ServerPlayer implements ServerUnit{
      */
     public int getY(){
         return y;
-    }
-
-    /**
-     * @return - The player's ID
-     */
-    public int getID(){
-        return id;
     }
 
     /**
@@ -242,7 +233,6 @@ public class ServerPlayer implements ServerUnit{
 
     /**
      * A method that shoots the current weapon. If the weapon is out of ammo, the player switches to the weapon ServerGun
-     * @param bulletCounter - How many bullets has been fired. This is used to give each bullet an ID
      * @return - An ArrayList with bullets
      */
     public ArrayList<ServerBullet> shoot(){

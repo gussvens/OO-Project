@@ -8,6 +8,5 @@ public interface ServerUnit {
     int getX();
     int getY();
     float getRotation();
-    int getID();
 
 }

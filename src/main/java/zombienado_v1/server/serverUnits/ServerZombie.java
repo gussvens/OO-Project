@@ -14,18 +14,16 @@ public class ServerZombie implements ServerUnit{
 
     private int x;
     private int y;
-    private int id;
     private int health;
     private float rotation;
     private double speed;
 
 
-    public ServerZombie(int id, Point spawnPoint){
+    public ServerZombie(Point spawnPoint){
         this.speed = 2;
         this.x = (int)spawnPoint.getX()+32;
         this.y = (int)spawnPoint.getY()+32;
         this.rotation = 1;
-        this.id = id;
         this.health = 100;
         System.out.println("New zombie spawned! X: " + x + ", Y: " + y);
     }
@@ -40,10 +38,6 @@ public class ServerZombie implements ServerUnit{
 
     public int getY(){
         return y;
-    }
-
-    public int getID(){
-        return id;
     }
 
     public float getRotation(){
@@ -76,7 +70,7 @@ public class ServerZombie implements ServerUnit{
 
     public void checkZombiesCollisions(ArrayList<ServerZombie> zombies){
         for(ServerZombie zombie: zombies){
-            if (this.getID()!=zombie.getID()){
+            if (this != zombie){
                 Point bounce = Physics.bounce(this.x,this.y,RADIUS,zombie.getX(),zombie.getY(),RADIUS);
                 this.x += bounce.getX();
                 this.y += bounce.getY();

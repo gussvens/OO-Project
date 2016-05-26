@@ -214,7 +214,7 @@ public class Server extends Thread {
 		for (int i = 0; i < players.size(); i++) {
 			ServerPlayer player = players.get(i);
 			if (player.getIsDead()) {
-				serverThread.sendDeadPlayerData(player.getID());
+				serverThread.sendDeadPlayerData(i);
 			}
 			serverThread.sendPlayerData(i, player.getX(), player.getY(), player.getRotation(), player.hasShot(), player.getHealth(), player.getAmmo(), player.getBalance(), player.getWeaponID());
 		}

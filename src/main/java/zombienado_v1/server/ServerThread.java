@@ -28,9 +28,6 @@ public class ServerThread extends Thread {
 		connectedUnits ++;
 		this.ID = id;
 		this.socket = socket;
-
-		System.out.println("oldPlayer " + id + " connected!");
-
 	}
 
 	/**	Getters/Resetters of delta values (Sync stuff)

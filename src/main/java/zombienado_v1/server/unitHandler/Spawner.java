@@ -99,7 +99,7 @@ public class Spawner{
                     int point = (int) (Math.random() * spawnPoints.size());
 
 
-                    zombies.add(new ServerZombie(idCounter, spawnPoints.get(point)));
+                    zombies.add(new ServerZombie(spawnPoints.get(point)));
                     amountOfZombies--;
 
                     idCounter++;
