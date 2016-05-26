@@ -137,12 +137,6 @@ public class ServerCommunicator extends Thread {
         }
     }
 
-    public synchronized void requestReload(boolean reload) {
-        if (!reload) return;
-        String message = "reload;";
-        out.println(message);
-    }
-
     public synchronized void buyWeapon(int weaponID){
         String message = "weapon;" + weaponID;
         out.println(message);
