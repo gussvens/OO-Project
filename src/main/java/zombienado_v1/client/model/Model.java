@@ -114,9 +114,14 @@ public class Model {
 		this.bullets = coms.getBullets();
 		this.wave = coms.getWave();
 		this.timeUntilNextWave = coms.getTimeUntilNextWave();
+		float oldRotation = getPlayer().getRotation();
 		//Handle input
 		float newRotation = PlayerInputHandler.getPlayerRotation(getPlayer().getX(), getPlayer().getY(), cursor);
 		Vector playerVelocity = PlayerInputHandler.getPlayerVelocity(pressedKeys);
+
+		//Lets the new player data be presented to the view one iteration earlier (doesn't really make a difference)
+		getPlayer().setRotation(newRotation);
+		getPlayer().setPosition((int)(getPlayer().getX() + playerVelocity.getX()), (int)(getPlayer().getY() + playerVelocity.getY()));
 
 		//If player is not alive, freely move camera and exit out of update
 		if (getPlayer().isDead()) {
@@ -136,7 +141,7 @@ public class Model {
 
 		//Send data to server
 		try {
-			coms.movePlayer(playerVelocity.getX()*deltaTime, playerVelocity.getY()*deltaTime, newRotation, getPlayer().getRotation());
+			coms.movePlayer(playerVelocity.getX()*deltaTime, playerVelocity.getY()*deltaTime, newRotation, oldRotation);
 			if(store.hasBoughtNewWeapon()) {
 				coms.buyWeapon(store.getBoughtWeapon());
 			}

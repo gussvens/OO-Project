@@ -236,7 +236,6 @@ public class ServerPlayer implements ServerUnit{
      * @return - An ArrayList with bullets
      */
     public ArrayList<ServerBullet> shoot(){
-        System.out.println("Ammo: " + weapon.getAmmo());
         if(weapon.getAmmo() <= 0) {
             weapon = new ServerGun();
         }
@@ -275,7 +274,6 @@ public class ServerPlayer implements ServerUnit{
      * @param weaponID - The ID of the weapon to switch to
      */
     public void switchWeapon(int weaponID){
-        System.out.println("new id:" + weaponID);
         if (weaponID == 20 && balance>=400) {
             weapon = new ServerAK47();
             reduceBalance(400);
@@ -306,7 +304,6 @@ public class ServerPlayer implements ServerUnit{
             weapon = new ServerUzi();
             reduceBalance(300);
         }
-        System.out.println("new id:" + this.weapon.getId());
     }
 
 }

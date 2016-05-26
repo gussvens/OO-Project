@@ -52,12 +52,10 @@ public class WorldHandler {
                     if (line[i].equals("00")) {
                         wallList.add(new Point(xPosition, yPosition));
                         tileCounter++;
-                        System.out.println("Found Solid Tile " + tileCounter);
 
                     } else if (line[i].equals("10")) {
                         spawnList.add(new Point(xPosition, yPosition));
                         tileCounter++;
-                        System.out.println("Found Spawner Tile " + xPosition + ", " + yPosition);
                     }
 
                     xPosition = xPosition + 32;
@@ -67,8 +65,6 @@ public class WorldHandler {
                 yPosition = yPosition + 32;
 
             }
-
-            System.out.println("MapView created!");
         } catch (FileNotFoundException f){
             f.printStackTrace();
         }

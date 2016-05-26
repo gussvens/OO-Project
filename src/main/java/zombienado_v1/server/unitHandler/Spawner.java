@@ -122,7 +122,6 @@ public class Spawner{
                 wave++;
                 amountOfZombies = startingZombies + (wave*2);
                 zombies.clear();
-                System.out.println("New Wave: " + wave);
             }
         }
 

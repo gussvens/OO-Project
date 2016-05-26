@@ -85,7 +85,6 @@ public class Animation {
 	 */
 	public void update(){
 		if (playing){
-			System.out.println(System.currentTimeMillis() - lastUpdate);
 			if (System.currentTimeMillis() - lastUpdate >= frameTime * 1000){
 				startX += width;
 				if (startX >= cols * width) {

@@ -25,7 +25,6 @@ public class ServerZombie implements ServerUnit{
         this.y = (int)spawnPoint.getY()+32;
         this.rotation = 1;
         this.health = 100;
-        System.out.println("New zombie spawned! X: " + x + ", Y: " + y);
     }
 
     public static int getRadius(){
