@@ -1,5 +1,6 @@
 package zombienado_v1.client.view;
 
+import sun.reflect.ReflectionFactory;
 import zombienado_v1.client.model.Model;
 import zombienado_v1.client.model.Player;
 import zombienado_v1.utilities.Animation;
@@ -15,18 +16,20 @@ import java.awt.*;
 public class CharacterView {
     private Image[] playerSprites;
     private Image[] weaponSprites;
+    private Image healthBar;
     private Animation[] muzzle;
     private Animation recoilSight;
     private SoundEffect[] gunsound;
     private Model model;
 
-    public CharacterView(Model model, Image[] playerSprites, Image[] weaponSprites, Animation[] muzzle, SoundEffect[] gunsound, Animation recoilSight){
+    public CharacterView(Model model, Image[] playerSprites, Image[] weaponSprites, Image healthBar, Animation[] muzzle, SoundEffect[] gunsound, Animation recoilSight){
         this.model = model;
         this.playerSprites = playerSprites;
         this.weaponSprites = weaponSprites;
         this.muzzle = muzzle;
         this.gunsound = gunsound;
         this.recoilSight = recoilSight;
+        this.healthBar = healthBar;
     }
 
     public synchronized void draw(Graphics2D graphics){
@@ -63,6 +66,15 @@ public class CharacterView {
                 recoilSight.reset();
                 recoilSight.play();
             }
+        }
+    }
+
+    public synchronized void drawHealthBars(Graphics2D graphics){
+        for (Player p : model.getPlayers()) {
+            graphics.drawImage(healthBar, p.getX() - Camera.getX() - healthBar.getWidth(null)/2, p.getY() - Camera.getY() - 30, null);
+            graphics.setColor(Color.green);
+            if (p.getHealth() < 20) graphics.setColor(Color.red);
+            graphics.fillRect(p.getX() - Camera.getX() - healthBar.getWidth(null)/2 + 1,  p.getY() - Camera.getY() - 30 + 1, (healthBar.getWidth(null)-2) * p.getHealth()/100, 3);
         }
     }
 }

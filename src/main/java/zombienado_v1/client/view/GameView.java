@@ -104,6 +104,7 @@ public class GameView extends JFrame{
 		Image bulletSprite;
 		Image weaponSpriteSheet;
 		Image zombieSprite;
+		Image healthBar;
 		SoundEffect[] gunSound = new SoundEffect[99];
 		SoundEffect backgroundMusic;
 		Animation[] muzzle = new Animation[4];
@@ -121,6 +122,7 @@ public class GameView extends JFrame{
 			// ----- LOAD HUD & STORE SPRITES -----
 			hudSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/hudTrans.png")));
 			storeSprite = ImageIO.read(new File("src/main/resources/sprites/storeSprite.png"));
+			healthBar = ImageIO.read(new File("src/main/resources/sprites/healthBar.png"));
 			for(int i = 0; i<numberSprites.length; i++){
 				String str = "src/main/resources/sprites/numbers/" + i + ".png";
 				numberSprites[i] = GraphicsUtils.makeTransparent(ImageIO.read(new File(str)));
@@ -158,7 +160,7 @@ public class GameView extends JFrame{
 
 
 			// ----- LOAD VIEWS -----
-			characterView = new CharacterView(model, playerSprite, weaponSprites, muzzle, gunSound, recoilSight);
+			characterView = new CharacterView(model, playerSprite, weaponSprites, healthBar, muzzle, gunSound, recoilSight);
 			zombieView = new ZombieView(model, zombieSprite);
 			bulletView = new BulletView(model, bulletSprite);
 			hudView = new HudView(hudSprite, weaponSprites, numberSprites, model);
@@ -189,6 +191,7 @@ public class GameView extends JFrame{
 		bulletView.draw(graphics);
 		characterView.draw(graphics);
 		zombieView.draw(graphics);
+		characterView.drawHealthBars(graphics);
 		mapView.drawLight(graphics);
 		storeView.draw(graphics);
 		recoilSight.update();
