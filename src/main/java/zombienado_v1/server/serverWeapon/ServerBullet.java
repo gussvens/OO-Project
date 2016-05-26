@@ -1,4 +1,4 @@
-package zombienado_v1.server;
+package zombienado_v1.server.serverWeapon;
 
 import javafx.scene.shape.Circle;
 import zombienado_v1.interfaces.iBullet;

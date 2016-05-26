@@ -1,7 +1,7 @@
 package zombienado_v1.server;
 
 import junit.framework.TestCase;
-import zombienado_v1.server.ServerBullet;
+import zombienado_v1.server.serverWeapon.ServerBullet;
 import zombienado_v1.server.serverUnits.ServerZombie;
 
 import java.awt.*;
