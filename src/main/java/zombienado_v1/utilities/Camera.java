@@ -1,6 +1,5 @@
 package zombienado_v1.utilities;
 
-
 /**
  * Camera class specifying viewport kind of :)
  * @author Erik
