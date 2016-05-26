@@ -92,7 +92,7 @@ public class Model {
 	 * @param cursor - Cursors position
 	 * @param isMousePressed
 	 */
-	public synchronized void tick(List<Character> pressedKeys, Point cursor, boolean isMousePressed) {
+	public synchronized void tick(double deltaTime, List<Character> pressedKeys, Point cursor, boolean isMousePressed) {
 		this.myID = coms.getID();
 		if (myID == -1) return;
 		if(this.getPlayers() == null) return;
@@ -102,8 +102,8 @@ public class Model {
 		this.bullets = coms.getBullets();
 		this.wave = coms.getWave();
 		this.timeUntilNextWave = coms.getTimeUntilNextWave();
+		this.aim = cursor;
 		Point velocityVector = PlayerInputHandler.getPlayerVelocity(pressedKeys);
-		aim = cursor;
 		float oldRotation = getPlayer().getRotation();
 		float newRotation = PlayerInputHandler.getPlayerRotation(getPlayer().getX(), getPlayer().getY(), cursor);
 
@@ -121,7 +121,7 @@ public class Model {
 		}
 
 		try {
-			coms.movePlayer((int) velocityVector.getX(), (int) velocityVector.getY(), newRotation, oldRotation);
+			coms.movePlayer((int)(velocityVector.getX()*deltaTime), (int) (velocityVector.getY()*deltaTime), newRotation, oldRotation);
 			if(store.hasBoughtNewWeapon()) {
 				coms.buyWeapon(store.getBoughtWeapon());
 			}

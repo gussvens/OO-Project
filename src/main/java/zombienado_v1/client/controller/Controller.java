@@ -17,7 +17,7 @@ import zombienado_v1.client.view.GameView;
 public class Controller extends Thread implements KeyListener, MouseMotionListener, MouseListener{
 	private final Model model;
 	private final GameView gameView;
-	private static final double targetFrameTime = 1d/60d;
+	private static final double TARGET_FRAME_TIME = 1d/60d;
 	
 	private static List<Character> pressedKeys;
 	private static boolean mousePress = false;
@@ -45,14 +45,15 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	private void gameLoop(){
 
 		long startTime;
+		double deltaTime = 1;
 		while (true){
 			startTime = System.nanoTime();
 			//Does the work
-			model.tick(pressedKeys, cursor, mousePress);
+			model.tick(deltaTime, pressedKeys, cursor, mousePress);
 			gameView.render();
 			//Calculates sleep time
 			long elapsedTimeInNano = (System.nanoTime() - startTime);
-			long totalDifferenceInNano = (long)(targetFrameTime*1000000000 - elapsedTimeInNano);
+			long totalDifferenceInNano = (long)(TARGET_FRAME_TIME*1000000000 - elapsedTimeInNano);
 			long differenceInMillis = totalDifferenceInNano/1000000;
 			long differenceInNano = totalDifferenceInNano - differenceInMillis*1000000;
 			long waitMillis = Math.max((long)(differenceInMillis), 0);
@@ -63,6 +64,8 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 			} catch (InterruptedException ie){
 				ie.printStackTrace();
 			}
+			double totalElapsedTime = (System.nanoTime() - startTime)/1000000000d;
+			deltaTime = totalElapsedTime / TARGET_FRAME_TIME;
 		}
 	}
 

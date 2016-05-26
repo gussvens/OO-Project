@@ -25,14 +25,6 @@ public class Store {
             for (int j = 0; j < 3; j++) {
                 if (buyButtons[i][j].contains(cursor)) {
                     boughtWeaponId = (i + 2) * 10 + j;
-                    System.out.println("BOUGHT: "+boughtWeaponId);
-                    System.out.println("BOUGHT: "+boughtWeaponId);
-                    System.out.println("BOUGHT: "+boughtWeaponId);
-                    System.out.println("BOUGHT: "+boughtWeaponId);
-                    System.out.println("BOUGHT: "+boughtWeaponId);
-                    System.out.println("BOUGHT: "+boughtWeaponId);
-                    System.out.println("BOUGHT: "+boughtWeaponId);
-                    System.out.println("BOUGHT: "+boughtWeaponId);
                     hasBoughtNewWeapon = true;
                     return;
                 }
