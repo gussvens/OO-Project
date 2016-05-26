@@ -118,10 +118,13 @@ public class Model {
 		//Handle input
 		float newRotation = PlayerInputHandler.getPlayerRotation(getPlayer().getX(), getPlayer().getY(), cursor);
 		Vector playerVelocity = PlayerInputHandler.getPlayerVelocity(pressedKeys);
+		playerVelocity.setX(playerVelocity.getX() * deltaTime);
+		playerVelocity.setY(playerVelocity.getY() * deltaTime);
 
 		//Lets the new player data be presented to the view one iteration earlier (doesn't really make a difference)
+		// Problem with setting position is that the player seems to be able to enter walls a tiny tiny bit
 		getPlayer().setRotation(newRotation);
-		getPlayer().setPosition((int)(getPlayer().getX() + playerVelocity.getX()), (int)(getPlayer().getY() + playerVelocity.getY()));
+		//getPlayer().setPosition((int)(getPlayer().getX() + playerVelocity.getX()), (int)(getPlayer().getY() + playerVelocity.getY()));
 
 		//If player is not alive, freely move camera and exit out of update
 		if (getPlayer().isDead()) {
@@ -141,7 +144,7 @@ public class Model {
 
 		//Send data to server
 		try {
-			coms.movePlayer(playerVelocity.getX()*deltaTime, playerVelocity.getY()*deltaTime, newRotation, oldRotation);
+			coms.movePlayer(playerVelocity.getX(), playerVelocity.getY(), newRotation, oldRotation);
 			if(store.hasBoughtNewWeapon()) {
 				coms.buyWeapon(store.getBoughtWeapon());
 			}
