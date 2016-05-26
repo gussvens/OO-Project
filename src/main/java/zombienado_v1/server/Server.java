@@ -2,7 +2,7 @@ package zombienado_v1.server;
 
 import zombienado_v1.server.serverUnits.ServerPlayer;
 import zombienado_v1.server.serverUnits.ServerZombie;
-import zombienado_v1.server.serverWeapon.ServerBullet;
+import zombienado_v1.server.serverUnits.ServerBullet;
 import zombienado_v1.server.serverWorld.WorldHandler;
 import zombienado_v1.server.unitHandler.Spawner;
 

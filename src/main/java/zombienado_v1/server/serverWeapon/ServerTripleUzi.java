@@ -12,7 +12,7 @@ public class ServerTripleUzi extends ServerWeapon {
     private final static int BULLETSPEED = 20;
     private final static int MAXAMMO = 1000;
     private final static int SHOTS = 1;
-    private final static double SPRAY = 0.7;
+    private final static float SPRAY = 0.7f;
     private final static double RATEOFFIRE = 40;
 
     public ServerTripleUzi() {

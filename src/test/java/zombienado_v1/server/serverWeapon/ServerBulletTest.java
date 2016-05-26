@@ -1,7 +1,7 @@
-package zombienado_v1.server;
+package zombienado_v1.server.serverWeapon;
 
 import junit.framework.TestCase;
-import zombienado_v1.server.serverWeapon.ServerBullet;
+import zombienado_v1.server.serverUnits.ServerBullet;
 import zombienado_v1.server.serverUnits.ServerZombie;
 
 import java.awt.*;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ServerBulletTest extends TestCase {
 
     public void testUpdate(){
-        ServerBullet b = new ServerBullet(0,0,1,0.0,0,20);
+        ServerBullet b = new ServerBullet(0,0,1,0.0f,0,20);
         ArrayList<ServerZombie> zombies = new ArrayList<>();
         ArrayList<Point> walls = new ArrayList<>();
 
@@ -24,7 +24,7 @@ public class ServerBulletTest extends TestCase {
     }
 
     public void testStopping(){
-        ServerBullet b = new ServerBullet(0,0,1,0.0,0,20);
+        ServerBullet b = new ServerBullet(0,0,1,0.0f,0,20);
         ArrayList<ServerZombie> zombies = new ArrayList<>();
         ArrayList<Point> walls = new ArrayList<>();
         Point wall = new Point(0,0);

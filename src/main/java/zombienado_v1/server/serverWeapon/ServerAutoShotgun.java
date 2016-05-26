@@ -12,7 +12,7 @@ public class ServerAutoShotgun extends ServerWeapon {
     private final static int BULLETSPEED = 20;
     private final static int MAXAMMO = 90;
     private final static int SHOTS = 5;
-    private final static double SPRAY = 0.5;
+    private final static float SPRAY = 0.5f;
     private final static double RATEOFFIRE = 200;
 
     public ServerAutoShotgun() {

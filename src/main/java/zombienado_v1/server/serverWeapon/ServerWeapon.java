@@ -1,6 +1,7 @@
 package zombienado_v1.server.serverWeapon;
 
 import zombienado_v1.interfaces.iWeapon;
+import zombienado_v1.server.serverUnits.ServerBullet;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,11 +17,11 @@ public class ServerWeapon implements iWeapon {
     private int bulletSpeed;
     private int ammo;
     private int shots;
-    private double spray;
+    private float spray;
     private double rateOfFire;
     private long lastFired = System.currentTimeMillis();
 
-    public ServerWeapon(int id, int damage, int price, int distanceToMuzzle, int bulletSpeed, int ammo, int shots, double spray, double rateOfFire) {
+    public ServerWeapon(int id, int damage, int price, int distanceToMuzzle, int bulletSpeed, int ammo, int shots, float spray, double rateOfFire) {
         this.id = id;
         this.damage = damage;
         this.price = price;
@@ -40,7 +41,7 @@ public class ServerWeapon implements iWeapon {
         }
     }
 
-    public ArrayList<ServerBullet> shoot(int x, int y, double direction, int bulletCounter){
+    public ArrayList<ServerBullet> shoot(int x, int y, float direction, int bulletCounter){
         //Fix with better values
         if(ammo > 0) {
 
@@ -49,7 +50,7 @@ public class ServerWeapon implements iWeapon {
 
             ArrayList<ServerBullet> bullets = new ArrayList<ServerBullet>();
             for (int i = 0; i < shots; i++) {
-                bullets.add(new ServerBullet((int) (x + Math.cos(direction) * 48), (int) (y + Math.sin(direction) * 48), bulletCounter, direction - spray / 2 + r.nextDouble() * spray, damage, bulletSpeed));
+                bullets.add(new ServerBullet((int) (x + Math.cos(direction) * 48), (int) (y + Math.sin(direction) * 48), bulletCounter, direction - spray / 2 + r.nextFloat() * spray, damage, bulletSpeed));
             }
 
             ammo--;

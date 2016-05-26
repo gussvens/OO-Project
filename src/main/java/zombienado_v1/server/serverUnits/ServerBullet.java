@@ -1,7 +1,7 @@
-package zombienado_v1.server.serverWeapon;
+package zombienado_v1.server.serverUnits;
 
 import javafx.scene.shape.Circle;
-import zombienado_v1.interfaces.iBullet;
+import zombienado_v1.server.serverUnits.ServerUnit;
 import zombienado_v1.server.serverUnits.ServerZombie;
 import zombienado_v1.server.serverWorld.WorldHandler;
 
@@ -11,12 +11,12 @@ import java.util.ArrayList;
 /**
  * Created by Marcus on 2016-05-06.
  */
-public class ServerBullet implements iBullet {
+public class ServerBullet implements ServerUnit {
 
     private int x;
     private int y;
     private int ID;
-    private double rotation;
+    private float rotation;
     private int speed;
     private int damage;
 
@@ -29,7 +29,7 @@ public class ServerBullet implements iBullet {
      * @param damage - The damage of the Bullet
      * @param bulletSpeed - The speed of the Bullet
      */
-    public ServerBullet(int x, int y, int ID, double rotation, int damage, int bulletSpeed){
+    public ServerBullet(int x, int y, int ID, float rotation, int damage, int bulletSpeed){
         this.x = x;
         this.y = y;
         this.ID = ID;
@@ -55,7 +55,7 @@ public class ServerBullet implements iBullet {
     /**
      * @return - The rotation of the Bullet
      */
-    public double getRotation() { return rotation; }
+    public float getRotation() { return rotation; }
 
     /**
      * @return - The ID of the Bullet

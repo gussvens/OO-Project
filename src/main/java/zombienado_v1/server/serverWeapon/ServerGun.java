@@ -1,5 +1,7 @@
 package zombienado_v1.server.serverWeapon;
 
+import zombienado_v1.server.serverUnits.ServerBullet;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,7 +17,7 @@ public class ServerGun extends ServerWeapon {
     private final static int BULLETSPEED = 20;
     private final static int MAXAMMO = 999999;
     private final static int SHOTS = 1;
-    private final static double SPRAY = 0.3;
+    private final static float SPRAY = 0.3f;
     private final static double RATEOFFIRE = 200;
 
     public ServerGun() {
@@ -23,7 +25,7 @@ public class ServerGun extends ServerWeapon {
     }
 
     @Override
-    public ArrayList<ServerBullet> shoot(int x, int y, double direction, int bulletCounter){
+    public ArrayList<ServerBullet> shoot(int x, int y, float direction, int bulletCounter){
         //Fix with better values
         if(MAXAMMO > 0) {
 
@@ -32,7 +34,7 @@ public class ServerGun extends ServerWeapon {
 
             ArrayList<ServerBullet> bullets = new ArrayList<ServerBullet>();
             for (int i = 0; i < SHOTS; i++) {
-                bullets.add(new ServerBullet((int) (x + Math.cos(direction) * 48), (int) (y + Math.sin(direction) * 48), bulletCounter, direction - SPRAY / 2 + r.nextDouble() * SPRAY, DAMAGE, BULLETSPEED));
+                bullets.add(new ServerBullet((int) (x + Math.cos(direction) * 48), (int) (y + Math.sin(direction) * 48), bulletCounter, direction - SPRAY / 2 + r.nextFloat() * SPRAY, DAMAGE, BULLETSPEED));
             }
             return bullets;
         } else {

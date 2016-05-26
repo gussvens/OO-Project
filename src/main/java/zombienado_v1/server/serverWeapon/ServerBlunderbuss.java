@@ -12,7 +12,7 @@ public class ServerBlunderbuss extends ServerWeapon {
     private final static int BULLETSPEED = 20;
     private final static int MAXAMMO = 50;
     private final static int SHOTS = 10;
-    private final static double SPRAY = 1.0;
+    private final static float SPRAY = 1.0f;
     private final static double RATEOFFIRE = 1000;
 
     public ServerBlunderbuss() {
