@@ -1,13 +1,10 @@
 package zombienado_v1.client.model;
 
 import java.awt.Point;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import zombienado_v1.client.controller.Client;
 import zombienado_v1.client.model.weapon.*;
-import zombienado_v1.client.view.GameView;
 import zombienado_v1.utilities.Camera;
 import zombienado_v1.utilities.PlayerInputHandler;
 
@@ -42,6 +39,18 @@ public class Model {
 	}
 	public synchronized int getTimeUntilNextWave(){
 		return timeUntilNextWave;
+	}
+	public Point getAim(){ return aim; }
+	/**
+	 * Returns the client's Player instance
+	 * @return the client's Player instance
+	 */
+	public Player getPlayer(){
+		if(myID<0){
+			return new Player();
+		} else{
+			return players.get(myID);
+		}
 	}
 	public Weapon[] getWeapons(){
 		return weapons;
@@ -97,11 +106,10 @@ public class Model {
 		aim = cursor;
 		float oldRotation = getPlayer().getRotation();
 		float newRotation = PlayerInputHandler.getPlayerRotation(getPlayer().getX(), getPlayer().getY(), cursor);
-		boolean reload = PlayerInputHandler.getReload(pressedKeys);
 
 		if (getPlayer().isDead()) {
-			Camera.setX((int)(Camera.getX() + GameView.getScreenWidth()/2 + velocityVector.getX()), screenWidth);
-			Camera.setY((int)(Camera.getY() + GameView.getScreenHeight()/2 + velocityVector.getY()), screenHeight);
+			Camera.setX((int)(Camera.getX() + screenWidth/2 + velocityVector.getX()), screenWidth);
+			Camera.setY((int)(Camera.getY() + screenHeight/2 + velocityVector.getY()), screenHeight);
 			return;
 		}
 
@@ -123,24 +131,8 @@ public class Model {
 				coms.shoot(false);
 			}
 
-		//	coms.requestReload(reload);
 		} catch (Exception e){
 			e.printStackTrace();
-		}
-	}
-
-	public Point getAim(){
-		return aim;
-	}
-	/**
-	 * Returns the client's Player instance
-	 * @return the client's Player instance
-	 */
-	public Player getPlayer(){
-		if(myID<0){
-			return new Player();
-		} else{
-			return players.get(myID);
 		}
 	}
 }
