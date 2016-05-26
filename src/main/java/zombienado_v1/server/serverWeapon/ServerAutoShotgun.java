@@ -1,9 +1,5 @@
 package zombienado_v1.server.serverWeapon;
 
-import zombienado_v1.server.serverUnits.ServerBullet;
-
-import java.util.Random;
-
 /**
  * Created by Marcus on 2016-05-06.
  */
