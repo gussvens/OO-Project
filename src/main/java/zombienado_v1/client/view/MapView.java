@@ -1,8 +1,6 @@
 package zombienado_v1.client.view;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.ArrayList;
 
 import zombienado_v1.utilities.Camera;
@@ -13,11 +11,16 @@ public class MapView {
 	private ArrayList<Rectangle> bounds; //Only wall tiles
 	public static final int TILE_SIZE = 32;
 	private static Image tileSheet;
+	private LightMap lightMap;
 
 	public MapView(Image tileSheet){
 		tiles = new ArrayList<ArrayList<Integer>>();
 		bounds = new ArrayList<Rectangle>();
 		this.tileSheet = tileSheet;
+	}
+
+	public void setLightMap(LightMap lightMap){
+		this.lightMap = lightMap;
 	}
 
 	public static void setTileSheet(Image tileSheet){
@@ -66,5 +69,9 @@ public class MapView {
 				//graphics.drawString(temp, x*32 - Camera.getX(), y*32 - Camera.getY());
 			}
 		}
+	}
+
+	public void drawLight(Graphics2D graphics){
+		lightMap.draw(graphics);
 	}
 }

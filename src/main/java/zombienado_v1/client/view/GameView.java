@@ -28,7 +28,6 @@ public class GameView extends JFrame{
 	private BulletView bulletView;
 	private HudView hudView;
 	private StoreView storeView;
-	private LightMap lightMap;
 
 	Animation recoilSight;
 
@@ -158,9 +157,7 @@ public class GameView extends JFrame{
 			backgroundMusic = new SoundEffect(new File("src/main/resources/soundeffects/ambientnoise.wav"), true);
 
 			// ----- LOAD MAPS -----
-			mapView = new MapView(ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")));
-			lightMap = new LightMap(model);
-			MapLoader.Load(mapView, lightMap, new File("src/main/resources/maps/mapTestSmall.txt"));
+			mapView = MapLoader.Load(new File("src/main/resources/maps/mapTestSmall.txt"), ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")), model);
 
 
 			// ----- LOAD VIEWS -----
@@ -195,7 +192,7 @@ public class GameView extends JFrame{
 		bulletView.draw(graphics);
 		characterView.draw(graphics);
 		zombieView.draw(graphics);
-		lightMap.draw(graphics);
+		mapView.drawLight(graphics);
 		storeView.draw(graphics);
 		recoilSight.update();
 		Point mousePosition = Controller.getMousePosition();
