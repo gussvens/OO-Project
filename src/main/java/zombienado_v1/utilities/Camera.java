@@ -1,7 +1,7 @@
 package zombienado_v1.utilities;
 
 /**
- * Camera class specifying viewport kind of :)
+ * Camera class specifying what to draw
  * @author Erik
  *
  */

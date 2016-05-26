@@ -12,8 +12,8 @@ public class ServerThread extends Thread {
 	private int weaponID;
 	private boolean weaponHasChanged = false;
 
-	private int deltaX = 0;
-	private int deltaY = 0;
+	private float deltaX = 0;
+	private float deltaY = 0;
 	private float rotation = 0; //absolute
 	private boolean isShooting = false;
 
@@ -34,13 +34,13 @@ public class ServerThread extends Thread {
 	 *
 	 */
 	 public synchronized  int getDeltaX(){
-		int temp = deltaX;
+		int temp = (int)deltaX;
 		deltaX = 0;
 		return temp;
 	}
 
 	public  synchronized int getDeltaY(){
-		int temp = deltaY;
+		int temp = (int)deltaY;
 		deltaY = 0;
 		return temp;
 	}
@@ -82,11 +82,11 @@ public class ServerThread extends Thread {
 	/** Setters of delta values
 	 *
 	 */
-	public synchronized void pushDeltaX(int dX){
+	public synchronized void pushDeltaX(float dX){
 		deltaX += dX;
 	}
 
-	public synchronized  void pushDeltaY(int dY){
+	public synchronized  void pushDeltaY(float dY){
 		deltaY += dY;
 	}
 
@@ -104,8 +104,8 @@ public class ServerThread extends Thread {
 				String[] splits = inputString.split(";");
 
 				if(splits[0].equals("move")) {
-					pushDeltaX(Integer.parseInt(splits[1]));
-					pushDeltaY(Integer.parseInt(splits[2]));
+					pushDeltaX(Float.parseFloat(splits[1]));
+					pushDeltaY(Float.parseFloat(splits[2]));
 					setRotation(Float.parseFloat(splits[3]));
 				} else if(splits[0].equals("shoot")) {
 					isShooting = Boolean.parseBoolean(splits[1]);

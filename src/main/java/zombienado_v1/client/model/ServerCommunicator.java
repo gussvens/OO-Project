@@ -123,7 +123,7 @@ public class ServerCommunicator extends Thread {
         }
     }
 
-    public synchronized void movePlayer(int x, int y, float r, float oldRotation) {
+    public synchronized void movePlayer(float x, float y, float r, float oldRotation) {
         if (x == 0 && y == 0 && r - oldRotation == 0.0) return; //If nothing changed, do not send
         String message = "move;" + x + ";" + y + ";" + r;
         out.println(message);
@@ -172,9 +172,7 @@ public class ServerCommunicator extends Thread {
                 int balance = Integer.parseInt(arg[9]);
                 int weaponID = Integer.parseInt(arg[10]);
                 players.get(id).setPosition(x, y);
-                if (id != myID) {
-                    players.get(id).setRotation(rot);
-                }
+                players.get(id).setRotation(rot);
                 players.get(id).setHealth(health);
                 players.get(id).setAmmo(ammo);
                 players.get(id).setBalance(balance);
@@ -187,7 +185,7 @@ public class ServerCommunicator extends Thread {
             }
         } else if (arg[0].equals("deadPlayer")){
             int id  = Integer.parseInt(arg[1]);
-            players.get(id-1).setDead(true);
+            players.get(id).setDead(true);
         }else if (arg[0].equals("zombies")) {
             int id = Integer.parseInt(arg[1]);
             if (arg[2].equals("pos")) {

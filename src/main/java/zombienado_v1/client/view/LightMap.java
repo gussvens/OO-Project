@@ -129,9 +129,10 @@ public class LightMap {
         graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.DST_OUT));
 
         for (Player player : model.getPlayers()){
-            graphics.drawImage(flashLight, GraphicsUtils.Transform(flashLight, (int)(player.getX() - Camera.getX() + Math.cos(player.getRotation()) * (player.getWeapon().getDistanceToMuzzle() - 24)), (int)(player.getY()-Camera.getY()+ Math.sin(player.getRotation()) * (player.getWeapon().getDistanceToMuzzle() - 24)), player.getRotation()), null);
-            graphics.drawImage(playerLumination, GraphicsUtils.Transform(playerLumination, (int)(player.getX() - Camera.getX() + Math.cos(player.getRotation()) * (player.getWeapon().getDistanceToMuzzle() - 24)), (int)(player.getY()-Camera.getY()+ Math.sin(player.getRotation()) * (player.getWeapon().getDistanceToMuzzle() - 24)), player.getRotation()), null);
-
+            if (!player.isDead()) {
+                graphics.drawImage(flashLight, GraphicsUtils.Transform(flashLight, (int) (player.getX() - Camera.getX() + Math.cos(player.getRotation()) * (player.getWeapon().getDistanceToMuzzle() - 24)), (int) (player.getY() - Camera.getY() + Math.sin(player.getRotation()) * (player.getWeapon().getDistanceToMuzzle() - 24)), player.getRotation()), null);
+                graphics.drawImage(playerLumination, GraphicsUtils.Transform(playerLumination, (int) (player.getX() - Camera.getX() + Math.cos(player.getRotation()) * (player.getWeapon().getDistanceToMuzzle() - 24)), (int) (player.getY() - Camera.getY() + Math.sin(player.getRotation()) * (player.getWeapon().getDistanceToMuzzle() - 24)), player.getRotation()), null);
+            }
 
         }
         for (Unit bullet : model.getBullets()){

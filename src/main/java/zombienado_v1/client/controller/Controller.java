@@ -45,7 +45,7 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	private void gameLoop(){
 
 		long startTime;
-		double deltaTime = 1;
+		float deltaTime = 1;
 		while (true){
 			startTime = System.nanoTime();
 			//Does the work
@@ -65,7 +65,7 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 				ie.printStackTrace();
 			}
 			double totalElapsedTime = (System.nanoTime() - startTime)/1000000000d;
-			deltaTime = totalElapsedTime / TARGET_FRAME_TIME;
+			deltaTime = (float)(totalElapsedTime / TARGET_FRAME_TIME);
 		}
 	}
 
