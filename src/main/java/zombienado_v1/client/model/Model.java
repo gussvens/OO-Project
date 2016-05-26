@@ -96,14 +96,14 @@ public class Model {
 		boolean reload = PlayerInputHandler.getReload(pressedKeys);
 
 		if (getPlayer().isDead()) {
-			Camera.setX((int)(Camera.getX() + GameView.getScreenWidth()/2 + velocityVector.getX()));
-			Camera.setY((int)(Camera.getY() + GameView.getScreenHeight()/2 + velocityVector.getY()));
+			Camera.setX((int)(Camera.getX() + GameView.getScreenWidth()/2 + velocityVector.getX()), GameView.getScreenWidth());
+			Camera.setY((int)(Camera.getY() + GameView.getScreenHeight()/2 + velocityVector.getY()), GameView.getScreenHeight());
 			return;
 		}
 
 		getPlayer().setRotation(newRotation);
-		Camera.setX(players.get(myID).getX());
-		Camera.setY(players.get(myID).getY());
+		Camera.setX(players.get(myID).getX(), GameView.getScreenWidth());
+		Camera.setY(players.get(myID).getY(), GameView.getScreenHeight());
 		if (timeUntilNextWave != -1) {
 			store.buyWeapon(cursor, isMousePressed);
 		}
