@@ -5,7 +5,7 @@ import zombienado_v1.interfaces.iWeapon;
 /**
  * Created by Gustav on 16-04-12.
  */
-public class Weapon implements iWeapon{
+public abstract class Weapon implements iWeapon{
 
     private String name;
     private int id;

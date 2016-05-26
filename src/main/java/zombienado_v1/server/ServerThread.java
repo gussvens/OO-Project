@@ -94,7 +94,7 @@ public class ServerThread extends Thread {
 		deltaY += dY;
 	}
 
-	public synchronized  void pushDeltaRotation(float dR){
+	public synchronized  void setRotation(float dR){
 		rotation = dR;
 	}
 
@@ -110,8 +110,7 @@ public class ServerThread extends Thread {
 				if(splits[0].equals("move")) {
 					pushDeltaX(Integer.parseInt(splits[1]));
 					pushDeltaY(Integer.parseInt(splits[2]));
-					pushDeltaRotation(Float.parseFloat(splits[3]));
-					System.out.println("ROTATION " +Float.parseFloat(splits[3]));
+					setRotation(Float.parseFloat(splits[3]));
 				} else if(splits[0].equals("shoot")) {
 					isShooting = Boolean.parseBoolean(splits[1]);
 				} else if(splits[0].equals("weapon")) {
