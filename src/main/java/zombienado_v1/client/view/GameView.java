@@ -1,13 +1,11 @@
 package zombienado_v1.client.view;
 
-import zombienado_v1.client.controller.Controller;
+
 import zombienado_v1.client.model.Model;
 import zombienado_v1.utilities.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 

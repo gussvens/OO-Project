@@ -1,11 +1,8 @@
 package zombienado_v1.utilities;
 
-import javafx.scene.shape.Circle;
-import zombienado_v1.server.serverWorld.WorldHandler;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 
 public class Physics {
 	/**

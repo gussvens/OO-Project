@@ -21,7 +21,6 @@ public class ServerZombie implements ServerUnit{
 
 
     public ServerZombie(int id, Point spawnPoint){
-        //this.speed = Math.random()*1 + 2;
         this.speed = 2;
         this.x = (int)spawnPoint.getX()+32;
         this.y = (int)spawnPoint.getY()+32;
