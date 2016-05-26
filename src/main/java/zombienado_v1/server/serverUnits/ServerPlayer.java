@@ -245,14 +245,14 @@ public class ServerPlayer implements ServerUnit{
      * @param bulletCounter - How many bullets has been fired. This is used to give each bullet an ID
      * @return - An ArrayList with bullets
      */
-    public ArrayList<ServerBullet> shoot(int bulletCounter){
+    public ArrayList<ServerBullet> shoot(){
         System.out.println("Ammo: " + weapon.getAmmo());
         if(weapon.getAmmo() <= 0) {
             weapon = new ServerGun();
         }
         hasShot = true;
 
-        return weapon.shoot(x,y,rotation,bulletCounter);
+        return weapon.shoot(x,y,rotation);
     }
 
     /**

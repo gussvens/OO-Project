@@ -23,7 +23,7 @@ public class ServerM4 extends ServerWeapon {
 
 
     @Override
-    public ArrayList<ServerBullet> shoot(int x, int y, float direction, int bulletCounter){
+    public ArrayList<ServerBullet> shoot(int x, int y, float direction){
         //Fix with better values
         if(super.getAmmo() > 0) {
 
@@ -32,7 +32,7 @@ public class ServerM4 extends ServerWeapon {
 
             ArrayList<ServerBullet> bullets = new ArrayList<ServerBullet>();
             for (int i = 0; i < SHOTS; i++) {
-                bullets.add(new ServerBullet((int) (x + Math.cos(direction) * 48), (int) (y + Math.sin(direction) * 48), bulletCounter, direction - SPRAY / 2 + r.nextFloat() * SPRAY, DAMAGE, (BULLETSPEED-i*7)));
+                bullets.add(new ServerBullet((int) (x + Math.cos(direction) * 48), (int) (y + Math.sin(direction) * 48), direction - SPRAY / 2 + r.nextFloat() * SPRAY, DAMAGE, (BULLETSPEED-i*7)));
             }
 
             //ammo--;

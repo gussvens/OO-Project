@@ -19,7 +19,6 @@ public class Server extends Thread {
 	private ArrayList<ServerBullet> bullets;
 	private Spawner spawner;
 	private WorldHandler handler;
-	private int bulletCounter;
 	private int currentWave;
 	private int timeUntilNextWave;
 	private boolean gameOver = false;
@@ -33,7 +32,6 @@ public class Server extends Thread {
 		bullets = new ArrayList<ServerBullet>();
 		spawner = Spawner.getInstance();
 		handler = new WorldHandler();
-		bulletCounter = 0;
 		currentWave = spawner.getWave();
 		timeUntilNextWave = spawner.getTimeUntilNextWave();
 	}
@@ -137,11 +135,10 @@ public class Server extends Thread {
 			players.get(i).update(st.getDeltaX(), st.getDeltaY(), st.getRotation(), spawner.getZombies(), handler.getWallTiles());
 			if (st.getIsShooting()) {
 				if (players.get(i).canShoot()) {
-					ArrayList<ServerBullet> temp = players.get(i).shoot(bulletCounter);
+					ArrayList<ServerBullet> temp = players.get(i).shoot();
 					if (!temp.isEmpty()) {
 						for (int j = 0; j < temp.size(); j++) {
 							bullets.add(temp.get(j));
-							bulletCounter++;
 						}
 					}
 				}

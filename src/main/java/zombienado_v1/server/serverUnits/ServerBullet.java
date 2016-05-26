@@ -22,15 +22,13 @@ public class ServerBullet implements ServerUnit {
      * Constructor for a Bullet
      * @param x - The starting x-position of th eBullet
      * @param y - The starting y-position of th eBullet
-     * @param ID - The ID of the Bullet
      * @param rotation - The rotation of the Bullet
      * @param damage - The damage of the Bullet
      * @param bulletSpeed - The speed of the Bullet
      */
-    public ServerBullet(int x, int y, int ID, float rotation, int damage, int bulletSpeed){
+    public ServerBullet(int x, int y, float rotation, int damage, int bulletSpeed){
         this.x = x;
         this.y = y;
-        this.ID = ID;
         this.rotation = rotation;
         this.speed = bulletSpeed;
         this.damage = damage;

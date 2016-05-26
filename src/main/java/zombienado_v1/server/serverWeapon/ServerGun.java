@@ -25,7 +25,7 @@ public class ServerGun extends ServerWeapon {
     }
 
     @Override
-    public ArrayList<ServerBullet> shoot(int x, int y, float direction, int bulletCounter){
+    public ArrayList<ServerBullet> shoot(int x, int y, float direction){
         //Fix with better values
         if(MAXAMMO > 0) {
 
@@ -34,7 +34,7 @@ public class ServerGun extends ServerWeapon {
 
             ArrayList<ServerBullet> bullets = new ArrayList<ServerBullet>();
             for (int i = 0; i < SHOTS; i++) {
-                bullets.add(new ServerBullet((int) (x + Math.cos(direction) * 48), (int) (y + Math.sin(direction) * 48), bulletCounter, direction - SPRAY / 2 + r.nextFloat() * SPRAY, DAMAGE, BULLETSPEED));
+                bullets.add(new ServerBullet((int) (x + Math.cos(direction) * 48), (int) (y + Math.sin(direction) * 48), direction - SPRAY / 2 + r.nextFloat() * SPRAY, DAMAGE, BULLETSPEED));
             }
             return bullets;
         } else {
