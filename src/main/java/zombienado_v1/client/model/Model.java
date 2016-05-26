@@ -13,6 +13,8 @@ import zombienado_v1.utilities.PlayerInputHandler;
 
 public class Model {
 	//private oldPlayer player;
+	public int screenWidth;
+	public int screenHeight;
 	private ServerCommunicator coms;
 	private ArrayList<Player> players;
 	private ArrayList<Unit> zombies;
@@ -47,7 +49,9 @@ public class Model {
 	/** INITIALIZATION
 	 * Executed before gameloop starts
 	 */
-	public synchronized void initialize(){
+	public synchronized void initialize(int screenWidth, int screenHeight){
+		this.screenWidth = screenWidth;
+		this.screenHeight = screenHeight;
 		try {
 			coms = ServerCommunicator.getInstance();
 		} catch (Exception e){
@@ -96,14 +100,14 @@ public class Model {
 		boolean reload = PlayerInputHandler.getReload(pressedKeys);
 
 		if (getPlayer().isDead()) {
-			Camera.setX((int)(Camera.getX() + GameView.getScreenWidth()/2 + velocityVector.getX()), GameView.getScreenWidth());
-			Camera.setY((int)(Camera.getY() + GameView.getScreenHeight()/2 + velocityVector.getY()), GameView.getScreenHeight());
+			Camera.setX((int)(Camera.getX() + GameView.getScreenWidth()/2 + velocityVector.getX()), screenWidth);
+			Camera.setY((int)(Camera.getY() + GameView.getScreenHeight()/2 + velocityVector.getY()), screenHeight);
 			return;
 		}
 
 		getPlayer().setRotation(newRotation);
-		Camera.setX(players.get(myID).getX(), GameView.getScreenWidth());
-		Camera.setY(players.get(myID).getY(), GameView.getScreenHeight());
+		Camera.setX(players.get(myID).getX(), screenWidth);
+		Camera.setY(players.get(myID).getY(), screenHeight);
 		if (timeUntilNextWave != -1) {
 			store.buyWeapon(cursor, isMousePressed);
 		}

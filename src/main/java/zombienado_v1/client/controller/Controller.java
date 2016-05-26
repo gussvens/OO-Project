@@ -37,7 +37,7 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	}
 	
 	public void run(){
-		model.initialize();
+		model.initialize(GameView.getScreenWidth(), GameView.getScreenHeight());
 		gameView.load();
 		gameLoop();
 	}
