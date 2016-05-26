@@ -56,7 +56,16 @@ public class HudView {
     }
 
     public synchronized void drawDead(Graphics2D graphics){
-        if(model.getPlayer().isDead() && model.getTimeUntilNextWave() == -1){
+        if (model.isGameOver()){
+            Font f = graphics.getFont();
+            graphics.setFont(new Font(f.getName(), f.getStyle(), f.getSize() + 10));
+            graphics.setColor(Color.RED);
+            graphics.drawString("GAME OVER", GameView.getScreenWidth()/2 - 80,GameView.getScreenHeight()/2 - 30);
+            graphics.setFont(f);
+            graphics.drawString("(this is balance not score pls) Your teams score was "+model.getPlayer().getBalance(), GameView.getScreenWidth()/2 - 65,GameView.getScreenHeight()/2 - 15);
+            graphics.setColor(Color.BLACK);
+        }
+        else if(model.getPlayer().isDead() && model.getTimeUntilNextWave() == -1){
             Font f = graphics.getFont();
             graphics.setFont(new Font(f.getName(), f.getStyle(), f.getSize() + 10));
             graphics.setColor(Color.RED);

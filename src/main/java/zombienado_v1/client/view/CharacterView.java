@@ -31,7 +31,7 @@ public class CharacterView {
 
     public synchronized void draw(Graphics2D graphics){
        for (int i = 0; i < model.getPlayers().size(); i++){
-           if (model.getPlayers().get(i) != null) {
+           if (model.getPlayers().get(i) != null && !model.getPlayers().get(i).isDead()) {
                Player p = model.getPlayers().get(i);
                double rotation = p.getRotation();
                drawWeapon(graphics, p, i);

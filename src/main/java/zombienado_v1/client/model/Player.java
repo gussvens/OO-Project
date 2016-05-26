@@ -8,8 +8,8 @@ public class Player extends Unit{
     private Weapon weapon = new DoubleUzi();
     private int balance;
     private int health;
-    public boolean hasShot;
-    public boolean isDead = false;
+    private boolean hasShot;
+    private boolean isDead = false;
 
     /**
      * triggers sound effect in view

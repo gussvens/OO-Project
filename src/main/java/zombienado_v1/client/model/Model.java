@@ -7,6 +7,7 @@ import java.util.List;
 import zombienado_v1.client.model.weapon.*;
 import zombienado_v1.utilities.Camera;
 import zombienado_v1.utilities.PlayerInputHandler;
+import zombienado_v1.utilities.Vector;
 
 public class Model {
 	public int screenWidth;
@@ -20,6 +21,7 @@ public class Model {
 	private int myID = -1;
 	private int wave = 1;
 	private int timeUntilNextWave = -1;
+	private boolean isGameOver;
 	private Point aim;
 	/**
 	 * Getters for view
@@ -38,6 +40,9 @@ public class Model {
 	}
 	public synchronized int getTimeUntilNextWave(){
 		return timeUntilNextWave;
+	}
+	public synchronized boolean isGameOver(){
+		return this.isGameOver;
 	}
 	public Point getAim(){ return aim; }
 	/**
@@ -95,7 +100,9 @@ public class Model {
 		//Set the aim
 		this.aim = cursor;
 		//Stop updating if game is over
-		if(coms.getGameOver()) return;
+		this.isGameOver = coms.getGameOver();
+		if(isGameOver()) return;
+
 		this.myID = coms.getID();
 		//If myID is not set, or if no players has joined, dont update
 		if (myID == -1) return;
@@ -108,16 +115,13 @@ public class Model {
 		this.wave = coms.getWave();
 		this.timeUntilNextWave = coms.getTimeUntilNextWave();
 		//Handle input
-		PlayerInputHandler.calculatePlayerRotation(getPlayer().getX(), getPlayer().getY(), cursor);
-		PlayerInputHandler.calculatePlayerVelocity(pressedKeys);
-		float newRotation =  PlayerInputHandler.getRotation();
-		float movementX = PlayerInputHandler.getMovementX();
-		float movementY = PlayerInputHandler.getMovementY();
+		float newRotation = PlayerInputHandler.getPlayerRotation(getPlayer().getX(), getPlayer().getY(), cursor);
+		Vector playerVelocity = PlayerInputHandler.getPlayerVelocity(pressedKeys);
 
 		//If player is not alive, freely move camera and exit out of update
 		if (getPlayer().isDead()) {
-			Camera.setX((int)(Camera.getX() + screenWidth/2 + movementX), screenWidth);
-			Camera.setY((int)(Camera.getY() + screenHeight/2 + movementY), screenHeight);
+			Camera.setX((int)(Camera.getX() + screenWidth/2 + playerVelocity.getX()), screenWidth);
+			Camera.setY((int)(Camera.getY() + screenHeight/2 + playerVelocity.getY()), screenHeight);
 			return;
 		}
 
@@ -132,7 +136,7 @@ public class Model {
 
 		//Send data to server
 		try {
-			coms.movePlayer(movementX*deltaTime, movementY*deltaTime, newRotation, getPlayer().getRotation());
+			coms.movePlayer(playerVelocity.getX()*deltaTime, playerVelocity.getY()*deltaTime, newRotation, getPlayer().getRotation());
 			if(store.hasBoughtNewWeapon()) {
 				coms.buyWeapon(store.getBoughtWeapon());
 			}
