@@ -1,13 +1,10 @@
 package zombienado_v1.client.model;
 
 import java.awt.Point;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import zombienado_v1.client.controller.Client;
 import zombienado_v1.client.model.weapon.*;
-import zombienado_v1.client.view.GameView;
 import zombienado_v1.utilities.Camera;
 import zombienado_v1.utilities.PlayerInputHandler;
 
