@@ -1,8 +1,6 @@
 package zombienado_v1.utilities;
 
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.FilteredImageSource;
@@ -50,5 +48,21 @@ public class GraphicsUtils {
 
 		ImageProducer ip = new FilteredImageSource(image.getSource(), filter);
 		return Toolkit.getDefaultToolkit().createImage(ip);
+	}
+
+	/**
+	 * Cuts out an Image from a spritesheet
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+     * @param sheet
+     * @return
+     */
+	public static Image getImageFromSheet(int x, int y, int width, int height, Image sheet){
+		Image thisImage = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics2D g = (Graphics2D)thisImage.getGraphics();
+		g.drawImage(sheet, 0, 0, width, height, x * width, y * height, x * width + width, y * height + height, null);
+		return thisImage;
 	}
 }

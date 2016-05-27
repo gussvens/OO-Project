@@ -1,73 +1,67 @@
 package zombienado_v1.client.model.weapon;
 
-import java.awt.*;
+import zombienado_v1.interfaces.iWeapon;
 
 /**
  * Created by Gustav on 16-04-12.
  */
-public class Weapon {
+public abstract class Weapon implements iWeapon{
 
+    private String name;
     private int id;
-    private int ammo;
     private int damage;
     private int price;
+    private int ammo;
+    private int distanceToMuzzle;
     private double spray;
+
     private double rateOfFire;
 
-    public Weapon(int id, int ammo, int damage, int price, double spray, double rateOfFire){
+    public Weapon(String name, int id, int damage, int ammo, int price, int distanceToMuzzle, double spray, double rateOfFire){
+        this.name = name;
         this.id = id; // Coordinate to weapon sprite in weaponSheet
-        this.ammo = ammo;
-        this.damage = damage; // Damage dealt on impact with foe (Zombie)
+        this.damage = damage;
         this.price = price;
-        this.spray = spray; // An max angle difference between bullet direction and aim
-        this.rateOfFire = rateOfFire; // The number of firable bullets per second
+        this.ammo = ammo;
+        this.distanceToMuzzle = distanceToMuzzle;
+        this.rateOfFire = rateOfFire;
+        this.spray = spray;
+    }
+
+    public void setAmmo(int ammo){
+        this.ammo = ammo;
+    }
+
+    public String getName(){
+        return name;
     }
 
     public int getId() {
         return this.id;
     }
 
-    public int getAmmo() {
+    public int getDamage() {
+        return damage;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getAmmo(){
         return this.ammo;
     }
 
-    public int getDamage() {
-        return this.damage;
+    public int getDistanceToMuzzle(){
+        return distanceToMuzzle;
     }
 
-
-    public int getPrice() {
-        return this.price;
+    public double getSpray(){
+        return spray;
     }
 
-    public double getSpray() {
-        return this.spray;
+    public double getRateOfFire(){
+        return rateOfFire;
     }
 
-    public double getRateOfFire() {
-        return this.rateOfFire;
-    }
-
-    public boolean shoot(){
-        if(canFire()){
-            this.ammo--;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean canFire(){
-        // TODO
-        // check if enough time has passed since last fire, use rateOfFire variable
-        // return true if yes, else false.
-        return false;
-    }
-
-    public void update(){
-        // do stuff repeatedly
-    };
-
-    public void draw(Graphics2D graphics){
-        // do stuff with id
-    };
 }

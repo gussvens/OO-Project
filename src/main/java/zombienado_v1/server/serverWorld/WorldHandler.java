@@ -1,7 +1,6 @@
 package zombienado_v1.server.serverWorld;
 
-import zombienado_v1.server.serverWorld.serverTiles.*;
-
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -12,14 +11,22 @@ import java.util.Scanner;
  */
 public class WorldHandler {
 
-    private ArrayList<SolidTile> wallList;
-    private ArrayList<SpawnerTile> spawnList;
+    private static final int TILE_WIDTH = 32;
+    private ArrayList<Point> wallList;
+    private ArrayList<Point> spawnList;
 
+    /**
+     * Constructor for a WorldHandler
+     */
     public WorldHandler(){
-        wallList = new ArrayList<SolidTile>();
-        spawnList = new ArrayList<SpawnerTile>();
+        wallList = new ArrayList<Point>();
+        spawnList = new ArrayList<Point>();
     }
 
+    /**
+     * A method that creates a "map" from the specified text file and stores walls and spawnpoints int two different ArrayLists
+     * @param mapPath - The path to the text file
+     */
     public void createMap(String mapPath){
         
         File file = new File(mapPath);
@@ -43,14 +50,12 @@ public class WorldHandler {
 
 
                     if (line[i].equals("00")) {
-                        wallList.add(new SolidTile(xPosition, yPosition));
+                        wallList.add(new Point(xPosition, yPosition));
                         tileCounter++;
-                        System.out.println("Found Solid Tile " + tileCounter);
 
                     } else if (line[i].equals("10")) {
-                        spawnList.add(new SpawnerTile(xPosition, yPosition));
+                        spawnList.add(new Point(xPosition, yPosition));
                         tileCounter++;
-                        System.out.println("Found Spawner Tile " + xPosition + ", " + yPosition);
                     }
 
                     xPosition = xPosition + 32;
@@ -60,8 +65,6 @@ public class WorldHandler {
                 yPosition = yPosition + 32;
 
             }
-
-            System.out.println("MapView created!");
         } catch (FileNotFoundException f){
             f.printStackTrace();
         }
@@ -69,17 +72,25 @@ public class WorldHandler {
 
     }
 
-    public void checkCollisions(){
-
-    }
-
-    public ArrayList<SpawnerTile> getSpawnTiles(){
+    /**
+     * @return - The ArrayList of spawnpoints
+     */
+    public ArrayList<Point> getSpawnTiles(){
         return spawnList;
     }
 
-    public ArrayList<SolidTile> getWallTiles(){
+    /**
+     * @return - The ArrayList of walls
+     */
+    public ArrayList<Point> getWallTiles(){
         return wallList;
     }
 
+    /**
+     * @return - The width of the tiles
+     */
+    public static int getTileWidth(){
+        return TILE_WIDTH;
+    }
 
 }

@@ -6,3 +6,4 @@
 23 floorWoodLight
 24 floorWoodDark
 25 floorAsphalt
+33 floorWoodLightCandle

@@ -1,9 +1,7 @@
 package zombienado_v1.utilities;
 
-import zombienado_v1.client.view.GameView;
-
 /**
- * Camera class specifying viewport kind of :)
+ * Camera class specifying what to draw
  * @author Erik
  *
  */
@@ -19,12 +17,12 @@ public class Camera {
 		return Camera.y;
 	}
 	
-	public static void setX(int x){
-		Camera.x = x - GameView.getScreenWidth()/2;
+	public static void setX(int x, int screenWidth){
+		Camera.x = x - screenWidth/2;
 	}
 	
-	public static void setY(int y){
-		Camera.y = y - GameView.getScreenHeight()/2;
+	public static void setY(int y, int screenHeight){
+		Camera.y = y - screenHeight/2;
 	}
 	
 	

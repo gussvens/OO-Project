@@ -17,12 +17,11 @@ import zombienado_v1.client.view.GameView;
 public class Controller extends Thread implements KeyListener, MouseMotionListener, MouseListener{
 	private final Model model;
 	private final GameView gameView;
-	private static final double targetFrameTime = 1d/60d;
-	private static double frameTime = 0;
+	private static final double TARGET_FRAME_TIME = 1d/60d;
 	
-	private List<Character> pressedKeys;
-	private boolean mousePress = false;
-	private Point cursor = new Point(0, 0);
+	private static List<Character> pressedKeys;
+	private static boolean mousePress = false;
+	private static Point cursor = new Point(0, 0);
 	
 	public static Controller create(Model project, GameView projectView) {
 		return new Controller(project, projectView);
@@ -38,34 +37,39 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	}
 	
 	public void run(){
-		model.initialize();
+		model.initialize(GameView.getScreenWidth(), GameView.getScreenHeight());
 		gameView.load();
 		gameLoop();
 	}
 
 	private void gameLoop(){
-		long wait;
+
 		long startTime;
+		float deltaTime = 1;
 		while (true){
 			startTime = System.nanoTime();
-			model.tick(pressedKeys, cursor, mousePress);
+			//Does the work
+			model.tick(deltaTime, pressedKeys, cursor, mousePress);
 			gameView.render();
-			wait = Math.max((long)(targetFrameTime*1000) - ((System.nanoTime() - startTime)/1000000), 0); //ms precision, can be improved
-			
+			//Calculates sleep time
+			long elapsedTimeInNano = (System.nanoTime() - startTime);
+			long totalDifferenceInNano = (long)(TARGET_FRAME_TIME*1000000000 - elapsedTimeInNano);
+			long differenceInMillis = totalDifferenceInNano/1000000;
+			long differenceInNano = totalDifferenceInNano - differenceInMillis*1000000;
+			long waitMillis = Math.max((long)(differenceInMillis), 0);
+			int waitNano = (int)Math.max(differenceInNano, 0);
+			//Sleeps the desired time
 			try{
-				Thread.sleep(wait); 
+				Thread.sleep(waitMillis, waitNano);
 			} catch (InterruptedException ie){
 				ie.printStackTrace();
 			}
-			frameTime = (System.nanoTime() - startTime) * Math.pow(10, -9);
+			double totalElapsedTime = (System.nanoTime() - startTime)/1000000000d;
+			deltaTime = (float)(totalElapsedTime / TARGET_FRAME_TIME);
 		}
 	}
-	
-	public static int getFramesPerSecond(){
-		return (int)(1 / frameTime);
-	}
-	
-	public Point getRelativeMousePosition(MouseEvent me){
+
+	private Point getRelativeMousePosition(MouseEvent me){
 		Dimension monitorSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double x = (double)((double)me.getX()*(double)GameView.getScreenWidth()/monitorSize.getWidth());
 		double y = (double)((double)me.getY()*(double)GameView.getScreenHeight()/monitorSize.getHeight());
@@ -74,6 +78,11 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	
 	@Override
 	public void keyPressed(KeyEvent ke) {
+		//Closes the application
+		if (ke.getKeyCode() == KeyEvent.VK_ESCAPE){
+			System.exit(0);
+		}
+		//Saves the pressed keys
 		if (!pressedKeys.contains(ke.getKeyChar())){
 			pressedKeys.add(ke.getKeyChar());
 		}
@@ -123,7 +132,7 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 
 	@Override
 	public void mousePressed(MouseEvent me) {
-
+		mousePress = true;
 	}
 
 	@Override

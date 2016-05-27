@@ -5,15 +5,16 @@ package zombienado_v1.client.model.weapon;
  */
 public class Ak47 extends Weapon {
 
+    private final static String NAME = "AK-47";
     private final static int ID = 20;
-    private final static int MAXAMMO = 60;
-    private final static int DAMAGE = 30;
+    private final static int DAMAGE = 60;
     private final static int PRICE = 400;
-    private final static double SPRAY = 1.0;
-    private final static double RATEOFFIRE = 3;
+    private final static int MAXAMMO = 360;
+    private final static int DISTANCE_TO_MUZZLE = 80;
+    private final static double SPRAY = 0.3;
+    private final static double RATEOFFIRE = 100;
 
     public Ak47() {
-        super(ID, MAXAMMO, DAMAGE, PRICE, SPRAY, RATEOFFIRE);
+        super(NAME,ID, DAMAGE, MAXAMMO, PRICE, DISTANCE_TO_MUZZLE, SPRAY, RATEOFFIRE);
     }
-
 }

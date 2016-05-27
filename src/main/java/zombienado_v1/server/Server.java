@@ -2,6 +2,7 @@ package zombienado_v1.server;
 
 import zombienado_v1.server.serverUnits.ServerPlayer;
 import zombienado_v1.server.serverUnits.ServerZombie;
+import zombienado_v1.server.serverUnits.ServerBullet;
 import zombienado_v1.server.serverWorld.WorldHandler;
 import zombienado_v1.server.unitHandler.Spawner;
 
@@ -15,16 +16,30 @@ public class Server extends Thread {
 	private ArrayList<ServerPlayer> players;
 	private int amountConnected = 0;
 	private ArrayList<ServerThread> serverThreads;
+	private ArrayList<ServerBullet> bullets;
 	private Spawner spawner;
 	private WorldHandler handler;
+	private int currentWave;
+	private int timeUntilNextWave;
+	private boolean gameOver = false;
 
+	/**
+	 * private Server constructor
+	 */
 	private Server(){
 		players = new ArrayList<ServerPlayer>();
 		serverThreads = new ArrayList<ServerThread>();
+		bullets = new ArrayList<ServerBullet>();
 		spawner = Spawner.getInstance();
 		handler = new WorldHandler();
+		currentWave = spawner.getWave();
+		timeUntilNextWave = spawner.getTimeUntilNextWave();
 	}
 
+	/**
+	 * A method that returns a Server instance. If no ServerInstance exists it creates one
+	 * @return - A Server instance
+     */
 	public static Server getInstance(){
 		if(instance == null){
 			instance = new Server();
@@ -33,6 +48,10 @@ public class Server extends Thread {
 		return instance;
 	}
 
+	/**
+	 * A method that sets which port the Server receives data from
+	 * @param port - The specified port to receive data from
+     */
 	public void setPort(int port){
 		try {
 			socket = new ServerSocket(port);
@@ -41,69 +60,211 @@ public class Server extends Thread {
 		}
 	}
 
+	/**
+	 * A run method that calls for methods to create a map, start update and start listening for connections
+	 */
 	public void run(){
 		Thread mainUpdate = new Thread(() -> update());
-		handler.createMap("src/main/resources/maps/mapTest.txt");
+		handler.createMap("src/main/resources/maps/mapTestSmall.txt");
 		mainUpdate.start();
 		listenForConnections();
-
 	}
+
+	/**
+	 * A method that is constantly listening for new connections and creates a new ServerThread for each new unit connected
+	 */
 	public void listenForConnections(){
 		while(true){
 			try {
-				ServerThread st = new  ServerThread(socket.accept(), this.getInstance(), amountConnected);
+				ServerThread st = new  ServerThread(socket.accept(), amountConnected);
 				serverThreads.add(st);
 				st.start();
 				amountConnected = amountConnected +1;
-				players.add(new ServerPlayer(0,0,0,amountConnected));
+				players.add(new ServerPlayer(100,100,0,amountConnected));
 				System.out.println("Something connected");
 
 			} catch (IOException e) {
 				e.printStackTrace();
-			}		
+			}
 		}
 	}
 
+	/**
+	 * An update method that is constantly looping to update everything in the game and then tells the ServerThread to send the information
+	 */
 	public void update(){
 		while (true){
-			
-			/**
-			 * Logic
-			 */
-			for (int i = 0; i < players.size(); i++) {
-				final ServerThread st = serverThreads.get(i);
-				players.get(i).update(st.getDeltaX(), st.getDeltaY(), st.getDeltaRotation());
-			}
-			
-			
-			
-			/**
-			 * Send stuff to clients
-			 */
-			ArrayList<ServerPlayer> positions = getPlayerPositions(); //tidy this up
-			spawner.update(players, handler.getSpawnTiles());
 
-			for (ServerThread serverThread : serverThreads){
-				for(int i = 0; i < positions.size(); i++){
-					ServerPlayer q = positions.get(i);
-					serverThread.sendPlayerData(i, q.getX(), q.getY(), q.getRotation());
+			if(!gameOver) {
+
+				shoot();
+				updateBullets();
+				updateZombies();
+				checkChangedWave();
+				sendWaveTime();
+
+				for (ServerThread serverThread : serverThreads) {
+					checkWeaponSwitches(serverThread);
+					sendPlayers(serverThread);
+					sendZombies(serverThread);
+					sendBullets(serverThread);
 				}
 
-				for(ServerZombie zombie : spawner.getZombies()){
-					if(zombie != null) {
-						serverThread.sendZombieData(zombie.getID(), zombie.getX(), zombie.getY(), zombie.getRotation());
-					}
-				}
+				checkGameOver();
+
+			} else {
+
+				sendGameOver();
+
 			}
+
 			try {
-				Thread.sleep((long) 33); //Gotta fix this
+				Thread.sleep((long) 16);
 			} catch(InterruptedException e){
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public synchronized ArrayList<ServerPlayer> getPlayerPositions(){
-		return players;
+	/**
+	 * A method that checks each ServerThread if it has received a "shoot" call and then tries to shoot if so is the case
+	 */
+	private void shoot(){
+		for (int i = 0; i < players.size(); i++) {
+			final ServerThread st = serverThreads.get(i);
+			players.get(i).update(st.getDeltaX(), st.getDeltaY(), st.getRotation(), spawner.getZombies(), handler.getWallTiles());
+			if (st.getIsShooting()) {
+				if (players.get(i).canShoot()) {
+					ArrayList<ServerBullet> temp = players.get(i).shoot();
+					if (!temp.isEmpty()) {
+						for (int j = 0; j < temp.size(); j++) {
+							bullets.add(temp.get(j));
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * A method call the update method in all Bullets
+	 */
+	private void updateBullets(){
+		for (int i = bullets.size() - 1; i >= 0; i--) {
+			bullets.get(i).update(spawner.getZombies(), handler.getWallTiles());
+			if (bullets.get(i).getSpeed() == 0) {
+				bullets.remove(i);
+			}
+		}
+	}
+
+	/**
+	 * A method that updates all zombies
+	 */
+	private void updateZombies(){
+		spawner.update(players, handler.getSpawnTiles(), handler.getWallTiles());
+	}
+
+	/**
+	 * A method that checks if the wave has changed and tells the ServerThreads to send a new wave number if so is the case
+	 */
+	private void checkChangedWave(){
+		if (spawner.getWave() != currentWave) {
+			currentWave = spawner.getWave();
+			for (ServerPlayer player : players) {
+				if (player.getIsDead()) {
+					player.setHealth(100);
+					player.setDead(false);
+				}
+			}
+			for (ServerThread serverThread : serverThreads) {
+				serverThread.sendWaveData(currentWave);
+			}
+		}
+	}
+
+	/**
+	 * A method that tells the ServerThreads to send the time until next wave
+	 */
+	private void sendWaveTime(){
+		if (spawner.getTimeUntilNextWave() != timeUntilNextWave) {
+			timeUntilNextWave = spawner.getTimeUntilNextWave();
+
+			for (ServerThread serverThread : serverThreads) {
+				serverThread.sendTimeUntilNextWaveData(timeUntilNextWave);
+			}
+		}
+	}
+
+	/**
+	 * A method that checks if a ServerThread has received a "change weapon" call
+	 * @param serverThread - The ServerThread to check
+     */
+	private void checkWeaponSwitches(ServerThread serverThread) {
+		if (serverThread.getWeaponHasChanged()) {
+			this.players.get(serverThread.getID()).switchWeapon(serverThread.getWeaponID());
+		}
+	}
+
+	/**
+	 * A method that tells the ServerThread to send data about all ServerPlayers
+	 * @param serverThread - The ServerThread that will send the data
+     */
+	private void sendPlayers(ServerThread serverThread) {
+		for (int i = 0; i < players.size(); i++) {
+			ServerPlayer player = players.get(i);
+			if (player.getIsDead()) {
+				serverThread.sendDeadPlayerData(i);
+			}
+			serverThread.sendPlayerData(i, player.getX(), player.getY(), player.getRotation(), player.hasShot(), player.getHealth(), player.getAmmo(), player.getBalance(), player.getWeaponID());
+		}
+	}
+
+	/**
+	 * A method that tells the ServerThread to send data about all ServerZombies
+	 * @param serverThread - The ServerThread that will send the data
+     */
+	private void sendZombies(ServerThread serverThread){
+		for (ServerZombie zombie : spawner.getZombies()) {
+			serverThread.sendZombieData(spawner.getZombies().indexOf(zombie), zombie.getX(), zombie.getY(), zombie.getRotation());
+		}
+	}
+
+	/**
+	 * A method that tells the ServerThread to send data about all ServerBullets
+	 * @param serverThread - The ServerThread that will send the data
+     */
+	private void sendBullets(ServerThread serverThread){
+		for (ServerBullet bullet : bullets) {
+			serverThread.sendBulletData(bullets.indexOf(bullet), bullet.getX(), bullet.getY(), bullet.getRotation());
+		}
+	}
+
+	/**
+	 * A method that checks if all players are dead. If all are, then gameOver is set to true
+	 */
+	private void checkGameOver(){
+		int deadPlayers = 0;
+
+		for (int i = 0; i < players.size(); i++) {
+			ServerPlayer q = players.get(i);
+			q.resetShot();
+			if (q.getIsDead()) {
+				deadPlayers++;
+			}
+		}
+
+		if(deadPlayers == players.size() && !players.isEmpty()) {
+			gameOver = true;
+		}
+	}
+
+	/**
+	 * A method that tells all ServerThreads to send game over
+	 */
+	private void sendGameOver(){
+		for(ServerThread thread : serverThreads) {
+			thread.sendGameOver(players.get(0).getScore());
+		}
 	}
 }

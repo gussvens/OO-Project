@@ -1,0 +1,23 @@
+TODO:
+---=ÅTGÄRDER/BUGGFIXAR=---
+Fixa kollision :(
+    - Saker fastnar i hörnen på väggarna och zombies verkar haka fast i varandra
+
+Fixa shoot.
+    - inte hållbart att skicka anrop när en spelare skjuter. synkas oerhört dåligt om man inte ligger över 60 fps [Vänta]
+
+Göra alla variabler som skickas till servern beroende av den fördröjning som orsakas av låg fps (och samma borde gälla på serversidan)
+    - Detta kommer göra att en spelare med lägre fps inte går långsammare än andra spelare
+
+Fixa ordentlig frameCap på 60 fps (inte ~60) [OK]
+
+Försöka minska prestandaåtgågen [OK]
+
+---=NYA FEATURES=---
+Visa döda zombies/blod om inte allt för svårt (Borde inte kräva extra anrop)
+
+Göra lite fler coola animationer
+
+Fixa en Shop (Client?) [OK]
+
+

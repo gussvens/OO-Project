@@ -2,7 +2,8 @@ package zombienado_v1.server.serverUnits;
 
 import junit.framework.TestCase;
 import org.junit.Test;
-import zombienado_v1.server.serverWorld.serverTiles.SpawnerTile;
+import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by Gustav on 16-04-13.
@@ -11,8 +12,10 @@ public class ServerZombieTest extends TestCase {
 
     @Test
     public void testUpdate(){
-        ServerZombie sZ = new ServerZombie(0, new SpawnerTile(0,0));
-        sZ.update(1.0,2.0,3.4);
+        ServerZombie sZ = new ServerZombie(new Point(0,0));
+        ArrayList<Point> walls = new ArrayList<>();
+        ArrayList<ServerZombie> zombies = new ArrayList<>();
+        sZ.update(1.0,2.0,3.4f,zombies,walls);
         assertTrue(sZ.getX() == 4);
         assertTrue(sZ.getY() == 8);
         assertTrue(sZ.getRotation() == 3.4);

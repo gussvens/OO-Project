@@ -1,43 +1,43 @@
 package zombienado_v1.utilities;
 
 import java.awt.*;
-import java.util.*;
+import java.awt.geom.Point2D;
 
 /**
  * Created by Erik on 2016-05-06.
  */
 public class PlayerInputHandler {
-
-    public static double getPlayerRotation(int x, int y, Point cursor){
+    public static float getPlayerRotation(int x, int y, Point cursor){
         int dX = (int)(cursor.getX() - x + Camera.getX());
         int dY = (int)(cursor.getY() - y + Camera.getY());
-        return Math.atan2(dY, dX);
+        return (float)Math.atan2(dY, dX);
     }
 
-    public static Point getPlayerVelocity(java.util.List<Character> pressedKeys){
-        int totalSpeed = 2;
-        int speedX = 0;
-        int speedY = 0;
+    public static Vector getPlayerVelocity(java.util.List<Character> pressedKeys){
+        float totalSpeed = 3;
+        Vector v = new Vector();
         for (char key : pressedKeys){
             switch (key){
                 case 'w':
                 case 'W':
-                    speedY=-1;
+                    v.setY(-1f);
                     break;
                 case 'a':
                 case 'A':
-                    speedX=-1;
+                    v.setX(-1f);
                     break;
                 case 's':
                 case 'S':
-                    speedY=1;
+                    v.setY(1f);
                     break;
                 case 'd':
                 case 'D':
-                    speedX=1;
+                    v.setX(1f);
                     break;
             }
         }
-        return new Point(speedX*totalSpeed, speedY*totalSpeed);
+        v.normalize(totalSpeed);
+        return v;
     }
+
 }

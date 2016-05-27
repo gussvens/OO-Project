@@ -16,19 +16,22 @@ import java.util.ArrayList;
 public class ServerCommunicator extends Thread {
 
     private static ServerCommunicator instance = null;
-    private static Model model;
     private Socket socket;
     private BufferedReader in;
     private static PrintWriter out;
-    private ArrayList<Unit> players;
+    private ArrayList<Player> players;
     private ArrayList<Unit> zombies;
+    private ArrayList<Unit> bullets;
     private int myID = -1;
-    private boolean isReady = false;
-    private Point playerPosition;
+    private boolean wasPressing = false;
+    private int wave = 1;
+    private int timeUntilNextWave = -1;
+    private boolean gameOver = false;
+    private int finalScore;
 
-    public static synchronized void create(Model model, InetAddress address, int port) {
+    public static synchronized void create(InetAddress address, int port) {
         if (instance == null)
-            instance = new ServerCommunicator(model, address, port);
+            instance = new ServerCommunicator(address, port);
     }
 
     public static synchronized ServerCommunicator getInstance() throws Exception {
@@ -39,13 +42,13 @@ public class ServerCommunicator extends Thread {
         }
     }
 
-    private ServerCommunicator(Model model, InetAddress address, int port) {
-        ServerCommunicator.model = model;
-        players = new ArrayList<Unit>();
+    private ServerCommunicator(InetAddress address, int port) {
+        players = new ArrayList<Player>();
         for (int i = 0; i < 4; i++) {
             players.add(null);
         }
         zombies = new ArrayList<Unit>();
+        bullets = new ArrayList<Unit>();
         try {
             socket = new Socket(address, port);
         } catch (UnknownHostException u) {
@@ -65,10 +68,43 @@ public class ServerCommunicator extends Thread {
         } catch (IOException e) {
 
         }
+
         this.start();
     }
 
+    /**
+     * Checks if entities are obsolete
+     */
+    private synchronized void checkForObsoletions(){
+        while (zombies == null ||bullets == null){
+            //WAIT
+        }
+
+        while (true){
+            long timeNow = System.currentTimeMillis();
+            for (int i = bullets.size() - 1; i >= 0; i--){
+                if (timeNow - bullets.get(i).getLastUpdate() > 100){
+                    bullets.remove(i);
+                }
+            }
+            for (int i = zombies.size() - 1; i >= 0; i--){
+                if (timeNow - zombies.get(i).getLastUpdate() > 100){
+                    zombies.remove(i);
+                }
+            }
+
+            try {
+                this.wait(30);
+            } catch (InterruptedException ie){
+                ie.printStackTrace();
+            }
+        }
+    }
+
     public void run() {
+
+        Thread checkObsoletions = new Thread(() -> checkForObsoletions());
+        checkObsoletions.start();
         listenToServer();
     }
 
@@ -77,7 +113,7 @@ public class ServerCommunicator extends Thread {
         String fromServer;
         try {
             while ((fromServer = in.readLine()) != null) {
-                System.out.println("Server: " + fromServer);
+                //System.out.println("Server: " + fromServer);
                 if (fromServer.equals("shutdown")) {
                     break;
                 }
@@ -88,14 +124,23 @@ public class ServerCommunicator extends Thread {
         }
     }
 
-    public void movePlayer(int x, int y, double r) {
-        if (x == 0 && y == 0 && r == 0.0) return; //If nothing changed, do not send
+    public synchronized void movePlayer(float x, float y, float r, float oldRotation) {
+        if (x == 0 && y == 0 && r - oldRotation == 0.0) return; //If nothing changed, do not send
         String message = "move;" + x + ";" + y + ";" + r;
         out.println(message);
     }
 
-    public static void shoot() {
+    public synchronized void shoot(boolean isShooting) {
+        if (wasPressing != isShooting) {
+            String message = "shoot;" + isShooting;
+            out.println(message);
+            wasPressing = isShooting;
+        }
+    }
 
+    public synchronized void buyWeapon(int weaponID){
+        String message = "weapon;" + weaponID;
+        out.println(message);
     }
 
 
@@ -121,32 +166,75 @@ public class ServerCommunicator extends Thread {
 
                 int x = Integer.parseInt(arg[3]);
                 int y = Integer.parseInt(arg[4]);
-                double rot = Double.parseDouble(arg[5]);
+                float rot = Float.parseFloat(arg[5]);
+                boolean hasFired = Boolean.parseBoolean(arg[6]);
+                int health = Integer.parseInt(arg[7]);
+                int ammo = Integer.parseInt(arg[8]);
+                int balance = Integer.parseInt(arg[9]);
+                int weaponID = Integer.parseInt(arg[10]);
                 players.get(id).setPosition(x, y);
                 players.get(id).setRotation(rot);
+                players.get(id).setHealth(health);
+                players.get(id).setAmmo(ammo);
+                players.get(id).setBalance(balance);
+                players.get(id).setWeapon(weaponID);
+                if (hasFired) {
+                    players.get(id).shoot();
+                } else {
+                    players.get(id).hasShot();
+                }
             }
-        } else if (arg[0].equals("zombies")) {
+        } else if (arg[0].equals("deadPlayer")){
+            int id  = Integer.parseInt(arg[1]);
+            players.get(id).setDead(true);
+        }else if (arg[0].equals("zombies")) {
             int id = Integer.parseInt(arg[1]);
             if (arg[2].equals("pos")) {
 
                 if (zombies == null) return;
-                if (zombies.size() <= id) {
+                while (zombies.size() <= id) {
                     zombies.add(new Zombie());
-                    //zombies.get(id).setTexture(zombieSprite);
                 }
 
                 int x = Integer.parseInt(arg[3]);
                 int y = Integer.parseInt(arg[4]);
-                double rot = Double.parseDouble(arg[5]);
+                float rot = Float.parseFloat(arg[5]);
                 zombies.get(id).setPosition(x, y);
                 zombies.get(id).setRotation(rot);
+                zombies.get(id).setLastUpdate(System.currentTimeMillis());
             }
+        } else if (arg[0].equals("bullet")) {
+            int id = Integer.parseInt(arg[1]);
+            if (arg[2].equals("pos")) {
+                if (bullets == null) return;
+                while (bullets.size() <= id) {
+                    bullets.add(new Bullet());
+                }
+
+                int x = Integer.parseInt(arg[3]);
+                int y = Integer.parseInt(arg[4]);
+                float rot = Float.parseFloat(arg[5]);
+
+                bullets.get(id).setPosition(x, y);
+                bullets.get(id).setRotation(rot);
+                bullets.get(id).setLastUpdate(System.currentTimeMillis());
+            }
+        } else if (arg[0].equals("wave")) {
+            wave = Integer.parseInt(arg[1]);
+        } else if (arg[0].equals("timeUntilNextWave")){
+            timeUntilNextWave = Integer.parseInt(arg[1]);
+        } else if(arg[0].equals("gameover")) {
+            gameOver = true;
+            finalScore = Integer.parseInt(arg[1]);
         }
-        isReady = true;
     }
 
-    public ArrayList<Unit> getPlayers() {
-        ArrayList<Unit> copy = new ArrayList<Unit>();
+    /**
+     * returns a copy of the last received players
+     * @return copy - A copy of the arraylist with players
+     */
+    public synchronized ArrayList<Player> getPlayers() {
+        ArrayList<Player> copy = new ArrayList<>();
         for (Unit player : players) {
             Player p = (Player) player;
             if (p != null)
@@ -155,7 +243,11 @@ public class ServerCommunicator extends Thread {
         return copy;
     }
 
-    public ArrayList<Unit> getZombies() {
+    /**
+     * returns a copy of the last received
+     * @return copy - A copy of the arraylist with zombies
+     */
+    public synchronized ArrayList<Unit> getZombies() {
         ArrayList<Unit> copy = new ArrayList<Unit>();
         for (Unit zombie : zombies) {
             Zombie z = (Zombie) zombie;
@@ -165,12 +257,33 @@ public class ServerCommunicator extends Thread {
         return copy;
     }
 
+    public synchronized ArrayList<Unit> getBullets() {
+        ArrayList<Unit> copy = new ArrayList<Unit>();
+        if(bullets!=null){
+            for (Unit bullet : bullets) {
+                Bullet b = (Bullet) bullet;
+                if (b != null)
+                    copy.add(b.copy());
+            }
+        }
+        return copy;
+    }
+
     public int getID(){
         return myID;
     }
 
-    public boolean isReady(){
-        return isReady;
+    public int getWave(){
+        return wave;
     }
 
+    public int getTimeUntilNextWave(){
+        return timeUntilNextWave;
+    }
+
+    public boolean getGameOver(){
+        return gameOver;
+    }
+
+    public int getFinalScore() { return finalScore; }
 }
