@@ -27,6 +27,7 @@ public class ServerCommunicator extends Thread {
     private int wave = 1;
     private int timeUntilNextWave = -1;
     private boolean gameOver = false;
+    private int finalScore;
 
     public static synchronized void create(InetAddress address, int port) {
         if (instance == null)
@@ -224,6 +225,7 @@ public class ServerCommunicator extends Thread {
             timeUntilNextWave = Integer.parseInt(arg[1]);
         } else if(arg[0].equals("gameover")) {
             gameOver = true;
+            finalScore = Integer.parseInt(arg[1]);
         }
     }
 
@@ -282,4 +284,6 @@ public class ServerCommunicator extends Thread {
     public boolean getGameOver(){
         return gameOver;
     }
+
+    public int getFinalScore() { return finalScore; }
 }

@@ -22,6 +22,7 @@ public class Model {
 	private int wave = 1;
 	private int timeUntilNextWave = -1;
 	private boolean isGameOver;
+	private int finalScore;
 	private Point aim;
 	/**
 	 * Getters for view
@@ -43,6 +44,9 @@ public class Model {
 	}
 	public synchronized boolean isGameOver(){
 		return this.isGameOver;
+	}
+	public synchronized int getFinalScore(){
+		return this.finalScore;
 	}
 	public Point getAim(){ return aim; }
 	/**
@@ -101,6 +105,7 @@ public class Model {
 		this.aim = cursor;
 		//Stop updating if game is over
 		this.isGameOver = coms.getGameOver();
+		this.finalScore = coms.getFinalScore();
 		if(isGameOver()) return;
 
 		this.myID = coms.getID();

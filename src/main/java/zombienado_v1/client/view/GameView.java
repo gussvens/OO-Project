@@ -156,7 +156,7 @@ public class GameView extends JFrame{
 			backgroundMusic = new SoundEffect(new File("src/main/resources/soundeffects/ambientnoise.wav"), true);
 
 			// ----- LOAD MAPS -----
-			mapView = MapLoader.Load(new File("src/main/resources/maps/mapTestSmall.txt"), ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")), model);
+			mapView = MapLoader.Load(new File("src/main/resources/maps/mapPillars.txt"), ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")), model);
 
 
 			// ----- LOAD VIEWS -----
