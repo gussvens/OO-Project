@@ -191,7 +191,7 @@ public class ServerCommunicator extends Thread {
             if (arg[2].equals("pos")) {
 
                 if (zombies == null) return;
-                if (zombies.size() <= id) {
+                while (zombies.size() <= id) {
                     zombies.add(new Zombie());
                 }
 
@@ -206,11 +206,8 @@ public class ServerCommunicator extends Thread {
             int id = Integer.parseInt(arg[1]);
             if (arg[2].equals("pos")) {
                 if (bullets == null) return;
-                if (bullets.size() <= id) {
-                    int diff = id - bullets.size();
-                    for (int i = 0; i<= diff; i++) {
-                        bullets.add(new Bullet());
-                    }
+                while (bullets.size() <= id) {
+                    bullets.add(new Bullet());
                 }
 
                 int x = Integer.parseInt(arg[3]);
