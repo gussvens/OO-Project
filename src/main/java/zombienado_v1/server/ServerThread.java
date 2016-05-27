@@ -194,8 +194,8 @@ public class ServerThread extends Thread {
 		send(s);
 	}
 
-	public void sendGameOver() {
-		String message = "gameover";
+	public void sendGameOver(int score) {
+		String message = "gameover;" + score;
 		send(message);
 	}
 

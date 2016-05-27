@@ -264,7 +264,7 @@ public class Server extends Thread {
 	 */
 	private void sendGameOver(){
 		for(ServerThread thread : serverThreads) {
-			thread.sendGameOver();
+			thread.sendGameOver(players.get(0).getScore());
 		}
 	}
 }
