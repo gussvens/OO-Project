@@ -62,7 +62,7 @@ public class HudView {
             graphics.setColor(Color.RED);
             graphics.drawString("GAME OVER", GameView.getScreenWidth()/2 - 80,GameView.getScreenHeight()/2 - 30);
             graphics.setFont(f);
-            graphics.drawString("Your teams score was "+model.getFinalScore(), GameView.getScreenWidth()/2 - 65,GameView.getScreenHeight()/2 - 15);
+            graphics.drawString("Your teams score was "+model.getFinalScore(), GameView.getScreenWidth()/2 - 80,GameView.getScreenHeight()/2 - 15);
             graphics.setColor(Color.BLACK);
         }
         else if(model.getPlayer().isDead() && model.getTimeUntilNextWave() == -1){
