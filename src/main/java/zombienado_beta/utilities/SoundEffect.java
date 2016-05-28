@@ -11,11 +11,21 @@ import java.io.IOException;
 public class SoundEffect {
     File soundFile;
     boolean isLooping;
+
+    /**
+     * Constructor for SoundEffect
+     * @param sound - The File where the sound is
+     * @param loop - If the Sound should loop or not
+     */
     public SoundEffect(File sound, boolean loop) {
         soundFile = sound;
         isLooping = loop;
     }
 
+    /**
+     * Constructor for SoundEffect
+     * @param sound - The File where the sound is
+     */
     public SoundEffect(File sound) {
         soundFile = sound;
         isLooping = false;
@@ -41,6 +51,9 @@ public class SoundEffect {
         playThread.start();
     }
 
+    /**
+     * Plays the sound file associated with this SoundEffect
+     */
     private void playSound(){
         try {
             Clip sound = AudioSystem.getClip();
@@ -58,6 +71,13 @@ public class SoundEffect {
         }
     }
 
+    /**
+     * Plays a sound with different volume depending on distance to the source
+     * @param xSource - The x position of the source of the sound
+     * @param ySource - The y position of the source of the sound
+     * @param xPlayer - The x position of the player
+     * @param yPlayer - The y position of the player
+     */
     private void playSound(int xSource, int ySource, int xPlayer, int yPlayer){
         int dX = xSource - xPlayer;
         int dY = ySource - yPlayer;
