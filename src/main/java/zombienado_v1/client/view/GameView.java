@@ -190,7 +190,6 @@ public class GameView extends JFrame{
 
 	public synchronized void loadMap(){
 		for (File map : maps) {
-			System.out.println(model.getMapName());
 			if (map.getName().equals(model.getMapName()+".txt")) {
 				try {
 					mapView.load(map);
