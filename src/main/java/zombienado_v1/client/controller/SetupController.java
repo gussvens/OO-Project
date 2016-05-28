@@ -56,7 +56,6 @@ public class SetupController{
     private void hostGame(ActionEvent event){
         String mapName = map.getValue().toString();
         Server server = Server.getInstance(Integer.parseInt(hostPort.getText()), mapName);
-        //server.setPort(Integer.parseInt(hostPort.getText()));
         server.start();
 
         try {

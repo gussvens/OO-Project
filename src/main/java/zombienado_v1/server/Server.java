@@ -35,7 +35,12 @@ public class Server extends Thread {
 		handler = new WorldHandler();
 		currentWave = spawner.getWave();
 		timeUntilNextWave = spawner.getTimeUntilNextWave();
-		this.map = "src/main/resources/maps/" + map + ".txt";
+		this.map = map;
+		try {
+			socket = new ServerSocket(port);
+		} catch (IOException e){
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -51,23 +56,11 @@ public class Server extends Thread {
 	}
 
 	/**
-	 * A method that sets which port the Server receives data from
-	 * @param port - The specified port to receive data from
-     */
-	public void setPort(int port){
-		try {
-			socket = new ServerSocket(port);
-		} catch (IOException e){
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * A run method that calls for methods to create a map, start update and start listening for connections
 	 */
 	public void run(){
 		Thread mainUpdate = new Thread(() -> update());
-		handler.createMap(map);
+		handler.createMap("src/main/resources/maps/" + map + ".txt");
 		mainUpdate.start();
 		listenForConnections();
 	}
