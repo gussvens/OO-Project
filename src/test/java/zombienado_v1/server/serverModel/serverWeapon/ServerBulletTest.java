@@ -1,6 +1,7 @@
 package zombienado_v1.server.serverModel.serverWeapon;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 import zombienado_v1.server.serverModel.ServerBullet;
 import zombienado_v1.server.serverModel.ServerZombie;
 
@@ -12,6 +13,7 @@ import java.util.ArrayList;
  */
 public class ServerBulletTest extends TestCase {
 
+    @Test
     public void testUpdate(){
         ServerBullet b = new ServerBullet(0,0,0.0f,0,20);
         ArrayList<ServerZombie> zombies = new ArrayList<>();
@@ -23,6 +25,7 @@ public class ServerBulletTest extends TestCase {
 
     }
 
+    @Test
     public void testStopping(){
         ServerBullet b = new ServerBullet(0,0,0.0f,0,20);
         ArrayList<ServerZombie> zombies = new ArrayList<>();

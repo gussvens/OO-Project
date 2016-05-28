@@ -35,7 +35,7 @@ public class TileLoader {
                             height
                     );
                 } catch (NullPointerException e) {
-                    System.out.print("Error");
+
                 }
         }
 

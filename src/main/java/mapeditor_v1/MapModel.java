@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 /**
  * Created by Martin-610 on 2016-05-22.
  */
-public class Model {
+public class MapModel {
 
     private int[][] map;
     private int width;
@@ -15,7 +15,7 @@ public class Model {
     private String name;
     private PrintWriter writer;
 
-    public Model(String name, int width, int height){
+    public MapModel(String name, int width, int height){
         this.name = name;
         this.height=height;
         this.width=width;
@@ -25,7 +25,6 @@ public class Model {
     public void setTile(int x, int y){
             x = x / 32;
             y = y / 32;
-        System.out.println(""+ id);
             map[x][y] = id;
     }
 
@@ -53,8 +52,14 @@ public class Model {
     }
 
     public void saveMap() throws IOException{
-        writer = new PrintWriter(name +".txt", "UTF-8");
+        writer = new PrintWriter("src/main/resources/maps/"+name +".txt", "UTF-8");
+
+        for(int i=0 ; i < width+1; i++){
+            writer.print("00 ");
+        }
+        writer.println("00");
         for(int i=0 ; i < height; i++){
+            writer.print("00 ");
             for(int j=0 ; j < width; j++){
                 if(map[j][i] <10){
                     writer.print("0" + map[j][i] + " ");
@@ -62,13 +67,15 @@ public class Model {
                     writer.print(map[j][i] + " ");
                 }
             }
-            writer.println("");
+            writer.println("00");
+        }
+        for(int i=0 ; i < width+2; i++){
+            writer.print("00 ");
         }
         writer.close();
     }
 
     public void setSelectedTile(int id){
         this.id = id;
-        System.out.println("ID:" + id);
     }
 }
