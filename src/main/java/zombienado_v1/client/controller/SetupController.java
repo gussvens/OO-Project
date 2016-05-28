@@ -5,7 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import zombienado_v1.client.model.ServerCommunicator;
 import zombienado_v1.server.Server;
 
@@ -40,6 +42,15 @@ public class SetupController{
     @FXML
     private ComboBox map;
 
+    @FXML
+    private Label lblPort;
+
+    @FXML
+    private Label lblJoinPort;
+
+    @FXML
+    private Label lblJoinIP;
+
     private ArrayList<String> maps;
 
     public void initialize() {
@@ -54,23 +65,44 @@ public class SetupController{
 
     @FXML
     private void hostGame(ActionEvent event){
-        String mapName = map.getValue().toString();
-        Server server = Server.getInstance(Integer.parseInt(hostPort.getText()), mapName);
-        server.start();
+        if(hostPort.getText().equals("")){
+            lblPort.setTextFill(Color.RED);
+        } else {
+            String mapName = map.getValue().toString();
+            Server server = Server.getInstance(Integer.parseInt(hostPort.getText()), mapName);
+            server.start();
 
-        try {
-            join(InetAddress.getLocalHost(), Integer.parseInt(hostPort.getText()));
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
+            try {
+                join(InetAddress.getLocalHost(), Integer.parseInt(hostPort.getText()));
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     private void joinGame(ActionEvent event){
-        try {
-            join(InetAddress.getByName(joinIP.getText()), Integer.parseInt(joinPort.getText()));
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
+        boolean ready = true;
+        if(joinPort.getText().equals("")) {
+            lblJoinPort.setTextFill(Color.RED);
+            ready = false;
+        } else {
+            lblJoinPort.setTextFill(Color.BLACK);
+        }
+
+        if (joinIP.getText().equals("")) {
+            lblJoinIP.setTextFill(Color.RED);
+            ready = false;
+        } else {
+            lblJoinIP.setTextFill(Color.BLACK);
+        }
+
+        if (ready){
+            try {
+                join(InetAddress.getByName(joinIP.getText()), Integer.parseInt(joinPort.getText()));
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
         }
     }
 
