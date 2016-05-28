@@ -4,7 +4,11 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -14,7 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-
+import javafx.stage.Stage;
 
 
 import java.awt.image.BufferedImage;
@@ -98,7 +102,6 @@ public class MapEditorController implements Initializable {
         public void handle(final ActionEvent event) {
             for(int i=0; i<toolButtons.length; i++){
                 if(event.getSource() == toolButtons[i]){
-                    //pp.paintImage =  bimages[i];
                     mapModel.setSelectedTile(i);
                 }
             }
@@ -123,9 +126,23 @@ public class MapEditorController implements Initializable {
     /**
      * Exits current instance of application and starts a new one
      */
-    public void newButton(){
-        mapModel.clearMap();
-        paintCanvas();
+    public void newButton(ActionEvent event){
+        try {
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MapEditorStart.fxml"));
+
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setResizable(false);
+            stage.setTitle("Zombienado: Map Editor");
+            stage.setScene(scene);
+            stage.show();
+
+
+
+
+        }catch (IOException e){
+            System.err.println("Caught IOException: " + e.getMessage());
+        }
     }
 
     /**
@@ -142,8 +159,13 @@ public class MapEditorController implements Initializable {
      * @throws IOException
      */
     @FXML
-    public void saveButton() throws IOException{
-        mapModel.saveMap();
+    public void saveButton(){
+        try {
+            mapModel.saveMap();
+        }catch (IOException e){
+            System.err.println("Caught IOException: " + e.getMessage());
+        }
+
     }
 
     /**
@@ -151,9 +173,13 @@ public class MapEditorController implements Initializable {
      * @throws IOException
      */
     @FXML
-    public void saveExitButton() throws IOException{
+    public void saveExitButton(){
+       try {
         mapModel.saveMap();
         System.exit(0);
+       }catch (IOException e){
+           System.err.println("Caught IOException: " + e.getMessage());
+       }
     }
 
     @FXML

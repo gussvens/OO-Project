@@ -85,27 +85,32 @@ public class MapModel {
      * @throws IOException
      */
     public void saveMap() throws IOException{
-        writer = new PrintWriter("src/main/resources/maps/"+name +".txt", "UTF-8");
+        try {
+            writer = new PrintWriter("src/main/resources/maps/"+name +".txt", "UTF-8");
 
-        for(int i=0 ; i < width+1; i++){
-            writer.print("00 ");
-        }
-        writer.println("00");
-        for(int i=0 ; i < height; i++){
-            writer.print("00 ");
-            for(int j=0 ; j < width; j++){
-                if(map[j][i] <10){
-                    writer.print("0" + map[j][i] + " ");
-                } else {
-                    writer.print(map[j][i] + " ");
-                }
+            for(int i=0 ; i < width+1; i++){
+                writer.print("00 ");
             }
             writer.println("00");
+            for(int i=0 ; i < height; i++){
+                writer.print("00 ");
+                for(int j=0 ; j < width; j++){
+                    if(map[j][i] <10){
+                        writer.print("0" + map[j][i] + " ");
+                    } else {
+                        writer.print(map[j][i] + " ");
+                    }
+                }
+                writer.println("00");
+            }
+            for(int i=0 ; i < width+2; i++){
+                writer.print("00 ");
+            }
+            writer.close();
+        }catch (IOException e){
+            System.err.println("Caught IOException: " + e.getMessage());
         }
-        for(int i=0 ; i < width+2; i++){
-            writer.print("00 ");
-        }
-        writer.close();
+
     }
 
     /**

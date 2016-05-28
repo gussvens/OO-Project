@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /**
  * Created by Martin-610 on 2016-05-22.
  */
@@ -17,15 +19,20 @@ public class Main extends Application{
      * @throws Exception
      */
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage){
 
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MapEditorStart.fxml"));
+        try {
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MapEditorStart.fxml"));
 
-        Scene scene = new Scene(root);
-        stage.setResizable(false);
-        stage.setTitle("Zombienado: Map Editor");
-        stage.setScene(scene);
-        stage.show();
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("Zombienado: Map Editor");
+            stage.setScene(scene);
+            stage.show();
+        }catch (IOException e){
+            System.err.println("Caught IOException: " + e.getMessage());
+        }
+
     }
 
     public static void main(String[] args) {

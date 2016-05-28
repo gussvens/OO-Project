@@ -1,4 +1,4 @@
-package zombienado_beta.server.serverModel;
+package zombienado_beta.server.serverUnits;
 
 /**
  * Created by Marcus on 2016-04-11.

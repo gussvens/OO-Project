@@ -1,4 +1,4 @@
-package zombienado_beta.server.serverModel;
+package zombienado_beta.server.serverUnits;
 
 import junit.framework.TestCase;
 import org.junit.Test;

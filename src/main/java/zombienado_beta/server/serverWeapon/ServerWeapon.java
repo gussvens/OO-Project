@@ -1,7 +1,7 @@
-package zombienado_beta.server.serverModel.serverWeapon;
+package zombienado_beta.server.serverWeapon;
 
 import zombienado_beta.interfaces.iWeapon;
-import zombienado_beta.server.serverModel.ServerBullet;
+import zombienado_beta.server.serverUnits.ServerBullet;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -9,7 +9,7 @@ import java.util.Random;
 /**
  * Created by Gustav on 16-05-18.
  */
-public class ServerWeapon implements iWeapon {
+public abstract class ServerWeapon implements iWeapon {
     private int id;
     private int damage;
     private int price;
