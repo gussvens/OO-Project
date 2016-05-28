@@ -9,6 +9,7 @@ import java.awt.*;
 
 /**
  * Created by Gustav on 16-05-09.
+ * A class to represent all zombie units graphicly
  */
 public class ZombieView {
     private Image zombieSprite;
@@ -19,6 +20,10 @@ public class ZombieView {
         this.zombieSprite = zombieSprite;
     }
 
+    /**
+     * Draws all zombie units in the game
+     * @param graphics The current graphics setting
+     */
     public synchronized void draw(Graphics2D graphics){
 
         for (int i = 0; i < model.getZombies().size(); i++){

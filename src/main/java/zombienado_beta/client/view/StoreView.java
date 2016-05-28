@@ -8,7 +8,7 @@ import java.awt.*;
 
 /**
  * Created by Gustav on 16-05-21.
- * A class to represent the players stats graphicly in a Heads Up Display
+ * A class to represent the store graphicly between rounds
  */
 public class StoreView {
     private Image storeSprite;
@@ -23,6 +23,10 @@ public class StoreView {
         weapons = model.getWeapons();
     }
 
+    /**
+     * Draws the store between stores
+     * @param graphics The current graphics setting
+     */
     public synchronized void draw(Graphics2D graphics){
         int timeUntilNextWave = model.getTimeUntilNextWave();
         if(timeUntilNextWave != -1){
