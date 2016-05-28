@@ -12,7 +12,7 @@ public class Gun extends Weapon {
     private final static int MAXAMMO = 999999;
     private final static int DISTANCE_TO_MUZZLE = 60;
     private final static double SPRAY = 0.3;
-    private final static double RATEOFFIRE = 100;
+    private final static double RATEOFFIRE = 400;
 
     public Gun() {
         super(NAME, ID, DAMAGE, MAXAMMO, PRICE, DISTANCE_TO_MUZZLE, SPRAY, RATEOFFIRE);

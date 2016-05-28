@@ -18,7 +18,7 @@ public class ServerGun extends ServerWeapon {
     private final static int MAXAMMO = 999999;
     private final static int SHOTS = 1;
     private final static float SPRAY = 0.3f;
-    private final static double RATEOFFIRE = 100;
+    private final static double RATEOFFIRE = 400;
 
     public ServerGun() {
         super(ID,DAMAGE,PRICE,DISTANCE_TO_MUZZLE,BULLETSPEED,MAXAMMO,SHOTS,SPRAY,RATEOFFIRE);
