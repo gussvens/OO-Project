@@ -151,83 +151,111 @@ public class ServerCommunicator extends Thread {
      * @param s - The message that the zombienado_v1.client received
      */
     public synchronized void serverCommand(String s) {
-
         String[] arg = s.split(";");
-        if (arg[0].equals("player")) {
-            if (arg[1].equals("id")) {
-                myID = Integer.parseInt(arg[2]);
-                mapName = arg[4];
+        switch(arg[0]){
+            case "player":
+                joinCommand(arg);
+                break;
+            case "players":
+                playersCommand(arg);
+                break;
+            case "deadPlayer":
+                deadPlayerCommand(arg);
+                break;
+            case "zombies":
+                zombiesCommand(arg);
+                break;
+            case "bullet":
+                bulletsCommand(arg);
+                break;
+            case "wave":
+                wave = Integer.parseInt(arg[1]);
+                break;
+            case "timeUntilNextWave":
+                timeUntilNextWave = Integer.parseInt(arg[1]);
+                break;
+            case "gameover":
+                gameOver = true;
+                finalScore = Integer.parseInt(arg[1]);
+                break;
+        }
+    }
+
+    private synchronized void joinCommand(String[]arg){
+        if (arg[1].equals("id")) {
+            myID = Integer.parseInt(arg[2]);
+            mapName = arg[4];
+        }
+    }
+
+    private synchronized void playersCommand(String[] arg){
+        int id = Integer.parseInt(arg[1]);
+        if (arg[2].equals("pos")) {
+            if (players == null) return;
+            if (players.get(id) == null) {
+                players.set(id, new Player());
             }
-        } else if (arg[0].equals("players")) {
-            int id = Integer.parseInt(arg[1]);
-            if (arg[2].equals("pos")) {
-                if (players == null) return;
-                if (players.get(id) == null) {
-                    players.set(id, new Player());
-                }
 
-                int x = Integer.parseInt(arg[3]);
-                int y = Integer.parseInt(arg[4]);
-                float rot = Float.parseFloat(arg[5]);
-                boolean hasFired = Boolean.parseBoolean(arg[6]);
-                int health = Integer.parseInt(arg[7]);
-                int ammo = Integer.parseInt(arg[8]);
-                int balance = Integer.parseInt(arg[9]);
-                int weaponID = Integer.parseInt(arg[10]);
-                players.get(id).setPosition(x, y);
-                players.get(id).setRotation(rot);
-                players.get(id).setHealth(health);
-                players.get(id).setAmmo(ammo);
-                players.get(id).setBalance(balance);
-                players.get(id).setWeapon(weaponID);
-                if (hasFired) {
-                    players.get(id).shoot();
-                } else {
-                    players.get(id).hasShot();
-                }
+            int x = Integer.parseInt(arg[3]);
+            int y = Integer.parseInt(arg[4]);
+            float rot = Float.parseFloat(arg[5]);
+            boolean hasFired = Boolean.parseBoolean(arg[6]);
+            int health = Integer.parseInt(arg[7]);
+            int ammo = Integer.parseInt(arg[8]);
+            int balance = Integer.parseInt(arg[9]);
+            int weaponID = Integer.parseInt(arg[10]);
+            players.get(id).setPosition(x, y);
+            players.get(id).setRotation(rot);
+            players.get(id).setHealth(health);
+            players.get(id).setAmmo(ammo);
+            players.get(id).setBalance(balance);
+            players.get(id).setWeapon(weaponID);
+            if (hasFired) {
+                players.get(id).shoot();
+            } else {
+                players.get(id).hasShot();
             }
-        } else if (arg[0].equals("deadPlayer")){
-            int id  = Integer.parseInt(arg[1]);
-            players.get(id).setDead(true);
-        }else if (arg[0].equals("zombies")) {
-            int id = Integer.parseInt(arg[1]);
-            if (arg[2].equals("pos")) {
+        }
+    }
 
-                if (zombies == null) return;
-                while (zombies.size() <= id) {
-                    zombies.add(new Zombie());
-                }
+    private synchronized void deadPlayerCommand(String[] arg){
+        int id  = Integer.parseInt(arg[1]);
+        players.get(id).setDead(true);
+    }
 
-                int x = Integer.parseInt(arg[3]);
-                int y = Integer.parseInt(arg[4]);
-                float rot = Float.parseFloat(arg[5]);
-                zombies.get(id).setPosition(x, y);
-                zombies.get(id).setRotation(rot);
-                zombies.get(id).setLastUpdate(System.currentTimeMillis());
+    private synchronized void zombiesCommand(String[] arg){
+        int id = Integer.parseInt(arg[1]);
+        if (arg[2].equals("pos")) {
+
+            if (zombies == null) return;
+            while (zombies.size() <= id) {
+                zombies.add(new Zombie());
             }
-        } else if (arg[0].equals("bullet")) {
-            int id = Integer.parseInt(arg[1]);
-            if (arg[2].equals("pos")) {
-                if (bullets == null) return;
-                while (bullets.size() <= id) {
-                    bullets.add(new Bullet());
-                }
 
-                int x = Integer.parseInt(arg[3]);
-                int y = Integer.parseInt(arg[4]);
-                float rot = Float.parseFloat(arg[5]);
+            int x = Integer.parseInt(arg[3]);
+            int y = Integer.parseInt(arg[4]);
+            float rot = Float.parseFloat(arg[5]);
+            zombies.get(id).setPosition(x, y);
+            zombies.get(id).setRotation(rot);
+            zombies.get(id).setLastUpdate(System.currentTimeMillis());
+        }
+    }
 
-                bullets.get(id).setPosition(x, y);
-                bullets.get(id).setRotation(rot);
-                bullets.get(id).setLastUpdate(System.currentTimeMillis());
+    private synchronized void bulletsCommand(String[] arg){
+        int id = Integer.parseInt(arg[1]);
+        if (arg[2].equals("pos")) {
+            if (bullets == null) return;
+            while (bullets.size() <= id) {
+                bullets.add(new Bullet());
             }
-        } else if (arg[0].equals("wave")) {
-            wave = Integer.parseInt(arg[1]);
-        } else if (arg[0].equals("timeUntilNextWave")){
-            timeUntilNextWave = Integer.parseInt(arg[1]);
-        } else if(arg[0].equals("gameover")) {
-            gameOver = true;
-            finalScore = Integer.parseInt(arg[1]);
+
+            int x = Integer.parseInt(arg[3]);
+            int y = Integer.parseInt(arg[4]);
+            float rot = Float.parseFloat(arg[5]);
+
+            bullets.get(id).setPosition(x, y);
+            bullets.get(id).setRotation(rot);
+            bullets.get(id).setLastUpdate(System.currentTimeMillis());
         }
     }
 
