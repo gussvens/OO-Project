@@ -39,9 +39,9 @@ public class ServerPlayer implements ServerUnit{
         this.rotation = r;
 
         //TODO: move weapons to server
-        this.weapon = new ServerBlunderbuss();
+        this.weapon = new ServerGun();
         this.health = 100;
-        this.balance = 1000;
+        this.balance = 0;
         this.score = 0;
         this.timeWhenDamaged = System.nanoTime();
     }

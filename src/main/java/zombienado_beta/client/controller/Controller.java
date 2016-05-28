@@ -92,7 +92,9 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 	@Override
 	public void keyReleased(KeyEvent ke) {
 		int index = pressedKeys.indexOf(ke.getKeyChar());
-		pressedKeys.remove(index);
+		if(index >= 0){
+			pressedKeys.remove(index);
+		}
 	}
 
 	@Override
