@@ -120,7 +120,7 @@ public class Spawner{
                 timerOn = false;
                 timeSinceLastWave = -1;
                 wave++;
-                amountOfZombies = startingZombies + (wave*2);
+                amountOfZombies = startingZombies + (wave*5);
                 zombies.clear();
             }
         }
