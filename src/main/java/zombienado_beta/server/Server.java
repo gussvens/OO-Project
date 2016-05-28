@@ -168,10 +168,9 @@ public class Server extends Thread {
 			currentWave = spawner.getWave();
 			for (ServerPlayer player : players) {
 				if (player.getIsDead()) {
-					player.setHealth(100);
-					player.setDead(false);
+					player.addHealth(50);
 				} else{
-					player.addHealth(10);
+					player.addHealth(20);
 				}
 			}
 			for (ServerThread serverThread : serverThreads) {
