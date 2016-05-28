@@ -123,15 +123,15 @@ public class GameView extends JFrame{
 				maps.add(map);
 			}
 			// ----- LOAD PLAYER & ZOMBIE SPRITES -----
-			playerSprite[0] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerRocker.png")));
-			playerSprite[1] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerPunk.png")));
-			playerSprite[2] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerGirl.png")));
-			playerSprite[3] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerDark.png")));
-			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/zombie.png")));
+			playerSprite[0] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/units/playerRocker.png")));
+			playerSprite[1] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/units/playerPunk.png")));
+			playerSprite[2] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/units/playerGirl.png")));
+			playerSprite[3] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/units/playerDark.png")));
+			zombieSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/units/zombie.png")));
 			// ----- LOAD HUD & STORE SPRITES -----
 			hudSprite = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/hudTrans.png")));
 			storeSprite = ImageIO.read(new File("src/main/resources/sprites/storeSprite.png"));
-			healthBar = ImageIO.read(new File("src/main/resources/sprites/healthBar.png"));
+			healthBar = ImageIO.read(new File("src/main/resources/sprites/units/healthBar.png"));
 			for(int i = 0; i<numberSprites.length; i++){
 				String str = "src/main/resources/sprites/numbers/" + i + ".png";
 				numberSprites[i] = GraphicsUtils.makeTransparent(ImageIO.read(new File(str)));
