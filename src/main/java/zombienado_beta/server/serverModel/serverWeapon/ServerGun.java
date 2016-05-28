@@ -11,14 +11,14 @@ import java.util.Random;
 public class ServerGun extends ServerWeapon {
 
     private final static int ID = 00;
-    private final static int DAMAGE = 20;
+    private final static int DAMAGE = 50;
     private final static int PRICE = 0;
     private final static int DISTANCE_TO_MUZZLE = 60; //distance from player center to muzzle in pixels
     private final static int BULLETSPEED = 20;
     private final static int MAXAMMO = 999999;
     private final static int SHOTS = 1;
     private final static float SPRAY = 0.3f;
-    private final static double RATEOFFIRE = 200;
+    private final static double RATEOFFIRE = 100;
 
     public ServerGun() {
         super(ID,DAMAGE,PRICE,DISTANCE_TO_MUZZLE,BULLETSPEED,MAXAMMO,SHOTS,SPRAY,RATEOFFIRE);

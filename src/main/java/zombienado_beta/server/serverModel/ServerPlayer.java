@@ -150,9 +150,9 @@ public class ServerPlayer implements ServerUnit{
      */
     public void takeDamage(int damage){
         long timeDiff = System.nanoTime() - timeWhenDamaged;
-        if(timeDiff>500000000){
-            this.health -= 10*damage;
-            if(this.health<0) this.health =0;
+        if(timeDiff>250000000){
+            this.health -= damage;
+            if(this.health<0) this.health = 0;
             this.timeWhenDamaged = System.nanoTime();
         }
     }
