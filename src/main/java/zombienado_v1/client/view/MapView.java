@@ -18,12 +18,17 @@ public class MapView {
 	private static Image tileSheet;
 	private LightMap lightMap;
 	private Model model;
+	private boolean isLoaded = false;
 
 	public MapView(Image tileSheet, Model model){
 		tiles = new ArrayList<ArrayList<Integer>>();
 		bounds = new ArrayList<Rectangle>();
 		this.tileSheet = tileSheet;
 		this.model = model;
+	}
+
+	public boolean isLoaded(){
+		return isLoaded;
 	}
 
 	public void load(File mapData) throws IOException {
@@ -53,6 +58,7 @@ public class MapView {
 			}
 		}
 		setLightMap(lightMap);
+		isLoaded = true;
 	}
 
 	public void setLightMap(LightMap lightMap){
@@ -82,6 +88,7 @@ public class MapView {
 	 * @param graphics
 	 */
 	public void draw(Graphics2D graphics){
+		if (!isLoaded) return;
 		int startX = Math.max(Camera.getX() / TILE_SIZE - 1, 0);
 		int startY = Math.max(Camera.getY() / TILE_SIZE - 1, 0);
 		int endX = Math.min((Camera.getX() + GameView.getScreenWidth()) / TILE_SIZE + 2, tiles.get(0).size() - 1);
@@ -102,12 +109,12 @@ public class MapView {
 				}
 				
 				graphics.drawImage(tileSheet, x*TILE_SIZE/** - TILE_SIZE/2 */- Camera.getX(), y*TILE_SIZE/** - TILE_SIZE/2 */ - Camera.getY(), (x + 1)*TILE_SIZE/** - TILE_SIZE/2 */ - Camera.getX(), (y + 1)*TILE_SIZE/** - TILE_SIZE/2 */ - Camera.getY(), col*TILE_SIZE, row*TILE_SIZE, (col + 1)*TILE_SIZE, (row + 1)*TILE_SIZE, null);
-				//graphics.drawString(temp, x*32 - Camera.getX(), y*32 - Camera.getY());
 			}
 		}
 	}
 
 	public void drawLight(Graphics2D graphics){
+		if (!isLoaded) return;
 		lightMap.draw(graphics);
 	}
 }

@@ -28,6 +28,7 @@ public class ServerCommunicator extends Thread {
     private int timeUntilNextWave = -1;
     private boolean gameOver = false;
     private int finalScore;
+    public String mapName;
 
     public static synchronized void create(InetAddress address, int port) {
         if (instance == null)
@@ -155,6 +156,7 @@ public class ServerCommunicator extends Thread {
         if (arg[0].equals("player")) {
             if (arg[1].equals("id")) {
                 myID = Integer.parseInt(arg[2]);
+                mapName = arg[4];
             }
         } else if (arg[0].equals("players")) {
             int id = Integer.parseInt(arg[1]);
@@ -286,4 +288,6 @@ public class ServerCommunicator extends Thread {
     }
 
     public int getFinalScore() { return finalScore; }
+
+    public String getMapName() { return mapName; }
 }
