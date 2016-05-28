@@ -2,8 +2,11 @@ package zombienado_beta.client.model;
 
 import zombienado_beta.client.model.weapon.*;
 
+/**
+ * A class that represents a player unit on the client side of the application
+ */
 public class Player extends Unit{
-    //TEST
+
     private Weapon weapon = new Gun();
     private int balance;
     private int health;
@@ -11,12 +14,16 @@ public class Player extends Unit{
     private boolean isDead = false;
 
     /**
-     * triggers sound effect in view
+     * Triggers sound effect in view
      */
     public void shoot(){
         hasShot = true;
     }
 
+    /**
+     * Returns true if the player has shot
+     * @return True if the player has shot
+     */
     public boolean hasShot(){
         if (hasShot) {
             hasShot = false;
@@ -25,6 +32,10 @@ public class Player extends Unit{
         return false;
     }
 
+    /**
+     * Returns a copy of this player unit
+     * @return A copy of this player unit
+     */
     public Player copy (){
         Player copy = new Player();
         copy.setPosition(getX(), getY());
@@ -40,18 +51,34 @@ public class Player extends Unit{
         return copy;
     }
 
+    /**
+     * Sets the health to a new value
+     * @param health The new health value
+     */
     public void setHealth(int health){
         this.health = health;
     }
 
+    /**
+     * Sets the balance to a new value
+     * @param balance The new balance value
+     */
     public void setBalance(int balance){
         this.balance = balance;
     }
 
+    /**
+     * Sets the ammo to a new value
+     * @param ammo The new ammo value
+     */
     public void setAmmo(int ammo){
         weapon.setAmmo(ammo);
     }
 
+    /**
+     * Sets the weapon to a new one
+     * @param weaponID id of the new weapon
+     */
     public void setWeapon(int weaponID){
         int ammo = weapon.getAmmo();
         if(weapon.getId() != weaponID) {
@@ -92,24 +119,48 @@ public class Player extends Unit{
 
     }
 
+    /**
+     * Sets the if the player is dead or not
+     * @param isDead Death status of player
+     */
     public void setDead(boolean isDead){
         this.isDead = isDead;
     }
 
+    /**
+     * Returns true if player is dead
+     * @return True if player is dead
+     */
     public boolean isDead(){
         return isDead;
     }
 
+    /**
+     * Returns the players weapon
+     * @return The players weapon
+     */
     public Weapon getWeapon(){return weapon;}
 
+    /**
+     * Returns the players health
+     * @return The players health
+     */
     public int getHealth(){
         return this.health;
     }
 
+    /**
+     * Returns the players balance
+     * @return The players balance
+     */
     public int getBalance(){
         return this.balance;
     }
 
+    /**
+     * Returns the players weapons ammo
+     * @return The players weapons ammo
+     */
     public int getAmmo(){
         return weapon.getAmmo();
     }

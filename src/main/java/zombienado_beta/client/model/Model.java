@@ -9,6 +9,9 @@ import zombienado_beta.utilities.Camera;
 import zombienado_beta.utilities.PlayerInputHandler;
 import zombienado_beta.utilities.Vector;
 
+/**
+ * A class to act as model on the client side of the application
+ */
 public class Model {
 	public int screenWidth;
 	public int screenHeight;
@@ -25,6 +28,7 @@ public class Model {
 	private int finalScore;
 	private String mapName;
 	private Point aim;
+
 	/**
 	 * Getters for view
 	 */
@@ -53,6 +57,7 @@ public class Model {
 		return this.finalScore;
 	}
 	public Point getAim(){ return aim; }
+
 	/**
 	 * Returns the client's Player instance
 	 * @return the client's Player instance
@@ -67,6 +72,7 @@ public class Model {
 	public Weapon[] getWeapons(){
 		return weapons;
 	}
+
 	/** INITIALIZATION
 	 * Executed before gameloop starts
 	 */
@@ -134,7 +140,6 @@ public class Model {
 		//Lets the new player data be presented to the view one iteration earlier (doesn't really make a difference)
 		// Problem with setting position is that the player seems to be able to enter walls a tiny tiny bit
 		getPlayer().setRotation(newRotation);
-		//getPlayer().setPosition((int)(getPlayer().getX() + playerVelocity.getX()), (int)(getPlayer().getY() + playerVelocity.getY()));
 
 		//If player is not alive, freely move camera and exit out of update
 		if (getPlayer().isDead()) {

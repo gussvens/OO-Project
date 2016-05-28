@@ -11,6 +11,7 @@ import java.awt.*;
 
 /**
  * Created by Erik on 2016-05-03.
+ * A class to represent all player units graphicly
  */
 public class CharacterView {
     private Image[] playerSprites;
@@ -31,6 +32,10 @@ public class CharacterView {
         this.healthBar = healthBar;
     }
 
+    /**
+     * Draws all player units in the game
+     * @param graphics The current graphics setting
+     */
     public synchronized void draw(Graphics2D graphics){
        for (int i = 0; i < model.getPlayers().size(); i++){
            if (model.getPlayers().get(i) != null && !model.getPlayers().get(i).isDead()) {
@@ -43,6 +48,10 @@ public class CharacterView {
         }
     }
 
+    /**
+     * Draws all player units in the game
+     * @param graphics The current graphics setting
+     */
     public synchronized void drawWeapon(Graphics2D graphics, Player p, int i){
         int weaponId = p.getWeapon().getId();
         double rotation = p.getRotation();

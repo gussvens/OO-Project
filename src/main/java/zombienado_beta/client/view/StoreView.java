@@ -8,6 +8,7 @@ import java.awt.*;
 
 /**
  * Created by Gustav on 16-05-21.
+ * A class to represent the players stats graphicly in a Heads Up Display
  */
 public class StoreView {
     private Image storeSprite;

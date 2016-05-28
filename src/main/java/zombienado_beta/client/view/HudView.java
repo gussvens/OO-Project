@@ -9,6 +9,7 @@ import java.awt.*;
 
 /**
  * Created by Gustav on 16-05-18.
+ * A class to represent the players stats graphicly in a Heads Up Display
  */
 public class HudView {
     private Image hudSprite;
@@ -23,6 +24,10 @@ public class HudView {
         this.model = model;
     }
 
+    /**
+     * Draws the HUD
+     * @param graphics The current graphis setting
+     */
     public synchronized void draw(Graphics2D graphics){
         Player player = model.getPlayer();
         int x = 0;
@@ -55,6 +60,10 @@ public class HudView {
         drawDead(graphics);
     }
 
+    /**
+     * Draws Game Over and You Are Dead messages
+     * @param graphics The current graphis setting
+     */
     public synchronized void drawDead(Graphics2D graphics){
         if (model.isGameOver()){
             Font f = graphics.getFont();

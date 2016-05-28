@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import zombienado_beta.client.model.Model;
 import zombienado_beta.utilities.Camera;
 
+/**
+ * A class to represent the current map graphicly
+ */
 public class MapView {
-	//how do we want to map the tiles?
-	private ArrayList<ArrayList<Integer>> tiles; //ALL tiles (x, y) 
-	private ArrayList<Rectangle> bounds; //Only wall tiles
+	private ArrayList<ArrayList<Integer>> tiles; //ALL tiles (x, y)
 	public static final int TILE_SIZE = 32;
 	private static Image tileSheet;
 	private LightMap lightMap;
@@ -21,16 +22,24 @@ public class MapView {
 	private boolean isLoaded = false;
 
 	public MapView(Image tileSheet, Model model){
-		tiles = new ArrayList<ArrayList<Integer>>();
-		bounds = new ArrayList<Rectangle>();
+		tiles = new ArrayList<>();
 		this.tileSheet = tileSheet;
 		this.model = model;
 	}
 
+	/**
+	 * Returns true if map is loaded
+	 * @return True if map is loaded
+	 */
 	public boolean isLoaded(){
 		return isLoaded;
 	}
 
+	/**
+	 * Loads current map
+	 * @param mapData The map file
+	 * @throws IOException
+	 */
 	public void load(File mapData) throws IOException {
 		LightMap lightMap = new LightMap(model);
 		try (BufferedReader br = new BufferedReader(new FileReader(mapData))) {
@@ -44,10 +53,7 @@ public class MapView {
 				for (String tile : tiles){
 					int id = Integer.parseInt(tile);
 					thisRow.add(id);
-					if (id < 10){
-						addWall(new Rectangle(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE));
-					}
-					else if (id >=30 && id<40){
+					if (id >=30 && id<40){
 						lightMap.addLight(new Point(x * MapView.TILE_SIZE, y * MapView.TILE_SIZE));
 					}
 					x++;
@@ -61,31 +67,24 @@ public class MapView {
 		isLoaded = true;
 	}
 
+	/**
+	 * Sets the light map
+	 * @param lightMap The new light map
+	 */
 	public void setLightMap(LightMap lightMap){
 		this.lightMap = lightMap;
 	}
 
-	public static void setTileSheet(Image tileSheet){
-		MapView.tileSheet = tileSheet;
-	}
-
-	public void addTileRow(ArrayList<Integer> floorRow){ 
-		tiles.add(floorRow);
-	}
-
-	public void addWall(Rectangle wall){
-		bounds.add(wall);
-	}
-
 	/**
-	 * @return a list of all wall tiles
+	 * Adds a tile row
+	 * @param tileRow A tile row
 	 */
-	public ArrayList<Rectangle> getSolids(){ //only return needed
-		return bounds;
+	public void addTileRow(ArrayList<Integer> tileRow){
+		tiles.add(tileRow);
 	}
 
-	/** Standard draw
-	 * @param graphics
+	/** Draws the map
+	 * @param graphics The current graphics setting
 	 */
 	public void draw(Graphics2D graphics){
 		if (!isLoaded) return;
@@ -113,6 +112,10 @@ public class MapView {
 		}
 	}
 
+	/**
+	 * Draws light
+	 * @param graphics The current graphics setting
+	 */
 	public void drawLight(Graphics2D graphics){
 		if (!isLoaded) return;
 		lightMap.draw(graphics);

@@ -9,6 +9,7 @@ import java.awt.*;
 
 /**
  * Created by Gustav on 16-05-17.
+ * A class to represent the bullets graphicly
  */
 public class BulletView {
     private Image bulletSprite;
@@ -19,6 +20,10 @@ public class BulletView {
         this.bulletSprite = bulletSprite;
     }
 
+    /**
+     * Draws all bullets in the game
+     * @param graphics The current graphics setting
+     */
     public synchronized void draw(Graphics2D graphics){
 
         for (int i = 0; i < model.getBullets().size(); i++){

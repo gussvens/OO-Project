@@ -12,15 +12,9 @@ import java.util.ArrayList;
 
 /**
  * Created by Erik on 2016-05-19.
+ * A class to represent a light map in the game, differentiating the see-trough level across the map
  */
 
-
-/**
- *
- *  THIS CLASS NEEDS MASSIVE IMPROVEMENTS
- *    -- DROPS PERFORMANCE TOO MUCH --
- *
- */
 public class LightMap {
     private ArrayList<Point> lights; //Only light tiles
     BufferedImage flashLight;
@@ -49,13 +43,28 @@ public class LightMap {
         graphics = (Graphics2D)lightMap.createGraphics();
 
     }
+
+    /**
+     * Adds a light at specified position
+     * @param light The specified position
+     */
     public void addLight(Point light){
         lights.add(light);
     }
+
+    /**
+     * Returns all locations for lights
+     * @return All locations for lights
+     */
     public ArrayList<Point> getLights(){ //only return needed
         return lights;
     }
 
+    /**
+     * Creates static light
+     * @param radius Radius of light
+     * @param luminosity Luminosity of light
+     */
     public void createStaticLight(int radius, int luminosity){
         staticLight = new BufferedImage(radius*2, radius*2, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = (Graphics2D)staticLight.getGraphics();
@@ -68,6 +77,9 @@ public class LightMap {
         }
     }
 
+    /**
+     * Creates a flash-ligth
+     */
     private void createFlashLight(){
         flashLight = new BufferedImage(180, 300, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = (Graphics2D)flashLight.getGraphics();
@@ -78,6 +90,9 @@ public class LightMap {
         }
     }
 
+    /**
+     * Creates a bullet light-trail
+     */
     private void createBulletLight(){
         bulletLight = new BufferedImage(32, 64, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = (Graphics2D)bulletLight.getGraphics();
@@ -88,6 +103,9 @@ public class LightMap {
         }
     }
 
+    /**
+     * Creates player lumination light
+     */
     private void createPlayerLumination(){
         playerLumination = new BufferedImage(400, 400, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = (Graphics2D)playerLumination.getGraphics();
@@ -98,6 +116,11 @@ public class LightMap {
         }
     }
 
+    /**
+     * Creates flickering light 1
+     * @param radius Radius of light
+     * @param luminosity Luminosity of light
+     */
     public void createFlickeringLight1(int radius, int luminosity){
         flickeringLight1 = new BufferedImage(radius*2, radius*2, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = (Graphics2D) flickeringLight1.getGraphics();
@@ -109,6 +132,12 @@ public class LightMap {
             graphics.fillOval(radius - i * step, radius - i * step, i * step * 2, i * step * 2);
         }
     }
+
+    /**
+     * Creates flickering light 2
+     * @param radius Radius of light
+     * @param luminosity Luminosity of light
+     */
     public void createFlickeringLight2(int radius, int luminosity){
         flickeringLight2 = new BufferedImage(radius*2, radius*2, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = (Graphics2D) flickeringLight2.getGraphics();
@@ -121,7 +150,10 @@ public class LightMap {
         }
     }
 
-    private void getLightMap(){
+    /**
+     * Draws the light map in a separate graphics setting
+     */
+    private void drawLightMap(){
 
         graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.20f));
         graphics.setColor(new Color(0, 0, 0, 255));
@@ -153,8 +185,12 @@ public class LightMap {
        // return lightMap;
     }
 
+    /**
+     * Draws the ligth map
+     * @param graphics The current graphics setting
+     */
     public void draw(Graphics2D graphics){
-        getLightMap();
+        drawLightMap();
         graphics.drawImage(lightMap, 0, 0, null);
     }
 }
