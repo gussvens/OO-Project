@@ -76,8 +76,8 @@ public class Spawner{
 
                         if (Math.abs(distance) < shortestDistance) {
                             shortestDistance = distance;
-                            xDirection = tempX / shortestDistance;
-                            yDirection = tempY / shortestDistance;
+                            xDirection = tempX / Math.max(shortestDistance, 1);
+                            yDirection = tempY / Math.max(shortestDistance, 1);
                             rotation = (float)Math.atan2(tempY, tempX);
                         }
                     }

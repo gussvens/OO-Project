@@ -8,7 +8,8 @@ package zombienado_beta.utilities;
 public class Camera {
 	private static int x = 0;
 	private static int y = 0;
-	
+
+	//Getters
 	public static int getX(){
 		return Camera.x;
 	}
@@ -16,7 +17,8 @@ public class Camera {
 	public static int getY(){
 		return Camera.y;
 	}
-	
+
+	//Setters
 	public static void setX(int x, int screenWidth){
 		Camera.x = x - screenWidth/2;
 	}

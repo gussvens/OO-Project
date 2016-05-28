@@ -11,10 +11,16 @@ public class MapModel {
     private int[][] map;
     private int width;
     private int height;
-    private int id;
+    private int selectedID;
     private String name;
     private PrintWriter writer;
 
+    /**
+     * Constructor for mapmodel
+     * @param name Name of the map
+     * @param width Width of the map
+     * @param height Height of the map
+     */
     public MapModel(String name, int width, int height){
         this.name = name;
         this.height=height;
@@ -22,27 +28,49 @@ public class MapModel {
         map = new int[width][height];
     }
 
+    /**
+     * A method that sets tile at x,y position to selected ID
+     * @param x X-coordinate
+     * @param y Y-coordinate
+     */
     public void setTile(int x, int y){
             x = x / 32;
             y = y / 32;
-            map[x][y] = id;
+            map[x][y] = selectedID;
     }
 
+    /**
+     * Returns ID of tile at position x,y
+     * @param x X-coordinate
+     * @param y Y-coordinate
+     * @return ID
+     */
     public int getTile(int x, int y){
         return  map[x][y];
     }
+
+    /**
+     *
+     * @return The map
+     */
     public int[][] getMap(){
         return  map;
     }
 
+    /**
+     * Fills the map with selectedTile
+     */
     public void fillMap(){
         for(int i=0 ; i < width; i++){
             for(int j=0 ; j < height; j++){
-                map[i][j]=id;
+                map[i][j]= selectedID;
             }
         }
     }
 
+    /**
+     * Clears the map, which in this case means setting all tiles' ID to 0;
+     */
     public void clearMap(){
         for(int i=0 ; i < width; i++){
             for(int j=0 ; j < height; j++){
@@ -51,6 +79,11 @@ public class MapModel {
         }
     }
 
+    /**
+     * Saves the map to a .txt file.
+     * The map is saved according to a structure which the main application, Zombienado can read.
+     * @throws IOException
+     */
     public void saveMap() throws IOException{
         writer = new PrintWriter("src/main/resources/maps/"+name +".txt", "UTF-8");
 
@@ -75,7 +108,11 @@ public class MapModel {
         writer.close();
     }
 
+    /**
+     * Sets the selected ID to inputted ID
+     * @param id Identification number of tile-type
+     */
     public void setSelectedTile(int id){
-        this.id = id;
+        this.selectedID = id;
     }
 }

@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Created by Marcus on 2016-04-05.
+ * A class that represents a Zombie from the client
  */
 public class ServerZombie implements ServerUnit{
     private static final int RADIUS = 16;
@@ -19,6 +19,10 @@ public class ServerZombie implements ServerUnit{
     private double speed;
 
 
+    /**
+     * Constructor for ServerZombie
+     * @param spawnPoint - A Point where the zombie can spawn
+     */
     public ServerZombie(Point spawnPoint){
         this.speed = 2;
         this.x = (int)spawnPoint.getX()+32;
@@ -27,6 +31,7 @@ public class ServerZombie implements ServerUnit{
         this.health = 100;
     }
 
+    //Getters
     public static int getRadius(){
         return RADIUS;
     }
@@ -47,11 +52,22 @@ public class ServerZombie implements ServerUnit{
         return this.health;
     }
 
+    /**
+     * A method that reduces the zombies health by a certain amount
+     * @param damage - The amount of health removed
+     */
     public void takeDamage(int damage){
         this.health -= damage;
     }
 
-
+    /**
+     * An update method that moves the zombie in a certain direction
+     * @param xDirection - How many pixels to move in the x-axis
+     * @param yDirection - How many pixels to move in the y-axis
+     * @param rotation - The ServerZombie's new rotation
+     * @param zombies - An ArrayList of all ServerZombies alive
+     * @param walls - An ArrayList of all walls on the map
+     */
     public void update(double xDirection, double yDirection, float rotation, ArrayList<ServerZombie> zombies, ArrayList<Point> walls){
         this.rotation = rotation;
         int xOld = (int)this.x;
@@ -67,6 +83,10 @@ public class ServerZombie implements ServerUnit{
         checkWallsCollisions(xOld, yOld, walls);
     }
 
+    /**
+     * A method that checks for collision between ServerZombies
+     * @param zombies - An ArrayList of all ServerZombies alive
+     */
     public void checkZombiesCollisions(ArrayList<ServerZombie> zombies){
         for(ServerZombie zombie: zombies){
             if (this != zombie){
@@ -78,6 +98,12 @@ public class ServerZombie implements ServerUnit{
 
     }
 
+    /**
+     * A method that checks for collision between a ServerZombie and walls
+     * @param xOld - The x-posiiton before the ServerZombie moved
+     * @param yOld - The y-posiiton before the ServerZombie moved
+     * @param walls - An ArrayList with all walls on the map
+     */
     public void checkWallsCollisions(int xOld, int yOld, ArrayList<Point> walls){
         int tileWidth = WorldHandler.getTileWidth();
 
@@ -97,6 +123,14 @@ public class ServerZombie implements ServerUnit{
         }
     }
 
+    /**
+     * A method that checks for collision between a wall and a ServerZombie
+     * @param tileWidth - The width of a tile on the map
+     * @param xOld - The x-posiiton before the ServerZombie moved
+     * @param yOld - The y-posiiton before the ServerZombie moved
+     * @param x - The current x position of the ServerZombie
+     * @param y - The current y posiiton of the ServerZombie
+     */
     public void checkSingleWallCollision(int tileWidth, int xOld, int yOld, int x, int y){
         double xDiff = this.x - xOld;
         double yDiff = this.y - yOld;

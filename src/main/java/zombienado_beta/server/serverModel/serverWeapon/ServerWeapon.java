@@ -21,6 +21,18 @@ public class ServerWeapon implements iWeapon {
     private double rateOfFire;
     private long lastFired = System.currentTimeMillis();
 
+    /**
+     * Constructor for a ServerWeapon
+     * @param id - The ID of the ServerWeapon
+     * @param damage - The damage of the ServerWeapon
+     * @param price - The price of the ServerWeapon
+     * @param distanceToMuzzle - The distance from the player to the muzzle
+     * @param bulletSpeed - How fast bullets fired from this ServerWeapon travels
+     * @param ammo - The amount of ammo
+     * @param shots - How many bullets will be created everytime the ServerWeapon fires
+     * @param spray - How accurate the ServerWeapon is
+     * @param rateOfFire - How fast the ServerWeapon fires
+     */
     public ServerWeapon(int id, int damage, int price, int distanceToMuzzle, int bulletSpeed, int ammo, int shots, float spray, double rateOfFire) {
         this.id = id;
         this.damage = damage;
@@ -33,6 +45,10 @@ public class ServerWeapon implements iWeapon {
         this.rateOfFire = rateOfFire;
     }
 
+    /**
+     * A method that determines if the weapon can fire depending on the rate of fire
+     * @return - True if it can shoot, false otherwise
+     */
     public boolean canShoot(){
         if(System.currentTimeMillis() - lastFired >= rateOfFire && ammo > 0) {
             return true;
@@ -41,6 +57,13 @@ public class ServerWeapon implements iWeapon {
         }
     }
 
+    /**
+     * A method that creates an ArrayList of ServerBullets and reduces ammo with the amount of bullets created
+     * @param x - The ServerBullets starting x position
+     * @param y - The ServerBullets starting x position
+     * @param direction - In wich direction the ServerBullers will be traveling
+     * @return - An ArrayList of ServerBullets
+     */
     public ArrayList<ServerBullet> shoot(int x, int y, float direction){
         //Fix with better values
         if(ammo > 0) {
@@ -63,6 +86,7 @@ public class ServerWeapon implements iWeapon {
 
     }
 
+    //Setters
     public void setAmmo(int ammo){
         this.ammo = ammo;
     }
@@ -70,6 +94,7 @@ public class ServerWeapon implements iWeapon {
         this.lastFired = lastFired;
     }
 
+    ///Getters
     public int getId() {
         return id;
     }

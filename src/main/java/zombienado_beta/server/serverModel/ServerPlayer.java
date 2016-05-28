@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Created by Marcus on 2016-04-05.
+ * A class that represents a Player from the client
  */
 public class ServerPlayer implements ServerUnit{
     private static final int RADIUS = 12;
@@ -37,8 +37,6 @@ public class ServerPlayer implements ServerUnit{
         this.x = x;
         this.y = y;
         this.rotation = r;
-
-        //TODO: move weapons to server
         this.weapon = new ServerGun();
         this.health = 100;
         this.balance = 0;
@@ -247,6 +245,9 @@ public class ServerPlayer implements ServerUnit{
 
     public void addHealth(int addedHealth){
         health += addedHealth;
+        if(health > 100){
+            health = 100;
+        }
         isDead = false;
     }
 

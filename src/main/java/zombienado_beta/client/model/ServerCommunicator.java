@@ -10,7 +10,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 /**
- * Created by Marcus on 2016-05-04.
+ * A communication service used for transmitting data to/from the server
  */
 public class ServerCommunicator extends Thread {
 
@@ -29,11 +29,21 @@ public class ServerCommunicator extends Thread {
     private int finalScore;
     public String mapName;
 
+    /**
+     * Creates a new ServerComunicator
+     * @param address The IP-address which to connect to
+     * @param port The port which to connect to
+     */
     public static synchronized void create(InetAddress address, int port) {
         if (instance == null)
             instance = new ServerCommunicator(address, port);
     }
 
+    /**
+     * Used for accessing the ServerCommunicator instance
+     * @return the instance
+     * @throws Exception if not yet initialized
+     */
     public static synchronized ServerCommunicator getInstance() throws Exception {
         if (instance != null) {
             return instance;
@@ -42,6 +52,11 @@ public class ServerCommunicator extends Thread {
         }
     }
 
+    /** Constructor
+     * Sets up the connection
+     * @param address the IP-adress which to connect to
+     * @param port the port which to connect to
+     */
     private ServerCommunicator(InetAddress address, int port) {
         players = new ArrayList<Player>();
         for (int i = 0; i < 4; i++) {
@@ -73,7 +88,8 @@ public class ServerCommunicator extends Thread {
     }
 
     /**
-     * Checks if entities are obsolete
+     * Checks if entities are obsolete and removes them
+     * An entity (except players) is considered obsolete when they have not received any updates for a certain amount of time
      */
     private synchronized void checkForObsoletions(){
         while (zombies == null ||bullets == null){
@@ -101,13 +117,18 @@ public class ServerCommunicator extends Thread {
         }
     }
 
+    /**
+     * Starts in parallel; the check for obsolete entities, and the service for listening to the server.
+     */
     public void run() {
-
         Thread checkObsoletions = new Thread(() -> checkForObsoletions());
         checkObsoletions.start();
         listenToServer();
     }
 
+    /**
+     * The method that listens for data from the server
+     */
     public void listenToServer() {
         System.out.println("listening");
         String fromServer;
@@ -124,12 +145,23 @@ public class ServerCommunicator extends Thread {
         }
     }
 
+    /**
+     * Sends the movement data
+     * @param x the distance to move in x
+     * @param y the distance to move in y
+     * @param r the absolute rotation of the player
+     * @param oldRotation the previous rotation of the player
+     */
     public synchronized void movePlayer(float x, float y, float r, float oldRotation) {
         if (x == 0 && y == 0 && r - oldRotation == 0.0) return; //If nothing changed, do not send
         String message = "move;" + x + ";" + y + ";" + r;
         out.println(message);
     }
 
+    /**
+     * Sends request to start/stop shooting
+     * @param isShooting the status
+     */
     public synchronized void shoot(boolean isShooting) {
         if (wasPressing != isShooting) {
             String message = "shoot;" + isShooting;
@@ -138,6 +170,10 @@ public class ServerCommunicator extends Thread {
         }
     }
 
+    /**
+     * sends request to buy new weapon
+     * @param weaponID
+     */
     public synchronized void buyWeapon(int weaponID){
         String message = "weapon;" + weaponID;
         out.println(message);
@@ -145,8 +181,7 @@ public class ServerCommunicator extends Thread {
 
 
     /**
-     * SERVER COMMAND PARSING
-     *
+     * Server command parsing
      * @param s - The message that the zombienado_v1.client received
      */
     public synchronized void serverCommand(String s) {
@@ -180,6 +215,10 @@ public class ServerCommunicator extends Thread {
         }
     }
 
+    /**
+     * Received on join, sets the ID of the client (& player)
+     * @param arg
+     */
     private synchronized void joinCommand(String[]arg){
         if (arg[1].equals("id")) {
             myID = Integer.parseInt(arg[2]);
@@ -187,6 +226,11 @@ public class ServerCommunicator extends Thread {
         }
     }
 
+    /**
+     * Received constantly, all necessary player data
+     * eg. ID, Position, Rotation, Health etc.
+     * @param arg
+     */
     private synchronized void playersCommand(String[] arg){
         int id = Integer.parseInt(arg[1]);
         if (arg[2].equals("pos")) {
@@ -217,11 +261,19 @@ public class ServerCommunicator extends Thread {
         }
     }
 
+    /**
+     * Received when a player dies
+     * @param arg
+     */
     private synchronized void deadPlayerCommand(String[] arg){
         int id  = Integer.parseInt(arg[1]);
         players.get(id).setDead(true);
     }
 
+    /**
+     * Received constantly, all necessary zombie data
+     * @param arg
+     */
     private synchronized void zombiesCommand(String[] arg){
         int id = Integer.parseInt(arg[1]);
         if (arg[2].equals("pos")) {
@@ -240,6 +292,10 @@ public class ServerCommunicator extends Thread {
         }
     }
 
+    /**
+     * Received constantly, all necessary bullet data
+     * @param arg
+     */
     private synchronized void bulletsCommand(String[] arg){
         int id = Integer.parseInt(arg[1]);
         if (arg[2].equals("pos")) {
@@ -273,7 +329,7 @@ public class ServerCommunicator extends Thread {
     }
 
     /**
-     * returns a copy of the last received
+     * returns a copy of the last received zombies
      * @return copy - A copy of the arraylist with zombies
      */
     public synchronized ArrayList<Unit> getZombies() {
@@ -286,6 +342,10 @@ public class ServerCommunicator extends Thread {
         return copy;
     }
 
+    /**
+     * returns a copy of the last received bullets
+     * @return copy - A copy of the arraylist with bullets
+     */
     public synchronized ArrayList<Unit> getBullets() {
         ArrayList<Unit> copy = new ArrayList<Unit>();
         if(bullets!=null){
@@ -298,23 +358,47 @@ public class ServerCommunicator extends Thread {
         return copy;
     }
 
+    /**
+     * returns the clients/players ID
+     * @return
+     */
     public int getID(){
         return myID;
     }
 
+    /**
+     * returns the current wave
+     * @return
+     */
     public int getWave(){
         return wave;
     }
 
+    /**
+     * returns the time until next wave, or -1 during an ongoing wave
+     * @return
+     */
     public int getTimeUntilNextWave(){
         return timeUntilNextWave;
     }
 
+    /**
+     * returns if the state of the game is "game over"
+     * @return
+     */
     public boolean getGameOver(){
         return gameOver;
     }
 
+    /**
+     * Returns the final score
+     * @return
+     */
     public int getFinalScore() { return finalScore; }
 
+    /**
+     * Returns the correct map to load
+     * @return
+     */
     public String getMapName() { return mapName; }
 }

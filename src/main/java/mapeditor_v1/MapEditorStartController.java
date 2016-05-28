@@ -40,6 +40,11 @@ public class MapEditorStartController implements Initializable {
 
     }
 
+    /**If no errors occurs, method creates a new model and sends model and the information inputted to a controller for the next scene.
+     * Next scene is then shown.
+     * @param event ActionEvent sent by clicking button
+     * @throws IOException
+     */
     @FXML
     private void doneButtonHandler(ActionEvent event) throws IOException{
 
@@ -62,10 +67,15 @@ public class MapEditorStartController implements Initializable {
 
             app_stage.hide();
             app_stage.setScene(home_page_scene);
+            app_stage.setResizable(true);
             app_stage.show();
         }
     }
 
+    /**
+     * Checks if textfields contains the requested information in a correct way,
+     * otherwise displays error messages
+     */
     private void checkFields(){
         errorHeight.setText("");
         errorWidth.setText("");

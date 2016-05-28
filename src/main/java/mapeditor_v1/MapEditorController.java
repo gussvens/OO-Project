@@ -43,14 +43,24 @@ public class MapEditorController implements Initializable {
     @FXML private Canvas canvas;
 
 
-
+    /**
+     * Constructor
+     * @param width Width of the canvas
+     * @param height Height of the canvas
+     * @param mapModel MapModel containing map
+     */
     public MapEditorController(int width, int height, MapModel mapModel){
         this.mapModel = mapModel;
         this.width = width;
         this.height = height;
     }
 
-
+    /**
+     * Initialises 100 new buttons, one for every tile type. Sets every buttons icon and tooltip.
+     * Also sets canvas to correct size and creates a GraphicsContext for the canvas
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb){
         tileImages = tileLoader.loadImage("/sprites/tiles/tileGrid.png");
@@ -78,6 +88,10 @@ public class MapEditorController implements Initializable {
         paintCanvas();
 
     }
+
+    /**
+     * Sets mapModels selected ID to button ID
+     */
     final EventHandler<ActionEvent> toolHandler = new EventHandler<ActionEvent>() {
 
         @Override
@@ -91,6 +105,10 @@ public class MapEditorController implements Initializable {
         }
     };
 
+    /**
+     * Sets
+     * @param e MouseEvent from canvas Mouseclick or mousedrag
+     */
     @FXML
     public void onMousePressed(MouseEvent e){
         int x = (int)e.getX();
@@ -102,21 +120,36 @@ public class MapEditorController implements Initializable {
         }
     }
     @FXML
+    /**
+     * Exits current instance of application and starts a new one
+     */
     public void newButton(){
         mapModel.clearMap();
         paintCanvas();
     }
 
+    /**
+     * Makes mapModel clear and repaints canvas
+     */
     @FXML
     public void clearButton(){
         mapModel.clearMap();
         paintCanvas();
     }
 
+    /**
+     * Calls on the mapModel to save
+     * @throws IOException
+     */
     @FXML
     public void saveButton() throws IOException{
         mapModel.saveMap();
     }
+
+    /**
+     * Calls on the mapModel to save and exit after.
+     * @throws IOException
+     */
     @FXML
     public void saveExitButton() throws IOException{
         mapModel.saveMap();
@@ -124,11 +157,18 @@ public class MapEditorController implements Initializable {
     }
 
     @FXML
+    /**
+     * Calls on the map to fill itself with selected ID
+     * Repaints canvas
+     */
     public void fillButton(){
         mapModel.fillMap();
         paintCanvas();
     }
 
+    /**
+     * Paints the canvas according to map
+     */
     public void paintCanvas(){
         imageCanvas.clearRect(0,0,width*32, height*32);
 
