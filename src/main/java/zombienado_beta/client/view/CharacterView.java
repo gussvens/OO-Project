@@ -37,19 +37,19 @@ public class CharacterView {
      * @param graphics The current graphics setting
      */
     public synchronized void draw(Graphics2D graphics){
-       for (int i = 0; i < model.getPlayers().size(); i++){
-           if (model.getPlayers().get(i) != null && !model.getPlayers().get(i).isDead()) {
-               Player p = model.getPlayers().get(i);
-               double rotation = p.getRotation();
-               drawWeapon(graphics, p, i);
-               graphics.drawImage(playerSprites[i], GraphicsUtils.Transform(playerSprites[i], p.getX() - Camera.getX(), p.getY() - Camera.getY(), rotation), null);
-           }
+        for (int i = 0; i < model.getPlayers().size(); i++){
+            if (model.getPlayers().get(i) != null && !model.getPlayers().get(i).isDead()) {
+                Player p = model.getPlayers().get(i);
+                double rotation = p.getRotation();
+                drawWeapon(graphics, p, i);
+                graphics.drawImage(playerSprites[i], GraphicsUtils.Transform(playerSprites[i], p.getX() - Camera.getX(), p.getY() - Camera.getY(), rotation), null);
+            }
 
         }
     }
 
     /**
-     * Draws all player units in the game
+     * Draws all player units' weapons in the game
      * @param graphics The current graphics setting
      */
     public synchronized void drawWeapon(Graphics2D graphics, Player p, int i){
@@ -77,13 +77,17 @@ public class CharacterView {
         }
     }
 
+    /**
+     * Draws all other player units' health bars in the game
+     * @param graphics The current graphics setting
+     */
     public synchronized void drawHealthBars(Graphics2D graphics){
         for (Player p : model.getPlayers()) {
             if (p != null && !p.isDead()) {
                 if (p != model.getPlayer()) {
                     graphics.drawImage(healthBar, p.getX() - Camera.getX() - healthBar.getWidth(null) / 2, p.getY() - Camera.getY() - 30, null);
                     graphics.setColor(Color.green);
-                    if (p.getHealth() <= 30) graphics.setColor(Color.red);
+                    if (p.getHealth() < 30) graphics.setColor(Color.red);
                     graphics.fillRect(p.getX() - Camera.getX() - healthBar.getWidth(null) / 2 + 1, p.getY() - Camera.getY() - 30 + 1, (healthBar.getWidth(null) - 2) * p.getHealth() / 100, 3);
                 }
             }
