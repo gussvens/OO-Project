@@ -1,6 +1,9 @@
 package zombienado_v1.utilities;
 
+import junit.framework.TestCase;
 import org.junit.Test;
+
+import java.awt.*;
 
 
 /**
@@ -8,31 +11,37 @@ import org.junit.Test;
  * @author Erik
  *
  */
-public class PhysicsTest {
+public class PhysicsTest extends TestCase {
     @Test
-    public void testCollisionVector(){
-    /*	Rectangle rect = new Rectangle(0, 50, 64, 64);
-    	Point collisionVector = Physics.collision(0, 0, 32, rect);
-    	System.out.println(collisionVector);
-    	assertTrue(collisionVector != null);
-    	assertTrue((int)collisionVector.getY() == -14);
-    	
-    	rect = new Rectangle(50, 0, 64, 64);
-    	collisionVector = Physics.collision(0, 0, 32, rect);
-    	System.out.println(collisionVector);
-    	assertTrue(collisionVector != null);
-    	assertTrue((int)collisionVector.getX() == -14);
-    	
-    	rect = new Rectangle(50, 50, 64, 64);
-    	collisionVector = Physics.collision(0, 0, 32, rect);
-    	System.out.println(collisionVector);
-    	assertTrue(collisionVector != null);
-    	//assertTrue((int)collisionVector.getX() == -14);
-    	
-    	rect = new Rectangle(0, 0, 64, 64);
-    	collisionVector = Physics.collision(0, 61, 32, rect);
-    	System.out.println(collisionVector);
-    	assertTrue(collisionVector != null); */
-    	
+    public void testcollidesWithWall(){
+		Rectangle wall = new Rectangle(0,0,32,32);
+		int xA = 0;
+		int xB = 64;
+		int yA = 0;
+		int yB = 64;
+		float radius = 32f;
+
+		assertTrue(Physics.collidesWithWall(xA,yA,radius,wall));
+		assertTrue(!Physics.collidesWithWall(xB,yA,radius,wall));
+		assertTrue(!Physics.collidesWithWall(xA,yB,radius,wall));
+		assertTrue(!Physics.collidesWithWall(xB,yB,radius,wall));
     }
+
+	@Test
+	public void testBounce(){
+		int thisXA = 0;
+		int thisXB = 64;
+		int thisYA = 0;
+		int thisYB = 64;
+		float thisRadius = 32f;
+
+		int otherX = 10;
+		int otherY = 10;
+		float otherRadius = 16f;
+		Point p1 = Physics.bounce(thisXA,thisYA,thisRadius,otherX,otherY,otherRadius);
+		Point p2 = Physics.bounce(thisXB,thisYB,thisRadius,otherX,otherY,otherRadius);
+
+		assertTrue(p1.getX() < 0 || p1.getY() < 0);
+		assertTrue(p2.getX() == 0 && p2.getY() == 0);
+	}
 }
