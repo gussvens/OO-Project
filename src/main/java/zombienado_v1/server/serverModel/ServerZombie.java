@@ -1,4 +1,4 @@
-package zombienado_v1.server.serverUnits;
+package zombienado_v1.server.serverModel;
 
 import zombienado_v1.server.serverWorld.WorldHandler;
 import zombienado_v1.utilities.Physics;

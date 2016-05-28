@@ -2,7 +2,7 @@ package zombienado_v1.server.unitHandler;
 
 import junit.framework.TestCase;
 import org.junit.Test;
-import zombienado_v1.server.serverUnits.ServerPlayer;
+import zombienado_v1.server.serverModel.ServerPlayer;
 import java.awt.*;
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package zombienado_v1.server.serverWeapon;
+package zombienado_v1.server.serverModel.serverWeapon;
 
 /**
  * Created by Marcus on 2016-05-06.

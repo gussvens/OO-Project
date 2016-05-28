@@ -1,7 +1,7 @@
-package zombienado_v1.server.serverWeapon;
+package zombienado_v1.server.serverModel.serverWeapon;
 
 import zombienado_v1.interfaces.iWeapon;
-import zombienado_v1.server.serverUnits.ServerBullet;
+import zombienado_v1.server.serverModel.ServerBullet;
 
 import java.util.ArrayList;
 import java.util.Random;
