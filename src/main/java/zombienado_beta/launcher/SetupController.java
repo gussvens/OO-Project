@@ -1,5 +1,7 @@
 package zombienado_beta.launcher;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,6 +17,7 @@ import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import zombienado_beta.client.model.Model;
 import zombienado_beta.client.view.GameView;
@@ -64,6 +67,31 @@ public class SetupController{
         }
         map.getItems().addAll(maps);
         map.setValue(maps.get(0));
+
+        //To restrict input on port
+        hostPort.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.length() > 4){
+                    hostPort.setText(oldValue);
+                }
+                if (!newValue.matches("\\d*")) {
+                    hostPort.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        //To restrict input on port
+        joinPort.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.length() > 4){
+                    joinPort.setText(oldValue);
+                }
+                if (!newValue.matches("\\d*")) {
+                    joinPort.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
     }
 
     /**
