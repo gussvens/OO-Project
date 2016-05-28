@@ -200,7 +200,7 @@ public class GameView extends JFrame{
 					return;
 				}
 			}
-			System.out.println("You dont have this map");
+			System.out.println("You do not have this map");
 		}
 	}
 
