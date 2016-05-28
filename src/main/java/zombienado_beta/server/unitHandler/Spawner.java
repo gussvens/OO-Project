@@ -1,6 +1,6 @@
 package zombienado_beta.server.unitHandler;
 
-import zombienado_beta.server.serverModel.*;
+import zombienado_beta.server.serverUnits.*;
 import java.awt.*;
 import java.util.ArrayList;
 

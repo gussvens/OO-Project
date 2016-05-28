@@ -1,8 +1,8 @@
 package zombienado_beta.server;
 
-import zombienado_beta.server.serverModel.ServerPlayer;
-import zombienado_beta.server.serverModel.ServerZombie;
-import zombienado_beta.server.serverModel.ServerBullet;
+import zombienado_beta.server.serverUnits.ServerPlayer;
+import zombienado_beta.server.serverUnits.ServerZombie;
+import zombienado_beta.server.serverUnits.ServerBullet;
 import zombienado_beta.server.serverWorld.WorldHandler;
 import zombienado_beta.server.unitHandler.Spawner;
 
