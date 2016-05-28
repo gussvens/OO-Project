@@ -62,7 +62,7 @@ public class SoundEffect {
         int dX = xSource - xPlayer;
         int dY = ySource - yPlayer;
         double distance = Math.sqrt((dX)*(dX)+(dY)*(dY));
-        distance = distance/100;
+        distance = distance/80;
         if(distance<2) distance = 2;
         float alfa = (float)(-20*Math.log(distance));
 

@@ -4,7 +4,7 @@ import zombienado_beta.client.model.weapon.*;
 
 public class Player extends Unit{
     //TEST
-    private Weapon weapon = new DoubleUzi();
+    private Weapon weapon = new Gun();
     private int balance;
     private int health;
     private boolean hasShot;
