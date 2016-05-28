@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Created by Marcus on 2016-05-06.
+ * A class that represents a Bullet from the client
  */
 public class ServerBullet implements ServerUnit {
 

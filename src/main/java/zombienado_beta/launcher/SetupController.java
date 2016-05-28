@@ -53,6 +53,9 @@ public class SetupController{
 
     private ArrayList<String> maps;
 
+    /**
+     * A method that initializes the combobox with all the maps stored
+     */
     public void initialize() {
         maps = new ArrayList<String>();
         File folder = new File("src/main/resources/maps");
@@ -63,6 +66,10 @@ public class SetupController{
         map.setValue(maps.get(0));
     }
 
+    /**
+     * A method that starts a Server on the port and map selected by the user
+     * @param event - A button press
+     */
     @FXML
     private void hostGame(ActionEvent event){
         if(hostPort.getText().equals("")){
@@ -80,6 +87,10 @@ public class SetupController{
         }
     }
 
+    /**
+     * A method that checks if all the textfields are correctly filled
+     * @param event - A button press
+     */
     @FXML
     private void joinGame(ActionEvent event){
         boolean ready = true;
@@ -106,6 +117,11 @@ public class SetupController{
         }
     }
 
+    /**
+     * A method that creates a Model, View and Controller for a client that connects to a Server
+     * @param ip - The IP adress to the Server
+     * @param port - The port which will communicate with the Server
+     */
     public void join(InetAddress ip, int port){
         Model model = new Model();
         GameView view = new GameView(model);
