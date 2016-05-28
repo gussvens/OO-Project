@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by Marcus on 2016-04-05.
  */
 public class ServerPlayer implements ServerUnit{
-    private static final int RADIUS = 16;
+    private static final int RADIUS = 12;
 
     private int x;
     private int y;

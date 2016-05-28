@@ -18,27 +18,7 @@ public class Physics {
 		if (rect.intersects(wall)) return true;
 		return false;
 	}
-/*	public static boolean collidesWithWall(int xUnit, int yUnit, float radiusUnit, Rectangle wall){
-		int cL = (int)(Math.sqrt(radiusUnit*radiusUnit/2)); //composant length
-		int radiusThisInt = (int)radiusUnit; //radius for this as integer
-		//8 collision points around the player
-		Point rightSide = new Point(xUnit+radiusThisInt,yUnit);
-		Point rightTopSide = new Point(xUnit+cL,yUnit-cL);
-		Point topSide = new Point(xUnit,yUnit-radiusThisInt);
-		Point leftTopSide = new Point(xUnit-cL,yUnit-cL);
-		Point leftSide = new Point(xUnit-radiusThisInt,yUnit);
-		Point leftBottomSide = new Point(xUnit-cL,yUnit+cL);
-		Point bottomSide = new Point(xUnit,yUnit+radiusThisInt);
-		Point rightBottomSide = new Point(xUnit+cL,yUnit+cL);
-		Point[] collisionPoints = new Point[]{rightSide,rightTopSide,topSide,leftTopSide,leftSide,leftBottomSide,bottomSide,rightBottomSide};
-		for(Point p : collisionPoints){
-			if(wall.contains(p)){
-				return true;
-			}
-		}
-		return false;
-	}*/
-
+	
 	/**
 	 * Returns a bounce vector that prevents overlap between two units
 	 * @param xThisUnit Coordinate along x axis for this unit
