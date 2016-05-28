@@ -11,7 +11,7 @@ public class ServerThread extends Thread {
 	private int ID;
 	private int weaponID;
 	private boolean weaponHasChanged = false;
-
+	private String map;
 	private float deltaX = 0;
 	private float deltaY = 0;
 	private float rotation = 0; //absolute
@@ -23,11 +23,12 @@ public class ServerThread extends Thread {
 	 * @param id - The ID of this ServerThread
 	 * @throws SocketException
      */
-	public ServerThread(Socket socket, int id) throws SocketException{
+	public ServerThread(Socket socket, int id, String map) throws SocketException{
 		super("ServerThread "+connectedUnits);
 		connectedUnits ++;
 		this.ID = id;
 		this.socket = socket;
+		this.map = map;
 	}
 
 	/**	Getters/Resetters of delta values (Sync stuff)
@@ -216,7 +217,7 @@ public class ServerThread extends Thread {
 			output = new PrintWriter(socket.getOutputStream(), true);
 			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			send("Connected to client");
-			send("player;id;" + ID);
+			send("player;id;" + ID + ";map;" + map);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

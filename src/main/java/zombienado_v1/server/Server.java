@@ -22,6 +22,7 @@ public class Server extends Thread {
 	private int currentWave;
 	private int timeUntilNextWave;
 	private boolean gameOver = false;
+	private String map;
 
 	/**
 	 * private Server constructor
@@ -34,6 +35,7 @@ public class Server extends Thread {
 		handler = new WorldHandler();
 		currentWave = spawner.getWave();
 		timeUntilNextWave = spawner.getTimeUntilNextWave();
+		map = "src/main/resources/maps/mapPillars.txt";
 	}
 
 	/**
@@ -65,7 +67,7 @@ public class Server extends Thread {
 	 */
 	public void run(){
 		Thread mainUpdate = new Thread(() -> update());
-		handler.createMap("src/main/resources/maps/mapPillars.txt");
+		handler.createMap(map);
 		mainUpdate.start();
 		listenForConnections();
 	}
@@ -76,7 +78,7 @@ public class Server extends Thread {
 	public void listenForConnections(){
 		while(true){
 			try {
-				ServerThread st = new  ServerThread(socket.accept(), amountConnected);
+				ServerThread st = new  ServerThread(socket.accept(), amountConnected, map);
 				serverThreads.add(st);
 				st.start();
 				amountConnected = amountConnected +1;
