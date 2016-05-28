@@ -11,9 +11,8 @@ import java.util.ArrayList;
  */
 public class ServerBullet implements ServerUnit {
 
-    private int x;
-    private int y;
-    private int ID;
+    private float x;
+    private float y;
     private float rotation;
     private int speed;
     private int damage;
@@ -38,27 +37,20 @@ public class ServerBullet implements ServerUnit {
      * @return - The x-position of the Bullet
      */
     public int getX(){
-        return x;
+        return (int)x;
     }
 
     /**
      * @return - The y-position of the Bullet
      */
     public int getY(){
-        return y;
+        return (int)y;
     }
 
     /**
      * @return - The rotation of the Bullet
      */
     public float getRotation() { return rotation; }
-
-    /**
-     * @return - The ID of the Bullet
-     */
-    public int getID(){
-        return ID;
-    }
 
     /**
      * @return - The speed of the Bullet
@@ -84,8 +76,8 @@ public class ServerBullet implements ServerUnit {
         checkCollisionWithWalls(walls);
         checkZombieCollision(zombies);
 
-        x = x + (int)(speed*Math.cos(rotation));
-        y = y + (int)(speed*Math.sin(rotation));
+        x = x + speed* (float)Math.cos(rotation);
+        y = y + speed* (float)Math.sin(rotation);
     }
 
     /**

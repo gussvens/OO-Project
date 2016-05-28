@@ -12,8 +12,8 @@ import java.util.ArrayList;
 public class ServerZombie implements ServerUnit{
     private static final int RADIUS = 16;
 
-    private int x;
-    private int y;
+    private float x;
+    private float y;
     private int health;
     private float rotation;
     private double speed;
@@ -32,11 +32,11 @@ public class ServerZombie implements ServerUnit{
     }
 
     public int getX(){
-        return x;
+        return (int)x;
     }
 
     public int getY(){
-        return y;
+        return (int)y;
     }
 
     public float getRotation(){
@@ -54,14 +54,14 @@ public class ServerZombie implements ServerUnit{
 
     public void update(double xDirection, double yDirection, float rotation, ArrayList<ServerZombie> zombies, ArrayList<Point> walls){
         this.rotation = rotation;
-        int xOld = this.x;
-        int yOld = this.y;
+        int xOld = (int)this.x;
+        int yOld = (int)this.y;
 
         double xDiff = xDirection * speed;
         double yDiff = yDirection * speed;
 
-        this.x += (int)xDiff;
-        this.y += (int)yDiff;
+        this.x += xDiff;
+        this.y += yDiff;
 
         checkZombiesCollisions(zombies);
         checkWallsCollisions(xOld, yOld, walls);
@@ -70,7 +70,7 @@ public class ServerZombie implements ServerUnit{
     public void checkZombiesCollisions(ArrayList<ServerZombie> zombies){
         for(ServerZombie zombie: zombies){
             if (this != zombie){
-                Point bounce = Physics.bounce(this.x,this.y,RADIUS,zombie.getX(),zombie.getY(),RADIUS);
+                Point bounce = Physics.bounce((int)this.x,(int)this.y,RADIUS,zombie.getX(),zombie.getY(),RADIUS);
                 this.x += bounce.getX();
                 this.y += bounce.getY();
             }
@@ -81,8 +81,8 @@ public class ServerZombie implements ServerUnit{
     public void checkWallsCollisions(int xOld, int yOld, ArrayList<Point> walls){
         int tileWidth = WorldHandler.getTileWidth();
 
-        int tileX =(this.x/tileWidth) -1;
-        int tileY =(this.y/tileWidth) -1;
+        int tileX =((int)this.x/tileWidth) -1;
+        int tileY =((int)this.y/tileWidth) -1;
 
         for(int i = 0; i<3; i++){
             for(int j = 0; j<3; j++){
@@ -101,17 +101,17 @@ public class ServerZombie implements ServerUnit{
         double xDiff = this.x - xOld;
         double yDiff = this.y - yOld;
 
-        if(Physics.collidesWithWall(this.x,yOld,RADIUS,new Rectangle(x,y,tileWidth,tileWidth))){
+        if(Physics.collidesWithWall((int)this.x,yOld,RADIUS,new Rectangle(x,y,tileWidth,tileWidth))){
             this.x = xOld;
             int temp = (int)(yOld + yDiff*0.5);
-            if(Physics.collidesWithWall(this.x,temp,RADIUS,new Rectangle(x,y,tileWidth,tileWidth))){
+            if(Physics.collidesWithWall((int)this.x,temp,RADIUS,new Rectangle(x,y,tileWidth,tileWidth))){
                 this.y = temp;
             }
         }
-        if(Physics.collidesWithWall(xOld,this.y,RADIUS,new Rectangle(x,y,tileWidth,tileWidth))){
+        if(Physics.collidesWithWall(xOld,(int)this.y,RADIUS,new Rectangle(x,y,tileWidth,tileWidth))){
             this.y = yOld;
             int temp = (int)(xOld + xDiff*0.5);
-            if(Physics.collidesWithWall(temp,this.y,RADIUS,new Rectangle(x,y,tileWidth,tileWidth))){
+            if(Physics.collidesWithWall(temp,(int)this.y,RADIUS,new Rectangle(x,y,tileWidth,tileWidth))){
                 this.x = temp;
             }
         }
