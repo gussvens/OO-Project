@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -26,6 +27,7 @@ public class GameView extends JFrame{
 	private BulletView bulletView;
 	private HudView hudView;
 	private StoreView storeView;
+	private ArrayList<File> maps;
 
 	Animation recoilSight;
 
@@ -41,6 +43,7 @@ public class GameView extends JFrame{
 		}
 		@Override
 		public synchronized void paintComponent(Graphics g){
+			g.drawString("Connecting...", getWidth()/2, getHeight()/2);
 			g.drawImage(nextFrame, 0, 0, this.getWidth(), this.getHeight(), null);
 			calculateFps();
 			g.setColor(Color.gray);
@@ -108,11 +111,17 @@ public class GameView extends JFrame{
 		SoundEffect[] gunSound = new SoundEffect[99];
 		SoundEffect backgroundMusic;
 		Animation[] muzzle = new Animation[4];
+
 		// Animation[] dyingZombie = new Animation[10];
 
 		try { //LOAD
 
-			// ----- LOAD CURSOR IMAGE-----
+			// ----- LOAD MAPS-----
+			maps = new ArrayList<>();
+			File folder = new File("src/main/resources/maps");
+			for (final File map : folder.listFiles()) {
+				maps.add(map);
+			}
 			// ----- LOAD PLAYER & ZOMBIE SPRITES -----
 			playerSprite[0] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerRocker.png")));
 			playerSprite[1] = GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/playerPunk.png")));
@@ -156,9 +165,7 @@ public class GameView extends JFrame{
 			backgroundMusic = new SoundEffect(new File("src/main/resources/soundeffects/ambientnoise.wav"), true);
 
 			// ----- LOAD MAPS -----
-			mapView = new MapView(GraphicsUtils.makeTransparent(ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png"))), model);
-			mapView.load(new File("src/main/resources/maps/mapPillars.txt"));
-
+			mapView = new MapView(ImageIO.read(new File("src/main/resources/sprites/tiles/tileGrid.png")), model);
 
 			// ----- LOAD VIEWS -----
 			characterView = new CharacterView(model, playerSprite, weaponSprites, healthBar, muzzle, gunSound, recoilSight);
@@ -176,11 +183,29 @@ public class GameView extends JFrame{
 			backgroundMusic.play();
 
 		} catch (IOException e) {
+			System.out.println("Missing files");
 			e.printStackTrace();
 		}
 	}
 
+	public synchronized void loadMap(){
+		for (File map : maps) {
+			System.out.println(model.getMapName());
+			if (map.getName().equals(model.getMapName()+".txt")) {
+				try {
+					mapView.load(map);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 	public synchronized void render() {
+		if (!mapView.isLoaded() && !model.getMapName().isEmpty()){
+			loadMap();
+			return;
+		}
 		//Creates new Frame
 		Image frame = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D graphics = (Graphics2D)frame.getGraphics();

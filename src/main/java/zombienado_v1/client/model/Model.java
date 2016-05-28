@@ -23,6 +23,7 @@ public class Model {
 	private int timeUntilNextWave = -1;
 	private boolean isGameOver;
 	private int finalScore;
+	private String mapName;
 	private Point aim;
 	/**
 	 * Getters for view
@@ -44,6 +45,9 @@ public class Model {
 	}
 	public synchronized boolean isGameOver(){
 		return this.isGameOver;
+	}
+	public synchronized String getMapName(){
+		return this.mapName;
 	}
 	public synchronized int getFinalScore(){
 		return this.finalScore;
@@ -109,6 +113,7 @@ public class Model {
 		if(isGameOver()) return;
 
 		this.myID = coms.getID();
+		this.mapName = coms.getMapName();
 		//If myID is not set, or if no players has joined, dont update
 		if (myID == -1) return;
 		if(this.getPlayers() == null) return;
