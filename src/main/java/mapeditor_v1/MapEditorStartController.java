@@ -27,12 +27,12 @@ public class MapEditorStartController implements Initializable {
     private int height;
     private String name;
 
-    @FXML
-    private TextField heightField;
-    @FXML
-    private TextField widthField;
-    @FXML
-    private TextField nameField;
+    @FXML private TextField heightField;
+    @FXML private TextField widthField;
+    @FXML private TextField nameField;
+    @FXML private Label errorName;
+    @FXML private Label errorWidth;
+    @FXML private Label errorHeight;
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -43,29 +43,47 @@ public class MapEditorStartController implements Initializable {
     @FXML
     private void doneButtonHandler(ActionEvent event) throws IOException{
 
-        width = Integer.parseInt(widthField.getText());
-        height = Integer.parseInt(heightField.getText());
-        name = nameField.getText();
-        mapModel = new MapModel(name, width, height);
+        checkFields();
+        if (errorName.getText().isEmpty() && errorWidth.getText().isEmpty() && errorHeight.getText().isEmpty()) {
+            width = Integer.parseInt(widthField.getText());
+            height = Integer.parseInt(heightField.getText());
+            name = nameField.getText();
+            mapModel = new MapModel(name, width, height);
 
 
-
-        MapEditorController mapEditorController = new MapEditorController(width, height, mapModel);
-
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapEditor.fxml"));
-
-        loader.setController(mapEditorController);
-
-        Parent home_page_parent = loader.load();
+            MapEditorController mapEditorController = new MapEditorController(width, height, mapModel);
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapEditor.fxml"));
+            loader.setController(mapEditorController);
+            Parent home_page_parent = loader.load();
 
 
+            Scene home_page_scene = new Scene(home_page_parent);
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        Scene home_page_scene = new Scene(home_page_parent);
-        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            app_stage.hide();
+            app_stage.setScene(home_page_scene);
+            app_stage.show();
+        }
+    }
 
-        app_stage.hide();
-        app_stage.setScene(home_page_scene);
-        app_stage.show();
+    private void checkFields(){
+        errorHeight.setText("");
+        errorWidth.setText("");
+        errorName.setText("");
+
+        if (heightField.getText().matches("[0-9]+") == false) {
+            errorHeight.setText("Enter a number between 16 and 64");
+        } else if(Integer.parseInt(heightField.getText()) < 16 || Integer.parseInt(heightField.getText()) > 64){
+            errorHeight.setText("Enter a number between 16 and 64");
+        }
+        if (widthField.getText().matches("[0-9]+") == false) {
+            errorWidth.setText("Enter a number between 16 and 64");
+        }else if(Integer.parseInt(widthField.getText()) < 16 || Integer.parseInt(widthField.getText()) > 64){
+            errorWidth.setText("Enter a number between 16 and 64");
+        }
+        if (nameField.getText().matches("[a-zA-Z]+") == false) {
+            errorName.setText("Can only contain letters A-Z");
+        }
 
     }
 }

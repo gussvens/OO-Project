@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -36,14 +37,12 @@ public class MapEditorController implements Initializable {
     private TileLoader tileLoader= new TileLoader();
     private TooltipLoader textLoader= new TooltipLoader();
 
-    @FXML
-    private ImageView[] toolIcons = new ImageView[100];
-    @FXML
-    private Button[] toolButtons = new Button[100];;
-    @FXML
-    private FlowPane toolPane;
-    @FXML
-    private Canvas canvas;
+    @FXML private ImageView[] toolIcons = new ImageView[100];
+    @FXML private Button[] toolButtons = new Button[100];;
+    @FXML private FlowPane toolPane;
+    @FXML private Canvas canvas;
+
+
 
     public MapEditorController(int width, int height, MapModel mapModel){
         this.mapModel = mapModel;
@@ -102,6 +101,11 @@ public class MapEditorController implements Initializable {
             paintCanvas();
         }
     }
+    @FXML
+    public void newButton(){
+        mapModel.clearMap();
+        paintCanvas();
+    }
 
     @FXML
     public void clearButton(){
@@ -113,6 +117,12 @@ public class MapEditorController implements Initializable {
     public void saveButton() throws IOException{
         mapModel.saveMap();
     }
+    @FXML
+    public void saveExitButton() throws IOException{
+        mapModel.saveMap();
+        System.exit(0);
+    }
+
     @FXML
     public void fillButton(){
         mapModel.fillMap();
