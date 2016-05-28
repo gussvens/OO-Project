@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import zombienado_v1.client.controller.SetupController;
 
 /*
   Application entry class (if using standard java and Swing)

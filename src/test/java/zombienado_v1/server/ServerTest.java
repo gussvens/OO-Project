@@ -10,7 +10,7 @@ public class ServerTest extends TestCase {
 
     @Test
     public void testGetInstance(){
-        Server s = Server.getInstance();
+        Server s = Server.getInstance(1, "Hej");
         assertTrue(s != null);
     }
 

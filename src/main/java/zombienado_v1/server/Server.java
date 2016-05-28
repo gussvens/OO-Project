@@ -27,7 +27,7 @@ public class Server extends Thread {
 	/**
 	 * private Server constructor
 	 */
-	private Server(){
+	private Server(int port, String map){
 		players = new ArrayList<ServerPlayer>();
 		serverThreads = new ArrayList<ServerThread>();
 		bullets = new ArrayList<ServerBullet>();
@@ -35,16 +35,16 @@ public class Server extends Thread {
 		handler = new WorldHandler();
 		currentWave = spawner.getWave();
 		timeUntilNextWave = spawner.getTimeUntilNextWave();
-		map = "src/main/resources/maps/mapPillars.txt";
+		this.map = "src/main/resources/maps/" + map + ".txt";
 	}
 
 	/**
 	 * A method that returns a Server instance. If no ServerInstance exists it creates one
 	 * @return - A Server instance
      */
-	public static Server getInstance(){
+	public static Server getInstance(int port, String map){
 		if(instance == null){
-			instance = new Server();
+			instance = new Server(port, map);
 		}
 
 		return instance;
