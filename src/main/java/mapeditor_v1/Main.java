@@ -14,7 +14,9 @@ public class Main extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
+
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MapEditorStart.fxml"));
+
         Scene scene = new Scene(root);
         stage.setResizable(false);
         stage.setTitle("Zombienado: Map Editor");

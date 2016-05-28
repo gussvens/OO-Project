@@ -8,12 +8,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 
 
+import javax.tools.Tool;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -52,7 +54,7 @@ public class MapEditorController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        tileImages = tileLoader.loadImage("src/main/resources/sprites/tiles/tileGrid.png");
+        tileImages = tileLoader.loadImage("/sprites/tiles/tileGrid.png");
         toolTips= textLoader.loadText("src/main/resources/tooltips/tiles.txt");
 
         canvas.setHeight(height*32);
@@ -65,10 +67,12 @@ public class MapEditorController implements Initializable {
             toolIcons[i]= new ImageView();
             toolIcons[i].setImage(image);
 
+            //Tooltip tooltip = new Tooltip(toolTips[i]);
+            //toolButtons[i].setTooltip(tooltip);
 
             toolButtons[i]= new Button();
             toolButtons[i].setGraphic(toolIcons[i]);
-            //toolButtons[i].setTooltip();
+
             toolButtons[i].setOnAction(toolHandler);
             toolPane.getChildren().add(toolButtons[i]);
         }

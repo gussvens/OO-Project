@@ -51,7 +51,9 @@ public class MapEditorStartController implements Initializable {
 
 
         MapEditorController mapEditorController = new MapEditorController(width, height, model);
+
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapEditor.fxml"));
+
         loader.setController(mapEditorController);
 
         Parent home_page_parent = loader.load();
