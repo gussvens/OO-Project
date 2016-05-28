@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
  */
 public class MapEditorStartController implements Initializable {
 
-    private Model model;
+    private MapModel mapModel;
 
     private int width;
     private int height;
@@ -46,11 +46,11 @@ public class MapEditorStartController implements Initializable {
         width = Integer.parseInt(widthField.getText());
         height = Integer.parseInt(heightField.getText());
         name = nameField.getText();
-        model = new Model(name, width, height);
+        mapModel = new MapModel(name, width, height);
 
 
 
-        MapEditorController mapEditorController = new MapEditorController(width, height, model);
+        MapEditorController mapEditorController = new MapEditorController(width, height, mapModel);
 
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapEditor.fxml"));
 

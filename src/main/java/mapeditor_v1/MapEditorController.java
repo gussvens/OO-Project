@@ -15,7 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 
 
-import javax.tools.Tool;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -28,7 +28,7 @@ public class MapEditorController implements Initializable {
 
     private static GraphicsContext imageCanvas;
 
-    private Model model;
+    private MapModel mapModel;
     private int width;
     private int height;
     private BufferedImage[] tileImages;
@@ -45,8 +45,8 @@ public class MapEditorController implements Initializable {
     @FXML
     private Canvas canvas;
 
-    public MapEditorController(int width, int height, Model model){
-        this.model = model;
+    public MapEditorController(int width, int height, MapModel mapModel){
+        this.mapModel = mapModel;
         this.width = width;
         this.height = height;
     }
@@ -67,12 +67,12 @@ public class MapEditorController implements Initializable {
             toolIcons[i]= new ImageView();
             toolIcons[i].setImage(image);
 
-            //Tooltip tooltip = new Tooltip(toolTips[i]);
-            //toolButtons[i].setTooltip(tooltip);
+            Tooltip tooltip = new Tooltip(toolTips[i]);
+
 
             toolButtons[i]= new Button();
             toolButtons[i].setGraphic(toolIcons[i]);
-
+            toolButtons[i].setTooltip(tooltip);
             toolButtons[i].setOnAction(toolHandler);
             toolPane.getChildren().add(toolButtons[i]);
         }
@@ -86,7 +86,7 @@ public class MapEditorController implements Initializable {
             for(int i=0; i<toolButtons.length; i++){
                 if(event.getSource() == toolButtons[i]){
                     //pp.paintImage =  bimages[i];
-                    model.setSelectedTile(i);
+                    mapModel.setSelectedTile(i);
                 }
             }
         }
@@ -97,37 +97,35 @@ public class MapEditorController implements Initializable {
         int x = (int)e.getX();
         int y = (int)e.getY();
         if(x > 0 && x < width*32 && y>0 && y < height*32) {
-            model.setTile(x, y);
+            mapModel.setTile(x, y);
 
             paintCanvas();
-            System.out.println("x: " + x / 32);
-            System.out.println("y: " + y / 32);
         }
     }
 
     @FXML
     public void clearButton(){
-        model.clearMap();
+        mapModel.clearMap();
         paintCanvas();
     }
 
     @FXML
     public void saveButton() throws IOException{
-        model.saveMap();
+        mapModel.saveMap();
     }
     @FXML
     public void fillButton(){
-        model.fillMap();
+        mapModel.fillMap();
         paintCanvas();
     }
 
     public void paintCanvas(){
         imageCanvas.clearRect(0,0,width*32, height*32);
 
-        for (int i = 0; i < model.getMap().length; i++)
+        for (int i = 0; i < mapModel.getMap().length; i++)
         {
-            for (int j = 0; j < model.getMap()[0].length; j++){
-                int id = model.getMap()[i][j];
+            for (int j = 0; j < mapModel.getMap()[0].length; j++){
+                int id = mapModel.getMap()[i][j];
                 imageCanvas.drawImage(toolIcons[id].getImage(), i*32, j*32);
             }
 
