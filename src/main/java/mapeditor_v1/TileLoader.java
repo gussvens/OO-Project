@@ -13,6 +13,11 @@ public class TileLoader {
     private final int rows = 10;
     private final int cols = 10;
 
+    /**
+     * Method that divides a bigger tilegrid into smallers tiles.
+     * @param path Path of tilegrid
+     * @return returns an array of tile images
+     */
     public BufferedImage[] loadImage(String path){
         BufferedImage image = null;
 

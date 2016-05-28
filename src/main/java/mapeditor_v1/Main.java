@@ -11,7 +11,11 @@ import javafx.stage.Stage;
  */
 public class Main extends Application{
 
-
+    /**
+     * Starts new stage
+     * @param stage Input window
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
 

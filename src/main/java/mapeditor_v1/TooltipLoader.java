@@ -11,6 +11,11 @@ import java.io.IOException;
 public class TooltipLoader {
     private String[] lines;
 
+    /**
+     * Method that loads a .txt file and divides each row of the file into a string
+     * @param path path of .txt file
+     * @return returns array of strings
+     */
     public String[] loadText(String path){
         String[] lines= new String[100];
         try {
