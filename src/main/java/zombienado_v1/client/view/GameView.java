@@ -189,12 +189,14 @@ public class GameView extends JFrame{
 	}
 
 	public synchronized void loadMap(){
-		for (File map : maps) {
-			if (map.getName().equals(model.getMapName()+".txt")) {
-				try {
-					mapView.load(map);
-				} catch (IOException e) {
-					e.printStackTrace();
+		if (!mapView.isLoaded() && !model.getMapName().isEmpty()) {
+			for (File map : maps) {
+				if (map.getName().equals(model.getMapName() + ".txt")) {
+					try {
+						mapView.load(map);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
@@ -202,7 +204,6 @@ public class GameView extends JFrame{
 
 	public synchronized void render() {
 		if (!mapView.isLoaded() && !model.getMapName().isEmpty()){
-			loadMap();
 			return;
 		}
 		//Creates new Frame

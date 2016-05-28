@@ -50,6 +50,7 @@ public class Controller extends Thread implements KeyListener, MouseMotionListen
 			startTime = System.nanoTime();
 			//Does the work
 			model.tick(deltaTime, pressedKeys, cursor, mousePress);
+			gameView.loadMap();
 			gameView.render();
 			//Calculates sleep time
 			long elapsedTimeInNano = (System.nanoTime() - startTime);
