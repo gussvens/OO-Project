@@ -1,6 +1,8 @@
-package zombienado_beta.server.serverModel;
+package zombienado_beta.server.serverUnits;
 
 import javafx.scene.shape.Circle;
+import zombienado_beta.server.serverUnits.ServerUnit;
+import zombienado_beta.server.serverUnits.ServerZombie;
 import zombienado_beta.server.serverWorld.WorldHandler;
 
 import java.awt.*;
