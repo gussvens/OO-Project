@@ -14,6 +14,11 @@ public class Physics {
 	 * @return True if unit is overlapping the wall
 	 */
 	public static boolean collidesWithWall(int xUnit, int yUnit, float radiusUnit, Rectangle wall){
+		Rectangle rect = new Rectangle(xUnit - (int)radiusUnit, yUnit - (int)radiusUnit, 2*(int)radiusUnit, 2*(int)radiusUnit);
+		if (rect.intersects(wall)) return true;
+		return false;
+	}
+/*	public static boolean collidesWithWall(int xUnit, int yUnit, float radiusUnit, Rectangle wall){
 		int cL = (int)(Math.sqrt(radiusUnit*radiusUnit/2)); //composant length
 		int radiusThisInt = (int)radiusUnit; //radius for this as integer
 		//8 collision points around the player
@@ -32,7 +37,7 @@ public class Physics {
 			}
 		}
 		return false;
-	}
+	}*/
 
 	/**
 	 * Returns a bounce vector that prevents overlap between two units
