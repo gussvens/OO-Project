@@ -46,30 +46,34 @@ public class MapEditorStartController implements Initializable {
      * @throws IOException
      */
     @FXML
-    private void doneButtonHandler(ActionEvent event) throws IOException{
-
-        checkFields();
-        if (errorName.getText().isEmpty() && errorWidth.getText().isEmpty() && errorHeight.getText().isEmpty()) {
-            width = Integer.parseInt(widthField.getText());
-            height = Integer.parseInt(heightField.getText());
-            name = nameField.getText();
-            mapModel = new MapModel(name, width, height);
-
-
-            MapEditorController mapEditorController = new MapEditorController(width, height, mapModel);
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapEditor.fxml"));
-            loader.setController(mapEditorController);
-            Parent home_page_parent = loader.load();
+    private void doneButtonHandler(ActionEvent event){
+        try {
+            checkFields();
+            if (errorName.getText().isEmpty() && errorWidth.getText().isEmpty() && errorHeight.getText().isEmpty()) {
+                width = Integer.parseInt(widthField.getText());
+                height = Integer.parseInt(heightField.getText());
+                name = nameField.getText();
+                mapModel = new MapModel(name, width, height);
 
 
-            Scene home_page_scene = new Scene(home_page_parent);
-            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                MapEditorController mapEditorController = new MapEditorController(width, height, mapModel);
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapEditor.fxml"));
+                loader.setController(mapEditorController);
+                Parent home_page_parent = loader.load();
 
-            app_stage.hide();
-            app_stage.setScene(home_page_scene);
-            app_stage.setResizable(true);
-            app_stage.show();
+
+                Scene home_page_scene = new Scene(home_page_parent);
+                Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+                app_stage.hide();
+                app_stage.setScene(home_page_scene);
+                app_stage.setResizable(true);
+                app_stage.show();
+            }
+        } catch (IOException e){
+            System.err.println("Caught IOException: " + e.getMessage());
         }
+
     }
 
     /**

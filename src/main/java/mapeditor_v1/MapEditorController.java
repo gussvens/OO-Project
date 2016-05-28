@@ -98,7 +98,6 @@ public class MapEditorController implements Initializable {
         public void handle(final ActionEvent event) {
             for(int i=0; i<toolButtons.length; i++){
                 if(event.getSource() == toolButtons[i]){
-                    //pp.paintImage =  bimages[i];
                     mapModel.setSelectedTile(i);
                 }
             }
@@ -142,8 +141,13 @@ public class MapEditorController implements Initializable {
      * @throws IOException
      */
     @FXML
-    public void saveButton() throws IOException{
-        mapModel.saveMap();
+    public void saveButton(){
+        try {
+            mapModel.saveMap();
+        }catch (IOException e){
+            System.err.println("Caught IOException: " + e.getMessage());
+        }
+
     }
 
     /**
@@ -151,9 +155,13 @@ public class MapEditorController implements Initializable {
      * @throws IOException
      */
     @FXML
-    public void saveExitButton() throws IOException{
+    public void saveExitButton(){
+       try {
         mapModel.saveMap();
         System.exit(0);
+       }catch (IOException e){
+           System.err.println("Caught IOException: " + e.getMessage());
+       }
     }
 
     @FXML
