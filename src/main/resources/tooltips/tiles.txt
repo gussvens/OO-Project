@@ -38,7 +38,7 @@
 37 -
 38 - 
 39 -
-40 -
+40 - GrassTombstone
 41 - GoatUpLeft
 42 - GoatDownLeft
 43 -
@@ -48,7 +48,7 @@
 47 -
 48 -
 49 -
-50 -
+50 - GrassCross
 51 - GoatUpRight
 52 - GoatDownRight
 53 -
@@ -58,8 +58,8 @@
 57 -
 58 -
 59 -
-60 -
-61 -
+60 - GrassStump
+61 - PavedFloorBroken
 62 -
 63 -
 64 -

@@ -29,7 +29,8 @@
       </HBox>
       <ToolBar fx:id="toolBar" prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <items>
-          <Button fx:id="newButton" mnemonicParsing="false" text="New" />
+          <Button fx:id="newButton" mnemonicParsing="false" onAction="#newButton" text="New" />
+            <Button fx:id="saveExitButton" mnemonicParsing="false" onAction="#saveExitButton" text="Save &amp; Exit" />
             <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButton" text="Save" />
             <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButton" text="Clear" />
             <Button fx:id="fillButton" mnemonicParsing="false" onAction="#fillButton" text="Fill" />
