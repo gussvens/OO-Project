@@ -197,8 +197,10 @@ public class GameView extends JFrame{
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+					return;
 				}
 			}
+			System.out.println("You dont have this map");
 		}
 	}
 
