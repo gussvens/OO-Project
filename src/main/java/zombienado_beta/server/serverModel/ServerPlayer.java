@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Created by Marcus on 2016-04-05.
+ * A class that represents a Player from the client
  */
 public class ServerPlayer implements ServerUnit{
     private static final int RADIUS = 12;
