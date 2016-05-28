@@ -62,6 +62,7 @@ public class MapEditorStartController implements Initializable {
 
             app_stage.hide();
             app_stage.setScene(home_page_scene);
+            app_stage.setResizable(true);
             app_stage.show();
         }
     }
