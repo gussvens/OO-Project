@@ -59,22 +59,6 @@ public class ServerPlayer implements ServerUnit{
     }
 
     /**
-     * A method that sets the health of the player
-     * @param newHealth - The new health of the player
-     */
-    public void setHealth(int newHealth){
-        health = newHealth;
-    }
-
-    /**
-     * Method that change if the player is dead or not
-     * @param isDead - Boolean that tells wether the player is dead or not
-     */
-    public void setDead(boolean isDead){
-        this.isDead = isDead;
-    }
-
-    /**
      * @return - If the player has shot or not
      */
     public boolean hasShot() {
@@ -263,6 +247,7 @@ public class ServerPlayer implements ServerUnit{
 
     public void addHealth(int addedHealth){
         health += addedHealth;
+        isDead = false;
     }
 
     /**
