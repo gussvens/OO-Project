@@ -72,11 +72,12 @@ public class CharacterView {
     public synchronized void drawHealthBars(Graphics2D graphics){
         for (Player p : model.getPlayers()) {
             if (p != null && !p.isDead()) {
-                if (p == model.getPlayer()) return;
-                graphics.drawImage(healthBar, p.getX() - Camera.getX() - healthBar.getWidth(null) / 2, p.getY() - Camera.getY() - 30, null);
-                graphics.setColor(Color.green);
-                if (p.getHealth() < 20) graphics.setColor(Color.red);
-                graphics.fillRect(p.getX() - Camera.getX() - healthBar.getWidth(null) / 2 + 1, p.getY() - Camera.getY() - 30 + 1, (healthBar.getWidth(null) - 2) * p.getHealth() / 100, 3);
+                if (p != model.getPlayer()) {
+                    graphics.drawImage(healthBar, p.getX() - Camera.getX() - healthBar.getWidth(null) / 2, p.getY() - Camera.getY() - 30, null);
+                    graphics.setColor(Color.green);
+                    if (p.getHealth() < 30) graphics.setColor(Color.red);
+                    graphics.fillRect(p.getX() - Camera.getX() - healthBar.getWidth(null) / 2 + 1, p.getY() - Camera.getY() - 30 + 1, (healthBar.getWidth(null) - 2) * p.getHealth() / 100, 3);
+                }
             }
         }
     }

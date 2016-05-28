@@ -18,7 +18,7 @@ public class Physics {
 		if (rect.intersects(wall)) return true;
 		return false;
 	}
-	
+
 	/**
 	 * Returns a bounce vector that prevents overlap between two units
 	 * @param xThisUnit Coordinate along x axis for this unit

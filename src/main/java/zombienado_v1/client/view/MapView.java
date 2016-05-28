@@ -1,8 +1,13 @@
 package zombienado_v1.client.view;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import zombienado_v1.client.model.Model;
 import zombienado_v1.utilities.Camera;
 
 public class MapView {
@@ -12,11 +17,42 @@ public class MapView {
 	public static final int TILE_SIZE = 32;
 	private static Image tileSheet;
 	private LightMap lightMap;
+	private Model model;
 
-	public MapView(Image tileSheet){
+	public MapView(Image tileSheet, Model model){
 		tiles = new ArrayList<ArrayList<Integer>>();
 		bounds = new ArrayList<Rectangle>();
 		this.tileSheet = tileSheet;
+		this.model = model;
+	}
+
+	public void load(File mapData) throws IOException {
+		LightMap lightMap = new LightMap(model);
+		try (BufferedReader br = new BufferedReader(new FileReader(mapData))) {
+			String line;
+			int x = 0;
+			int y = 0;
+			while ((line = br.readLine()) != null) {
+				String thisLine = line;
+				String[] tiles = thisLine.split(" ");
+				ArrayList<Integer> thisRow = new ArrayList<Integer>();
+				for (String tile : tiles){
+					int id = Integer.parseInt(tile);
+					thisRow.add(id);
+					if (id < 10){
+						addWall(new Rectangle(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE));
+					}
+					else if (id >=30 && id<40){
+						lightMap.addLight(new Point(x * MapView.TILE_SIZE, y * MapView.TILE_SIZE));
+					}
+					x++;
+				}
+				addTileRow(thisRow);
+				y++;
+				x = 0;
+			}
+		}
+		setLightMap(lightMap);
 	}
 
 	public void setLightMap(LightMap lightMap){
