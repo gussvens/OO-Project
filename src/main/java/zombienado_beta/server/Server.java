@@ -170,6 +170,8 @@ public class Server extends Thread {
 				if (player.getIsDead()) {
 					player.setHealth(100);
 					player.setDead(false);
+				} else{
+					player.addHealth(10);
 				}
 			}
 			for (ServerThread serverThread : serverThreads) {
