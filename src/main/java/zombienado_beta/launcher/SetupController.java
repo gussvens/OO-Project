@@ -72,9 +72,7 @@ public class SetupController{
         hostPort.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue.length() > 4){
-                    hostPort.setText(oldValue);
-                }
+                if (Integer.parseInt(newValue) > 65535) hostPort.setText("65535");
                 if (!newValue.matches("\\d*")) {
                     hostPort.setText(newValue.replaceAll("[^\\d]", ""));
                 }
@@ -84,9 +82,7 @@ public class SetupController{
         joinPort.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue.length() > 4){
-                    joinPort.setText(oldValue);
-                }
+                if (Integer.parseInt(newValue) > 65535) joinPort.setText("65535");
                 if (!newValue.matches("\\d*")) {
                     joinPort.setText(newValue.replaceAll("[^\\d]", ""));
                 }
