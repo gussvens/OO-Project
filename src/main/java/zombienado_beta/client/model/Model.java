@@ -131,6 +131,7 @@ public class Model {
 		this.wave = coms.getWave();
 		this.timeUntilNextWave = coms.getTimeUntilNextWave();
 		float oldRotation = getPlayer().getRotation();
+
 		//Handle input
 		float newRotation = PlayerInputHandler.getPlayerRotation(getPlayer().getX(), getPlayer().getY(), cursor);
 		Vector playerVelocity = PlayerInputHandler.getPlayerVelocity(pressedKeys);
