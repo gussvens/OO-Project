@@ -1,9 +1,7 @@
-package zombienado_beta.server.serverWeapon;
+package zombienado_beta.server.serverUnits;
 
 import junit.framework.TestCase;
 import org.junit.Test;
-import zombienado_beta.server.serverUnits.ServerBullet;
-import zombienado_beta.server.serverUnits.ServerZombie;
 
 import java.awt.*;
 import java.util.ArrayList;

@@ -14,7 +14,4 @@ public class ServerTest extends TestCase {
         assertTrue(s != null);
     }
 
-    //@Test
-    //public void test
-
 }
